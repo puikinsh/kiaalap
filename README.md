@@ -10,21 +10,48 @@ We believe we have covered everything you need to set up an All kind of website.
 
 # Template Features:
 
-- 3 Deferent Home Version
-- Totall Pages 46+
-- Based on Bootstrap 4
-- HTML5, CSS3, jQuery
-- Fully Responsive
-- Easy to customize
-- W3C Validated Code
-- Fontawesome Icons
-- Themify Icons
-- Free Google Fonts.
-- All files are well commented
-- Minimal and Clean
-- Documentation
-- Clean UI Elements
-- Free Updates
-- Quick support
-- Displays well in all modern browsers and devices
+- 50+ PAGES
+- VALID HTML5 & CSS3
+- MATERIAL DESIGN
+- RESPONSIVE LAYOUT
+- 3 HOME VERSIONS
+- NEAT, CLEAN AND SIMPLE DESIGN
+- CREATIVE AND MODERN DESIGN
+- BUILT BASED ON BOOTSTRAP 3+
+- FULLY RESPONSIVE
+- CROSS BROWSER OPTIMIZATION
+- WELL COMMENTED HTML & CSS FILES
+- GOOGLE FONTS
+- GOOGLE MAP
+- C3 AND D3 CHARTS
+- PLOT CHART
+- PEITY CHARTS
+- SPARKLINES
+- CHOSEN
+- CODEMIRROR
+- COLORPICKER
+- IMAGES CROPPER
+- DATA MAP
+- DATEPICKER
+- X-EDITABLE
+- DUAL LISTBOX
+- GOOGLE MAPS
+- ICHECK
+- RANGESLIDER
+- JVECTORMAP
+- KNOB
+- MAPAEL
+- PASSWORD METER
+- PDF VIEWER
+- TOUCHSPIN
+- JSTREE
+- LOBIBOX
+- SUMMERNOTE
 
+# Other resources:
+
+- [Bootstrap Dashboards](https://colorlib.com/wp/free-bootstrap-admin-dashboard-templates/)
+- [Angular Dashboards](https://colorlib.com/wp/angularjs-admin-templates/)
+- [Free Admin Dashboards](https://colorlib.com/wp/free-html5-admin-dashboard-templates/)
+- [Website Templates](https://colorlib.com/wp/templates/)
+- [Free WordPress Themes](https://colorlib.com/wp/free-wordpress-themes/)
