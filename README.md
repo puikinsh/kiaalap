@@ -2,7 +2,7 @@
 Free admin dashboard template
 
 # Overview
-srtdash is a full-featured, multipurpose, premium bootstrap admin template built with Bootstrap 4 Framework, HTML5, CSS and JQuery.
+Kiaalap is a full-featured, multipurpose, premium bootstrap admin template built with Bootstrap 4 Framework, HTML5, CSS and JQuery.
 
 It is a fully responsive bootstrap admin template/bootstrap admin dashboard template that comes with a huge collection of reusable UI components & plugins.
 
