@@ -1,0 +1,121 @@
+@font-face {
+  font-family: 'educate-icon';
+  src:
+    url('fonts/educate-icon.ttf?kufm5h') format('truetype'),
+    url('fonts/educate-icon.woff?kufm5h') format('woff'),
+    url('fonts/educate-icon.svg?kufm5h#educate-icon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.educate-icon {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'educate-icon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.educate-danger:before {
+  content: "\e91b";
+}
+.educate-info:before {
+  content: "\e91c";
+}
+.educate-warning:before {
+  content: "\e91d";
+}
+.educate-star:before {
+  content: "\e919";
+}
+.educate-star-half:before {
+  content: "\e91a";
+}
+.educate-apps:before {
+  content: "\e900";
+}
+.educate-bell:before {
+  content: "\e901";
+}
+.educate-charts:before {
+  content: "\e902";
+}
+.educate-checked:before {
+  content: "\e903";
+}
+.educate-cloud:before {
+  content: "\e904";
+}
+.educate-comment:before {
+  content: "\e905";
+}
+.educate-course:before {
+  content: "\e906";
+}
+.educate-data-table:before {
+  content: "\e907";
+}
+.educate-department:before {
+  content: "\e908";
+}
+.educate-event:before {
+  content: "\e909";
+}
+.educate-form:before {
+  content: "\e90a";
+}
+.educate-home:before {
+  content: "\e90b";
+}
+.educate-interface:before {
+  content: "\e90c";
+}
+.educate-landing:before {
+  content: "\e90d";
+}
+.educate-library:before {
+  content: "\e90e";
+}
+.educate-menu:before {
+  content: "\e90f";
+}
+.educate-message:before {
+  content: "\e910";
+}
+.educate-miscellanous:before {
+  content: "\e911";
+}
+.educate-nav:before {
+  content: "\e912";
+}
+.educate-pages:before {
+  content: "\e913";
+}
+.educate-professor:before {
+  content: "\e914";
+}
+.educate-project:before {
+  content: "\e915";
+}
+.educate-search:before {
+  content: "\e916";
+}
+.educate-settings:before {
+  content: "\e917";
+}
+.educate-student:before {
+  content: "\e918";
+}
+.educate-price-tag:before {
+  content: "\e935";
+}
+.educate-price-tags:before {
+  content: "\e936";
+}

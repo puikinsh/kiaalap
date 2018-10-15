@@ -1,0 +1,407 @@
+/*----------------------------------------*/
+/*  1.  Form CSS
+/*----------------------------------------*/
+.logo{
+	padding-top:30px;
+	text-align:center;
+}
+.login-title{
+	padding:30px 15px;
+}
+.login-title h1{
+	font-size:20px;
+}
+.login-bg{
+	background:#fff;
+	box-shadow: 0 0 20px rgba(0,0,0,.3);
+	padding:20px;
+}
+.login-input-area input[type="email"], .login-input-area input[type="password"], .login-input-area input[type="text"]{
+	width:100%;
+	height:35px;
+	padding: 0px 35px 0px 10px;
+	margin:10px 0px;
+	border:1px solid #ccc;
+}
+.login-input-area, .login-textarea-area{
+	position:relative;
+	margin-right:15px;
+}
+.login-input-head {
+    padding-left: 15px;
+}
+.login-input-area .login-user{
+	position:absolute;
+	top:10px;
+	right:0;
+	height:35px;
+	width:35px;
+	border-left:1px solid #ccc;
+	line-height:35px;
+	text-align:center;
+	color:#888;
+}
+.login-textarea-area .login-user{
+	position:absolute;
+	top:10px;
+	right:0;
+	height:35px;
+	width:35px;
+	border-left:1px solid #ccc;
+	border-bottom:1px solid #ccc;
+	line-height:35px;
+	text-align:center;
+	color:#888;
+}
+.login-input-area input[type="email"]:focus, .login-input-area input[type="password"]:focus, .login-input-area input[type="text"]:focus{
+	border:1px solid #03a9f4;
+}
+.login-input-head p {
+	padding:16px 0px;
+	margin:0;
+	font-size:14px;
+}
+.login-button-pro{
+	padding:30px 0px;
+}
+.login-button-pro .login-button{
+	padding:10px 20px;
+	border:none;
+	background:#03a9f4;
+	color:#fff;
+	font-weight:14px;
+	transition: all .4s ease 0s;
+}
+.login-button-pro .login-button.login-button-rg{
+	background:#B3B3B3;
+	margin-right:10px;
+}
+.login-button-pro .login-button.login-button-rg:hover{
+	background:#303030;
+	transition: all .4s ease 0s;
+}
+.login-button-pro .login-button.login-button-lg:hover{
+	background:#303030;
+	transition: all .4s ease 0s;
+}
+.forgot-password a{
+	color:#03a9f4;
+	font-size:13px;
+	padding-bottom:10px;
+	display:inline-block;
+}
+.forgot-password a:hover{
+	color:#303030;
+}
+.login-keep-me input[type="checkbox"]{
+	display:none;
+}
+.login-keep-me .login-check i {
+    border: 2px solid #03a9f4;
+    font-size: 12px;
+    padding: 2px;
+	color:#03a9f4;
+}
+.register-mg-rt{
+	margin-right:0;
+}
+.register-check{
+	margin-top:10px;
+}
+.login-textarea-area{
+	position:relative;
+	margin-right:15px;
+}
+.login-textarea-area .contact-message{
+	width:100%;
+	height:120px;
+	padding:10px;
+	border:1px solid #ccc;
+	margin-top:10px;
+}
+/**/
+/* radios and checkboxes */
+/**/
+.adminpro-form .checkbox {
+	margin-bottom: 4px;
+	padding-left: 27px;
+	font-size: 14px;
+	line-height: 27px;
+	color: #404040;
+	cursor: pointer;
+	font-weight:300;
+}
+.adminpro-form .invalid {
+	color:#ff0000;
+}
+.adminpro-form .checkbox i {
+	position: absolute;
+    top: 4px;
+    left: 0px;
+    display: block;
+    width: 20px;
+    height: 20px;
+    outline: none;
+    border-width: 2px;
+    border-style: solid;
+    background: #fff;
+    line-height: 20px;
+    color: #03a9f4;
+}
+.adminpro-form .checkbox input + i:after {
+	position: absolute;
+	opacity: 0;
+	-ms-transition: opacity 0.1s;
+	-moz-transition: opacity 0.1s;
+	-webkit-transition: opacity 0.1s;
+}
+.adminpro-form .checkbox input + i:after {
+	content: '\f00c';
+    top: -2px;
+    left: -2px;
+    width: 20px;
+    height: 20px;
+    font: normal 12px/16px FontAwesome;
+    text-align: center;
+    line-height: 20px;
+}
+.cart-group .radio{
+	margin-left:20px;
+	font-weight:300;
+	font-size:14px;
+}
+.cart-group .radio input + i:after {
+	content: '';
+    width: 5px;
+    height: 5px;
+    text-align: center;
+    line-height: 5px;
+	background:#03a9f4;
+	border-radius:50%;
+	opacity: 0;
+    position: absolute;
+	left:2px;
+	top:2px;
+}
+.cart-group .radio i{
+    position: absolute;
+    top: 3px;
+    left: -20px;
+    display: block;
+    width: 13px;
+    height: 13px;
+    outline: none;
+    border-width: 2px;
+    border-style: solid;
+    background: #fff;
+	border-color: #03a9f4;
+	border-radius: 50%;
+}
+.cart-group input{
+	opacity:0;
+}
+.cart-group .radio input:checked + i:after{
+	opacity: 1;
+}
+.adminpro-form .checkbox input:checked + i:after {
+	opacity: 1;
+}
+
+/****** Style Star Rating Widget *****/
+.review-title span {
+    font-size: 14px;
+    padding-top: 5px;
+    display: block;
+}
+.review-rating {
+    text-align: right;
+    margin-right: 15px;
+}
+.rating {
+  border: none;
+}
+.rating > input {
+  display: none;
+}
+.rating > label:before {
+  margin: 5px;
+  font-size: 16px;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+.rating > .half:before {
+  content: "\f089";
+  position: absolute;
+}
+.rating > label {
+  color: #ddd;
+  float: right;
+}
+.rating > input:checked ~ label, .rating:not(:checked) > label:hover, .rating:not(:checked) > label:hover ~ label {
+  color: #03a9f4;
+} 
+.rating > input:checked + label:hover, .rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, .rating > input:checked ~ label:hover ~ label {
+  color: #03a9f4;
+}
+
+/****** Order Details *****/
+.interested-input-area, .budget-input-area{
+	margin-right:15px;
+}
+.interested-input-area select, .budget-input-area select{
+	width:100%;
+	height:35px;
+	padding: 0px 35px 0px 10px;
+	border:1px solid #ccc;
+}
+.interested-input-area select{
+    margin: 10px 0px 10px 0px;
+}
+.budget-input-area select{
+    margin: 10px 0px 20px 0px;
+}
+.interested-input-area select:hover{
+	border:1px solid #ccc;
+}
+
+/**/
+/* datepicker */
+/**/
+.ui-datepicker {
+	display: none;
+	padding: 10px 12px;
+	background: #006DF0;
+	box-shadow: 0 0 10px rgba(0,0,0,.3);
+	text-align: center;
+	color: #666;
+}
+.ui-datepicker a {
+	color: #fff;
+}
+.ui-datepicker-header {
+	position: relative;
+	margin: -10px -12px 10px;
+	padding: 10px;
+	border-bottom: 1px solid rgba(0,0,0,.1);
+	font-size: 15px;
+	line-height: 27px;
+}
+.ui-datepicker-prev, 
+.ui-datepicker-next {
+	position: absolute;
+	top: 0;
+	display: block;
+	width: 57px;
+	height: 47px;
+	font-size: 15px;
+	line-height: 47px;
+	text-decoration: none;
+	cursor: pointer;
+}
+.ui-datepicker-prev {
+	left: 0;
+}
+.ui-datepicker-next {
+	right: 0;
+}
+.ui-datepicker-calendar {
+	border-collapse: collapse;
+	font-size: 13px;
+	line-height: 27px;
+}
+.ui-datepicker-calendar th {
+	color: #999;
+}
+.ui-datepicker-calendar a,
+.ui-datepicker-calendar span {
+	display: block;
+	width: 46px;
+	margin: auto;
+	text-decoration: none;
+	color: #fff;
+}
+.ui-datepicker-calendar a:hover {
+	background: rgba(0,0,0,.05);
+	color:#303030;	
+}
+.ui-datepicker-calendar span {
+	color: #fff;
+}
+.ui-datepicker-today a {
+	font-weight: 700;
+	color:#303030;
+}
+.ui-datepicker-calendar .ui-state-active {
+	background: rgba(0,0,0,.05);
+	cursor: default;	
+}
+.ui-datepicker-inline {
+	border: 2px solid #e5e5e5;
+	background: #fff;
+	box-shadow: none;
+}
+.ui-datepicker-inline .ui-datepicker-header {
+	line-height: 47px;
+}
+.ui-datepicker-inline .ui-datepicker-calendar {
+	width: 100%;
+}
+.login-input-area #txtCompare{
+	width:58%;
+}
+.login-input-area #txtCaptcha{
+	    width: 38%;
+    background: #303030;
+    color: #fff;
+    font-weight: 700;
+    outline: none;
+    border: none;
+    margin-left: -10px;
+    cursor: default;
+}
+fieldset{
+	margin:0px;
+	padding:0px;
+}
+.rating label{
+	margin:0px;
+}
+.ui-datepicker-title .ui-datepicker-month, .ui-datepicker-title .ui-datepicker-year{
+	color:#fff;
+}
+.ts-forms .input {
+    position: relative;
+}
+.file-upload-inner.ts-forms .prepend-small-btn .file-button, .file-upload-inner.ts-forms .prepend-big-btn .file-button {
+    left: 0px;
+}
+.file-upload-inner.ts-forms .file-button, .file-upload-inner.ts-forms .file-button:active, .file-upload-inner.ts-forms .file-button:focus {
+    background: #03a9f4;
+    border-radius: 0px;
+    width: 70px;
+    height: 35px;
+    line-height: 35px;
+    top: 0px;
+}
+.ts-forms .append-small-btn .file-button, .ts-forms .append-big-btn .file-button, .ts-forms .prepend-small-btn .file-button, .ts-forms .prepend-big-btn .file-button {
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+}
+.ts-forms .file-button {
+    color: #fff;
+    display: block;
+    font-family: 'Open Sans',Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    outline: none;
+    overflow: hidden;
+    position: absolute;
+    text-align: center;
+    top: 4px;
+    z-index: 1;
+}
