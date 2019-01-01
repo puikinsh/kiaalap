@@ -1,20 +1,20 @@
 
-/*	
+/*
 --------------------------------------------------
 @Start smart forms
--------------------------------------------------- 
+--------------------------------------------------
 */
 
-/* Roboto google font import 
+/* Roboto google font import
 --------------------------------------- */
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,300);
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900");
 
 html, body{
 	border: 0;
 	margin: 0;
 	padding: 0;
 	font-size: 100%;
-	vertical-align: baseline; 
+	vertical-align: baseline;
 	font: inherit;
 }
 
@@ -23,15 +23,15 @@ body{
 	padding: 0;
 }
 
-/* @backgrounds :: modify or add yours below 
+/* @backgrounds :: modify or add yours below
 ------------------------------------------------------------------- */
 .darkbg{ background:#6C82A2 url(../images/dark.png) repeat fixed; }
 .woodbg{ background:#E6CCA6 url(../images/wood.png) repeat fixed; }
 
-/* @form wrappers 
+/* @form wrappers
 ---------------------------------- */
 .themesaller-wrap{ padding:0 20px; }
-.themesaller-forms, 
+.themesaller-forms,
 .themesaller-forms *{
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -48,7 +48,7 @@ body{
 
 .themesaller-container{
 	background:#fff;
-	margin:50px auto;	
+	margin:50px auto;
 	-webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
 	-moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
 	-o-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
@@ -57,53 +57,53 @@ body{
 	-moz-border-radius:5px 5px 0 0;
 	-o-border-radius:5px 5px 0 0;
 	border-radius:5px 5px 0 0;
-	 
+
 }
 
-/* @form container width 
-/* @if you want to change the form container width change the values below 
-/* @alternatively you can add yours eg .wrap4{ max-width:200px; } 
+/* @form container width
+/* @if you want to change the form container width change the values below
+/* @alternatively you can add yours eg .wrap4{ max-width:200px; }
 ---------------------------------------------------------------------------- */
 .wrap-0{ max-width:952px; }
 .wrap-1{ max-width:852px; }
 .wrap-2{ max-width:652px; }
 .wrap-3{ max-width:452px; }
 
-/* @form helper classes 
+/* @form helper classes
 --------------------------------------------------------------- */
 .themesaller-forms .section{ margin-bottom:22px; }
 .themesaller-forms .smart-link{ color:#f00; text-decoration:none; }
 .themesaller-forms .smart-link:hover{ text-decoration: underline; }
 .themesaller-forms .tagline{ height:0; border-top:1px solid #CFCFCF; text-align:center;  }
-.themesaller-forms .tagline span{ 
-	text-transform:uppercase; 
+.themesaller-forms .tagline span{
+	text-transform:uppercase;
 	display:inline-block;
 	position:relative;
-	padding:0 15px; 
-	background:#fff; 
+	padding:0 15px;
+	background:#fff;
 	color:#f00;
-	top:-14px;  
+	top:-14px;
 }
 
-/* @form label + field :: field class is useful for validation 
+/* @form label + field :: field class is useful for validation
 ---------------------------------------------------------------------- */
 .themesaller-forms .field{ display:block; position:relative; }
 .themesaller-forms .field-icon i { color:#BBB; position:relative; }
 .themesaller-forms .field-label { display: block; margin-bottom: 7px; }
 .themesaller-forms .field-label.colm{ padding-top:12px; }
-.themesaller-forms .field-label em{ 
+.themesaller-forms .field-label em{
 	color:#e74c3c;
 	font-size:14px;
 	font-style:normal;
 	display:inline-block;
 	margin-left:4px;
-	position:relative; 
-	top:3px;  
+	position:relative;
+	top:3px;
 }
 
-/* @form header section 
+/* @form header section
 ----------------------------------------- */
-.themesaller-forms .form-header{ 
+.themesaller-forms .form-header{
 	overflow:hidden;
 	position:relative;
 	padding:25px 30px;
@@ -112,8 +112,8 @@ body{
 	-o-border-radius:5px 5px 0 0 ;
 	border-radius:5px 5px 0 0 ;
 }
-	
-.themesaller-forms .form-header h4 { 
+
+.themesaller-forms .form-header h4 {
 	font-family:"Roboto", Arial, Helvetica, sans-serif;
 color: #fff;
 font-family: "Roboto",Arial,Helvetica,sans-serif;
@@ -124,16 +124,16 @@ text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px
 text-transform: uppercase;
 }
 
-.themesaller-forms .form-header h4 i { 
+.themesaller-forms .form-header h4 i {
 	font-size:38px;
-	position:relative; 
+	position:relative;
 	margin-right:10px;
-	top:2px; 
+	top:2px;
 }
 
-/* @header themes :: primary + lite 
+/* @header themes :: primary + lite
 ---------------------------------------------- */
-.themesaller-forms .header-primary {	
+.themesaller-forms .header-primary {
 background-color: #ff0000;
 border-bottom: 5px solid #e00000;
 border-radius: 3px 3px 0 0;
@@ -142,29 +142,29 @@ position: relative;
 text-align: center;
 }
 
-.themesaller-forms .header-lite{ 
+.themesaller-forms .header-lite{
 	background:#F3F5FA;
-	border-top:1px solid #A7D065; 
-	border-bottom:1px solid #D9DDE5; 
+	border-top:1px solid #A7D065;
+	border-bottom:1px solid #D9DDE5;
 }
 
 .themesaller-forms .header-lite:before{
 	content:"";
-	background-color:#f00;  
+	background-color:#f00;
 	position:absolute;
-	height:8px;  
-	z-index:1; 
+	height:8px;
+	z-index:1;
 	top:0px;
-	right:0;  
+	right:0;
 	left:0;
 }
 
 .themesaller-forms .header-primary h4{ color:#fff; }
 .themesaller-forms .header-lite h4{ color:#5D6A87; padding-top:5px; }
 
-/* @remove rounded corners form headers 
+/* @remove rounded corners form headers
 ----------------------------------------------------------------- */
-.smart-flat, 
+.smart-flat,
 .smart-flat .form-header{
 	-webkit-border-radius:0;
 	-moz-border-radius:0;
@@ -172,21 +172,21 @@ text-align: center;
 	border-radius:0;
 }
 
-/* @form body + footer 
-------------------------------------------------------------------- */	
+/* @form body + footer
+------------------------------------------------------------------- */
 .themesaller-forms .form-body{ padding:40px 30px; padding-bottom:20px; }
 .themesaller-forms .form-footer {
 	overflow:hidden;
 	padding:20px 25px;
 	padding-top:25px;
-	background: #F5F5F5;   	
+	background: #F5F5F5;
 	background: #F5F5F5 url(../images/foobg.png) top left repeat-x;
 }
 
 /* @crossbrowser placeholder styling :: modern browsers only IE10+
 ------------------------------------------------------------------------ */
 .themesaller-forms input[type=search] { -webkit-appearance: textfield; }
-.themesaller-forms ::-webkit-search-decoration, 
+.themesaller-forms ::-webkit-search-decoration,
 .themesaller-forms ::-webkit-search-cancel-button { -webkit-appearance: none; }
 .themesaller-forms input:invalid { -moz-box-shadow: none; box-shadow: none;  }
 .themesaller-forms input::-webkit-input-placeholder,
@@ -208,12 +208,12 @@ text-align: center;
 
 /* @element general styling :: fonts :: adjust accordingly
 ------------------------------------------------------------- */
-.themesaller-forms label, 
+.themesaller-forms label,
 .themesaller-forms input,
 .themesaller-forms button,
-.themesaller-forms select,  
+.themesaller-forms select,
 .themesaller-forms textarea {
-	margin: 0;  
+	margin: 0;
 	font-size: 14px;
 	font-family:  "Roboto", Arial, Helvetica, sans-serif;
 	font-weight:400;
@@ -246,16 +246,16 @@ text-align: center;
 	display: none;
 }
 
-/* @labels font-size styling :: adjust to fit your needs 
+/* @labels font-size styling :: adjust to fit your needs
 --------------------------------------------------------- */
-.themesaller-forms .switch, 
+.themesaller-forms .switch,
 .themesaller-forms .option,
 .themesaller-forms .field-label{ font-size:14px; }
 
 /* @prevent user selection for usability purposes
 ----------------------------------------------------- */
 .themesaller-forms .radio,
-.themesaller-forms .button,  
+.themesaller-forms .button,
 .themesaller-forms .checkbox,
 .themesaller-forms .select .arrow,
 .themesaller-forms .switch > label,
@@ -268,17 +268,17 @@ text-align: center;
 	user-select: none;
 }
 
-/* @universal rules for all elements 
+/* @universal rules for all elements
 ---------------------------------------------------- */
 .themesaller-forms .radio,
 .themesaller-forms .button,
 .themesaller-forms .tooltip,
-.themesaller-forms .checkbox,  
+.themesaller-forms .checkbox,
 .themesaller-forms .gui-input,
 .themesaller-forms .notification,
 .themesaller-forms .gui-textarea,
 .themesaller-forms .select > select,
-.themesaller-forms .select-multiple select{ 
+.themesaller-forms .select-multiple select{
 	-webkit-transition:all 0.5s ease-in-out;
 	-moz-transition:all 0.5s ease-in-out;
 	-ms-transition:all 0.5s ease-in-out;
@@ -292,7 +292,7 @@ text-align: center;
 	outline:none;
 }
 
-/* @control border-size :: color etc for these elements 
+/* @control border-size :: color etc for these elements
 ----------------------------------------------------------- */
 .themesaller-forms .select,
 .themesaller-forms .gui-input,
@@ -313,11 +313,11 @@ text-align: center;
 	*zoom: 1;
 }
 
-/* @styling inputs and textareas 
+/* @styling inputs and textareas
 ------------------------------------------- */
-.themesaller-forms .gui-input, 
+.themesaller-forms .gui-input,
 .themesaller-forms .gui-textarea { padding:10px; }
-.themesaller-forms .gui-textarea {    
+.themesaller-forms .gui-textarea {
     resize: none;
 	line-height: 19px;
 	overflow: auto;
@@ -325,16 +325,16 @@ text-align: center;
     height: 96px;
 }
 
-/* @hint below textareas 
+/* @hint below textareas
 ---------------------------------------- */
 .themesaller-forms .input-hint {
     padding: 10px;
 	display: block;
 	margin-top: -1px;
 	line-height: 16px;
-	position: relative; 
+	position: relative;
     background: #F5F5F5;
-    border: 1px solid #CFCFCF;	   
+    border: 1px solid #CFCFCF;
 	font-family:Arial, Helvetica, sans-serif;
     -webkit-border-radius: 0;
 	-moz-border-radius: 0;
@@ -344,23 +344,23 @@ text-align: center;
     color: #999;
 }
 
-/* @form selects :: dropdowns 
+/* @form selects :: dropdowns
 -------------------------------------------------- */
 .themesaller-forms .select { border:0; z-index:10; }
 .themesaller-forms .select > select {
 	display: block;
-    padding:9px 10px; 
+    padding:9px 10px;
     color: #626262;
-    background: #F5F5F5;   	
-     border: 1px solid #CFCFCF;	
+    background: #F5F5F5;
+     border: 1px solid #CFCFCF;
     -webkit-appearance:none;
     -moz-appearance:none;
     appearance:normal;
 	outline:none;
 	text-indent: 0.01px;
-    text-overflow: ''; 
+    text-overflow: '';
 	z-index:10;
-	margin: 0;	
+	margin: 0;
 }
 
 .themesaller-forms .select > select::-ms-expand { display: none; }
@@ -384,19 +384,19 @@ text-align: center;
 	pointer-events:none;
 	display:none\9;
 	left:5px;
-	
+
 }
 
 .themesaller-forms .select .arrow:before { content:'\25BC'; bottom:4px; }
 .themesaller-forms .select .double:after { content:'\25B2'; top:-1px;  }
 .themesaller-forms .select .double:before { content:'\25BC'; bottom:-1px; }
-.themesaller-forms .select-multiple select { 
-	width:100%; 
+.themesaller-forms .select-multiple select {
+	width:100%;
 	height: 123px;
 	padding: 10px;
 }
 
-/* @file inputs :: file uploaders 
+/* @file inputs :: file uploaders
 -------------------------------------------------------- */
 .themesaller-forms .file{ display:block; width:100%; }
 .themesaller-forms .file .gui-file{
@@ -408,7 +408,7 @@ text-align: center;
 	-moz-opacity:0;
 	opacity: 0;
 	z-index:11;
-	bottom:0;	
+	bottom:0;
 	right:0;
 }
 
@@ -423,36 +423,36 @@ text-align: center;
 	z-index:10;
 }
 
-/* @form element :hover state 
+/* @form element :hover state
 -------------------------------------------- */
 .themesaller-forms .gui-input:hover,
 .themesaller-forms .gui-textarea:hover,
 .themesaller-forms .select > select:hover,
-.themesaller-forms .select-multiple select:hover, 
+.themesaller-forms .select-multiple select:hover,
 .themesaller-forms .gui-input:hover ~ .input-hint,
 .themesaller-forms .file .gui-file:hover + .gui-input,
 .themesaller-forms .gui-textarea:hover ~ .input-hint{
 	border-color: #f00;
 }
 
-/* @form element :focus state 
+/* @form element :focus state
 -------------------------------------------------------- */
 .themesaller-forms .gui-input:focus,
 .themesaller-forms .gui-textarea:focus,
 .themesaller-forms .select > select:focus,
-.themesaller-forms .select-multiple select:focus{ 
+.themesaller-forms .select-multiple select:focus{
     color: #3c3c3c;
     background: #fff;
 	border:1px solid #f00;
-	-webkit-box-shadow:0px 0px 3px #f00 inset; 
-	-moz-box-shadow:0px 0px 3px #f00 inset;  
-	-o-box-shadow:0px 0px 3px #f00 inset;	
+	-webkit-box-shadow:0px 0px 3px #f00 inset;
+	-moz-box-shadow:0px 0px 3px #f00 inset;
+	-o-box-shadow:0px 0px 3px #f00 inset;
 	box-shadow:0px 0px 3px #f00 inset;
-    outline: none; 
+    outline: none;
 
 }
 
-.themesaller-forms .select > select:focus {	
+.themesaller-forms .select > select:focus {
 	z-index:10;
 	z-index:20\9;
 }
@@ -461,18 +461,18 @@ text-align: center;
 .themesaller-forms .select > select:focus { z-index:10; z-index:20\9; }
 .themesaller-forms .gui-input:focus ~ .field-icon i,
 .themesaller-forms .gui-textarea:focus ~ .field-icon i{ color:#f00; }
-.themesaller-forms .select-multiple select:focus, 
+.themesaller-forms .select-multiple select:focus,
 .themesaller-forms .gui-input:focus ~ .input-hint,
-.themesaller-forms .gui-textarea:focus ~ .input-hint, 
+.themesaller-forms .gui-textarea:focus ~ .input-hint,
 .themesaller-forms .file .gui-file:focus + .gui-input{ border-color: #f00; }
 .themesaller-forms .select > select:focus + .arrow{ color:#f00; }
 
 
-/* @radio + checkbox option elements 
------------------------------------------------------ */ 
+/* @radio + checkbox option elements
+----------------------------------------------------- */
 .themesaller-forms .option {
-    position: relative;	
-	padding-right:15px;    
+    position: relative;
+	padding-right:15px;
 	display: inline-block;
     vertical-align: middle;
 }
@@ -484,25 +484,25 @@ text-align: center;
 	left: 0;
 }
 
-.themesaller-forms .checkbox, 
-.themesaller-forms .radio { 
+.themesaller-forms .checkbox,
+.themesaller-forms .radio {
 	position:relative;
 	margin-right:2px;
 	background: #fff;
 	display: inline-block;
-    border: 3px solid #CFCFCF;	
+    border: 3px solid #CFCFCF;
 	height: 21px;
 	width: 21px;
-	top:4px;	
+	top:4px;
 }
 
-.themesaller-forms .checkbox:before, 
+.themesaller-forms .checkbox:before,
 .themesaller-forms .radio:before {
     content: '';
     display: none;
 }
 
-.themesaller-forms input:checked + .checkbox:before, 
+.themesaller-forms input:checked + .checkbox:before,
 .themesaller-forms input:checked + .radio:before {
     display: block;
 }
@@ -522,14 +522,14 @@ text-align: center;
     transform: rotate(-45deg);
 }
 
-.themesaller-forms input:checked + .checkbox, 
+.themesaller-forms input:checked + .checkbox,
 .themesaller-forms input:checked + .radio{ border: 3px solid #f00; }
-.themesaller-forms .radio { 
+.themesaller-forms .radio {
 	-webkit-border-radius: 20px;
-	-moz-border-radius: 20px; 
-	-o-border-radius: 20px; 
+	-moz-border-radius: 20px;
+	-o-border-radius: 20px;
 	border-radius: 20px;
- 
+
 }
 .themesaller-forms .radio:before {
     margin: 4px;
@@ -537,32 +537,32 @@ text-align: center;
     height: 7px;
     background: #f00;
   	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px; 
-	-o-border-radius: 10px; 
+	-moz-border-radius: 10px;
+	-o-border-radius: 10px;
 	border-radius: 10px;
 }
 
 
-/* @radio + checkbox :hover state 
+/* @radio + checkbox :hover state
 -------------------------------------------------- */
-.themesaller-forms input:hover + .checkbox, 
+.themesaller-forms input:hover + .checkbox,
 .themesaller-forms input:hover + .radio{
     border-color:#f00;
-	
+
 }
 
-/* @radio + checkbox :focus state 
+/* @radio + checkbox :focus state
 --------------------------------------------------- */
-.themesaller-forms input:focus + .checkbox, 
+.themesaller-forms input:focus + .checkbox,
 .themesaller-forms input:focus + .radio{ border-color: #f00; }
 .themesaller-forms input:focus + .radio:before{ background: #f00; }
 .themesaller-forms input:focus + .checkbox:before{ border-color: #f00; }
 
-/* @toggle switch elements 
+/* @toggle switch elements
 -------------------------------------------------- */
-.themesaller-forms .switch { 
-	cursor:pointer; 
-	position: relative; 
+.themesaller-forms .switch {
+	cursor:pointer;
+	position: relative;
 	padding-right:10px;
     display: inline-block;
 	margin-bottom:5px;
@@ -587,7 +587,7 @@ text-align: center;
     -moz-transition: 0.3s ease-out;
     -o-transition: 0.3s ease-out;
     transition: 0.3s ease-out;
-	
+
 }
 .themesaller-forms .switch > label + span{ display:inline-block; padding-left:5px; position:relative; top:-7px; }
 .themesaller-forms .switch > label:before {
@@ -599,7 +599,7 @@ text-align: center;
 }
 
 .themesaller-forms .switch > label:after {
-	content:"";	
+	content:"";
     margin: 1px;
     width: 19px;
     height: 19px;
@@ -615,20 +615,20 @@ text-align: center;
     opacity: 0;
 	left: 0;
 	top: 0;
-   
+
 }
 
-/* @toggle switch focus state 
+/* @toggle switch focus state
 -------------------------------------------------------------- */
 .themesaller-forms .switch > input:focus { outline: none; }
 .themesaller-forms .switch > input:focus + label { color: #fff; border-color: #C7C7C7; background:#C7C7C7; }
 .themesaller-forms .switch > input:focus + label:after { background: #fff; }
 
-/* @toggle switch normal state 
+/* @toggle switch normal state
 --------------------------------------------------------------- */
 .themesaller-forms .switch > input:checked + label {
     border-color: #f00;
-	background: #f00; 
+	background: #f00;
 	padding-left: 33px;
 	color: white;
 }
@@ -646,14 +646,14 @@ text-align: center;
     background: white;
 }
 
-/* @toggle switch normal state focus 
+/* @toggle switch normal state focus
 --------------------------------------------------------------------------------- */
 .themesaller-forms .switch > input:checked:focus + label { background: #3c9b39; border-color: #3c9b39; }
-.themesaller-forms .switch-round > label { 
+.themesaller-forms .switch-round > label {
 	-webkit-border-radius: 13px;
 	-moz-border-radius: 13px;
 	-o-border-radius: 13px;
-	border-radius: 13px; 
+	border-radius: 13px;
 }
 .themesaller-forms .switch-round > label + span{ top:-2px; }
 .themesaller-forms .switch-round > label:before { width: 33px; }
@@ -671,14 +671,14 @@ text-align: center;
 .themesaller-forms .switch-round > input:checked + label { padding-left: 33px; }
 .themesaller-forms .switch-round > input:checked + label:after{ color:#f00; }
 
-/* @buttons 
+/* @buttons
 ----------------------------------------------------- */
 .themesaller-forms .button {
     border: 0;
 	height: 42px;
 	color: #243140;
 	line-height: 1;
-	font-size:15px; 
+	font-size:15px;
     cursor: pointer;
 	padding: 0 18px;
 	text-align: center;
@@ -689,12 +689,12 @@ text-align: center;
 	text-shadow: 0 1px rgba(255, 255, 255, 0.2);
 }
 
-/* @buttons :hover, :active states 
+/* @buttons :hover, :active states
 ---------------------------------------------------------------- */
 .themesaller-forms .button:hover { color: #243140; background: #E8E8E8; }
 .themesaller-forms .button:active{ color: #1d2938; background: #C4C4C4; }
-.themesaller-forms a.button, 
-.themesaller-forms span.button, 
+.themesaller-forms a.button,
+.themesaller-forms span.button,
 .themesaller-forms label.button { line-height: 42px; text-decoration: none; }
 .themesaller-forms .button i{ font-size:14px; }
 .themesaller-forms .button-list .button{ margin-bottom:5px; }
@@ -705,29 +705,29 @@ text-align: center;
 .themesaller-forms .btn-primary:hover,
 .themesaller-forms .btn-primary:focus { background-color: #3f51b5; }
 .themesaller-forms .btn-primary:active{ background-color: #3c9b39; }
-.themesaller-forms .btn-primary, 
+.themesaller-forms .btn-primary,
 .themesaller-forms .btn-primary:hover,
-.themesaller-forms .btn-primary:focus, 
+.themesaller-forms .btn-primary:focus,
 .themesaller-forms .btn-primary:active{ color: #fff; text-shadow: 0 1px rgba(0, 0, 0, 0.08); }
 
-/* @rounded buttons 
+/* @rounded buttons
 -------------------------------------------- */
-.themesaller-forms .btn-rounded{ 
+.themesaller-forms .btn-rounded{
 	-webkit-border-radius:22px;
 	-moz-border-radius:22px;
 	-o-border-radius:22px;
-	border-radius:22px;  
+	border-radius:22px;
 }
 
 /* @left + right buttons :: look like IOS
 -------------------------------------------- */
-.themesaller-forms .button-left, 
+.themesaller-forms .button-left,
 .themesaller-forms .button-right {
     position: relative;
 	z-index:9;
 }
 
-.themesaller-forms .button-left:before, 
+.themesaller-forms .button-left:before,
 .themesaller-forms .button-right:before {
     content:'';
     z-index:-1;
@@ -735,13 +735,13 @@ text-align: center;
     height: 32px;
 	position: absolute;
     background-color: inherit;
-	border-color: inherit;	
+	border-color: inherit;
     border: none;
 	top: 5px;
 }
 
 .themesaller-forms .button-left {
-    border-left-width: 0; 
+    border-left-width: 0;
 	padding: 0 18px 0 7px;
     -webkit-border-radius: 0 3px 3px 0;
 	-moz-border-radius: 0 3px 3px 0;
@@ -786,33 +786,33 @@ text-align: center;
     transform: rotate(45deg);
 }
 
-/* @left right button pointed button shapes 
+/* @left right button pointed button shapes
 ------------------------------------------------ */
-.themesaller-forms .btn-pointed.button-left, 
-.themesaller-forms .btn-pointed.button-right{ 
+.themesaller-forms .btn-pointed.button-left,
+.themesaller-forms .btn-pointed.button-right{
 	-webkit-border-radius:22px;
 	-moz-border-radius:22px;
-	-o-border-radius:22px; 
-	border-radius:22px;  
+	-o-border-radius:22px;
+	border-radius:22px;
 }
 
-.themesaller-forms .btn-rounded.button-left{ 
+.themesaller-forms .btn-rounded.button-left{
 	-webkit-border-radius: 0 22px 22px 0;
 	-moz-border-radius: 0 22px 22px 0;
-	-o-border-radius: 0 22px 22px 0; 
-	border-radius: 0 22px 22px 0;  
+	-o-border-radius: 0 22px 22px 0;
+	border-radius: 0 22px 22px 0;
 }
 
 .themesaller-forms .btn-rounded.button-right{
 	-webkit-border-radius: 22px 0 0 22px;
 	-moz-border-radius: 22px 0 0 22px;
 	-o-border-radius: 22px 0 0 22px;
-	border-radius: 22px 0 0 22px; 
+	border-radius: 22px 0 0 22px;
 }
 
 /* @push buttons
 ------------------------------------------------ */
-.themesaller-forms .pushed { 
+.themesaller-forms .pushed {
 	-webkit-box-shadow:inset 0 -0.3em 0 rgba(0,0,0,0.2);
 	-moz-box-shadow:inset 0 -0.3em 0 rgba(0,0,0,0.2);
 	-o-box-shadow:inset 0 -0.3em 0 rgba(0,0,0,0.2);
@@ -832,7 +832,7 @@ text-align: center;
 	-webkit-box-shadow:inset 0.35em 0  0 rgba(0,0,0,0.2);
 	-moz-box-shadow:inset 0.35em 0 0 rgba(0,0,0,0.2);
 	-o-box-shadow:inset 0.35em 0 0 rgba(0,0,0,0.2);
-	box-shadow:inset 0.35em 0 0 rgba(0,0,0,0.2);	
+	box-shadow:inset 0.35em 0 0 rgba(0,0,0,0.2);
 }
 
 .themesaller-forms .pushed:active.button-left:before{
@@ -846,7 +846,7 @@ text-align: center;
 	-webkit-box-shadow:inset  -0.35em 0  0 rgba(0,0,0,0.2);
 	-moz-box-shadow:inset -0.35em 0  0  rgba(0,0,0,0.2);
 	-o-box-shadow:inset -0.35em 0  0  rgba(0,0,0,0.2);
-	box-shadow:inset -0.35em 0  0  rgba(0,0,0,0.2);	
+	box-shadow:inset -0.35em 0  0  rgba(0,0,0,0.2);
 }
 
 .themesaller-forms .pushed:active.button-right:before{
@@ -870,23 +870,23 @@ margin: 0 auto; }
 
 /* @social buttons :: facebook :: twitter :: google +
 ---------------------------------------------------- */
-.themesaller-forms .twitter, 
-.themesaller-forms .twitter:hover, 
+.themesaller-forms .twitter,
+.themesaller-forms .twitter:hover,
 .themesaller-forms .twitter:focus,
-.themesaller-forms .facebook, 
-.themesaller-forms .facebook:hover, 
+.themesaller-forms .facebook,
+.themesaller-forms .facebook:hover,
 .themesaller-forms .facebook:focus,
 .themesaller-forms .googleplus,
-.themesaller-forms .googleplus:hover, 
-.themesaller-forms .googleplus:focus { color:#fff; text-shadow: 0 1px rgba(0, 0, 0, 0.08); } 
+.themesaller-forms .googleplus:hover,
+.themesaller-forms .googleplus:focus { color:#fff; text-shadow: 0 1px rgba(0, 0, 0, 0.08); }
 .themesaller-forms .facebook { background-color:#3b5998; }
 .themesaller-forms .twitter { background-color:#00acee;  }
 .themesaller-forms .googleplus { background-color:#dd4b39; }
-.themesaller-forms .facebook:hover, 
+.themesaller-forms .facebook:hover,
 .themesaller-forms .facebook:focus { background-color:#25385F;  }
-.themesaller-forms .twitter:hover, 
+.themesaller-forms .twitter:hover,
 .themesaller-forms .twitter:focus { background-color:#00749F;  }
-.themesaller-forms .googleplus:hover, 
+.themesaller-forms .googleplus:hover,
 .themesaller-forms .googleplus:focus { background-color:#8D2418;  }
 .themesaller-forms .span-left{ padding-left:52px; text-align:left; }
 .themesaller-forms .btn-social { position:relative; margin-bottom:5px;  }
@@ -895,12 +895,12 @@ margin: 0 auto; }
 	-webkit-border-radius:3px 0 0 3px;
 	-moz-border-radius:3px 0 0 3px;
 	-o-border-radius:3px 0 0 3px;
-	border-radius:3px 0 0 3px;	
-	display:inline-block; 
-	text-align:center; 
+	border-radius:3px 0 0 3px;
+	display:inline-block;
+	text-align:center;
 	position:absolute;
-	width:42px; 
-	left:0; 
+	width:42px;
+	left:0;
 }
 
 .themesaller-forms .twitter span{ background-color:#009AD5; }
@@ -911,7 +911,7 @@ margin: 0 auto; }
 ------------------------------------------------------------------------ */
 .themesaller-forms .rating { overflow: hidden; }
 .themesaller-forms .rating.block { display:block; margin:10px 0; }
-.themesaller-forms .rating label{color: #A2A6A8;} 
+.themesaller-forms .rating label{color: #A2A6A8;}
 .themesaller-forms .rating label i{ font-size:17px; text-align:center; color:inherit;  }
 .themesaller-forms .rating label span{ font:22px/22px Times, Serif; }
 .themesaller-forms .rating-star{ margin-left:4px; }
@@ -919,31 +919,31 @@ margin: 0 auto; }
 .themesaller-forms .rating:hover .rating-star:hover,
 .themesaller-forms .rating:hover .rating-star:hover ~ .rating-star,
 .themesaller-forms .rating-input:checked ~ .rating-star { color: #f00;	}
-.themesaller-forms .rating-star, 
-.themesaller-forms .rating:hover .rating-star {	
+.themesaller-forms .rating-star,
+.themesaller-forms .rating:hover .rating-star {
 	width: 18px;
 	float: right;
 	display: block;
 	cursor:pointer;
-	color: #A2A6A8;	
+	color: #A2A6A8;
 }
 
 
 /* @smart widget
    @this widget helps us to position an element eg button or label or span
    @the positions can either be left or right while the input stays 100%
-   @you ca use this to rapidly create search widgets, newsletter subscribe etc 
+   @you ca use this to rapidly create search widgets, newsletter subscribe etc
 ---------------------------------------------------------------------------------*/
-.themesaller-forms .smart-widget, 
-.themesaller-forms .append-picker-icon, 
+.themesaller-forms .smart-widget,
+.themesaller-forms .append-picker-icon,
 .themesaller-forms .prepend-picker-icon { position: relative; display:block; }
-.themesaller-forms .smart-widget .field input, 
-.themesaller-forms .append-picker-icon input, 
+.themesaller-forms .smart-widget .field input,
+.themesaller-forms .append-picker-icon input,
 .themesaller-forms .prepend-picker-icon input { width: 100%; }
 
-.themesaller-forms .append-picker-icon button, 
+.themesaller-forms .append-picker-icon button,
 .themesaller-forms .prepend-picker-icon button,
-.themesaller-forms .smart-widget .button { 
+.themesaller-forms .smart-widget .button {
 	border:1px solid #CFCFCF;
 	background: #F5F5F5;
     position: absolute;
@@ -953,42 +953,42 @@ margin: 0 auto; }
     top: 0;
 }
 
-.themesaller-forms .sm-right .button, 
+.themesaller-forms .sm-right .button,
 .themesaller-forms .append-picker-icon button{ border-left:0; }
-.themesaller-forms .sm-left .button, 
+.themesaller-forms .sm-left .button,
 .themesaller-forms .prepend-picker-icon button{ border-right:0; }
 
-.themesaller-forms .sm-left .button, 
+.themesaller-forms .sm-left .button,
 .themesaller-forms .prepend-picker-icon button { left:0; }
-.themesaller-forms .sm-right .button, 
+.themesaller-forms .sm-right .button,
 .themesaller-forms .append-picker-icon button {  right:0; }
 
-/* @smart widget buttons - to left 
+/* @smart widget buttons - to left
 ------------------------------------------------- */
-.themesaller-forms .sml-50, 
-.themesaller-forms .prepend-picker-icon { padding-left: 50px; } 
-.themesaller-forms .sml-50 .button, 
+.themesaller-forms .sml-50,
+.themesaller-forms .prepend-picker-icon { padding-left: 50px; }
+.themesaller-forms .sml-50 .button,
 .themesaller-forms .prepend-picker-icon button{ width: 50px; }
-.themesaller-forms .sml-80{ padding-left: 80px; } 
+.themesaller-forms .sml-80{ padding-left: 80px; }
 .themesaller-forms .sml-80 .button { width: 80px; }
-.themesaller-forms .sml-120{ padding-left: 120px; } 
+.themesaller-forms .sml-120{ padding-left: 120px; }
 .themesaller-forms .sml-120 .button { width: 120px; }
 
-/* @smart widget buttons - to right 
+/* @smart widget buttons - to right
 ------------------------------------------------- */
-.themesaller-forms .smr-50, 
-.themesaller-forms .append-picker-icon{ padding-right: 50px; } 
-.themesaller-forms .smr-50 .button, 
+.themesaller-forms .smr-50,
+.themesaller-forms .append-picker-icon{ padding-right: 50px; }
+.themesaller-forms .smr-50 .button,
 .themesaller-forms .append-picker-icon button{ width: 50px; }
-.themesaller-forms .smr-80{ padding-right: 80px; } 
+.themesaller-forms .smr-80{ padding-right: 80px; }
 .themesaller-forms .smr-80 .button { width: 80px; }
-.themesaller-forms .smr-120{ padding-right: 120px; } 
+.themesaller-forms .smr-120{ padding-right: 120px; }
 .themesaller-forms .smr-120 .button { width: 120px; }
 
 
 /* @icon append (right) :: prepend (left)
 ------------------------------------------------- */
-.themesaller-forms .append-icon, 
+.themesaller-forms .append-icon,
 .themesaller-forms .prepend-icon{
     display: inline-block;
     vertical-align: top;
@@ -996,7 +996,7 @@ margin: 0 auto; }
 	width:100%;
 }
 
-.themesaller-forms .append-icon .field-icon, 
+.themesaller-forms .append-icon .field-icon,
 .themesaller-forms .prepend-icon .field-icon{
 	top:0;
 	z-index:4;
@@ -1014,27 +1014,27 @@ margin: 0 auto; }
     pointer-events: none;
 }
 
-.themesaller-forms .append-icon .field-icon i, 
-.themesaller-forms .prepend-icon .field-icon i{ 
+.themesaller-forms .append-icon .field-icon i,
+.themesaller-forms .prepend-icon .field-icon i{
 	position:relative;
 	font-size:14px;
 }
 
 .themesaller-forms .prepend-icon .field-icon{ left:0;  }
 .themesaller-forms .append-icon .field-icon{ right:0; }
-.themesaller-forms .prepend-icon > input, 
+.themesaller-forms .prepend-icon > input,
 .themesaller-forms .prepend-icon > textarea{ padding-left:36px; }
-.themesaller-forms .append-icon > input, 
+.themesaller-forms .append-icon > input,
 .themesaller-forms .append-icon > textarea{ padding-right:36px; padding-left:10px;  }
 .themesaller-forms .append-icon > textarea{ padding-right:36px; }
 
-/* @tooltips on inputs + textareas 
-------------------------------------------------- */ 
+/* @tooltips on inputs + textareas
+------------------------------------------------- */
 .themesaller-forms .tooltip {
 	position: absolute;
 	z-index: -1;
 	opacity: 0;
-	color: #fff;	
+	color: #fff;
 	width: 184px;
 	left: -9999px;
 	top:auto;
@@ -1079,7 +1079,7 @@ margin: 0 auto; }
 	right: 100%;
 	border-right: 8px solid #333333;
 	border-top: 8px solid transparent;
-	border-bottom: 8px solid transparent;	
+	border-bottom: 8px solid transparent;
 }
 
 .themesaller-forms .gui-input:focus + .tip-right,
@@ -1171,11 +1171,11 @@ margin: 0 auto; }
 	margin-top: -7px;
 	padding: inherit;
 	position: absolute;
-	text-decoration:none; 
+	text-decoration:none;
     font: bold 20px/20px Arial, sans-serif;
-	opacity: 0.65; 	
+	opacity: 0.65;
 	color: inherit;
-    display: block;    
+    display: block;
     right:1px;
 	top:14%;
 }
@@ -1192,11 +1192,11 @@ margin: 0 auto; }
 .themesaller-forms .state-error .gui-textarea,
 .themesaller-forms .state-error.select > select,
 .themesaller-forms .state-error.select-multiple > select,
-.themesaller-forms .state-error input:hover + .checkbox, 
+.themesaller-forms .state-error input:hover + .checkbox,
 .themesaller-forms .state-error input:hover + .radio,
-.themesaller-forms .state-error input:focus + .checkbox, 
+.themesaller-forms .state-error input:focus + .checkbox,
 .themesaller-forms .state-error input:focus + .radio,
-.themesaller-forms .state-error .checkbox, 
+.themesaller-forms .state-error .checkbox,
 .themesaller-forms .state-error .radio{
 	background:#FEE9EA;
 	border-color:#DE888A;
@@ -1217,9 +1217,9 @@ margin: 0 auto; }
 .themesaller-forms .state-error.select .arrow { color: #DE888A; }
 .themesaller-forms .state-error.select > select:focus + .arrow{ color:#DE888A; }
 .themesaller-forms .state-error .gui-input ~ .input-hint,
-.themesaller-forms .state-error.file .gui-file:hover + .gui-input, 
+.themesaller-forms .state-error.file .gui-file:hover + .gui-input,
 .themesaller-forms .state-error .gui-textarea ~ .input-hint { border-color:#DE888A; }
-.themesaller-forms .state-error + em{ 
+.themesaller-forms .state-error + em{
 	display: block!important;
 	margin-top: 6px;
 	padding: 0 3px;
@@ -1230,17 +1230,17 @@ margin: 0 auto; }
 	color:#DE888A;
 }
 
-/* @validaion - success state 
+/* @validaion - success state
 -------------------------------------------------- */
 .themesaller-forms .state-success .gui-input,
 .themesaller-forms .state-success .gui-textarea,
 .themesaller-forms .state-success.select > select,
 .themesaller-forms .state-success.select-multiple > select,
-.themesaller-forms .state-success input:hover + .checkbox, 
+.themesaller-forms .state-success input:hover + .checkbox,
 .themesaller-forms .state-success input:hover + .radio,
-.themesaller-forms .state-success input:focus + .checkbox, 
-.themesaller-forms .state-success input:focus + .radio, 
-.themesaller-forms .state-success .checkbox, 
+.themesaller-forms .state-success input:focus + .checkbox,
+.themesaller-forms .state-success input:focus + .radio,
+.themesaller-forms .state-success .checkbox,
 .themesaller-forms .state-success .radio{
 	background:#F0FEE9;
 	border-color:#A5D491;
@@ -1249,11 +1249,11 @@ margin: 0 auto; }
 .themesaller-forms .state-success .gui-input:focus,
 .themesaller-forms .state-success .gui-textarea:focus,
 .themesaller-forms .state-success.select > select:focus,
-.themesaller-forms .state-success.select-multiple > select:focus{ 
-	-webkit-box-shadow:0px 0px 3px #A5D491 inset; 
-	-moz-box-shadow:0px 0px 3px #A5D491 inset; 
-	-o-box-shadow:0px 0px 3px #A5D491 inset; 
-	box-shadow:0px 0px 3px #A5D491 inset; 
+.themesaller-forms .state-success.select-multiple > select:focus{
+	-webkit-box-shadow:0px 0px 3px #A5D491 inset;
+	-moz-box-shadow:0px 0px 3px #A5D491 inset;
+	-o-box-shadow:0px 0px 3px #A5D491 inset;
+	box-shadow:0px 0px 3px #A5D491 inset;
 }
 
 .themesaller-forms .state-success .gui-input ~ .field-icon i,
@@ -1261,10 +1261,10 @@ margin: 0 auto; }
 .themesaller-forms .state-success.select .arrow { color: #A5D491; }
 .themesaller-forms .state-success.select > select:focus + .arrow{ color:#A5D491; }
 .themesaller-forms .state-success .gui-input ~ .input-hint,
-.themesaller-forms .state-success.file .gui-file:hover + .gui-input, 
+.themesaller-forms .state-success.file .gui-file:hover + .gui-input,
 .themesaller-forms .state-success .gui-textarea ~ .input-hint { border-color:#A5D491; }
 
-/* @disabled state 
+/* @disabled state
 ----------------------------------------------- */
 .themesaller-forms .button[disabled],
 .themesaller-forms .state-disabled .button,
@@ -1276,13 +1276,13 @@ margin: 0 auto; }
 }
 
 .themesaller-forms .gui-input[disabled],
-.themesaller-forms .gui-textarea[disabled], 
-.themesaller-forms .select > select[disabled], 
+.themesaller-forms .gui-textarea[disabled],
+.themesaller-forms .select > select[disabled],
 .themesaller-forms .select-multiple select[disabled],
 .themesaller-forms .gui-input[disabled] ~ .input-hint,
 .themesaller-forms .file .gui-file[disabled] + .gui-input,
-.themesaller-forms .file .gui-file[disabled]:hover + .gui-input, 
-.themesaller-forms .gui-textarea[disabled] ~ .input-hint {    
+.themesaller-forms .file .gui-file[disabled]:hover + .gui-input,
+.themesaller-forms .gui-textarea[disabled] ~ .input-hint {
 	background-color: #f4f6f6;
 	border-color: #d5dbdb!important;
 	cursor: default;
@@ -1292,8 +1292,8 @@ margin: 0 auto; }
 
 .themesaller-forms input[disabled] ~ .field-icon i,
 .themesaller-forms textarea[disabled] ~ .field-icon i,
-.themesaller-forms .select > select[disabled] + .arrow{ 
-	opacity:0.4; 
+.themesaller-forms .select > select[disabled] + .arrow{
+	opacity:0.4;
 }
 
 /* @datepicker - requires jquery ui
@@ -1310,10 +1310,10 @@ margin: 0 auto; }
 	-o-box-shadow: 0 0 4px rgba(0,0,0,.1);
 	box-shadow: 0 0 4px rgba(0,0,0,.1);
 	border:1px solid #CFCFCF;
-	z-index:9999!important;		
+	z-index:9999!important;
 	text-align: center;
 	color: #666;
-	
+
 }
 
 .ui-datepicker a { color: #404040; text-align:center; }
@@ -1342,11 +1342,11 @@ margin: 0 auto; }
 
 .ui-datepicker .ui-datepicker-prev { left: 2px;  }
 .ui-datepicker .ui-datepicker-next { right: 2px; }
-.ui-datepicker .ui-datepicker-title { 
-	margin: 0 2.3em; 
-	line-height: 1.8em; 
+.ui-datepicker .ui-datepicker-title {
+	margin: 0 2.3em;
+	line-height: 1.8em;
 	text-align: center;
-	color:#f00; 
+	color:#f00;
 }
 
 .ui-datepicker .ui-datepicker-title select { font-size: 1em; margin: 1px 0; }
@@ -1379,14 +1379,14 @@ margin: 0 auto; }
 .ui-datepicker td span:hover,
 .ui-datepicker td a:hover {  background:#F5F5F5; }
 .ui-datepicker .ui-state-disabled span:hover{ background:none; }
-.ui-datepicker-today a, .ui-datepicker-today a:hover, 
+.ui-datepicker-today a, .ui-datepicker-today a:hover,
 .ui-datepicker .ui-state-highlight {
 	font-weight: 700;
 	background: #f00!important;
 	color:#fff;
 }
 
-/* @multiple calendars || not responsive use carefully 
+/* @multiple calendars || not responsive use carefully
 --------------------------------------------------------------- */
 .cal-widget .ui-datepicker { width: 100%; margin-top:0; }
 .cal-widget .ui-datepicker:before{ display:none; }
@@ -1415,13 +1415,13 @@ margin: 0 auto; }
 	vertical-align: middle;
 	background: #DBDBDB;
 	text-align: center;
-	overflow: visible;	
+	overflow: visible;
 	cursor: pointer;
 	color: #243140;
 	border:0;
 }
 
-/* @ ui buttons :hover, :active states 
+/* @ ui buttons :hover, :active states
 ---------------------------------------------------------------- */
 .ui-datepicker-buttonpane button:hover { color: #243140; background: #E8E8E8; }
 .ui-datepicker-buttonpane button:active{ color: #1d2938; background: #C4C4C4; }
@@ -1429,10 +1429,10 @@ margin: 0 auto; }
 
 /* @ui slider - requires jquery ui
 ------------------------------------------------------*/
-.themesaller-forms .slider-wrapper, 
-.themesaller-forms .sliderv-wrapper{ 
-	background:#E5E5E5; 
-	position:relative; 
+.themesaller-forms .slider-wrapper,
+.themesaller-forms .sliderv-wrapper{
+	background:#E5E5E5;
+	position:relative;
 }
 
 .themesaller-forms .ui-slider {
@@ -1451,7 +1451,7 @@ margin: 0 auto; }
 	-webkit-border-radius:20px;
 	-moz-border-radius:20px;
 	-o-border-radius:20px;
-	border-radius:20px;	
+	border-radius:20px;
 	-ms-touch-action: none;
 	touch-action: none;
 	margin-top:-3px;
@@ -1465,10 +1465,10 @@ margin: 0 auto; }
 	position:absolute;
     background-color: #f00;
   	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px; 
-	-o-border-radius: 10px; 
+	-moz-border-radius: 10px;
+	-o-border-radius: 10px;
 	border-radius: 10px;
-	z-index: 2;	
+	z-index: 2;
 	left:4px;
 	top:4px;
 }
@@ -1490,7 +1490,7 @@ margin: 0 auto; }
 .themesaller-forms .ui-slider-horizontal .ui-slider-range { top: 0; height: 100%; }
 .themesaller-forms .ui-slider-horizontal .ui-slider-range-min { left: 0; }
 .themesaller-forms .ui-slider-horizontal .ui-slider-range-max { right: 0; }
-.themesaller-forms .ui-slider-vertical, 
+.themesaller-forms .ui-slider-vertical,
 .themesaller-forms .sliderv-wrapper { width: .5em; height: 100px; }
 .themesaller-forms .ui-slider-vertical .ui-slider-handle { left: -.45em; margin-left: 0; margin-bottom: -.6em; }
 .themesaller-forms .ui-slider-vertical .ui-slider-range { left: 0; width: 100%; }
@@ -1517,25 +1517,25 @@ margin: 0 auto; }
 }
 
 .themesaller-forms .slider-wrapper .slider-tip{ top: -50px; left:-15px; }
-.themesaller-forms .slider-wrapper .slider-tip:after { 
-	content: ''; 
-	position: absolute; 
+.themesaller-forms .slider-wrapper .slider-tip:after {
+	content: '';
+	position: absolute;
 	top: 98%;
 	left: 35%;
 	border-top: 8px solid #333333;
 	border-right: 8px solid transparent;
-	border-left: 8px solid transparent;	
+	border-left: 8px solid transparent;
 }
 
 .themesaller-forms .sliderv-wrapper .slider-tip{ left: 30px; top:-12px; }
-.themesaller-forms .sliderv-wrapper .slider-tip:after{ 
-	content: ''; 
+.themesaller-forms .sliderv-wrapper .slider-tip:after{
+	content: '';
 	position: absolute;
 	top:30%;
 	right: 98%;
 	border-right: 8px solid #333333;
 	border-top: 8px solid transparent;
-	border-bottom: 8px solid transparent;	
+	border-bottom: 8px solid transparent;
 }
 
 /* @ui slider themes
@@ -1568,13 +1568,13 @@ margin: 0 auto; }
 	font-size: 15px;
 	padding: 10px;
  }
- 
+
 .ui-timepicker-div dl { text-align: left; border:1px solid #CFCFCF; border-width:1px 0 0 0; padding:15px 10px; margin:0; }
 .ui-timepicker-div dl dt { float: left; clear:left; padding: 0 0 0 5px; }
 .ui-timepicker-div dl dd { margin: 0 10px 20px 40%; }
-.ui-timepicker-div dl .ui_tpicker_hour, 
-.ui-timepicker-div dl .ui_tpicker_minute, 
-.ui-timepicker-div dl .ui_tpicker_second,  
+.ui-timepicker-div dl .ui_tpicker_hour,
+.ui-timepicker-div dl .ui_tpicker_minute,
+.ui-timepicker-div dl .ui_tpicker_second,
 .ui-timepicker-div dl .ui_tpicker_millisec{ background:#E5E5E5;  position:relative; top:6px; }
 .ui-timepicker-div td { font-size: 90%; }
 .ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
@@ -1583,28 +1583,28 @@ margin: 0 auto; }
 .ui-timepicker-rtl dl dt{ float: right; clear: right; }
 .ui-timepicker-rtl dl dd { margin: 0 40% 10px 10px; }
 
-/* @progress bars 
+/* @progress bars
 ------------------------------------------------------*/
-.themesaller-forms .progress-section{ display:none; } 
+.themesaller-forms .progress-section{ display:none; }
 .themesaller-forms .progress-bar {
     position: relative;
-    background:#E5E5E5; 
+    background:#E5E5E5;
 }
 
-.themesaller-forms .progress-bar .percent { 
-	position:absolute; 
-	display:inline-block; 
-	top:-3px; 
-	right:-24px; 
-	font-size:9px; 
-	color:#93A2AA; 
+.themesaller-forms .progress-bar .percent {
+	position:absolute;
+	display:inline-block;
+	top:-3px;
+	right:-24px;
+	font-size:9px;
+	color:#93A2AA;
 }
-.themesaller-forms .progress-bar > .bar {   
-	width:60%; 
+.themesaller-forms .progress-bar > .bar {
+	width:60%;
 	height:7px;
 	display: block;
-	background-size: 16px 16px;	
-	background-color: #bdc3c7; 
+	background-size: 16px 16px;
+	background-color: #bdc3c7;
 }
 
 /* @progress bar themes
@@ -1617,32 +1617,32 @@ margin: 0 auto; }
 .themesaller-forms .bar-red > .bar      { background-color: #ee4f3d; }
 .themesaller-forms .bar-yellow > .bar   { background-color: #faa226; }
 
-/* @progress bar strips + animation IE10+ 
+/* @progress bar strips + animation IE10+
 ----------------------------------------------------------- */
-.themesaller-forms .ui-slider .ui-slider-range,  
-.themesaller-forms .progress > button[type="submit"], 
+.themesaller-forms .ui-slider .ui-slider-range,
+.themesaller-forms .progress > button[type="submit"],
 .themesaller-forms .progress > button[type="submit"]:hover,
 .themesaller-forms .progress-bar > .bar{
     background-size: 16px 16px;
-    background-image: -webkit-linear-gradient(top left,  
-					  transparent, transparent 25%, rgba(255, 255, 255, 0.3) 25%, rgba(255, 255, 255, 0.3) 50%, 
+    background-image: -webkit-linear-gradient(top left,
+					  transparent, transparent 25%, rgba(255, 255, 255, 0.3) 25%, rgba(255, 255, 255, 0.3) 50%,
 					  transparent 50%, transparent 75%, rgba(255, 255, 255, 0.3) 75%, rgba(255, 255, 255, 0.3));
-					  
-    background-image: -moz-linear-gradient(top left,  
-					  transparent, transparent 25%, rgba(255, 255, 255, 0.3) 25%, rgba(255, 255, 255, 0.3) 50%, 
+
+    background-image: -moz-linear-gradient(top left,
+					  transparent, transparent 25%, rgba(255, 255, 255, 0.3) 25%, rgba(255, 255, 255, 0.3) 50%,
 					  transparent 50%, transparent 75%, rgba(255, 255, 255, 0.3) 75%, rgba(255, 255, 255, 0.3));
-					  
-    background-image: -o-linear-gradient(top left,  
-					  transparent, transparent 25%, rgba(255, 255, 255, 0.3) 25%, rgba(255, 255, 255, 0.3) 50%, 
+
+    background-image: -o-linear-gradient(top left,
+					  transparent, transparent 25%, rgba(255, 255, 255, 0.3) 25%, rgba(255, 255, 255, 0.3) 50%,
 					  transparent 50%, transparent 75%, rgba(255, 255, 255, 0.3) 75%, rgba(255, 255, 255, 0.3));
-					  
-    background-image: linear-gradient(to bottom right,  
-					  transparent, transparent 25%, rgba(255, 255, 255, 0.3) 25%, rgba(255, 255, 255, 0.3) 50%, 
+
+    background-image: linear-gradient(to bottom right,
+					  transparent, transparent 25%, rgba(255, 255, 255, 0.3) 25%, rgba(255, 255, 255, 0.3) 50%,
 					  transparent 50%, transparent 75%, rgba(255, 255, 255, 0.3) 75%, rgba(255, 255, 255, 0.3));
 }
 
-.themesaller-forms .progress > button[type="submit"], 
-.themesaller-forms .progress > button[type="submit"]:hover,  
+.themesaller-forms .progress > button[type="submit"],
+.themesaller-forms .progress > button[type="submit"]:hover,
 .themesaller-forms .progress-animated > .bar{
 	-webkit-animation: sfprogress .6s linear infinite;
 	-moz-animation: sfprogress .6s linear infinite;
@@ -1674,33 +1674,33 @@ margin: 0 auto; }
 }
 
 
-/* @google map :: block elements 
+/* @google map :: block elements
 ----------------------------------------------------------------------- */
 .themesaller-forms .map-container{ padding:10px; border: 1px solid #CFCFCF; }
 .themesaller-forms #map_canvas{ width:100%; height:300px; overflow:hidden;  }
 .themesaller-forms .block{ display:block; }
 
 /* @form grid
------------------------------------ */ 
+----------------------------------- */
 
-/* @form rows 
+/* @form rows
 --------------------------------- */
 .themesaller-forms .frm-row{ margin:0 -10px;  }
 .themesaller-forms .slider-group:before,
 .themesaller-forms .slider-group:after,
 .themesaller-forms .frm-row:before,
 .themesaller-forms .frm-row:after { display: table; content: ""; line-height: 0; }
-.themesaller-forms .slider-group:after, 
+.themesaller-forms .slider-group:after,
 .themesaller-forms .frm-row:after{ clear: both; }
 
-/* @form columns 
+/* @form columns
 ----------------------------------- */
-.themesaller-forms .frm-row .colm{ 
-	min-height:1px; 
-	padding-left:10px; 
-	padding-right:10px; 
-	position:relative; 
-	float:left; 
+.themesaller-forms .frm-row .colm{
+	min-height:1px;
+	padding-left:10px;
+	padding-right:10px;
+	position:relative;
+	float:left;
 }
 
 .themesaller-forms .frm-row .colm1{width:8.33%;}
@@ -1718,15 +1718,15 @@ margin: 0 auto; }
 .themesaller-forms .frm-row .colm1-5{width:20%;}
 .themesaller-forms .frm-row .colm1-8{width:12.5%;}
 
-/* @spacers 
+/* @spacers
 --------------------------------------- */
-.themesaller-forms .spacer{ 
-	border-top:1px solid #CFCFCF; 
+.themesaller-forms .spacer{
+	border-top:1px solid #CFCFCF;
 	display:block;
-	height:0; 
+	height:0;
 }
 
-/* @margin spacers :: modify accordingly 
+/* @margin spacers :: modify accordingly
 -------------------------------------------- */
 .themesaller-forms .spacer-t10{ margin-top:10px; }
 .themesaller-forms .spacer-b10{ margin-bottom:10px; }
@@ -1741,7 +1741,7 @@ margin: 0 auto; }
 .themesaller-forms .spacer-t40{ margin-top:40px; }
 .themesaller-forms .spacer-b40{ margin-bottom:40px; }
 
-/* @padding spacers :: modify accordingly 
+/* @padding spacers :: modify accordingly
 -------------------------------------------------- */
 .themesaller-forms .frm-row .pad-l10{ padding-left:10px; }
 .themesaller-forms .frm-row .pad-r10{ padding-right:10px; }
@@ -1767,16 +1767,16 @@ margin: 0 auto; }
 
 /* @simple price boxes :: depend on grid
 -------------------------------------------------- */
-.themesaller-forms .price-box{ 
-	padding:30px; 
+.themesaller-forms .price-box{
+	padding:30px;
 	text-align:center;
-	position:relative; 
+	position:relative;
 	border:1px solid #CFCFCF;
 	font-family:Arial, Helvetica, sans-serif;
 	-webkit-box-shadow:  0px 2px 0px 0px rgba(0, 0, 0, 0.05);
 	-moz-box-shadow:  0px 2px 0px 0px rgba(0, 0, 0, 0.05);
 	-o-box-shadow:  0px 2px 0px 0px rgba(0, 0, 0, 0.05);
-	box-shadow:  0px 2px 0px 0px rgba(0, 0, 0, 0.05); 
+	box-shadow:  0px 2px 0px 0px rgba(0, 0, 0, 0.05);
 }
 
 .themesaller-forms .price-box p{ line-height:1.5em; color:#526066; margin-bottom:0; }
@@ -1801,7 +1801,7 @@ margin: 0 auto; }
 }
 
 .themesaller-forms .ribbon-inner{
-	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;	
+	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
 	-webkit-box-shadow:  0px 2px 0px 0px rgba(0, 0, 0, 0.15);
 	-moz-box-shadow:  0px 2px 0px 0px rgba(0, 0, 0, 0.15);
 	-o-box-shadow:  0px 2px 0px 0px rgba(0, 0, 0, 0.15);
@@ -1847,12 +1847,12 @@ margin: 0 auto; }
 	top:28px;
 }
 
-/* @captcha refresh button + icon 
+/* @captcha refresh button + icon
 -------------------------------------------------- */
 .themesaller-forms .sfcode{ padding-left:24px; }
 .themesaller-forms .captcode{ padding:0; position:relative; }
 .themesaller-forms .captcode img{ position:relative; top:1px;}
-.themesaller-forms .refresh-captcha{ 
+.themesaller-forms .refresh-captcha{
 	position:absolute;
 	background:#f00;
 	border:3px solid #3C9B39;
@@ -1862,15 +1862,15 @@ margin: 0 auto; }
 	border-radius:30px;
 	right:-15px;
 	height:32px;
-	width:32px; 
-	top:4px; 
+	width:32px;
+	top:4px;
 }
 
-.themesaller-forms .refresh-captcha i{ 
-	position:absolute; 
-	text-align:center; 
+.themesaller-forms .refresh-captcha i{
+	position:absolute;
+	text-align:center;
 	line-height:26px;
-	font-size:17px; 
+	font-size:17px;
 	color:#fff;
 	left:24%;
 }
@@ -1887,44 +1887,44 @@ margin: 0 auto; }
 /* Firefox select fix - select arrow hack  disabled on FF 30+
 -------------------------------------------------------------- */
 @-moz-document url-prefix() {
-	.themesaller-forms .select:before{ 
+	.themesaller-forms .select:before{
 		content: '';
-		pointer-events:none;		
+		pointer-events:none;
 		-moz-transition:none;
 		transition:none;
-		position: absolute; 
-		background: #F5F5F5; 
+		position: absolute;
+		background: #F5F5F5;
 		width: 36px;
 		right:1px;
-		top:1px; 
+		top:1px;
 		bottom:1px;
-		z-index:99;  
+		z-index:99;
 	}
-	
+
 	.themesaller-forms .select > select:focus,
 	.themesaller-forms .select > select:hover,
 	.themesaller-forms .select:hover select,
-	.themesaller-forms .select:hover:before{ 
+	.themesaller-forms .select:hover:before{
 		background: #fff;
 		-moz-transition:none;
-		transition:none;		
-		-moz-box-shadow:none;  	
-		box-shadow:none;		
+		transition:none;
+		-moz-box-shadow:none;
+		box-shadow:none;
 	}
-	
+
 	.themesaller-forms .select .arrow {  z-index:100;  }
 	.themesaller-forms .state-error.select > select:focus,
 	.themesaller-forms .state-error.select > select:hover,
 	.themesaller-forms .state-error.select:hover select,
-	.themesaller-forms .state-error.select:hover:before,	
+	.themesaller-forms .state-error.select:hover:before,
 	.themesaller-forms .state-error.select:before { background:#FEE9EA;  }
-	
+
 	.themesaller-forms .state-success.select > select:focus,
 	.themesaller-forms .state-success.select > select:hover,
 	.themesaller-forms .state-success.select:hover select,
-	.themesaller-forms .state-success.select:hover:before,		
-	.themesaller-forms .state-success.select:before { background:#F0FEE9;  }	
-			
+	.themesaller-forms .state-success.select:hover:before,
+	.themesaller-forms .state-success.select:before { background:#F0FEE9;  }
+
 }
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
@@ -1934,20 +1934,20 @@ margin: 0 auto; }
 
 /* @Fix old of versions android + ios
 ------------------------------------------------------------- */
-@media screen and (-webkit-min-device-pixel-ratio:0) { 
-        .themesaller-forms .option, 
-        .themesaller-forms .rating, 
-        .themesaller-forms .switch, 
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+        .themesaller-forms .option,
+        .themesaller-forms .rating,
+        .themesaller-forms .switch,
 		.themesaller-forms .captcode { -webkit-animation: bugfix infinite 1s; }
-        @-webkit-keyframes bugfix { 
-            from { padding: 0;  } 
-            to { padding: 0; } 
+        @-webkit-keyframes bugfix {
+            from { padding: 0;  }
+            to { padding: 0; }
         }
 		.themesaller-forms .switch { margin-right:10px;  margin-bottom:5px; }
-		.themesaller-forms .option { margin-right:15px; }					
+		.themesaller-forms .option { margin-right:15px; }
 }
 
-/* @responsiveness for tablets + smart mobile 
+/* @responsiveness for tablets + smart mobile
 -------------------------------------------------- */
 @media (max-width: 600px) {
 	.themesaller-forms .frm-row{ margin:0;  }
