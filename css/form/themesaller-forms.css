@@ -7,7 +7,7 @@
 
 /* Roboto google font import 
 --------------------------------------- */
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,300);
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900");
 
 html, body{
 	border: 0;
