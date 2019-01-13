@@ -1,6 +1,6 @@
  (function ($) {
  "use strict";
 
-	$('#main-menu').metisMenu();
+	$('#menu1').metisMenu();
 
 })(jQuery);
