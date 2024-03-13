@@ -39,8 +39,13 @@
 	$('#sidebar ul li').on('click', function () {
 		var button = $(this).find('i.fa.indicator-mn');
 		button.toggleClass('fa-plus').toggleClass('fa-minus');
-		
 	});
+	
+	 // Display the current year
+ 	 $(function () {
+   	 $("#currentYear").text(new Date().getFullYear());
+ 	 });
+	
 	/*-----------------------------
 		Menu Stick
 	---------------------------------*/
