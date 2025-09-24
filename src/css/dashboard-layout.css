@@ -1,0 +1,176 @@
+/* Dashboard Layout Fixes */
+
+/* Ensure proper spacing between all cards */
+.card {
+    margin-bottom: 1.5rem;
+    height: 100%;
+}
+
+/* Fix grid spacing */
+.row {
+    --bs-gutter-y: 1.5rem;
+    --bs-gutter-x: 1.5rem;
+}
+
+/* Ensure cards don't overlap */
+.col-lg-3, .col-lg-4, .col-lg-6, .col-lg-8,
+.col-md-3, .col-md-4, .col-md-6, .col-md-8,
+.col-xl-3, .col-xl-4, .col-xl-6, .col-xl-8 {
+    margin-bottom: 1.5rem;
+}
+
+/* Fix chart containers */
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+}
+
+.chart-container canvas {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Small charts */
+.chart-container-sm {
+    position: relative;
+    height: 50px;
+    width: 100%;
+}
+
+.chart-container-sm canvas {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Fix analytics cards */
+.analytics-card {
+    min-height: 180px;
+}
+
+/* Fix social cards */
+.social-card {
+    min-height: 140px;
+}
+
+/* Profile card height */
+.profile-card {
+    min-height: 320px;
+}
+
+/* Reviews widget height */
+.reviews-widget {
+    min-height: 320px;
+}
+
+/* Course card height */
+.course-card {
+    min-height: 320px;
+}
+
+/* Server usage card */
+.server-usage-card {
+    min-height: 400px;
+}
+
+/* Browser status card */
+.browser-status-card {
+    min-height: 400px;
+}
+
+/* Country visits card */
+.country-visits-card {
+    min-height: 400px;
+}
+
+/* Ensure proper padding */
+main {
+    padding: 1.5rem;
+}
+
+.container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+/* Fix overlapping on mobile */
+@media (max-width: 768px) {
+    .row {
+        --bs-gutter-y: 1rem;
+        --bs-gutter-x: 1rem;
+    }
+
+    .col-12 {
+        margin-bottom: 1rem;
+    }
+
+    main {
+        padding: 1rem;
+    }
+
+    .card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Ensure equal height cards in same row */
+.row-equal-height {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.row-equal-height > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+}
+
+.row-equal-height .card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.row-equal-height .card-body {
+    flex: 1;
+}
+
+/* Fix spacing between sections */
+.dashboard-section {
+    margin-bottom: 2rem;
+}
+
+/* Prevent content overflow */
+.card-body {
+    overflow-x: hidden;
+}
+
+/* Fix progress bars */
+.progress {
+    height: 6px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Standardize card headers */
+.card-header {
+    background: transparent;
+    border-bottom: 1px solid rgba(0,0,0,0.125);
+    padding: 1rem 1.25rem;
+}
+
+/* Fix notification dropdown width */
+.dropdown-menu {
+    max-width: 350px;
+}
+
+/* Ensure cards stay within viewport */
+.card {
+    max-width: 100%;
+    overflow: hidden;
+}

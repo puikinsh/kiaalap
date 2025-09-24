@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kiaalap - Modern Education Management Dashboard for Universities and Institutions">
+    <meta name="keywords" content="education, dashboard, university, management, admin">
+    <meta name="author" content="Kiaalap">
+
+    <!-- Preconnect to external domains for faster loading -->
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://ui-avatars.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
+    <!-- Page Title -->
+    <title>Kiaalap - Dashboard</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Critical CSS (inline for faster initial render) -->
+    <style>
+        /* Critical above-the-fold CSS */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .top-navbar { background: white; height: 64px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+
+        /* Loading skeleton */
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 1000px 100%;
+            animation: shimmer 2s infinite;
+        }
+    </style>
+
+    <!-- Async load non-critical CSS -->
+    <link rel="preload" href="node_modules/bootstrap/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="node_modules/bootstrap-icons/font/bootstrap-icons.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="src/css/dashboard.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="src/css/dashboard-fixed.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="src/css/charts-layout.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+    <!-- Fallback for browsers without JavaScript -->
+    <noscript>
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="src/css/dashboard.css">
+        <link rel="stylesheet" href="src/css/dashboard-fixed.css">
+        <link rel="stylesheet" href="src/css/charts-layout.css">
+    </noscript>
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <!-- Search Backdrop -->
+    <div class="search-backdrop" id="searchBackdrop" aria-hidden="true"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <h1 class="h5 mb-0">
+                    <i class="bi bi-mortarboard-fill" aria-hidden="true"></i>
+                    Kiaalap
+                </h1>
+                <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+                    <i class="bi bi-x-lg" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <!-- Navigation structure using data attributes for easier JS manipulation -->
+            <div class="menu-section" data-section="main">
+                <h2 class="menu-section-title">Main</h2>
+                <ul class="nav flex-column" role="list">
+                    <li class="nav-item" role="listitem">
+                        <a class="nav-link has-submenu active" href="#dashboard" data-bs-target="#dashboardSubmenu" aria-expanded="false" aria-controls="dashboardSubmenu">
+                            <i class="bi bi-speedometer2" aria-hidden="true"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <ul id="dashboardSubmenu" class="submenu collapse list-unstyled" role="list">
+                            <li role="listitem"><a class="nav-link" href="#dashboard-v1">Dashboard v.1</a></li>
+                            <li role="listitem"><a class="nav-link" href="#dashboard-v2">Dashboard v.2</a></li>
+                            <li role="listitem"><a class="nav-link" href="#dashboard-v3">Dashboard v.3</a></li>
+                            <li role="listitem"><a class="nav-link" href="#analytics">Analytics</a></li>
+                            <li role="listitem"><a class="nav-link" href="#widgets">Widgets</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item" role="listitem">
+                        <a class="nav-link" href="#events">
+                            <i class="bi bi-calendar-event" aria-hidden="true"></i>
+                            <span>Events</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Additional menu sections would follow the same pattern -->
+            <!-- Using template pattern for consistency -->
+        </nav>
+    </aside>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper" id="mainWrapper">
+        <!-- Header -->
+        <header class="navbar top-navbar" role="banner">
+            <div class="container-fluid d-flex align-items-center h-100">
+                <!-- Hamburger Menu -->
+                <button class="hamburger-menu" id="sidebarToggle" aria-label="Toggle sidebar" aria-expanded="false">
+                    <i class="bi bi-list" aria-hidden="true"></i>
+                </button>
+
+                <!-- Breadcrumb for desktop -->
+                <nav aria-label="Breadcrumb" class="d-none d-lg-block ms-3">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                    </ol>
+                </nav>
+
+                <!-- Logo for mobile -->
+                <div class="navbar-brand d-lg-none fw-bold me-auto">Kiaalap</div>
+
+                <!-- Spacer for desktop -->
+                <div class="flex-grow-1 d-none d-lg-block"></div>
+
+                <!-- Right Actions -->
+                <div class="d-flex align-items-center gap-2">
+                    <!-- Search Component -->
+                    <div class="search-container" role="search">
+                        <button class="btn btn-light btn-icon" id="searchToggle" aria-label="Toggle search">
+                            <i class="bi bi-search" aria-hidden="true"></i>
+                        </button>
+
+                        <form class="search-form" id="searchForm" role="search">
+                            <label for="searchInput" class="visually-hidden">Search</label>
+                            <i class="bi bi-search search-icon" aria-hidden="true"></i>
+                            <input type="search"
+                                   class="form-control"
+                                   id="searchInput"
+                                   placeholder="Search..."
+                                   aria-label="Search"
+                                   autocomplete="off">
+                            <button type="button" class="close-search" id="closeSearch" aria-label="Close search">
+                                <i class="bi bi-x-lg" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- User Menu with lazy-loaded image -->
+                    <div class="dropdown">
+                        <button class="btn btn-light d-flex align-items-center px-2 btn-icon"
+                                data-bs-toggle="dropdown"
+                                aria-label="User menu"
+                                aria-expanded="false">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Crect width='32' height='32' fill='%23ddd'/%3E%3C/svg%3E"
+                                 data-src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces"
+                                 alt="Sarah Johnson"
+                                 class="user-avatar lazyload"
+                                 width="32"
+                                 height="32">
+                            <span class="hide-mobile ms-2" style="font-size: 0.875rem;">Sarah Johnson</span>
+                            <i class="bi bi-chevron-down hide-mobile ms-1" style="font-size: 0.75rem;" aria-hidden="true"></i>
+                        </button>
+                        <!-- Dropdown menu items -->
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-content" id="main-content" role="main">
+            <!-- Page Header -->
+            <div class="mb-3">
+                <h1 class="h3 font-bold">Dashboard Overview</h1>
+                <p class="text-muted text-sm">Welcome back! Here's what's happening with your institution today.</p>
+            </div>
+
+            <!-- Dashboard content with loading skeletons -->
+            <div id="dashboardContent">
+                <!-- Content will be dynamically loaded -->
+                <div class="skeleton" style="height: 200px; margin-bottom: 24px; border-radius: 8px;"></div>
+                <div class="skeleton" style="height: 350px; margin-bottom: 24px; border-radius: 8px;"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Optimized Script Loading -->
+    <script>
+        // Inline critical JavaScript for immediate interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sidebar toggle
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            const mainWrapper = document.getElementById('mainWrapper');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('show');
+                    mainWrapper.classList.toggle('sidebar-open');
+                    sidebarOverlay.classList.toggle('show');
+                    this.setAttribute('aria-expanded',
+                        this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+                });
+            }
+
+            // Lazy load images
+            const lazyImages = document.querySelectorAll('.lazyload');
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            img.classList.remove('lazyload');
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+                lazyImages.forEach(img => imageObserver.observe(img));
+            } else {
+                // Fallback for older browsers
+                lazyImages.forEach(img => {
+                    img.src = img.dataset.src;
+                });
+            }
+        });
+
+        // Performance monitoring
+        if ('performance' in window && 'PerformanceObserver' in window) {
+            // Log performance metrics
+            new PerformanceObserver((list) => {
+                for (const entry of list.getEntries()) {
+                    console.log('LCP:', entry.startTime);
+                }
+            }).observe({type: 'largest-contentful-paint', buffered: true});
+        }
+    </script>
+
+    <!-- Defer non-critical scripts -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
+
+    <!-- Dashboard specific scripts loaded asynchronously -->
+    <script>
+        // Load dashboard content after page load
+        window.addEventListener('load', function() {
+            // Load dashboard modules
+            const script = document.createElement('script');
+            script.src = 'src/js/dashboard-modules.js';
+            script.type = 'module';
+            document.body.appendChild(script);
+
+            // Load charts after a slight delay
+            setTimeout(() => {
+                const chartScript = document.createElement('script');
+                chartScript.src = 'src/js/charts-responsive.js';
+                document.body.appendChild(chartScript);
+            }, 100);
+        });
+    </script>
+</body>
+</html>

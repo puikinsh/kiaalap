@@ -1,0 +1,82 @@
+// Theme Variables
+// This file contains all customizable variables for the theme
+
+// Layout
+$sidebar-width: 260px;
+$header-height: 60px;
+
+// Colors
+$primary: #6366f1;
+$secondary: #64748b;
+$success: #10b981;
+$info: #06b6d4;
+$warning: #f59e0b;
+$danger: #ef4444;
+
+// Backgrounds
+$body-bg: #f5f7fa;
+$sidebar-bg: #1e293b;
+$white: #fff;
+
+// Borders
+$border-color: #e5e7eb;
+$border-radius: 8px;
+$border-radius-lg: 12px;
+
+// Text
+$text-muted: #6b7280;
+$text-dark: #1f2937;
+
+// Shadows
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+// Animation
+$transition-speed: 0.3s;
+
+// Z-index layers
+$z-sidebar: 1040;
+$z-header: 1030;
+$z-backdrop: 1020;
+$z-dropdown: 1010;
+
+// Breakpoints
+$breakpoint-mobile: 768px;
+$breakpoint-tablet: 992px;
+$breakpoint-desktop: 1200px;
+
+// Export as CSS variables for runtime access
+:root {
+    --sidebar-width: #{$sidebar-width};
+    --header-height: #{$header-height};
+
+    --primary: #{$primary};
+    --secondary: #{$secondary};
+    --success: #{$success};
+    --info: #{$info};
+    --warning: #{$warning};
+    --danger: #{$danger};
+
+    --body-bg: #{$body-bg};
+    --sidebar-bg: #{$sidebar-bg};
+    --white: #{$white};
+
+    --border-color: #{$border-color};
+    --border-radius: #{$border-radius};
+    --border-radius-lg: #{$border-radius-lg};
+
+    --text-muted: #{$text-muted};
+    --text-dark: #{$text-dark};
+
+    --shadow-sm: #{$shadow-sm};
+    --shadow-md: #{$shadow-md};
+    --shadow-lg: #{$shadow-lg};
+
+    --transition-speed: #{$transition-speed};
+
+    --z-sidebar: #{$z-sidebar};
+    --z-header: #{$z-header};
+    --z-backdrop: #{$z-backdrop};
+    --z-dropdown: #{$z-dropdown};
+}

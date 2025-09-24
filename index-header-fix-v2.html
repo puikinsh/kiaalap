@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiaalap - Modern Bootstrap 5 Header</title>
+
+    <!-- Bootstrap 5.3.8 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --sidebar-width: 260px;
+        }
+
+        body {
+            background-color: #f5f7fa;
+        }
+
+        /* Sidebar placeholder styling */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: #1e293b;
+            z-index: 1000;
+        }
+
+        /* Main wrapper with sidebar offset */
+        .main-wrapper {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+        }
+
+        /* Header styling */
+        .top-navbar {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animated Search Bar */
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-form {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            overflow: hidden;
+            transition: width 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-form.active {
+            width: 300px;
+        }
+
+        .search-form .form-control {
+            width: 100%;
+            border-radius: 8px;
+            border-color: #e5e7eb;
+            padding-left: 2.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .search-form.active .form-control {
+            opacity: 1;
+        }
+
+        .search-form .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            z-index: 10;
+        }
+
+        .search-form .close-search {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #6b7280;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .search-form.active .close-search {
+            opacity: 1;
+        }
+
+        /* Notification badge */
+        .notification-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ef4444;
+            border-radius: 50%;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            border: 2px solid white;
+        }
+
+        /* Quick action buttons */
+        .quick-actions .btn {
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* User avatar */
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Dropdown customization */
+        .dropdown-menu {
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            padding: 0.5rem;
+            min-width: 280px;
+        }
+
+        .dropdown-item {
+            border-radius: 8px;
+            padding: 0.625rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f3f4f6;
+        }
+
+        /* Notification dropdown styling */
+        .notification-item {
+            display: flex;
+            align-items: start;
+            padding: 0.75rem;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .notification-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .main-wrapper {
+                margin-left: 0;
+            }
+
+            .search-form.active {
+                width: 200px;
+            }
+
+            .hide-mobile {
+                display: none !important;
+            }
+        }
+
+        /* Backdrop overlay for search */
+        .search-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(2px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out;
+            z-index: 999;
+        }
+
+        .search-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+    <!-- Search Backdrop -->
+    <div class="search-backdrop" id="searchBackdrop"></div>
+
+    <!-- Sidebar (placeholder) -->
+    <aside class="sidebar d-flex flex-column">
+        <div class="p-3 border-bottom border-dark">
+            <h5 class="text-white mb-0">
+                <i class="bi bi-mortarboard-fill me-2"></i>Kiaalap
+            </h5>
+        </div>
+        <nav class="flex-grow-1 p-3">
+            <!-- Sidebar content would go here -->
+        </nav>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+        <!-- Modern Bootstrap 5 Header -->
+        <nav class="navbar navbar-expand-lg top-navbar sticky-top py-3 px-4" style="z-index: 1000;">
+            <div class="container-fluid">
+                <!-- Mobile Menu Toggle -->
+                <button class="navbar-toggler border-0 d-lg-none" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Logo/Brand (optional for mobile) -->
+                <div class="navbar-brand d-lg-none fw-bold">Kiaalap</div>
+
+                <!-- Spacer for desktop to push items to the right -->
+                <div class="flex-grow-1 d-none d-lg-block"></div>
+
+                <!-- Right Side Actions -->
+                <div class="d-flex align-items-center gap-3">
+                    <!-- Search Container -->
+                    <div class="search-container">
+                        <!-- Search Toggle Button -->
+                        <button class="btn btn-light p-2"
+                                id="searchToggle"
+                                type="button">
+                            <i class="bi bi-search fs-5"></i>
+                        </button>
+
+                        <!-- Expandable Search Form -->
+                        <div class="search-form" id="searchForm">
+                            <i class="bi bi-search search-icon"></i>
+                            <input type="text"
+                                   class="form-control"
+                                   id="searchInput"
+                                   placeholder="Search..."
+                                   data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                            <button class="close-search" id="closeSearch">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+
+                            <!-- Search Suggestions Dropdown -->
+                            <ul class="dropdown-menu w-100 mt-2" style="min-width: auto;">
+                                <li><a class="dropdown-item" href="#">Student Registration</a></li>
+                                <li><a class="dropdown-item" href="#">Course Schedule</a></li>
+                                <li><a class="dropdown-item" href="#">Grade Reports</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions (Desktop only) -->
+                    <div class="quick-actions hide-mobile">
+                        <button class="btn btn-primary">
+                            <i class="bi bi-plus-circle me-1"></i> New
+                        </button>
+                    </div>
+
+                    <!-- Messages -->
+                    <div class="dropdown">
+                        <button class="btn btn-light position-relative p-2"
+                                type="button"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-chat-dots fs-5"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                                5
+                            </span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0">Messages</h6>
+                                    <a href="#" class="text-primary small text-decoration-none">View All</a>
+                                </div>
+                            </div>
+                            <div class="p-2" style="max-height: 300px; overflow-y: auto;">
+                                <a href="#" class="notification-item text-decoration-none text-dark">
+                                    <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&background=10b981&color=fff"
+                                         class="rounded-circle"
+                                         width="40"
+                                         height="40">
+                                    <div class="ms-3 flex-grow-1">
+                                        <div class="fw-semibold">Sarah Johnson</div>
+                                        <div class="text-muted small">Can you review my thesis draft?</div>
+                                        <div class="text-muted small">2 min ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="notification-item text-decoration-none text-dark">
+                                    <img src="https://ui-avatars.com/api/?name=Mike+Chen&background=3b82f6&color=fff"
+                                         class="rounded-circle"
+                                         width="40"
+                                         height="40">
+                                    <div class="ms-3 flex-grow-1">
+                                        <div class="fw-semibold">Mike Chen</div>
+                                        <div class="text-muted small">Meeting rescheduled to 3 PM</div>
+                                        <div class="text-muted small">15 min ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="dropdown">
+                        <button class="btn btn-light position-relative p-2"
+                                type="button"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-bell fs-5"></i>
+                            <span class="notification-dot"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0">Notifications</h6>
+                                    <a href="#" class="text-primary small text-decoration-none">Mark all read</a>
+                                </div>
+                            </div>
+                            <div class="p-2" style="max-height: 400px; overflow-y: auto;">
+                                <!-- Notification Items -->
+                                <a href="#" class="notification-item text-decoration-none text-dark">
+                                    <div class="notification-icon bg-primary bg-opacity-10 text-primary">
+                                        <i class="bi bi-calendar-check"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold">New Event Added</div>
+                                        <div class="text-muted small">Annual Science Fair scheduled for March 15</div>
+                                        <div class="text-muted small">5 minutes ago</div>
+                                    </div>
+                                </a>
+
+                                <a href="#" class="notification-item text-decoration-none text-dark">
+                                    <div class="notification-icon bg-success bg-opacity-10 text-success">
+                                        <i class="bi bi-check-circle"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold">Assignment Submitted</div>
+                                        <div class="text-muted small">12 students submitted Physics homework</div>
+                                        <div class="text-muted small">1 hour ago</div>
+                                    </div>
+                                </a>
+
+                                <a href="#" class="notification-item text-decoration-none text-dark">
+                                    <div class="notification-icon bg-warning bg-opacity-10 text-warning">
+                                        <i class="bi bi-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold">System Update</div>
+                                        <div class="text-muted small">Scheduled maintenance tonight at 2 AM</div>
+                                        <div class="text-muted small">3 hours ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="p-2 border-top">
+                                <a href="#" class="btn btn-sm btn-primary w-100">View All Notifications</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="dropdown">
+                        <button class="btn btn-light d-flex align-items-center gap-2 px-2"
+                                type="button"
+                                data-bs-toggle="dropdown">
+                            <img src="https://ui-avatars.com/api/?name=John+Doe&background=6366f1&color=fff"
+                                 alt="User"
+                                 class="user-avatar">
+                            <div class="text-start hide-mobile">
+                                <div class="fw-semibold small">John Doe</div>
+                                <div class="text-muted" style="font-size: 0.75rem;">Administrator</div>
+                            </div>
+                            <i class="bi bi-chevron-down ms-1 hide-mobile"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li class="px-3 py-2 border-bottom">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://ui-avatars.com/api/?name=John+Doe&background=6366f1&color=fff"
+                                         alt="User"
+                                         width="48"
+                                         height="48"
+                                         class="rounded-circle">
+                                    <div class="ms-3">
+                                        <div class="fw-semibold">John Doe</div>
+                                        <div class="text-muted small">john.doe@kiaalap.edu</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-person me-2"></i> My Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-gear me-2"></i> Settings
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-credit-card me-2"></i> Billing
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-question-circle me-2"></i> Help & Support
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item text-danger" href="#">
+                                    <i class="bi bi-box-arrow-right me-2"></i> Sign Out
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+        <main class="p-4">
+            <div class="container-fluid">
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Analytics</li>
+                    </ol>
+                </nav>
+
+                <!-- Page Title -->
+                <div class="row mb-4">
+                    <div class="col">
+                        <h1 class="h3 mb-0">Dashboard Analytics</h1>
+                        <p class="text-muted">Welcome back, John! Here's what's happening with your school today.</p>
+                    </div>
+                </div>
+
+                <!-- Content Cards -->
+                <div class="row g-4">
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="text-muted mb-2">Total Students</h6>
+                                        <h3 class="mb-0">2,543</h3>
+                                        <small class="text-success">
+                                            <i class="bi bi-arrow-up"></i> 12% increase
+                                        </small>
+                                    </div>
+                                    <div class="bg-primary bg-opacity-10 p-3 rounded">
+                                        <i class="bi bi-people-fill text-primary fs-3"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="text-muted mb-2">Total Courses</h6>
+                                        <h3 class="mb-0">186</h3>
+                                        <small class="text-success">
+                                            <i class="bi bi-arrow-up"></i> 5% increase
+                                        </small>
+                                    </div>
+                                    <div class="bg-success bg-opacity-10 p-3 rounded">
+                                        <i class="bi bi-book-fill text-success fs-3"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="text-muted mb-2">Revenue</h6>
+                                        <h3 class="mb-0">$48,697</h3>
+                                        <small class="text-danger">
+                                            <i class="bi bi-arrow-down"></i> 3% decrease
+                                        </small>
+                                    </div>
+                                    <div class="bg-warning bg-opacity-10 p-3 rounded">
+                                        <i class="bi bi-currency-dollar text-warning fs-3"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="text-muted mb-2">Events Today</h6>
+                                        <h3 class="mb-0">8</h3>
+                                        <small class="text-muted">
+                                            3 upcoming
+                                        </small>
+                                    </div>
+                                    <div class="bg-info bg-opacity-10 p-3 rounded">
+                                        <i class="bi bi-calendar-event text-info fs-3"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap 5.3.8 Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Initialize tooltips
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+        // Enhanced Search functionality
+        const searchToggle = document.getElementById('searchToggle');
+        const searchForm = document.getElementById('searchForm');
+        const searchInput = document.getElementById('searchInput');
+        const closeSearch = document.getElementById('closeSearch');
+        const searchBackdrop = document.getElementById('searchBackdrop');
+
+        // Open search
+        searchToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            searchForm.classList.add('active');
+            searchBackdrop.classList.add('active');
+            searchToggle.style.visibility = 'hidden';
+
+            // Focus on input after animation
+            setTimeout(() => {
+                searchInput.focus();
+            }, 300);
+        });
+
+        // Close search with X button
+        closeSearch.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closeSearchBar();
+        });
+
+        // Close search with backdrop click
+        searchBackdrop.addEventListener('click', function() {
+            closeSearchBar();
+        });
+
+        // Close search with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && searchForm.classList.contains('active')) {
+                closeSearchBar();
+            }
+        });
+
+        // Function to close search
+        function closeSearchBar() {
+            searchForm.classList.remove('active');
+            searchBackdrop.classList.remove('active');
+            searchToggle.style.visibility = 'visible';
+            searchInput.value = '';
+
+            // Close dropdown if open
+            const dropdown = bootstrap.Dropdown.getInstance(searchInput);
+            if (dropdown) {
+                dropdown.hide();
+            }
+        }
+
+        // Prevent search form from closing when clicking inside
+        searchForm.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        // Show dropdown when typing
+        searchInput.addEventListener('input', function() {
+            if (this.value.length > 0) {
+                const dropdown = new bootstrap.Dropdown(this);
+                dropdown.show();
+            }
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.navbar-toggler').addEventListener('click', function() {
+            document.querySelector('.sidebar').style.transform = 'translateX(0)';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiaalap - Dashboard</title>
+
+    <!-- External CSS Files -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="src/css/dashboard.css">
+    <link rel="stylesheet" href="src/css/widgets.css">
+    <link rel="stylesheet" href="src/css/dashboard-layout.css">
+</head>
+<body>
+    <!-- Search Backdrop -->
+    <div class="search-backdrop" id="searchBackdrop"></div>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <h5>
+                    <i class="bi bi-mortarboard-fill"></i>
+                    Kiaalap
+                </h5>
+                <button class="sidebar-close" id="sidebarClose">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="menu-section">
+                <div class="menu-section-title">Main</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#dashboard">
+                            <i class="bi bi-speedometer2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#students" data-bs-target="#studentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-people"></i>
+                            <span>Students</span>
+                        </a>
+                        <ul id="studentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="#students-list">All Students</a></li>
+                            <li><a class="nav-link" href="#students-add">Add Student</a></li>
+                            <li><a class="nav-link" href="#students-attendance">Attendance</a></li>
+                            <li><a class="nav-link" href="#students-grades">Grades</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#courses" data-bs-target="#coursesSubmenu" aria-expanded="false">
+                            <i class="bi bi-book"></i>
+                            <span>Courses</span>
+                        </a>
+                        <ul id="coursesSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="#courses-list">All Courses</a></li>
+                            <li><a class="nav-link" href="#courses-add">Create Course</a></li>
+                            <li><a class="nav-link" href="#courses-schedule">Schedule</a></li>
+                            <li><a class="nav-link" href="#courses-materials">Materials</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper" id="mainWrapper">
+        <!-- Header -->
+        <nav class="navbar top-navbar">
+            <div class="container-fluid d-flex align-items-center h-100">
+                <!-- Hamburger Menu -->
+                <button class="hamburger-menu" id="sidebarToggle">
+                    <i class="bi bi-list"></i>
+                </button>
+
+                <!-- Logo for mobile -->
+                <div class="navbar-brand d-lg-none fw-bold me-auto">Kiaalap</div>
+
+                <!-- Spacer for desktop -->
+                <div class="flex-grow-1 d-none d-lg-block"></div>
+
+                <!-- Right Actions -->
+                <div class="d-flex align-items-center gap-2">
+                    <!-- Search -->
+                    <div class="search-container">
+                        <button class="btn btn-light btn-icon" id="searchToggle">
+                            <i class="bi bi-search"></i>
+                        </button>
+
+                        <form class="search-form" id="searchForm">
+                            <i class="bi bi-search search-icon"></i>
+                            <input type="text"
+                                   class="form-control"
+                                   id="searchInput"
+                                   placeholder="Search...">
+                            <button type="button" class="close-search" id="closeSearch">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="dropdown">
+                        <button class="btn btn-light d-flex align-items-center px-2 btn-icon"
+                                data-bs-toggle="dropdown">
+                            <img src="https://ui-avatars.com/api/?name=John+Doe&background=6366f1&color=fff"
+                                 alt="User"
+                                 class="user-avatar">
+                            <span class="hide-mobile ms-2">John Doe</span>
+                            <i class="bi bi-chevron-down hide-mobile ms-1" style="font-size: 0.75rem;"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sign Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main>
+            <div class="container-fluid">
+                <!-- Page Header -->
+                <div class="mb-4">
+                    <h1 class="h3 mb-1">Dashboard Overview</h1>
+                    <p class="text-muted">Welcome back! Monitor your institution's performance.</p>
+                </div>
+
+                <!-- Section 1: Department Analytics -->
+                <div class="dashboard-section">
+                    <div class="row g-3">
+                        <div class="col-12 col-sm-6 col-lg-3">
+                            <div class="card border-0 shadow-sm analytics-card">
+                                <div class="card-body">
+                                    <h6 class="text-muted mb-2">Computer Tech</h6>
+                                    <h3 class="mb-2">$5,000</h3>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <span class="badge bg-success">+20%</span>
+                                        <small class="text-muted">Tuition Fees</small>
+                                    </div>
+                                    <div class="progress mt-2">
+                                        <div class="progress-bar bg-success" style="width: 20%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-3">
+                            <div class="card border-0 shadow-sm analytics-card">
+                                <div class="card-body">
+                                    <h6 class="text-muted mb-2">Accounting</h6>
+                                    <h3 class="mb-2">$3,000</h3>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <span class="badge bg-danger">+30%</span>
+                                        <small class="text-muted">Tuition Fees</small>
+                                    </div>
+                                    <div class="progress mt-2">
+                                        <div class="progress-bar bg-danger" style="width: 30%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-3">
+                            <div class="card border-0 shadow-sm analytics-card">
+                                <div class="card-body">
+                                    <h6 class="text-muted mb-2">Electrical Eng</h6>
+                                    <h3 class="mb-2">$2,000</h3>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <span class="badge bg-info">+60%</span>
+                                        <small class="text-muted">Tuition Fees</small>
+                                    </div>
+                                    <div class="progress mt-2">
+                                        <div class="progress-bar bg-info" style="width: 60%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-3">
+                            <div class="card border-0 shadow-sm analytics-card">
+                                <div class="card-body">
+                                    <h6 class="text-muted mb-2">Chemical Eng</h6>
+                                    <h3 class="mb-2">$3,500</h3>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <span class="badge bg-warning text-dark">+80%</span>
+                                        <small class="text-muted">Tuition Fees</small>
+                                    </div>
+                                    <div class="progress mt-2">
+                                        <div class="progress-bar bg-warning" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Charts -->
+                <div class="dashboard-section">
+                    <div class="row g-3">
+                        <!-- Main Chart -->
+                        <div class="col-12 col-lg-8">
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-header">
+                                    <h5 class="mb-0">University Earnings</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container">
+                                        <canvas id="earningsChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stats Cards -->
+                        <div class="col-12 col-lg-4">
+                            <div class="card border-0 shadow-sm mb-3">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="text-muted mb-1">Total Visits</h6>
+                                            <h3 class="mb-0">1,500</h3>
+                                        </div>
+                                        <i class="bi bi-eye text-primary fs-3"></i>
+                                    </div>
+                                    <div class="chart-container-sm mt-3">
+                                        <canvas id="visitsSparkline"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card border-0 shadow-sm mb-3">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="text-muted mb-1">Page Views</h6>
+                                            <h3 class="mb-0">3,000</h3>
+                                        </div>
+                                        <i class="bi bi-file-text text-info fs-3"></i>
+                                    </div>
+                                    <div class="chart-container-sm mt-3">
+                                        <canvas id="pageViewsSparkline"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="text-muted mb-1">Bounce Rate</h6>
+                                            <h3 class="mb-0">18%</h3>
+                                        </div>
+                                        <i class="bi bi-graph-down text-danger fs-3"></i>
+                                    </div>
+                                    <div class="chart-container-sm mt-3">
+                                        <canvas id="bounceRateSparkline"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Social Media Stats -->
+                <div class="dashboard-section">
+                    <div class="row g-3">
+                        <div class="col-12 col-sm-6 col-lg-3">
+                            <div class="card border-0 shadow-sm social-card facebook">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="social-icon">
+                                            <i class="bi bi-facebook"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h5 class="mb-0">50k</h5>
+                                            <small class="text-muted">Likes</small>
+                                        </div>
+                                    </div>
+                                    <div class="progress mt-3">
+                                        <div class="progress-bar" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-3">
+                            <div class="card border-0 shadow-sm social-card twitter">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="social-icon">
+                                            <i class="bi bi-twitter"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h5 class="mb-0">30k</h5>
+                                            <small class="text-muted">Followers</small>
+                                        </div>
+                                    </div>
+                                    <div class="progress mt-3">
+                                        <div class="progress-bar" style="width: 60%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-3">
+                            <div class="card border-0 shadow-sm social-card linkedin">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="social-icon">
+                                            <i class="bi bi-linkedin"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h5 class="mb-0">7k</h5>
+                                            <small class="text-muted">Connections</small>
+                                        </div>
+                                    </div>
+                                    <div class="progress mt-3">
+                                        <div class="progress-bar" style="width: 45%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-3">
+                            <div class="card border-0 shadow-sm social-card youtube">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="social-icon">
+                                            <i class="bi bi-youtube"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h5 class="mb-0">50k</h5>
+                                            <small class="text-muted">Subscribers</small>
+                                        </div>
+                                    </div>
+                                    <div class="progress mt-3">
+                                        <div class="progress-bar" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4: Mixed Content -->
+                <div class="dashboard-section">
+                    <div class="row g-3">
+                        <!-- Profile Card -->
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="card border-0 shadow-sm profile-card">
+                                <div class="card-body text-center">
+                                    <div class="profile-header mb-3">
+                                        <img src="https://ui-avatars.com/api/?name=Angela+Dominic&background=6366f1&color=fff&size=128"
+                                             class="rounded-circle mb-3"
+                                             width="80"
+                                             height="80"
+                                             alt="Profile">
+                                        <h5 class="mb-1">Angela Dominic</h5>
+                                        <p class="text-muted small mb-3">Web Designer & Developer</p>
+                                        <button class="btn btn-primary btn-sm">
+                                            <i class="bi bi-person-plus me-1"></i> Follow
+                                        </button>
+                                    </div>
+                                    <div class="row text-center mt-3">
+                                        <div class="col-4">
+                                            <h6 class="mb-0">199</h6>
+                                            <small class="text-muted">Articles</small>
+                                        </div>
+                                        <div class="col-4">
+                                            <h6 class="mb-0">599</h6>
+                                            <small class="text-muted">Likes</small>
+                                        </div>
+                                        <div class="col-4">
+                                            <h6 class="mb-0">399</h6>
+                                            <small class="text-muted">Comments</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reviews -->
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="card border-0 shadow-sm reviews-widget">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Recent Reviews</h5>
+                                </div>
+                                <div class="card-body" style="max-height: 250px; overflow-y: auto;">
+                                    <div class="review-item mb-3 pb-3 border-bottom">
+                                        <div class="d-flex">
+                                            <img src="https://ui-avatars.com/api/?name=Sarah+G&background=10b981&color=fff"
+                                                 class="rounded-circle me-2"
+                                                 width="32"
+                                                 height="32"
+                                                 alt="Sarah">
+                                            <div>
+                                                <h6 class="mb-0 small">Sarah Graves</h6>
+                                                <div class="rating">
+                                                    <i class="bi bi-star-fill text-warning small"></i>
+                                                    <i class="bi bi-star-fill text-warning small"></i>
+                                                    <i class="bi bi-star-fill text-warning small"></i>
+                                                    <i class="bi bi-star-fill text-warning small"></i>
+                                                    <i class="bi bi-star-half text-warning small"></i>
+                                                </div>
+                                                <p class="text-muted small mb-0">Highly recommend!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="review-item mb-3 pb-3 border-bottom">
+                                        <div class="d-flex">
+                                            <img src="https://ui-avatars.com/api/?name=Mike+C&background=3b82f6&color=fff"
+                                                 class="rounded-circle me-2"
+                                                 width="32"
+                                                 height="32"
+                                                 alt="Mike">
+                                            <div>
+                                                <h6 class="mb-0 small">Mike Chen</h6>
+                                                <div class="rating">
+                                                    <i class="bi bi-star-fill text-warning small"></i>
+                                                    <i class="bi bi-star-fill text-warning small"></i>
+                                                    <i class="bi bi-star-fill text-warning small"></i>
+                                                    <i class="bi bi-star-fill text-warning small"></i>
+                                                    <i class="bi bi-star text-warning small"></i>
+                                                </div>
+                                                <p class="text-muted small mb-0">Awesome program!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="review-item">
+                                        <div class="d-flex">
+                                            <img src="https://ui-avatars.com/api/?name=Lisa+P&background=ec4899&color=fff"
+                                                 class="rounded-circle me-2"
+                                                 width="32"
+                                                 height="32"
+                                                 alt="Lisa">
+                                            <div>
+                                                <h6 class="mb-0 small">Lisa Park</h6>
+                                                <div class="rating">
+                                                    <i class="bi bi-star-fill text-warning small"></i>
+                                                    <i class="bi bi-star-fill text-warning small"></i>
+                                                    <i class="bi bi-star-fill text-warning small"></i>
+                                                    <i class="bi bi-star-fill text-warning small"></i>
+                                                    <i class="bi bi-star-fill text-warning small"></i>
+                                                </div>
+                                                <p class="text-muted small mb-0">Great experience!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Course Card -->
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="card border-0 shadow-sm course-card">
+                                <img src="https://via.placeholder.com/400x150/6366f1/ffffff?text=App+Development"
+                                     class="card-img-top"
+                                     alt="Course"
+                                     style="height: 150px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Apps Development</h5>
+                                    <div class="d-flex justify-content-between text-muted small mb-2">
+                                        <span><i class="bi bi-clock"></i> 6 Months</span>
+                                        <span><i class="bi bi-people"></i> 100+</span>
+                                        <span>$500</span>
+                                    </div>
+                                    <p class="text-muted small">Learn to build modern mobile applications.</p>
+                                    <button class="btn btn-primary btn-sm w-100">Enroll Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 5: Analytics -->
+                <div class="dashboard-section">
+                    <div class="row g-3">
+                        <!-- Admission Chart -->
+                        <div class="col-12 col-lg-8">
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Admission Statistics</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-container">
+                                        <canvas id="admissionChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Server Usage -->
+                        <div class="col-12 col-lg-4">
+                            <div class="card border-0 shadow-sm server-usage-card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Server Usage</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span>CPU</span>
+                                            <span class="text-primary">90%</span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-primary" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span>Memory</span>
+                                            <span class="text-info">70%</span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-info" style="width: 70%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span>Disk</span>
+                                            <span class="text-warning">50%</span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-warning" style="width: 50%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span>Bandwidth</span>
+                                            <span class="text-danger">40%</span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-danger" style="width: 40%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 6: Browser & Country Stats -->
+                <div class="dashboard-section">
+                    <div class="row g-3">
+                        <!-- Browser Stats -->
+                        <div class="col-12 col-lg-6">
+                            <div class="card border-0 shadow-sm browser-status-card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Browser Usage</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span><i class="bi bi-google text-primary me-1"></i> Chrome</span>
+                                            <span class="badge bg-danger">95.8%</span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-danger" style="width: 95.8%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span><i class="bi bi-firefox text-warning me-1"></i> Firefox</span>
+                                            <span class="badge bg-primary">85.8%</span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-primary" style="width: 85.8%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span><i class="bi bi-apple me-1"></i> Safari</span>
+                                            <span class="badge bg-success">23.8%</span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-success" style="width: 23.8%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span><i class="bi bi-edge text-info me-1"></i> Edge</span>
+                                            <span class="badge bg-info">55.8%</span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-info" style="width: 55.8%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span><i class="bi bi-browser-chrome me-1"></i> Opera</span>
+                                            <span class="badge bg-warning text-dark">28.8%</span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-warning" style="width: 28.8%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Country Visits -->
+                        <div class="col-12 col-lg-6">
+                            <div class="card border-0 shadow-sm country-visits-card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Visits by Country</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span>🇦🇺 Australia</span>
+                                            <div class="text-end">
+                                                <strong>1,250</strong>
+                                                <small class="text-success ms-1">+75%</small>
+                                            </div>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-danger" style="width: 75%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span>🇺🇸 United States</span>
+                                            <div class="text-end">
+                                                <strong>1,050</strong>
+                                                <small class="text-success ms-1">+48%</small>
+                                            </div>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-info" style="width: 48%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span>🇨🇦 Canada</span>
+                                            <div class="text-end">
+                                                <strong>6,350</strong>
+                                                <small class="text-success ms-1">+55%</small>
+                                            </div>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-success" style="width: 55%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span>🇮🇳 India</span>
+                                            <div class="text-end">
+                                                <strong>950</strong>
+                                                <small class="text-danger ms-1">-33%</small>
+                                            </div>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-warning" style="width: 33%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span>🇧🇩 Bangladesh</span>
+                                            <div class="text-end">
+                                                <strong>3,250</strong>
+                                                <small class="text-success ms-1">+60%</small>
+                                            </div>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-dark" style="width: 60%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- External JavaScript Files -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="node_modules/chart.js/dist/chart.umd.js"></script>
+    <script src="src/js/dashboard.js"></script>
+    <script src="src/js/charts.js"></script>
+</body>
+</html>

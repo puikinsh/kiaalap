@@ -1,139 +1,281 @@
-<!doctype html>
-<html class="no-js" lang="en">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Lock | Kiaalap - Kiaalap Admin Template</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- favicon
-		============================================ -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-    <!-- Google Fonts
-		============================================ -->
-    <link href="https://fonts.googleapis.com/css?family=Play:400,700" rel="stylesheet">
-    <!-- Bootstrap CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- Bootstrap CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <!-- owl.carousel CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/owl.carousel.css">
-    <link rel="stylesheet" href="css/owl.theme.css">
-    <link rel="stylesheet" href="css/owl.transitions.css">
-    <!-- animate CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/animate.css">
-    <!-- normalize CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/normalize.css">
-    <!-- main CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/main.css">
-    <!-- morrisjs CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/morrisjs/morris.css">
-    <!-- mCustomScrollbar CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/scrollbar/jquery.mCustomScrollbar.min.css">
-    <!-- metisMenu CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/metisMenu/metisMenu.min.css">
-    <link rel="stylesheet" href="css/metisMenu/metisMenu-vertical.css">
-    <!-- calendar CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/calendar/fullcalendar.min.css">
-    <link rel="stylesheet" href="css/calendar/fullcalendar.print.min.css">
-    <!-- forms CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/form/all-type-forms.css">
-    <!-- style CSS
-		============================================ -->
-    <link rel="stylesheet" href="style.css">
-    <!-- responsive CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/responsive.css">
-    <!-- modernizr JS
-		============================================ -->
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kiaalap Education Management System - Screen Locked">
+    <meta name="keywords" content="education, dashboard, lock screen, university, management">
+    <meta name="author" content="Kiaalap">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://ui-avatars.com" crossorigin>
+
+    <title>Kiaalap - Locked</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Critical CSS -->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .auth-container {
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+        }
+        .auth-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        .lock-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .user-avatar-large {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: block;
+            border: 4px solid #f3f4f6;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .lock-icon {
+            position: absolute;
+            bottom: -5px;
+            right: 50%;
+            transform: translateX(50%);
+            background: #ef4444;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid white;
+        }
+    </style>
+
+    <!-- Async CSS Loading -->
+    <link rel="preload" href="node_modules/bootstrap/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="node_modules/bootstrap-icons/font/bootstrap-icons.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="src/css/auth.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+    <!-- Noscript Fallback -->
+    <noscript>
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="src/css/auth.css">
+    </noscript>
 </head>
-
 <body>
-    <!--[if lt IE 8]>
-		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-	<![endif]-->
-	<div class="error-pagewrap">
-		<div class="error-page-int">
-			<div class="hpanel">
-				<div class="panel-body text-center lock-inner">
-					<i class="fa fa-lock" aria-hidden="true"></i>
-					<br/>
-					<h4><span class="text-success">3:43:15 PM</span> <strong>Friday, February 27, 2015</strong></h4>
-					<p>Your are in lock screen. Main app was shut down and you need to enter your passwor to go back to app.</p>
-					<form action="#" class="m-t">
-						<div class="form-group">
-							<input type="password" required="" placeholder="******" class="form-control">
-						</div>
-						<button class="btn btn-primary block full-width" type="submit">Unlock</button>
-					</form>
-				</div>
-			</div>
-			<div class="text-center login-footer">
-				<p>Copyright © 2018. All rights reserved. Template by <a href="https://colorlib.com/wp/templates/">Colorlib</a></p>
-			</div>
-		</div>   
-	</div>
-    <!-- jquery
-		============================================ -->
-    <script src="js/vendor/jquery-1.12.4.min.js"></script>
-    <!-- bootstrap JS
-		============================================ -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- wow JS
-		============================================ -->
-    <script src="js/wow.min.js"></script>
-    <!-- price-slider JS
-		============================================ -->
-    <script src="js/jquery-price-slider.js"></script>
-    <!-- meanmenu JS
-		============================================ -->
-    <script src="js/jquery.meanmenu.js"></script>
-    <!-- owl.carousel JS
-		============================================ -->
-    <script src="js/owl.carousel.min.js"></script>
-    <!-- sticky JS
-		============================================ -->
-    <script src="js/jquery.sticky.js"></script>
-    <!-- scrollUp JS
-		============================================ -->
-    <script src="js/jquery.scrollUp.min.js"></script>
-    <!-- mCustomScrollbar JS
-		============================================ -->
-    <script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="js/scrollbar/mCustomScrollbar-active.js"></script>
-    <!-- metisMenu JS
-		============================================ -->
-    <script src="js/metisMenu/metisMenu.min.js"></script>
-    <script src="js/metisMenu/metisMenu-active.js"></script>
-    <!-- tab JS
-		============================================ -->
-    <script src="js/tab.js"></script>
-    <!-- icheck JS
-		============================================ -->
-    <script src="js/icheck/icheck.min.js"></script>
-    <script src="js/icheck/icheck-active.js"></script>
-    <!-- plugins JS
-		============================================ -->
-    <script src="js/plugins.js"></script>
-    <!-- main JS
-		============================================ -->
-    <script src="js/main.js"></script>
-    <!-- tawk chat JS
-		============================================ -->
-    <script src="js/tawk-chat.js"></script>
-</body>
+    <!-- Skip Link -->
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
 
+    <main id="main-content" class="auth-container">
+        <div class="auth-card">
+            <div class="lock-header">
+                <div class="position-relative d-inline-block">
+                    <img src="https://ui-avatars.com/api/?name=John+Doe&background=6366f1&color=fff&size=100"
+                         alt="User Avatar"
+                         class="user-avatar-large"
+                         loading="lazy">
+                    <div class="lock-icon">
+                        <i class="bi bi-lock-fill"></i>
+                    </div>
+                </div>
+
+                <h1 class="h4 mb-2 fw-bold mt-3">John Doe</h1>
+                <p class="text-muted mb-1">john.doe@kiaalap.edu</p>
+
+                <div class="text-center my-3">
+                    <div class="badge bg-secondary">
+                        <i class="bi bi-clock me-1"></i>
+                        <span id="currentTime">3:43:15 PM</span>
+                    </div>
+                    <div class="text-muted small mt-2">
+                        <span id="currentDate">Friday, February 27, 2025</span>
+                    </div>
+                </div>
+
+                <p class="text-muted small">
+                    Your session is locked. Enter your password to continue.
+                </p>
+            </div>
+
+            <form id="unlockForm" novalidate>
+                <div class="mb-3">
+                    <label for="password" class="form-label visually-hidden">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-key"></i>
+                        </span>
+                        <input type="password"
+                               class="form-control"
+                               id="password"
+                               name="password"
+                               placeholder="Enter your password"
+                               required
+                               autofocus
+                               aria-label="Password"
+                               aria-describedby="passwordHelp">
+                        <button class="btn btn-outline-secondary"
+                                type="button"
+                                id="togglePassword"
+                                aria-label="Toggle password visibility">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+                    <div class="invalid-feedback">
+                        Password is required to unlock.
+                    </div>
+                    <small id="passwordHelp" class="form-text text-muted">
+                        Enter your password to unlock the screen
+                    </small>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary btn-lg" type="submit">
+                        <i class="bi bi-unlock me-2"></i>
+                        Unlock Screen
+                    </button>
+                </div>
+
+                <hr class="my-4">
+
+                <div class="text-center">
+                    <p class="mb-2">
+                        <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#switchUserModal">
+                            <i class="bi bi-person-switch me-1"></i>
+                            Switch User
+                        </a>
+                    </p>
+                    <p>
+                        <a href="login.html" class="text-decoration-none text-danger">
+                            <i class="bi bi-box-arrow-right me-1"></i>
+                            Sign Out Completely
+                        </a>
+                    </p>
+                </div>
+            </form>
+        </div>
+
+        <div class="text-center mt-4">
+            <p class="text-white-50 small">
+                &copy; 2025 Kiaalap. All rights reserved.
+                <a href="#" class="text-white-50">Privacy</a> ·
+                <a href="#" class="text-white-50">Terms</a>
+            </p>
+        </div>
+    </main>
+
+    <!-- Switch User Modal -->
+    <div class="modal fade" id="switchUserModal" tabindex="-1" aria-labelledby="switchUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="switchUserModalLabel">Switch User Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>To switch to a different user account, you'll need to sign out completely and sign in with different credentials.</p>
+                    <p class="mb-0">Do you want to proceed to the login page?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <a href="login.html" class="btn btn-primary">
+                        <i class="bi bi-box-arrow-right me-2"></i>
+                        Go to Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts with defer -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script defer>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update time and date
+            function updateDateTime() {
+                const now = new Date();
+
+                // Format time
+                const timeOptions = {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: true
+                };
+                const timeString = now.toLocaleTimeString('en-US', timeOptions);
+
+                // Format date
+                const dateOptions = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                };
+                const dateString = now.toLocaleDateString('en-US', dateOptions);
+
+                // Update elements
+                const timeElement = document.getElementById('currentTime');
+                const dateElement = document.getElementById('currentDate');
+
+                if (timeElement) timeElement.textContent = timeString;
+                if (dateElement) dateElement.textContent = dateString;
+            }
+
+            // Update immediately and then every second
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+
+            // Toggle password visibility
+            const togglePassword = document.getElementById('togglePassword');
+            const password = document.getElementById('password');
+
+            if (togglePassword) {
+                togglePassword.addEventListener('click', function() {
+                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                    password.setAttribute('type', type);
+                    this.querySelector('i').classList.toggle('bi-eye');
+                    this.querySelector('i').classList.toggle('bi-eye-slash');
+                });
+            }
+
+            // Form validation
+            const form = document.getElementById('unlockForm');
+            if (form) {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    if (form.checkValidity()) {
+                        // Form is valid - would verify password and unlock here
+                        console.log('Unlocking screen...');
+                        // window.location.href = 'index.html';
+                    }
+
+                    form.classList.add('was-validated');
+                });
+            }
+
+            // Auto-focus password field
+            if (password) {
+                password.focus();
+            }
+        });
+    </script>
+</body>
 </html>

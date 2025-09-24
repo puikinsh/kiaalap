@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiaalap - Modern Bootstrap 5.3.8 Dashboard</title>
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5.3.8 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --sidebar-width: 260px;
+            --sidebar-collapsed-width: 70px;
+            --header-height: 60px;
+            --primary-color: #4361ee;
+            --sidebar-bg: #1e2139;
+            --sidebar-text: #8b92a8;
+            --sidebar-hover: #2c3151;
+            --sidebar-active: #4361ee;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f7fa;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: var(--sidebar-width);
+            background: var(--sidebar-bg);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1040;
+            overflow-x: hidden;
+        }
+
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed-width);
+        }
+
+        .sidebar-header {
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .sidebar-logo img {
+            height: 32px;
+            width: auto;
+        }
+
+        .sidebar-logo-text {
+            margin-left: 12px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #fff;
+            white-space: nowrap;
+        }
+
+        .sidebar.collapsed .sidebar-logo-text {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .sidebar-menu {
+            padding: 1rem 0;
+            height: calc(100vh - var(--header-height));
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        .sidebar-menu::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar-menu::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar-menu::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .sidebar-menu::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .menu-section {
+            padding: 0.5rem 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .menu-section-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--sidebar-text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+            opacity: 0.7;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed .menu-section-title {
+            opacity: 0;
+            visibility: hidden;
+            height: 0;
+            margin: 0;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.625rem 1.5rem;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            transition: all 0.2s;
+            position: relative;
+            border-radius: 0;
+        }
+
+        .nav-link:hover {
+            background: var(--sidebar-hover);
+            color: #fff;
+        }
+
+        .nav-link.active {
+            background: linear-gradient(90deg, rgba(67, 97, 238, 0.1) 0%, transparent 100%);
+            color: #fff;
+            position: relative;
+        }
+
+        .nav-link.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--sidebar-active);
+        }
+
+        .nav-icon {
+            min-width: 20px;
+            margin-right: 12px;
+            font-size: 1.125rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-text {
+            white-space: nowrap;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .sidebar.collapsed .nav-text {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .nav-arrow {
+            margin-left: auto;
+            transition: transform 0.2s;
+            font-size: 0.75rem;
+        }
+
+        .nav-link[aria-expanded="true"] .nav-arrow {
+            transform: rotate(90deg);
+        }
+
+        .sidebar.collapsed .nav-arrow {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            list-style: none;
+            padding: 0;
+        }
+
+        .submenu.show {
+            max-height: 500px;
+        }
+
+        .submenu .nav-link {
+            padding-left: 3.5rem;
+            font-size: 0.8125rem;
+        }
+
+        .sidebar.collapsed .submenu {
+            display: none;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: var(--sidebar-width);
+            height: var(--header-height);
+            background: #fff;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1030;
+        }
+
+        .sidebar.collapsed ~ .main-wrapper .header {
+            left: var(--sidebar-collapsed-width);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: #6b7280;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            transition: all 0.2s;
+        }
+
+        .sidebar-toggle:hover {
+            background: #f3f4f6;
+            color: #111827;
+        }
+
+        .search-form {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+
+        .header-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-btn {
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            color: #6b7280;
+            cursor: pointer;
+            border-radius: 0.375rem;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .header-btn:hover {
+            background: #f3f4f6;
+            color: #111827;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 0.25rem;
+            right: 0.25rem;
+            width: 0.5rem;
+            height: 0.5rem;
+            background: #ef4444;
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.375rem 0.75rem;
+            background: #f9fafb;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .user-menu:hover {
+            background: #f3f4f6;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .user-role {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        /* Main Content */
+        .main-wrapper {
+            margin-left: var(--sidebar-width);
+            padding-top: var(--header-height);
+            min-height: 100vh;
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sidebar.collapsed ~ .main-wrapper {
+            margin-left: var(--sidebar-collapsed-width);
+        }
+
+        .main-content {
+            padding: 1.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .sidebar.collapsed {
+                width: var(--sidebar-width);
+            }
+
+            .header {
+                left: 0;
+            }
+
+            .main-wrapper {
+                margin-left: 0;
+            }
+
+            .sidebar.collapsed ~ .main-wrapper {
+                margin-left: 0;
+            }
+
+            .search-form {
+                display: none;
+            }
+
+            .user-info {
+                display: none;
+            }
+        }
+
+        /* Overlay for mobile */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1039;
+        }
+
+        .sidebar-overlay.show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar-overlay {
+                display: block;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s;
+            }
+
+            .sidebar.show ~ .sidebar-overlay {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+
+        /* Cards */
+        .stat-card {
+            background: #fff;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+            transition: all 0.2s;
+        }
+
+        .stat-card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon.primary {
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary-color);
+        }
+
+        .stat-icon.success {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+        }
+
+        .stat-icon.warning {
+            background: rgba(234, 179, 8, 0.1);
+            color: #eab308;
+        }
+
+        .stat-icon.danger {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="sidebar-logo">
+                <i class="fas fa-graduation-cap" style="font-size: 1.5rem; color: var(--primary-color);"></i>
+                <span class="sidebar-logo-text">Kiaalap</span>
+            </a>
+        </div>
+
+        <div class="sidebar-menu">
+            <!-- Dashboard Section -->
+            <div class="menu-section">
+                <div class="menu-section-title">Main</div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#dashboard" class="nav-link active" data-bs-toggle="collapse" aria-expanded="true">
+                            <i class="nav-icon fas fa-home"></i>
+                            <span class="nav-text">Dashboard</span>
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </a>
+                        <ul class="submenu collapse show" id="dashboard">
+                            <li><a href="#" class="nav-link">Analytics</a></li>
+                            <li><a href="#" class="nav-link">Reports</a></li>
+                            <li><a href="#" class="nav-link">Widgets</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-calendar"></i>
+                            <span class="nav-text">Events</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Academic Section -->
+            <div class="menu-section">
+                <div class="menu-section-title">Academic</div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#professors" class="nav-link" data-bs-toggle="collapse">
+                            <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                            <span class="nav-text">Professors</span>
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </a>
+                        <ul class="submenu collapse" id="professors">
+                            <li><a href="#" class="nav-link">All Professors</a></li>
+                            <li><a href="#" class="nav-link">Add Professor</a></li>
+                            <li><a href="#" class="nav-link">Edit Professor</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#students" class="nav-link" data-bs-toggle="collapse">
+                            <i class="nav-icon fas fa-user-graduate"></i>
+                            <span class="nav-text">Students</span>
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </a>
+                        <ul class="submenu collapse" id="students">
+                            <li><a href="#" class="nav-link">All Students</a></li>
+                            <li><a href="#" class="nav-link">Add Student</a></li>
+                            <li><a href="#" class="nav-link">Student Profile</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#courses" class="nav-link" data-bs-toggle="collapse">
+                            <i class="nav-icon fas fa-book"></i>
+                            <span class="nav-text">Courses</span>
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </a>
+                        <ul class="submenu collapse" id="courses">
+                            <li><a href="#" class="nav-link">All Courses</a></li>
+                            <li><a href="#" class="nav-link">Add Course</a></li>
+                            <li><a href="#" class="nav-link">Course Info</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#library" class="nav-link" data-bs-toggle="collapse">
+                            <i class="nav-icon fas fa-book-open"></i>
+                            <span class="nav-text">Library</span>
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </a>
+                        <ul class="submenu collapse" id="library">
+                            <li><a href="#" class="nav-link">Library Assets</a></li>
+                            <li><a href="#" class="nav-link">Add Asset</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#departments" class="nav-link" data-bs-toggle="collapse">
+                            <i class="nav-icon fas fa-building"></i>
+                            <span class="nav-text">Departments</span>
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </a>
+                        <ul class="submenu collapse" id="departments">
+                            <li><a href="#" class="nav-link">All Departments</a></li>
+                            <li><a href="#" class="nav-link">Add Department</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Tools Section -->
+            <div class="menu-section">
+                <div class="menu-section-title">Tools</div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#mailbox" class="nav-link" data-bs-toggle="collapse">
+                            <i class="nav-icon fas fa-envelope"></i>
+                            <span class="nav-text">Mailbox</span>
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </a>
+                        <ul class="submenu collapse" id="mailbox">
+                            <li><a href="#" class="nav-link">Inbox</a></li>
+                            <li><a href="#" class="nav-link">Compose</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#charts" class="nav-link" data-bs-toggle="collapse">
+                            <i class="nav-icon fas fa-chart-line"></i>
+                            <span class="nav-text">Charts</span>
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </a>
+                        <ul class="submenu collapse" id="charts">
+                            <li><a href="#" class="nav-link">Line Charts</a></li>
+                            <li><a href="#" class="nav-link">Bar Charts</a></li>
+                            <li><a href="#" class="nav-link">Area Charts</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#tables" class="nav-link" data-bs-toggle="collapse">
+                            <i class="nav-icon fas fa-table"></i>
+                            <span class="nav-text">Tables</span>
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </a>
+                        <ul class="submenu collapse" id="tables">
+                            <li><a href="#" class="nav-link">Basic Tables</a></li>
+                            <li><a href="#" class="nav-link">Data Tables</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <form class="search-form">
+                    <i class="search-icon fas fa-search"></i>
+                    <input type="text" class="search-input" placeholder="Search...">
+                </form>
+            </div>
+
+            <div class="header-right">
+                <button class="header-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge"></span>
+                </button>
+
+                <button class="header-btn">
+                    <i class="fas fa-envelope"></i>
+                </button>
+
+                <button class="header-btn">
+                    <i class="fas fa-cog"></i>
+                </button>
+
+                <div class="dropdown">
+                    <div class="user-menu" data-bs-toggle="dropdown">
+                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=4361ee&color=fff" alt="User" class="user-avatar">
+                        <div class="user-info">
+                            <span class="user-name">John Doe</span>
+                            <span class="user-role">Administrator</span>
+                        </div>
+                        <i class="fas fa-chevron-down ms-2" style="font-size: 0.75rem; color: #6b7280;"></i>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Page Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h1 class="h3 mb-1">Dashboard</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i> Add New
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="row g-4 mb-4">
+                <div class="col-xl-3 col-md-6">
+                    <div class="stat-card">
+                        <div class="stat-icon primary">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3 class="h5 text-muted mb-1">Total Students</h3>
+                        <p class="h3 mb-0">2,584</p>
+                        <p class="text-success small mb-0">
+                            <i class="fas fa-arrow-up me-1"></i> 12% from last month
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6">
+                    <div class="stat-card">
+                        <div class="stat-icon success">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3 class="h5 text-muted mb-1">Total Courses</h3>
+                        <p class="h3 mb-0">157</p>
+                        <p class="text-success small mb-0">
+                            <i class="fas fa-arrow-up me-1"></i> 8% from last month
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6">
+                    <div class="stat-card">
+                        <div class="stat-icon warning">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <h3 class="h5 text-muted mb-1">Total Revenue</h3>
+                        <p class="h3 mb-0">$45,687</p>
+                        <p class="text-danger small mb-0">
+                            <i class="fas fa-arrow-down me-1"></i> 3% from last month
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6">
+                    <div class="stat-card">
+                        <div class="stat-icon danger">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <h3 class="h5 text-muted mb-1">New Users</h3>
+                        <p class="h3 mb-0">89</p>
+                        <p class="text-success small mb-0">
+                            <i class="fas fa-arrow-up me-1"></i> 25% from last month
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header bg-white">
+                            <h5 class="card-title mb-0">Revenue Overview</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="revenueChart" height="100"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header bg-white">
+                            <h5 class="card-title mb-0">Course Distribution</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="courseChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap 5.3.8 Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Sidebar Toggle
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        sidebarToggle.addEventListener('click', () => {
+            // On mobile, show/hide sidebar
+            if (window.innerWidth <= 768) {
+                sidebar.classList.toggle('show');
+                sidebarOverlay.classList.toggle('show');
+            } else {
+                // On desktop, collapse/expand
+                sidebar.classList.toggle('collapsed');
+            }
+        });
+
+        // Close sidebar on overlay click (mobile)
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('show');
+            sidebarOverlay.classList.remove('show');
+        });
+
+        // Handle submenu toggles
+        document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const target = document.querySelector(targetId);
+
+                // Close other submenus
+                document.querySelectorAll('.submenu').forEach(menu => {
+                    if (menu !== target) {
+                        menu.classList.remove('show');
+                        const trigger = document.querySelector(`[href="#${menu.id}"]`);
+                        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+                    }
+                });
+
+                // Toggle current submenu
+                target.classList.toggle('show');
+                const isExpanded = target.classList.contains('show');
+                link.setAttribute('aria-expanded', isExpanded);
+            });
+        });
+
+        // Handle nav link active state
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                // Remove active from all links
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                // Add active to clicked link
+                this.classList.add('active');
+            });
+        });
+
+        // Initialize Charts
+        // Revenue Chart
+        const ctx1 = document.getElementById('revenueChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Revenue',
+                    data: [12000, 19000, 15000, 25000, 22000, 30000],
+                    borderColor: '#4361ee',
+                    backgroundColor: 'rgba(67, 97, 238, 0.1)',
+                    tension: 0.4,
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#4361ee'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            borderDash: [2],
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // Course Distribution Chart
+        const ctx2 = document.getElementById('courseChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ['Computer Science', 'Business', 'Engineering', 'Arts', 'Other'],
+                datasets: [{
+                    data: [35, 25, 20, 10, 10],
+                    backgroundColor: [
+                        '#4361ee',
+                        '#22c55e',
+                        '#eab308',
+                        '#ef4444',
+                        '#8b5cf6'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 15,
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Responsive behavior
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('show');
+                sidebarOverlay.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

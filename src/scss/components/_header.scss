@@ -1,0 +1,124 @@
+// Header Component Styles
+
+.top-navbar {
+    background: var(--white);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    height: var(--header-height);
+    padding-inline: 1rem;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: var(--z-header);
+}
+
+// Hamburger menu button
+.hamburger-menu {
+    margin-right: 1rem;
+}
+
+// Search Container
+.search-container {
+    position: relative;
+}
+
+.search-form {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    overflow: hidden;
+    transition: width var(--transition-speed) ease;
+    display: flex;
+    align-items: center;
+
+    &.active {
+        width: min(300px, 50vw);
+
+        @media (max-width: 768px) {
+            width: min(200px, 40vw);
+        }
+
+        input {
+            opacity: 1;
+        }
+
+        .close-icon {
+            opacity: 1;
+        }
+    }
+
+    input {
+        width: 100%;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--border-color);
+        padding: 0.375rem 2.25rem;
+        height: 36px;
+        opacity: 0;
+        transition: opacity var(--transition-speed) ease;
+    }
+
+    .icon {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        font-size: 0.875rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+
+        &.search-icon {
+            left: 0.75rem;
+        }
+
+        &.close-icon {
+            right: 0.75rem;
+            opacity: 0;
+            transition: opacity var(--transition-speed) ease;
+        }
+    }
+}
+
+// Search backdrop
+.search-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-speed) ease;
+    z-index: var(--z-backdrop);
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+// User Menu
+.user-menu {
+    .user-avatar {
+        width: 32px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .user-info {
+        .user-name {
+            font-size: 0.8rem;
+            line-height: 1;
+            font-weight: 600;
+        }
+
+        .user-role {
+            font-size: 0.7rem;
+            line-height: 1;
+            color: var(--text-muted);
+        }
+    }
+}

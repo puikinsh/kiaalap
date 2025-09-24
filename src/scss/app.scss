@@ -1,0 +1,46 @@
+// Kiaalap Admin Dashboard - Main Stylesheet
+// This file imports all modular SCSS components
+
+// 1. Bootstrap (must come first for overrides to work)
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+// 2. Bootstrap Icons
+@import "../../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+
+// 3. Base styles and variables
+@import "base/variables";
+
+// 4. Component styles
+@import "components/sidebar";
+@import "components/header";
+@import "components/buttons";
+@import "components/dropdowns";
+
+// 5. Layout utilities
+@import "utilities/responsive";
+
+// 6. Global base styles
+body {
+    background: var(--body-bg);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+// Utility classes
+.hide-mobile {
+    @media (max-width: 768px) {
+        display: none !important;
+    }
+}
+
+// Modern gap utilities
+.d-flex {
+    gap: 0.5rem;
+}
+
+.gap-2 {
+    gap: 0.5rem !important;
+}
+
+.gap-3 {
+    gap: 1rem !important;
+}

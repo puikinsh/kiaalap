@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submenu Test - Kiaalap</title>
+
+    <!-- External CSS Files -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="src/css/dashboard.css">
+
+    <style>
+        /* Quick visual test styles */
+        body {
+            padding: 20px;
+        }
+        .test-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .test-info h2 {
+            margin: 0;
+            font-size: 1.25rem;
+        }
+        .test-info ul {
+            margin: 10px 0 0;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-info">
+        <h2>Submenu Functionality Test</h2>
+        <ul>
+            <li>Click on Students, Courses, or Library to expand submenus</li>
+            <li>Check arrow rotation animation</li>
+            <li>Verify smooth collapse/expand transitions</li>
+            <li>Test multiple submenus open at once</li>
+        </ul>
+    </div>
+
+    <!-- Test Sidebar in isolation -->
+    <div class="row">
+        <div class="col-md-4">
+            <div style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+                <nav class="sidebar-nav" style="position: relative;">
+                    <div class="menu-section">
+                        <div class="menu-section-title">Main</div>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#dashboard">
+                                    <i class="bi bi-speedometer2"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link has-submenu" href="#students" data-bs-target="#studentsSubmenu" aria-expanded="false">
+                                    <i class="bi bi-people"></i>
+                                    <span>Students</span>
+                                </a>
+                                <ul id="studentsSubmenu" class="submenu collapse list-unstyled">
+                                    <li><a class="nav-link" href="#students-list">All Students</a></li>
+                                    <li><a class="nav-link" href="#students-add">Add Student</a></li>
+                                    <li><a class="nav-link" href="#students-attendance">Attendance</a></li>
+                                    <li><a class="nav-link" href="#students-grades">Grades</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link has-submenu" href="#courses" data-bs-target="#coursesSubmenu" aria-expanded="false">
+                                    <i class="bi bi-book"></i>
+                                    <span>Courses</span>
+                                </a>
+                                <ul id="coursesSubmenu" class="submenu collapse list-unstyled">
+                                    <li><a class="nav-link" href="#courses-list">All Courses</a></li>
+                                    <li><a class="nav-link" href="#courses-add">Create Course</a></li>
+                                    <li><a class="nav-link" href="#courses-schedule">Schedule</a></li>
+                                    <li><a class="nav-link" href="#courses-materials">Materials</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="menu-section">
+                        <div class="menu-section-title">Academic</div>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#teachers">
+                                    <i class="bi bi-person-badge"></i>
+                                    <span>Teachers</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#schedule">
+                                    <i class="bi bi-calendar3"></i>
+                                    <span>Schedule</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link has-submenu" href="#library" data-bs-target="#librarySubmenu" aria-expanded="false">
+                                    <i class="bi bi-journal-bookmark"></i>
+                                    <span>Library</span>
+                                </a>
+                                <ul id="librarySubmenu" class="submenu collapse list-unstyled">
+                                    <li><a class="nav-link" href="#library-catalog">Book Catalog</a></li>
+                                    <li><a class="nav-link" href="#library-issue">Issue Book</a></li>
+                                    <li><a class="nav-link" href="#library-return">Return Book</a></li>
+                                    <li><a class="nav-link" href="#library-fines">Fines</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Test Results</h5>
+                    <div id="test-results">
+                        <p>Click on menu items to test functionality...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- External JavaScript Files -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="src/js/dashboard.js"></script>
+
+    <!-- Test monitoring script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const testResults = document.getElementById('test-results');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const isSubmenu = this.classList.contains('has-submenu');
+                    const linkText = this.textContent.trim();
+                    const timestamp = new Date().toLocaleTimeString();
+
+                    const result = document.createElement('div');
+                    result.className = 'alert alert-info py-2 mb-2';
+                    result.innerHTML = `<small>[${timestamp}] Clicked: <strong>${linkText}</strong>${isSubmenu ? ' (has submenu)' : ''}</small>`;
+
+                    testResults.insertBefore(result, testResults.firstChild);
+
+                    // Keep only last 5 results
+                    const alerts = testResults.querySelectorAll('.alert');
+                    if (alerts.length > 5) {
+                        alerts[alerts.length - 1].remove();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
