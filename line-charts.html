@@ -1,0 +1,423 @@
+{{> head}}
+
+<style>
+/* Critical CSS for immediate render */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .top-navbar { background: white; height: 60px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 0 1rem; }
+        .dashboard-content { padding: 24px; }
+
+        /* Loading animation */
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+</style>
+
+{{> sidebar}}
+
+<!-- Main Content Wrapper -->
+<div class="main-wrapper" id="mainWrapper">
+    {{> header}}
+
+    <!-- Main Content -->
+    <main class="dashboard-content" id="main-content">
+        <div class="container-fluid">
+<!-- Page Header -->
+            <div class="mb-3">
+                <h1 class="h3 font-bold">Line Charts</h1>
+                <p class="text-muted text-sm">Interactive line chart visualizations showing trends and patterns over time.</p>
+            </div>
+
+            <!-- Line Charts Content Row -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-2">
+                    <!-- Student Enrollment Trends -->
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Student Enrollment Trends</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="enrollmentTrendChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Academic Performance Over Time -->
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Academic Performance Trends</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="performanceTrendChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Revenue and Costs Trends Row -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-2">
+                    <!-- Revenue Trends -->
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Revenue Trends</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="revenueTrendChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Operating Costs Trends -->
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Operating Costs Analysis</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="costsTrendChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Width Comparison Chart -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-1">
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Multi-Year Department Performance Comparison</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="departmentComparisonChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        </div>
+    </main>
+
+    {{> footer}}
+</div>
+
+{{> scripts}}
+
+<script>
+// Sample data for line charts
+        const enrollmentTrendData = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'New Enrollments',
+                data: [150, 180, 220, 195, 280, 310, 340, 380, 320, 290, 260, 240],
+                borderColor: '#007bff',
+                backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                tension: 0.4,
+                fill: true
+            }, {
+                label: 'Active Students',
+                data: [2200, 2350, 2520, 2680, 2890, 3100, 3200, 3150, 3050, 2980, 2900, 2847],
+                borderColor: '#28a745',
+                backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                tension: 0.4,
+                fill: false
+            }, {
+                label: 'Graduations',
+                data: [45, 38, 42, 55, 48, 52, 65, 180, 220, 98, 45, 38],
+                borderColor: '#dc3545',
+                backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                tension: 0.4,
+                fill: false
+            }]
+        };
+
+        const performanceTrendData = {
+            labels: ['Q1 2023', 'Q2 2023', 'Q3 2023', 'Q4 2023', 'Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024'],
+            datasets: [{
+                label: 'Average GPA',
+                data: [3.15, 3.22, 3.28, 3.31, 3.35, 3.38, 3.41, 3.42],
+                borderColor: '#007bff',
+                backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                tension: 0.4,
+                fill: false,
+                yAxisID: 'y'
+            }, {
+                label: 'Pass Rate (%)',
+                data: [87.5, 88.2, 89.1, 89.8, 90.2, 90.8, 91.0, 91.2],
+                borderColor: '#28a745',
+                backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                tension: 0.4,
+                fill: false,
+                yAxisID: 'y1'
+            }, {
+                label: 'Course Satisfaction',
+                data: [4.1, 4.2, 4.15, 4.25, 4.3, 4.35, 4.4, 4.3],
+                borderColor: '#ffc107',
+                backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                tension: 0.4,
+                fill: false,
+                yAxisID: 'y2'
+            }]
+        };
+
+        const revenueTrendData = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'Total Revenue',
+                data: [220000, 210000, 235000, 245000, 250000, 240000, 265000, 275000, 268000, 285000, 290000, 295000],
+                borderColor: '#007bff',
+                backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                tension: 0.4,
+                fill: true
+            }, {
+                label: 'Tuition Income',
+                data: [180000, 175000, 192000, 200000, 205000, 195000, 215000, 225000, 218000, 235000, 240000, 245000],
+                borderColor: '#28a745',
+                backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                tension: 0.4,
+                fill: false
+            }, {
+                label: 'Other Income',
+                data: [40000, 35000, 43000, 45000, 45000, 45000, 50000, 50000, 50000, 50000, 50000, 50000],
+                borderColor: '#6610f2',
+                backgroundColor: 'rgba(102, 16, 242, 0.1)',
+                tension: 0.4,
+                fill: false
+            }]
+        };
+
+        const costsTrendData = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'Total Costs',
+                data: [165000, 170000, 172000, 175000, 178000, 180000, 182000, 185000, 187000, 190000, 192000, 195000],
+                borderColor: '#dc3545',
+                backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                tension: 0.4,
+                fill: true
+            }, {
+                label: 'Staff Salaries',
+                data: [120000, 122000, 124000, 125000, 127000, 128000, 130000, 132000, 134000, 135000, 137000, 139000],
+                borderColor: '#ffc107',
+                backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                tension: 0.4,
+                fill: false
+            }, {
+                label: 'Infrastructure',
+                data: [45000, 48000, 48000, 50000, 51000, 52000, 52000, 53000, 53000, 55000, 55000, 56000],
+                borderColor: '#17a2b8',
+                backgroundColor: 'rgba(23, 162, 184, 0.1)',
+                tension: 0.4,
+                fill: false
+            }]
+        };
+
+        const departmentComparisonData = {
+            labels: ['2020', '2021', '2022', '2023', '2024'],
+            datasets: [{
+                label: 'Computer Science',
+                data: [78.5, 82.1, 85.3, 88.7, 91.2],
+                borderColor: '#007bff',
+                backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                tension: 0.4,
+                fill: false
+            }, {
+                label: 'Engineering',
+                data: [75.2, 78.8, 82.4, 86.1, 89.7],
+                borderColor: '#28a745',
+                backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                tension: 0.4,
+                fill: false
+            }, {
+                label: 'Business',
+                data: [71.8, 74.5, 77.9, 81.6, 86.1],
+                borderColor: '#ffc107',
+                backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                tension: 0.4,
+                fill: false
+            }, {
+                label: 'Arts & Sciences',
+                data: [73.4, 76.2, 79.8, 83.5, 88.9],
+                borderColor: '#dc3545',
+                backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                tension: 0.4,
+                fill: false
+            }, {
+                label: 'Medicine',
+                data: [85.2, 88.6, 91.3, 93.8, 95.3],
+                borderColor: '#6f42c1',
+                backgroundColor: 'rgba(111, 66, 193, 0.1)',
+                tension: 0.4,
+                fill: false
+            }, {
+                label: 'Law',
+                data: [80.1, 82.7, 85.4, 87.9, 90.2],
+                borderColor: '#17a2b8',
+                backgroundColor: 'rgba(23, 162, 184, 0.1)',
+                tension: 0.4,
+                fill: false
+            }]
+        };
+
+        // Chart configuration options
+        const lineChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0,0,0,0.8)',
+                    titleColor: 'white',
+                    bodyColor: 'white',
+                    borderColor: '#dee2e6',
+                    borderWidth: 1,
+                    mode: 'index',
+                    intersect: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(0,0,0,0.1)'
+                    },
+                    ticks: {
+                        color: '#6c757d'
+                    }
+                },
+                x: {
+                    grid: {
+                        color: 'rgba(0,0,0,0.1)'
+                    },
+                    ticks: {
+                        color: '#6c757d'
+                    }
+                }
+            },
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            elements: {
+                line: {
+                    borderWidth: 2
+                },
+                point: {
+                    radius: 4,
+                    hoverRadius: 6
+                }
+            }
+        };
+
+        // Initialize charts when DOM is loaded
+        $(document).ready(function() {
+            // Student Enrollment Trend Chart
+            const enrollmentTrendCtx = document.getElementById('enrollmentTrendChart').getContext('2d');
+            const enrollmentTrendChart = new Chart(enrollmentTrendCtx, {
+                type: 'line',
+                data: enrollmentTrendData,
+                options: lineChartOptions
+            });
+
+            // Academic Performance Trend Chart
+            const performanceTrendCtx = document.getElementById('performanceTrendChart').getContext('2d');
+            const performanceTrendChart = new Chart(performanceTrendCtx, {
+                type: 'line',
+                data: performanceTrendData,
+                options: {
+                    ...lineChartOptions,
+                    scales: {
+                        ...lineChartOptions.scales,
+                        y: {
+                            ...lineChartOptions.scales.y,
+                            type: 'linear',
+                            position: 'left',
+                            min: 3,
+                            max: 3.5
+                        },
+                        y1: {
+                            type: 'linear',
+                            position: 'right',
+                            min: 85,
+                            max: 95,
+                            grid: {
+                                drawOnChartArea: false,
+                            },
+                            ticks: {
+                                color: '#6c757d'
+                            }
+                        },
+                        y2: {
+                            type: 'linear',
+                            position: 'right',
+                            min: 4,
+                            max: 4.5,
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // Revenue Trend Chart
+            const revenueTrendCtx = document.getElementById('revenueTrendChart').getContext('2d');
+            const revenueTrendChart = new Chart(revenueTrendCtx, {
+                type: 'line',
+                data: revenueTrendData,
+                options: {
+                    ...lineChartOptions,
+                    scales: {
+                        ...lineChartOptions.scales,
+                        y: {
+                            ...lineChartOptions.scales.y,
+                            ticks: {
+                                ...lineChartOptions.scales.y.ticks,
+                                callback: function(value) {
+                                    return '$' + (value / 1000) + 'K';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Costs Trend Chart
+            const costsTrendCtx = document.getElementById('costsTrendChart').getContext('2d');
+            const costsTrendChart = new Chart(costsTrendCtx, {
+                type: 'line',
+                data: costsTrendData,
+                options: {
+                    ...lineChartOptions,
+                    scales: {
+                        ...lineChartOptions.scales,
+                        y: {
+                            ...lineChartOptions.scales.y,
+                            ticks: {
+                                ...lineChartOptions.scales.y.ticks,
+                                callback: function(value) {
+                                    return '$' + (value / 1000) + 'K';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Department Comparison Chart
+            const departmentComparisonCtx = document.getElementById('departmentComparisonChart').getContext('2d');
+            const departmentComparisonChart = new Chart(departmentComparisonCtx, {
+                type: 'line',
+                data: departmentComparisonData,
+                options: {
+                    ...lineChartOptions,
+                    scales: {
+                        ...lineChartOptions.scales,
+                        y: {
+                            ...lineChartOptions.scales.y,
+                            min: 70,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+        });
+</script>

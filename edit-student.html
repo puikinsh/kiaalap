@@ -1,0 +1,371 @@
+{{> head}}
+
+<style>
+/* Critical CSS for immediate render */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .top-navbar { background: white; height: 60px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 0 1rem; }
+        .dashboard-content { padding: 24px; }
+</style>
+
+{{> sidebar}}
+
+<!-- Main Content Wrapper -->
+<div class="main-wrapper" id="mainWrapper">
+    {{> header}}
+
+    <!-- Main Content -->
+    <main class="dashboard-content" id="main-content">
+        <div class="container-fluid">
+                <!-- Page Header with Student Info -->
+                <div class="dashboard-row">
+                    <div class="dashboard-grid grid-cols-1">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://ui-avatars.com/api/?name=Alex+Johnson&background=6366f1&color=fff"
+                                 alt="Alex Johnson"
+                                 class="rounded-circle me-3"
+                                 width="60"
+                                 height="60">
+                            <div>
+                                <h4 class="page-title mb-1">Edit Student - Alex Johnson</h4>
+                                <p class="text-muted mb-0">Student ID: STU2024001 | Computer Science Department</p>
+                            </div>
+                            <div class="ms-auto">
+                                <span class="badge bg-success">Active</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Tabs -->
+                <div class="dashboard-row">
+                    <div class="dashboard-grid grid-cols-1">
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-body">
+                                <!-- Tab Navigation -->
+                                <ul class="nav nav-tabs mb-4" id="studentFormTabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true">
+                                            <i class="bi bi-person-circle me-2"></i>Basic Information
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="account-tab" data-bs-toggle="tab" data-bs-target="#account" type="button" role="tab" aria-controls="account" aria-selected="false">
+                                            <i class="bi bi-shield-lock me-2"></i>Account Information
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="social-tab" data-bs-toggle="tab" data-bs-target="#social" type="button" role="tab" aria-controls="social" aria-selected="false">
+                                            <i class="bi bi-share me-2"></i>Social Information
+                                        </button>
+                                    </li>
+                                </ul>
+
+                                <!-- Tab Content -->
+                                <div class="tab-content" id="studentFormTabContent">
+                                    <!-- Basic Information Tab -->
+                                    <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
+                                        <form class="needs-validation" novalidate>
+                                            <div class="row g-3">
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="fullName" class="form-label">Full Name <span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control" id="fullName" value="Alex Johnson" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid name.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="studentId" class="form-label">Student ID <span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control" id="studentId" value="STU2024001" readonly>
+                                                        <div class="form-text">Student ID cannot be changed</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="department" class="form-label">Department <span class="text-danger">*</span></label>
+                                                        <select class="form-select" id="department" required>
+                                                            <option value="">Select Department</option>
+                                                            <option value="cs" selected>Computer Science</option>
+                                                            <option value="eng">Engineering</option>
+                                                            <option value="bus">Business Administration</option>
+                                                            <option value="med">Medicine</option>
+                                                            <option value="psy">Psychology</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">
+                                                            Please select a department.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="course" class="form-label">Course</label>
+                                                        <input type="text" class="form-control" id="course" value="Bachelor of Computer Science">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="dateOfBirth" class="form-label">Date of Birth <span class="text-danger">*</span></label>
+                                                        <input type="date" class="form-control" id="dateOfBirth" value="2004-03-15" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide date of birth.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="gender" class="form-label">Gender <span class="text-danger">*</span></label>
+                                                        <select class="form-select" id="gender" required>
+                                                            <option value="">Select Gender</option>
+                                                            <option value="male" selected>Male</option>
+                                                            <option value="female">Female</option>
+                                                            <option value="other">Other</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">
+                                                            Please select a gender.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                                                        <input type="tel" class="form-control" id="phone" value="+1 234-567-8900" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a phone number.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="parentPhone" class="form-label">Parent/Guardian Phone</label>
+                                                        <input type="tel" class="form-control" id="parentPhone" value="+1 234-567-8901">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="address" class="form-label">Address</label>
+                                                        <textarea class="form-control" id="address" rows="3">123 University Avenue, Building A, Room 205</textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="city" class="form-label">City</label>
+                                                        <input type="text" class="form-control" id="city" value="New York">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="state" class="form-label">State/Province</label>
+                                                        <input type="text" class="form-control" id="state" value="NY">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="postalCode" class="form-label">Postal Code</label>
+                                                        <input type="text" class="form-control" id="postalCode" value="10001">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="profileImage" class="form-label">Update Profile Image</label>
+                                                        <input class="form-control" type="file" id="profileImage" accept="image/*">
+                                                        <div class="form-text">Leave empty to keep current image. Accepted formats: JPG, PNG, GIF (Max 2MB)</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-12 px-2">
+                                                    <button type="submit" class="btn btn-primary">
+                                                        <i class="bi bi-check-circle me-2"></i>Update Basic Information
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary ms-2" onclick="window.location.href='all-students.html'">
+                                                        <i class="bi bi-x-circle me-2"></i>Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <!-- Account Information Tab -->
+                                    <div class="tab-pane fade" id="account" role="tabpanel" aria-labelledby="account-tab">
+                                        <form class="needs-validation" novalidate>
+                                            <div class="row g-3">
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                                                        <input type="email" class="form-control" id="email" value="alex.johnson@university.edu" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid email.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control" id="username" value="alexj2024" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a username.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="password" class="form-label">New Password</label>
+                                                        <input type="password" class="form-control" id="password" placeholder="Leave blank to keep current password">
+                                                        <div class="form-text">Only fill if you want to change the password</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                                                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password">
+                                                        <div class="invalid-feedback">
+                                                            Passwords must match.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="accountStatus" class="form-label">Account Status</label>
+                                                        <select class="form-select" id="accountStatus">
+                                                            <option value="active" selected>Active</option>
+                                                            <option value="inactive">Inactive</option>
+                                                            <option value="suspended">Suspended</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="role" class="form-label">Role</label>
+                                                        <select class="form-select" id="role">
+                                                            <option value="student" selected>Student</option>
+                                                            <option value="class_rep">Class Representative</option>
+                                                            <option value="prefect">Prefect</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 px-2">
+                                                    <div class="alert alert-info" role="alert">
+                                                        <i class="bi bi-info-circle me-2"></i>
+                                                        <strong>Last Login:</strong> December 12, 2025 at 3:45 PM from IP 192.168.1.100
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-12 px-2">
+                                                    <button type="submit" class="btn btn-primary">
+                                                        <i class="bi bi-check-circle me-2"></i>Update Account Information
+                                                    </button>
+                                                    <button type="reset" class="btn btn-secondary ms-2">
+                                                        <i class="bi bi-arrow-clockwise me-2"></i>Reset Changes
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <!-- Social Information Tab -->
+                                    <div class="tab-pane fade" id="social" role="tabpanel" aria-labelledby="social-tab">
+                                        <form>
+                                            <div class="row g-3">
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="facebook" class="form-label">Facebook Profile</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class="bi bi-facebook"></i></span>
+                                                            <input type="url" class="form-control" id="facebook" value="https://facebook.com/alexjohnson">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="twitter" class="form-label">Twitter Profile</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class="bi bi-twitter"></i></span>
+                                                            <input type="url" class="form-control" id="twitter" value="https://twitter.com/alexj_2024">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="linkedin" class="form-label">LinkedIn Profile</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class="bi bi-linkedin"></i></span>
+                                                            <input type="url" class="form-control" id="linkedin" value="https://linkedin.com/in/alex-johnson-cs">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="instagram" class="form-label">Instagram Profile</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class="bi bi-instagram"></i></span>
+                                                            <input type="url" class="form-control" id="instagram" placeholder="https://instagram.com/username">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="website" class="form-label">Personal Website</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class="bi bi-globe"></i></span>
+                                                            <input type="url" class="form-control" id="website" placeholder="https://example.com">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="github" class="form-label">GitHub Profile</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class="bi bi-github"></i></span>
+                                                            <input type="url" class="form-control" id="github" value="https://github.com/alexjohnson">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-12 px-2">
+                                                    <button type="submit" class="btn btn-primary">
+                                                        <i class="bi bi-check-circle me-2"></i>Update Social Information
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger ms-2">
+                                                        <i class="bi bi-trash me-2"></i>Delete Student
+                                                    </button>
+                                                    <button type="button" class="btn btn-success ms-2" onclick="window.location.href='student-profile.html'">
+                                                        <i class="bi bi-eye me-2"></i>View Profile
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </main>
+
+    {{> footer}}
+</div>
+
+{{> scripts}}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+            const forms = document.querySelectorAll('.needs-validation');
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        });
+</script>

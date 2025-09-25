@@ -1,0 +1,397 @@
+{{> head}}
+
+<style>
+/* Critical CSS for immediate render */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .top-navbar { background: white; height: 60px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .dashboard-content { padding: 24px; }
+
+        /* Loading animation */
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+</style>
+
+{{> sidebar}}
+
+<!-- Main Content Wrapper -->
+<div class="main-wrapper" id="mainWrapper">
+    {{> header}}
+
+    <!-- Main Content -->
+    <main class="dashboard-content" id="main-content">
+        <div class="container-fluid">
+<!-- Page Header -->
+            <div class="mb-3">
+                <h1 class="h3 font-bold">Area Charts</h1>
+                <p class="text-muted text-sm">Interactive area chart visualizations showing cumulative data and trends with filled areas.</p>
+            </div>
+
+            <!-- Area Charts Content Row -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-2">
+                    <!-- Student Registration Trends -->
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Student Registration Trends</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="registrationChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Course Completion Rates -->
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Course Completion Rates</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="completionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Revenue and Budget Analysis Row -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-2">
+                    <!-- Cumulative Revenue -->
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Cumulative Revenue Growth</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="cumulativeRevenueChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Department Budget Usage -->
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Department Budget Usage</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="budgetUsageChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Width Performance Chart -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-1">
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Multi-Department Academic Performance Over Time</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="performanceAreaChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>        </div>
+    </main>
+
+    {{> footer}}
+</div>
+
+{{> scripts}}
+
+<script>
+// Sample data for area charts
+        const registrationData = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'New Students',
+                data: [120, 145, 165, 180, 220, 250, 280, 320, 290, 270, 240, 220],
+                backgroundColor: 'rgba(0, 123, 255, 0.3)',
+                borderColor: '#007bff',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }, {
+                label: 'Returning Students',
+                data: [80, 95, 110, 125, 140, 155, 170, 185, 200, 210, 195, 180],
+                backgroundColor: 'rgba(40, 167, 69, 0.3)',
+                borderColor: '#28a745',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }]
+        };
+
+        const completionData = {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7', 'Week 8'],
+            datasets: [{
+                label: 'Computer Science',
+                data: [15, 28, 42, 58, 72, 85, 92, 95],
+                backgroundColor: 'rgba(0, 123, 255, 0.4)',
+                borderColor: '#007bff',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }, {
+                label: 'Engineering',
+                data: [12, 24, 38, 52, 68, 80, 88, 93],
+                backgroundColor: 'rgba(40, 167, 69, 0.4)',
+                borderColor: '#28a745',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }, {
+                label: 'Business',
+                data: [18, 32, 45, 60, 75, 87, 94, 97],
+                backgroundColor: 'rgba(255, 193, 7, 0.4)',
+                borderColor: '#ffc107',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }]
+        };
+
+        const cumulativeRevenueData = {
+            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+            datasets: [{
+                label: 'Tuition Revenue',
+                data: [450000, 920000, 1380000, 1850000],
+                backgroundColor: 'rgba(0, 123, 255, 0.3)',
+                borderColor: '#007bff',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }, {
+                label: 'Additional Fees',
+                data: [65000, 135000, 205000, 275000],
+                backgroundColor: 'rgba(102, 16, 242, 0.3)',
+                borderColor: '#6610f2',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }, {
+                label: 'Other Income',
+                data: [25000, 55000, 85000, 115000],
+                backgroundColor: 'rgba(23, 162, 184, 0.3)',
+                borderColor: '#17a2b8',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }]
+        };
+
+        const budgetUsageData = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'Computer Science',
+                data: [25000, 48000, 72000, 95000, 118000, 142000, 165000, 188000, 210000, 232000, 254000, 275000],
+                backgroundColor: 'rgba(0, 123, 255, 0.3)',
+                borderColor: '#007bff',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }, {
+                label: 'Engineering',
+                data: [30000, 58000, 87000, 115000, 144000, 172000, 201000, 229000, 258000, 286000, 315000, 343000],
+                backgroundColor: 'rgba(40, 167, 69, 0.3)',
+                borderColor: '#28a745',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }, {
+                label: 'Business',
+                data: [20000, 38000, 57000, 75000, 94000, 112000, 131000, 149000, 168000, 186000, 205000, 223000],
+                backgroundColor: 'rgba(255, 193, 7, 0.3)',
+                borderColor: '#ffc107',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }]
+        };
+
+        const performanceAreaData = {
+            labels: ['2020', '2021', '2022', '2023', '2024'],
+            datasets: [{
+                label: 'Computer Science',
+                data: [2200, 2450, 2680, 2890, 3120],
+                backgroundColor: 'rgba(0, 123, 255, 0.3)',
+                borderColor: '#007bff',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }, {
+                label: 'Engineering',
+                data: [1800, 2100, 2350, 2580, 2820],
+                backgroundColor: 'rgba(40, 167, 69, 0.3)',
+                borderColor: '#28a745',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }, {
+                label: 'Business',
+                data: [1500, 1750, 1980, 2200, 2450],
+                backgroundColor: 'rgba(255, 193, 7, 0.3)',
+                borderColor: '#ffc107',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }, {
+                label: 'Arts & Sciences',
+                data: [1200, 1380, 1550, 1720, 1900],
+                backgroundColor: 'rgba(220, 53, 69, 0.3)',
+                borderColor: '#dc3545',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }, {
+                label: 'Medicine',
+                data: [800, 920, 1050, 1180, 1320],
+                backgroundColor: 'rgba(111, 66, 193, 0.3)',
+                borderColor: '#6f42c1',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }]
+        };
+
+        // Chart configuration options for area charts
+        const areaChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0,0,0,0.8)',
+                    titleColor: 'white',
+                    bodyColor: 'white',
+                    borderColor: '#dee2e6',
+                    borderWidth: 1,
+                    mode: 'index',
+                    intersect: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    stacked: false,
+                    grid: {
+                        color: 'rgba(0,0,0,0.1)'
+                    },
+                    ticks: {
+                        color: '#6c757d'
+                    }
+                },
+                x: {
+                    grid: {
+                        color: 'rgba(0,0,0,0.1)'
+                    },
+                    ticks: {
+                        color: '#6c757d'
+                    }
+                }
+            },
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            elements: {
+                line: {
+                    borderWidth: 2
+                },
+                point: {
+                    radius: 4,
+                    hoverRadius: 6
+                }
+            }
+        };
+
+        // Initialize area charts when DOM is loaded
+        $(document).ready(function() {
+            // Student Registration Chart
+            const registrationCtx = document.getElementById('registrationChart').getContext('2d');
+            const registrationChart = new Chart(registrationCtx, {
+                type: 'line',
+                data: registrationData,
+                options: areaChartOptions
+            });
+
+            // Course Completion Chart
+            const completionCtx = document.getElementById('completionChart').getContext('2d');
+            const completionChart = new Chart(completionCtx, {
+                type: 'line',
+                data: completionData,
+                options: {
+                    ...areaChartOptions,
+                    scales: {
+                        ...areaChartOptions.scales,
+                        y: {
+                            ...areaChartOptions.scales.y,
+                            max: 100,
+                            ticks: {
+                                ...areaChartOptions.scales.y.ticks,
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Cumulative Revenue Chart
+            const cumulativeRevenueCtx = document.getElementById('cumulativeRevenueChart').getContext('2d');
+            const cumulativeRevenueChart = new Chart(cumulativeRevenueCtx, {
+                type: 'line',
+                data: cumulativeRevenueData,
+                options: {
+                    ...areaChartOptions,
+                    scales: {
+                        ...areaChartOptions.scales,
+                        y: {
+                            ...areaChartOptions.scales.y,
+                            stacked: true,
+                            ticks: {
+                                ...areaChartOptions.scales.y.ticks,
+                                callback: function(value) {
+                                    return '$' + (value / 1000) + 'K';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Budget Usage Chart
+            const budgetUsageCtx = document.getElementById('budgetUsageChart').getContext('2d');
+            const budgetUsageChart = new Chart(budgetUsageCtx, {
+                type: 'line',
+                data: budgetUsageData,
+                options: {
+                    ...areaChartOptions,
+                    scales: {
+                        ...areaChartOptions.scales,
+                        y: {
+                            ...areaChartOptions.scales.y,
+                            ticks: {
+                                ...areaChartOptions.scales.y.ticks,
+                                callback: function(value) {
+                                    return '$' + (value / 1000) + 'K';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Performance Area Chart
+            const performanceAreaCtx = document.getElementById('performanceAreaChart').getContext('2d');
+            const performanceAreaChart = new Chart(performanceAreaCtx, {
+                type: 'line',
+                data: performanceAreaData,
+                options: areaChartOptions
+            });
+        });
+</script>

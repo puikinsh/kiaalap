@@ -1,0 +1,280 @@
+{{> head}}
+
+<style>
+/* Critical CSS for immediate render */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .top-navbar { background: white; height: 60px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 0 1rem; }
+        .dashboard-content { padding: 24px; }
+</style>
+
+{{> sidebar}}
+
+<!-- Main Content Wrapper -->
+<div class="main-wrapper" id="mainWrapper">
+    {{> header}}
+
+    <!-- Main Content -->
+    <main class="dashboard-content" id="main-content">
+        <div class="container-fluid">
+                <!-- Page Header -->
+                <div class="dashboard-row">
+                    <div class="dashboard-grid grid-cols-1">
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-header d-flex justify-content-between align-items-center">
+                                <h4 class="dashboard-card-title mb-0">All Students</h4>
+                                <a href="add-student.html" class="btn btn-primary">
+                                    <i class="bi bi-plus-circle me-2"></i>Add New Student
+                                </a>
+                            </div>
+                            <div class="dashboard-card-body">
+                                <!-- Search and Filter -->
+                                <div class="row gx-3 gy-2 mb-3">
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                            <input type="text" class="form-control" placeholder="Search students...">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-select">
+                                            <option selected>All Departments</option>
+                                            <option>Computer Science</option>
+                                            <option>Engineering</option>
+                                            <option>Business</option>
+                                            <option>Medicine</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-select">
+                                            <option selected>All Years</option>
+                                            <option>First Year</option>
+                                            <option>Second Year</option>
+                                            <option>Third Year</option>
+                                            <option>Fourth Year</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Students Grid -->
+                <div class="dashboard-row">
+                    <div class="dashboard-grid grid-cols-4">
+                        <!-- Student Card 1 -->
+                        <div class="dashboard-card h-100">
+                            <div class="dashboard-card-body text-center">
+                                <img src="https://ui-avatars.com/api/?name=Alex+Johnson&background=6366f1&color=fff"
+                                     alt="Alex Johnson"
+                                     class="rounded-circle mb-3"
+                                     width="100"
+                                     height="100"
+                                     loading="lazy">
+                                <h5 class="mb-1">Alex Johnson</h5>
+                                <p class="text-muted mb-2">Computer Science</p>
+                                <p class="text-muted small mb-3"><strong>Age:</strong> 20 Years</p>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="student-profile.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                    <a href="edit-student.html" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Student Card 2 -->
+                        <div class="dashboard-card h-100">
+                            <div class="dashboard-card-body text-center">
+                                <img src="https://ui-avatars.com/api/?name=Sarah+Miller&background=ec4899&color=fff"
+                                     alt="Sarah Miller"
+                                     class="rounded-circle mb-3"
+                                     width="100"
+                                     height="100"
+                                     loading="lazy">
+                                <h5 class="mb-1">Sarah Miller</h5>
+                                <p class="text-muted mb-2">Business Administration</p>
+                                <p class="text-muted small mb-3"><strong>Age:</strong> 21 Years</p>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="student-profile.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                    <a href="edit-student.html" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Student Card 3 -->
+                        <div class="dashboard-card h-100">
+                            <div class="dashboard-card-body text-center">
+                                <img src="https://ui-avatars.com/api/?name=Mike+Chen&background=10b981&color=fff"
+                                     alt="Mike Chen"
+                                     class="rounded-circle mb-3"
+                                     width="100"
+                                     height="100"
+                                     loading="lazy">
+                                <h5 class="mb-1">Mike Chen</h5>
+                                <p class="text-muted mb-2">Engineering</p>
+                                <p class="text-muted small mb-3"><strong>Age:</strong> 19 Years</p>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="student-profile.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                    <a href="edit-student.html" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Student Card 4 -->
+                        <div class="dashboard-card h-100">
+                            <div class="dashboard-card-body text-center">
+                                <img src="https://ui-avatars.com/api/?name=Emma+Wilson&background=f59e0b&color=fff"
+                                     alt="Emma Wilson"
+                                     class="rounded-circle mb-3"
+                                     width="100"
+                                     height="100"
+                                     loading="lazy">
+                                <h5 class="mb-1">Emma Wilson</h5>
+                                <p class="text-muted mb-2">Medicine</p>
+                                <p class="text-muted small mb-3"><strong>Age:</strong> 22 Years</p>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="student-profile.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                    <a href="edit-student.html" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Student Card 5 -->
+                        <div class="dashboard-card h-100">
+                            <div class="dashboard-card-body text-center">
+                                <img src="https://ui-avatars.com/api/?name=James+Brown&background=8b5cf6&color=fff"
+                                     alt="James Brown"
+                                     class="rounded-circle mb-3"
+                                     width="100"
+                                     height="100"
+                                     loading="lazy">
+                                <h5 class="mb-1">James Brown</h5>
+                                <p class="text-muted mb-2">Psychology</p>
+                                <p class="text-muted small mb-3"><strong>Age:</strong> 20 Years</p>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="student-profile.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                    <a href="edit-student.html" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Student Card 6 -->
+                        <div class="dashboard-card h-100">
+                            <div class="dashboard-card-body text-center">
+                                <img src="https://ui-avatars.com/api/?name=Lisa+Anderson&background=ef4444&color=fff"
+                                     alt="Lisa Anderson"
+                                     class="rounded-circle mb-3"
+                                     width="100"
+                                     height="100"
+                                     loading="lazy">
+                                <h5 class="mb-1">Lisa Anderson</h5>
+                                <p class="text-muted mb-2">Mathematics</p>
+                                <p class="text-muted small mb-3"><strong>Age:</strong> 21 Years</p>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="student-profile.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                    <a href="edit-student.html" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Student Card 7 -->
+                        <div class="dashboard-card h-100">
+                            <div class="dashboard-card-body text-center">
+                                <img src="https://ui-avatars.com/api/?name=David+Lee&background=14b8a6&color=fff"
+                                     alt="David Lee"
+                                     class="rounded-circle mb-3"
+                                     width="100"
+                                     height="100"
+                                     loading="lazy">
+                                <h5 class="mb-1">David Lee</h5>
+                                <p class="text-muted mb-2">Physics</p>
+                                <p class="text-muted small mb-3"><strong>Age:</strong> 19 Years</p>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="student-profile.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                    <a href="edit-student.html" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Student Card 8 -->
+                        <div class="dashboard-card h-100">
+                            <div class="dashboard-card-body text-center">
+                                <img src="https://ui-avatars.com/api/?name=Amy+Garcia&background=f97316&color=fff"
+                                     alt="Amy Garcia"
+                                     class="rounded-circle mb-3"
+                                     width="100"
+                                     height="100"
+                                     loading="lazy">
+                                <h5 class="mb-1">Amy Garcia</h5>
+                                <p class="text-muted mb-2">Chemistry</p>
+                                <p class="text-muted small mb-3"><strong>Age:</strong> 20 Years</p>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="student-profile.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                    <a href="edit-student.html" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <nav aria-label="Student pagination">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                                <li class="page-item active" aria-current="page">
+                                    <a class="page-link" href="#">1</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+    </main>
+
+    {{> footer}}
+</div>
+
+{{> scripts}}

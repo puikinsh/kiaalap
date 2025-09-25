@@ -1,0 +1,259 @@
+{{> head}}
+
+<style>
+/* Critical CSS for immediate render */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .top-navbar { background: white; height: 60px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 0 1rem; }
+        .dashboard-content { padding: 24px; }
+
+        /* Loading animation */
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+</style>
+
+{{> sidebar}}
+
+<!-- Main Content Wrapper -->
+<div class="main-wrapper" id="mainWrapper">
+    {{> header}}
+
+    <!-- Main Content -->
+    <main class="dashboard-content" id="main-content">
+        <div class="container-fluid">
+<!-- Page Header -->
+            <div class="mb-3">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h1 class="h3 font-bold">Edit Department</h1>
+                        <p class="text-muted text-sm">Update department information and manage settings for Computer Science Department.</p>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a href="departments.html" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-2"></i>Back to Departments
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Department Status Alert -->
+            <div class="alert alert-info d-flex align-items-center mb-4" role="alert">
+                <i class="bi bi-info-circle-fill me-2"></i>
+                <div>
+                    <strong>Department Status:</strong> This department is currently active with 1,542 enrolled students and 28 faculty members.
+                    <a href="#" class="alert-link ms-2">View detailed report</a>
+                </div>
+            </div>
+
+            <!-- Edit Form Row -->
+            <div class="row">
+                <!-- Main Form Column -->
+                <div class="col-lg-8 mb-4">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title mb-0">Department Information</h5>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <form id="editDepartmentForm">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="deptName" class="form-label">Department Name</label>
+                                        <input type="text" class="form-control" id="deptName" value="Computer Science" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="deptCode" class="form-label">Department Code</label>
+                                        <input type="text" class="form-control" id="deptCode" value="CS" required>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="deptHead" class="form-label">Department Head</label>
+                                        <select class="form-select" id="deptHead" required>
+                                            <option value="">Select Department Head</option>
+                                            <option value="1" selected>Dr. John Smith</option>
+                                            <option value="2">Dr. Sarah Johnson</option>
+                                            <option value="3">Dr. Michael Brown</option>
+                                            <option value="4">Dr. Amanda Rodriguez</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="deptStatus" class="form-label">Status</label>
+                                        <select class="form-select" id="deptStatus" required>
+                                            <option value="active" selected>Active</option>
+                                            <option value="paused">Paused</option>
+                                            <option value="disabled">Disabled</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="deptEmail" class="form-label">Department Email</label>
+                                        <input type="email" class="form-control" id="deptEmail" value="cs@kiaalap.edu" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="deptPhone" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" id="deptPhone" value="+1-555-0123">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="deptLocation" class="form-label">Building/Location</label>
+                                    <input type="text" class="form-control" id="deptLocation" value="Science Building, Floor 3">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="deptBudget" class="form-label">Annual Budget ($)</label>
+                                    <input type="number" class="form-control" id="deptBudget" value="2800000" min="0">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="deptDesc" class="form-label">Description</label>
+                                    <textarea class="form-control" id="deptDesc" rows="4">The Computer Science Department offers undergraduate and graduate programs in computer science, software engineering, and related fields. With cutting-edge research facilities and industry partnerships, we prepare students for successful careers in technology.</textarea>
+                                </div>
+
+                                <div class="d-flex justify-content-end gap-2">
+                                    <button type="button" class="btn btn-outline-secondary" onclick="window.location.href='departments.html'">
+                                        <i class="bi bi-x-circle me-1"></i> Cancel
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-check-circle me-1"></i> Update Department
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistics Column -->
+                <div class="col-lg-4 mb-4">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title mb-0">Department Statistics</h5>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <!-- Statistics Grid -->
+                            <div class="row text-center mb-4">
+                                <div class="col-6 mb-3">
+                                    <div class="p-3 bg-light border rounded shadow-sm">
+                                        <h4 class="text-primary mb-1">1,542</h4>
+                                        <small class="text-muted">Students</small>
+                                        <div class="text-success small mt-1">
+                                            <i class="bi bi-arrow-up"></i> +5.2%
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <div class="p-3 bg-light border rounded shadow-sm">
+                                        <h4 class="text-success mb-1">28</h4>
+                                        <small class="text-muted">Faculty</small>
+                                        <div class="text-success small mt-1">
+                                            <i class="bi bi-arrow-up"></i> +2 new
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <div class="p-3 bg-light border rounded shadow-sm">
+                                        <h4 class="text-info mb-1">15</h4>
+                                        <small class="text-muted">Programs</small>
+                                        <div class="text-muted small mt-1">3 Graduate</div>
+                                    </div>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <div class="p-3 bg-light border rounded shadow-sm">
+                                        <h4 class="text-warning mb-1">89%</h4>
+                                        <small class="text-muted">Capacity</small>
+                                        <div class="text-success small mt-1">Healthy</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Department Info -->
+                            <div class="row text-center mb-4">
+                                <div class="col-6">
+                                    <div class="text-muted small">Founded</div>
+                                    <div class="fw-semibold">1995</div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-muted small">Ranking</div>
+                                    <div class="fw-semibold">#12 National</div>
+                                </div>
+                            </div>
+
+                            <!-- Contact Information -->
+                            <div class="mb-4">
+                                <h6 class="text-muted mb-2">Contact Information</h6>
+                                <div class="small">
+                                    <div class="mb-1"><i class="bi bi-geo-alt me-2"></i> Science Building, Floor 3</div>
+                                    <div class="mb-1"><i class="bi bi-telephone me-2"></i> +1 (555) 123-4567</div>
+                                    <div class="mb-1"><i class="bi bi-envelope me-2"></i> cs@kiaalap.edu</div>
+                                </div>
+                            </div>
+
+                            <!-- Recognition Badges -->
+                            <div>
+                                <h6 class="text-muted mb-2">Recent Recognition</h6>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="badge bg-primary">Excellence Award 2025</span>
+                                    <span class="badge bg-success">Top Research Dept</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>        </div>
+    </main>
+
+    {{> footer}}
+</div>
+
+{{> scripts}}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+            // Form submission handling
+            const form = document.getElementById('editDepartmentForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    // Show loading state
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = '<i class="bi bi-arrow-clockwise spin me-1"></i> Updating...';
+                    submitBtn.disabled = true;
+
+                    // Simulate API call
+                    setTimeout(() => {
+                        // Show success toast
+                        const toastHtml = `
+                            <div class="toast position-fixed top-0 end-0 m-3" role="alert">
+                                <div class="toast-header">
+                                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                    <strong class="me-auto">Success</strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                                </div>
+                                <div class="toast-body">
+                                    Department updated successfully! Redirecting...
+                                </div>
+                            </div>
+                        `;
+
+                        document.body.insertAdjacentHTML('beforeend', toastHtml);
+                        const toast = new bootstrap.Toast(document.querySelector('.toast:last-child'));
+                        toast.show();
+
+                        // Reset button and redirect
+                        setTimeout(() => {
+                            submitBtn.innerHTML = originalText;
+                            submitBtn.disabled = false;
+                            window.location.href = 'departments.html';
+                        }, 2000);
+                    }, 1500);
+                });
+            }
+        });
+</script>

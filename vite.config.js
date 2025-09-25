@@ -4,12 +4,9 @@ import { glob } from 'glob';
 import handlebars from 'vite-plugin-handlebars';
 import { helpers } from './src/helpers/handlebars-helpers.js';
 
-// Find all HTML files
-const htmlFiles = glob.sync('*.html').reduce((acc, file) => {
-  const name = file.replace('.html', '');
-  acc[name] = resolve(__dirname, file);
-  return acc;
-}, {});
+// The handlebars plugin will handle .hbs files automatically
+// We just need to list them for the build process
+const hbsFiles = glob.sync('*.hbs');
 
 // Get page-specific context
 function getPageContext(filename) {
@@ -59,7 +56,36 @@ function getPageContext(filename) {
       pageTitle: 'Dashboard Overview',
       pageDescription: 'Welcome to your Kiaalap admin dashboard',
       showPageHeader: true,
-      breadcrumb: [{ title: 'Dashboard', url: 'index.html' }]
+      breadcrumb: [{ title: 'Dashboard', url: 'index.html' }],
+      additionalCSS: ['src/css/charts-layout.css'],
+      additionalJS: ['https://cdn.jsdelivr.net/npm/chart.js', 'src/js/charts-responsive.js']
+    },
+    'index-1': {
+      title: 'Dashboard Variant 1',
+      pageTitle: 'Dashboard Overview',
+      pageDescription: 'Alternative dashboard layout with comprehensive analytics',
+      showPageHeader: true,
+      breadcrumb: [{ title: 'Dashboard', url: 'index-1.html' }],
+      additionalCSS: ['src/css/charts-layout.css'],
+      additionalJS: ['https://cdn.jsdelivr.net/npm/chart.js', 'src/js/charts-responsive.js']
+    },
+    'index-2': {
+      title: 'Dashboard Variant 2',
+      pageTitle: 'Dashboard Overview',
+      pageDescription: 'Modern dashboard layout with enhanced visualization',
+      showPageHeader: true,
+      breadcrumb: [{ title: 'Dashboard', url: 'index-2.html' }],
+      additionalCSS: ['src/css/charts-layout.css'],
+      additionalJS: ['https://cdn.jsdelivr.net/npm/chart.js', 'src/js/charts-responsive.js']
+    },
+    'analytics': {
+      title: 'Analytics Dashboard',
+      pageTitle: 'Analytics & Reports',
+      pageDescription: 'Comprehensive analytics dashboard with detailed metrics',
+      showPageHeader: true,
+      breadcrumb: [{ title: 'Analytics', url: 'analytics.html' }],
+      additionalCSS: ['src/css/charts-layout.css'],
+      additionalJS: ['https://cdn.jsdelivr.net/npm/chart.js', 'src/js/charts-responsive.js']
     },
     'modals': {
       title: 'Modal Components',
@@ -90,6 +116,42 @@ function getPageContext(filename) {
         { title: 'Interface', url: '#' },
         { title: 'Alert Components', url: 'alerts.html' }
       ]
+    },
+    'bar-charts': {
+      title: 'Bar Charts',
+      pageTitle: 'Bar Chart Examples',
+      pageDescription: 'Interactive bar charts with Chart.js',
+      showPageHeader: true,
+      breadcrumb: [
+        { title: 'Charts', url: '#' },
+        { title: 'Bar Charts', url: 'bar-charts.html' }
+      ],
+      additionalCSS: ['src/css/charts-layout.css'],
+      additionalJS: ['https://cdn.jsdelivr.net/npm/chart.js', 'src/js/charts-responsive.js']
+    },
+    'line-charts': {
+      title: 'Line Charts',
+      pageTitle: 'Line Chart Examples',
+      pageDescription: 'Interactive line charts with Chart.js',
+      showPageHeader: true,
+      breadcrumb: [
+        { title: 'Charts', url: '#' },
+        { title: 'Line Charts', url: 'line-charts.html' }
+      ],
+      additionalCSS: ['src/css/charts-layout.css'],
+      additionalJS: ['https://cdn.jsdelivr.net/npm/chart.js', 'src/js/charts-responsive.js']
+    },
+    'area-charts': {
+      title: 'Area Charts',
+      pageTitle: 'Area Chart Examples',
+      pageDescription: 'Interactive area charts with Chart.js',
+      showPageHeader: true,
+      breadcrumb: [
+        { title: 'Charts', url: '#' },
+        { title: 'Area Charts', url: 'area-charts.html' }
+      ],
+      additionalCSS: ['src/css/charts-layout.css'],
+      additionalJS: ['https://cdn.jsdelivr.net/npm/chart.js', 'src/js/charts-responsive.js']
     }
   };
 
@@ -182,17 +244,19 @@ export default defineConfig({
   ],
   build: {
     outDir: 'dist',
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-        ...htmlFiles
-      }
-    },
     minify: 'terser',
     terserOptions: {
       compress: {
         drop_console: true,
         drop_debugger: true
+      }
+    },
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        modals: resolve(__dirname, 'modals.html'),
+        buttons: resolve(__dirname, 'buttons.html'),
+        alerts: resolve(__dirname, 'alerts.html')
       }
     }
   },

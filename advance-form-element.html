@@ -1,0 +1,456 @@
+{{> head}}
+
+<style>
+/* Critical CSS for immediate render */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .top-navbar { background: white; height: 60px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 0 1rem; }
+        .dashboard-content { padding: 24px; }
+
+        /* Loading animation */
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+</style>
+
+{{> sidebar}}
+
+<!-- Main Content Wrapper -->
+<div class="main-wrapper" id="mainWrapper">
+    {{> header}}
+
+    <!-- Main Content -->
+    <main class="dashboard-content" id="main-content">
+        <div class="container-fluid">
+<!-- Page Header -->
+            <div class="mb-3">
+                <h1 class="h3 font-bold">Advanced Form Elements</h1>
+                <p class="text-muted text-sm">Create sophisticated forms with advanced input controls and validation.</p>
+            </div>
+
+            <!-- Advanced Form Content -->
+            <div class="dashboard-row">
+                <!-- Date and Time Pickers -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title">Date & Time Pickers</h5>
+                        <p class="text-muted small mb-0">Various date and time input controls</p>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <form class="dashboard-grid grid-cols-2">
+                            <div class="form-group">
+                                <label for="datePicker" class="form-label">Date Picker</label>
+                                <input type="date" class="form-control" id="datePicker" value="2025-01-15">
+                                <div class="form-text">Select a specific date</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="timePicker" class="form-label">Time Picker</label>
+                                <input type="time" class="form-control" id="timePicker" value="14:30">
+                                <div class="form-text">Select a specific time</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="datetimePicker" class="form-label">DateTime Local</label>
+                                <input type="datetime-local" class="form-control" id="datetimePicker" value="2025-01-15T14:30">
+                                <div class="form-text">Select date and time together</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="monthPicker" class="form-label">Month Picker</label>
+                                <input type="month" class="form-control" id="monthPicker" value="2025-01">
+                                <div class="form-text">Select a month and year</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-row">
+                <!-- Color and Range Inputs -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title">Color & Range Inputs</h5>
+                        <p class="text-muted small mb-0">Visual input controls for colors and ranges</p>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <form class="dashboard-grid grid-cols-2">
+                            <div class="form-group">
+                                <label for="colorPicker" class="form-label">Color Picker</label>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <input type="color" class="form-control form-control-color" id="colorPicker" value="#0d6efd">
+                                    <input type="text" class="form-control flex-grow-1" id="colorHex" value="#0d6efd" readonly>
+                                </div>
+                                <div class="form-text">Choose a color for your theme</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="rangeSlider" class="form-label">Range Slider</label>
+                                <input type="range" class="form-range" id="rangeSlider" min="0" max="100" value="50">
+                                <div class="d-flex justify-content-between small text-muted">
+                                    <span>0</span>
+                                    <span id="rangeValue">50</span>
+                                    <span>100</span>
+                                </div>
+                                <div class="form-text">Adjust the value using the slider</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="volumeRange" class="form-label">Volume Control</label>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <i class="bi bi-volume-mute"></i>
+                                    <input type="range" class="form-range flex-grow-1" id="volumeRange" min="0" max="100" value="75">
+                                    <i class="bi bi-volume-up"></i>
+                                </div>
+                                <div class="form-text">Control audio volume</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="progressRange" class="form-label">Progress Indicator</label>
+                                <input type="range" class="form-range" id="progressRange" min="0" max="100" value="25">
+                                <div class="progress mt-2" style="height: 8px;">
+                                    <div class="progress-bar" id="progressBar" role="progressbar" style="width: 25%"></div>
+                                </div>
+                                <div class="form-text">Visual progress representation</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-row">
+                <!-- Advanced Select Elements -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title">Advanced Select Elements</h5>
+                        <p class="text-muted small mb-0">Enhanced dropdown and multi-select controls</p>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <form class="dashboard-grid grid-cols-2">
+                            <div class="form-group">
+                                <label for="multiSelect" class="form-label">Multi-Select</label>
+                                <select class="form-select" id="multiSelect" multiple size="4">
+                                    <option value="cs">Computer Science</option>
+                                    <option value="math">Mathematics</option>
+                                    <option value="physics">Physics</option>
+                                    <option value="chemistry">Chemistry</option>
+                                    <option value="biology">Biology</option>
+                                    <option value="engineering">Engineering</option>
+                                </select>
+                                <div class="form-text">Hold Ctrl/Cmd to select multiple options</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="searchableSelect" class="form-label">Searchable Select</label>
+                                <select class="form-select" id="searchableSelect">
+                                    <option value="">Choose a country...</option>
+                                    <option value="us">United States</option>
+                                    <option value="uk">United Kingdom</option>
+                                    <option value="ca">Canada</option>
+                                    <option value="au">Australia</option>
+                                    <option value="de">Germany</option>
+                                    <option value="fr">France</option>
+                                    <option value="jp">Japan</option>
+                                    <option value="kr">South Korea</option>
+                                </select>
+                                <div class="form-text">Searchable dropdown with filtering</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Department Tags</label>
+                                <div class="form-control" style="min-height: 50px;">
+                                    <div class="d-flex flex-wrap gap-1">
+                                        <span class="badge bg-primary">Computer Science</span>
+                                        <span class="badge bg-success">Mathematics</span>
+                                        <span class="badge bg-info">Physics</span>
+                                        <input type="text" class="border-0 outline-0 flex-grow-1" placeholder="Add tag..." style="min-width: 100px;">
+                                    </div>
+                                </div>
+                                <div class="form-text">Type and press Enter to add tags</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="groupedSelect" class="form-label">Grouped Options</label>
+                                <select class="form-select" id="groupedSelect">
+                                    <option value="">Choose a course...</option>
+                                    <optgroup label="Computer Science">
+                                        <option value="cs101">Introduction to Programming</option>
+                                        <option value="cs201">Data Structures</option>
+                                        <option value="cs301">Algorithms</option>
+                                    </optgroup>
+                                    <optgroup label="Mathematics">
+                                        <option value="math101">Calculus I</option>
+                                        <option value="math201">Linear Algebra</option>
+                                        <option value="math301">Differential Equations</option>
+                                    </optgroup>
+                                </select>
+                                <div class="form-text">Options organized in groups</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-row">
+                <!-- File Upload and Media -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title">File Upload & Media</h5>
+                        <p class="text-muted small mb-0">Advanced file handling and media inputs</p>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <form class="dashboard-grid grid-cols-2">
+                            <div class="form-group">
+                                <label for="fileUpload" class="form-label">File Upload</label>
+                                <input type="file" class="form-control" id="fileUpload" multiple accept=".pdf,.doc,.docx,.txt">
+                                <div class="form-text">Upload documents (PDF, DOC, DOCX, TXT)</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="imageUpload" class="form-label">Image Upload</label>
+                                <input type="file" class="form-control" id="imageUpload" accept="image/*">
+                                <div class="form-text">Upload profile picture or course image</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Drag & Drop Zone</label>
+                                <div class="border border-2 border-dashed rounded p-4 text-center" style="border-color: #dee2e6 !important;">
+                                    <i class="bi bi-cloud-upload fs-1 text-muted"></i>
+                                    <div class="mt-2">
+                                        <strong>Drop files here</strong> or <a href="#" class="text-primary">browse</a>
+                                    </div>
+                                    <small class="text-muted">Max file size: 10MB</small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Uploaded Files</label>
+                                <div class="d-flex flex-column gap-2">
+                                    <div class="d-flex align-items-center gap-2 p-2 bg-light rounded">
+                                        <i class="bi bi-file-earmark-pdf text-danger"></i>
+                                        <span class="flex-grow-1">syllabus.pdf</span>
+                                        <small class="text-muted">2.4 MB</small>
+                                        <button type="button" class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2 p-2 bg-light rounded">
+                                        <i class="bi bi-file-earmark-image text-primary"></i>
+                                        <span class="flex-grow-1">course-banner.jpg</span>
+                                        <small class="text-muted">1.8 MB</small>
+                                        <button type="button" class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-row">
+                <!-- Advanced Input Controls -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title">Advanced Input Controls</h5>
+                        <p class="text-muted small mb-0">Specialized input types and controls</p>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <form class="dashboard-grid grid-cols-2">
+                            <div class="form-group">
+                                <label for="numberSpinner" class="form-label">Number Spinner</label>
+                                <input type="number" class="form-control" id="numberSpinner" min="0" max="100" step="5" value="25">
+                                <div class="form-text">Use arrows or type a number (step: 5)</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="urlInput" class="form-label">URL Input</label>
+                                <input type="url" class="form-control" id="urlInput" placeholder="https://example.com">
+                                <div class="form-text">Enter a valid URL</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="emailInput" class="form-label">Email Input</label>
+                                <input type="email" class="form-control" id="emailInput" placeholder="user@kiaalap.edu">
+                                <div class="form-text">Enter your institutional email</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="telInput" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="telInput" placeholder="+1 (555) 123-4567">
+                                <div class="form-text">Enter phone number with country code</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="patternInput" class="form-label">Student ID (Pattern)</label>
+                                <input type="text" class="form-control" id="patternInput" pattern="[A-Z]{2}[0-9]{6}" placeholder="CS123456">
+                                <div class="form-text">Format: 2 letters + 6 digits (e.g., CS123456)</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="searchInput" class="form-label">Search Input</label>
+                                <input type="search" class="form-control" id="searchInput" placeholder="Search courses...">
+                                <div class="form-text">Search with auto-suggestions</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-row">
+                <!-- Form Validation Example -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title">Form Validation Example</h5>
+                        <p class="text-muted small mb-0">Interactive form with real-time validation</p>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <form class="needs-validation" novalidate>
+                            <div class="dashboard-grid grid-cols-2">
+                                <div class="form-group">
+                                    <label for="validationCustom01" class="form-label">First Name *</label>
+                                    <input type="text" class="form-control" id="validationCustom01" required>
+                                    <div class="valid-feedback">Looks good!</div>
+                                    <div class="invalid-feedback">Please provide a valid first name.</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="validationCustom02" class="form-label">Last Name *</label>
+                                    <input type="text" class="form-control" id="validationCustom02" required>
+                                    <div class="valid-feedback">Looks good!</div>
+                                    <div class="invalid-feedback">Please provide a valid last name.</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="validationCustomEmail" class="form-label">Email Address *</label>
+                                    <input type="email" class="form-control" id="validationCustomEmail" required>
+                                    <div class="valid-feedback">Valid email address!</div>
+                                    <div class="invalid-feedback">Please provide a valid email address.</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="validationCustom04" class="form-label">Department *</label>
+                                    <select class="form-select" id="validationCustom04" required>
+                                        <option selected disabled value="">Choose department...</option>
+                                        <option>Computer Science</option>
+                                        <option>Mathematics</option>
+                                        <option>Physics</option>
+                                        <option>Chemistry</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select a valid department.</div>
+                                </div>
+                            </div>
+                            <div class="form-check mt-3">
+                                <input class="form-check-input" type="checkbox" id="validationCustom05" required>
+                                <label class="form-check-label" for="validationCustom05">
+                                    Agree to terms and conditions *
+                                </label>
+                                <div class="invalid-feedback">You must agree before submitting.</div>
+                            </div>
+                            <div class="mt-3">
+                                <button class="btn btn-primary" type="submit">Submit Form</button>
+                                <button class="btn btn-outline-secondary ms-2" type="reset">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>        </div>
+    </main>
+
+    {{> footer}}
+</div>
+
+{{> scripts}}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+            // Color picker sync
+            const colorPicker = document.getElementById('colorPicker');
+            const colorHex = document.getElementById('colorHex');
+            if (colorPicker && colorHex) {
+                colorPicker.addEventListener('input', function() {
+                    colorHex.value = this.value;
+                });
+            }
+
+            // Range sliders with live updates
+            const rangeSlider = document.getElementById('rangeSlider');
+            const rangeValue = document.getElementById('rangeValue');
+            if (rangeSlider && rangeValue) {
+                rangeSlider.addEventListener('input', function() {
+                    rangeValue.textContent = this.value;
+                });
+            }
+
+            // Progress range with progress bar
+            const progressRange = document.getElementById('progressRange');
+            const progressBar = document.getElementById('progressBar');
+            if (progressRange && progressBar) {
+                progressRange.addEventListener('input', function() {
+                    const value = this.value;
+                    progressBar.style.width = value + '%';
+                    progressBar.setAttribute('aria-valuenow', value);
+                });
+            }
+
+            // Form validation
+            const forms = document.querySelectorAll('.needs-validation');
+            Array.from(forms).forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+
+            // Tag input functionality
+            const tagInput = document.querySelector('input[placeholder="Add tag..."]');
+            if (tagInput) {
+                tagInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        const value = this.value.trim();
+                        if (value) {
+                            const tag = document.createElement('span');
+                            tag.className = 'badge bg-secondary';
+                            tag.innerHTML = value + ' <i class="bi bi-x-lg ms-1" style="cursor: pointer;" onclick="this.parentElement.remove()"></i>';
+                            this.parentElement.insertBefore(tag, this);
+                            this.value = '';
+                        }
+                    }
+                });
+            }
+
+            // File upload preview
+            const imageUpload = document.getElementById('imageUpload');
+            if (imageUpload) {
+                imageUpload.addEventListener('change', function() {
+                    const file = this.files[0];
+                    if (file) {
+                        console.log('Selected file:', file.name, 'Size:', Math.round(file.size / 1024) + 'KB');
+                    }
+                });
+            }
+
+            // Drag and drop functionality
+            const dropZone = document.querySelector('.border-dashed');
+            if (dropZone) {
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    dropZone.addEventListener(eventName, preventDefaults, false);
+                });
+
+                function preventDefaults(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    dropZone.addEventListener(eventName, highlight, false);
+                });
+
+                ['dragleave', 'drop'].forEach(eventName => {
+                    dropZone.addEventListener(eventName, unhighlight, false);
+                });
+
+                function highlight() {
+                    dropZone.classList.add('border-primary');
+                }
+
+                function unhighlight() {
+                    dropZone.classList.remove('border-primary');
+                }
+
+                dropZone.addEventListener('drop', handleDrop, false);
+
+                function handleDrop(e) {
+                    const dt = e.dataTransfer;
+                    const files = dt.files;
+                    console.log('Dropped files:', files.length);
+                }
+            }
+        });
+</script>

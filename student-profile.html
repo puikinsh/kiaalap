@@ -1,0 +1,48 @@
+{{> head}}
+
+<style>
+/* Critical CSS for immediate render */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .top-navbar { background: white; height: 60px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 0 1rem; }
+        .dashboard-content { padding: 24px; }
+</style>
+
+{{> sidebar}}
+
+<!-- Main Content Wrapper -->
+<div class="main-wrapper" id="mainWrapper">
+    {{> header}}
+
+    <!-- Main Content -->
+    <main class="dashboard-content" id="main-content">
+        <div class="container-fluid">
+            <!-- Page Header -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <div>
+                    <h1 class="h3 mb-0 text-gray-800">Student Profile</h1>
+                    <p class="mb-0 text-muted">View detailed student information and academic progress</p>
+                </div>
+            </div>
+
+<!-- Profile Header -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-auto text-center text-md-start mb-3 mb-md-0 pe-md-3">
+                                        <img src="https://ui-avatars.com/api/?name=Alex+Johnson&background=6366f1&color=fff&size=120"
+                                             alt="Alex Johnson"
+                                             class="rounded-circle"
+                                             width="120"
+                                             height="120"
+                                             loading="lazy">        </div>
+    </main>
+
+    {{> footer}}
+</div>
+
+{{> scripts}}

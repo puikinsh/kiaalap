@@ -1,0 +1,579 @@
+{{> head}}
+
+<style>
+/* Critical CSS for immediate render */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .top-navbar { background: white; height: 60px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 0 1rem; }
+        .dashboard-content { padding: 24px; }
+
+        /* Loading animation */
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+</style>
+
+{{> sidebar}}
+
+<!-- Main Content Wrapper -->
+<div class="main-wrapper" id="mainWrapper">
+    {{> header}}
+
+    <!-- Main Content -->
+    <main class="dashboard-content" id="main-content">
+        <div class="container-fluid">
+<!-- Page Header -->
+            <div class="mb-3">
+                <h1 class="h3 font-bold">Multi Upload</h1>
+                <p class="text-muted text-sm">Advanced file upload with drag & drop, progress tracking, and preview</p>
+            </div>
+
+            <!-- Upload Zone Row -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-1">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title mb-0">File Upload Zone</h5>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="upload-zone" id="uploadZone">
+                                <div class="upload-zone-content">
+                                    <i class="bi bi-cloud-upload upload-icon"></i>
+                                    <h5>Drag & Drop Files Here</h5>
+                                    <p class="text-muted">or click to browse</p>
+                                    <button class="btn btn-primary" id="browseFiles">
+                                        <i class="bi bi-folder-open me-2"></i>Browse Files
+                                    </button>
+                                    <input type="file" id="fileInput" multiple accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.txt,.zip,.rar" style="display: none;">
+                                </div>
+                            </div>
+
+                            <!-- File Type Info -->
+                            <div class="mt-3">
+                                <small class="text-muted">
+                                    <i class="bi bi-info-circle me-1"></i>
+                                    Supported formats: Images (JPG, PNG, GIF), Documents (PDF, DOC, DOCX, TXT), Archives (ZIP, RAR)
+                                    <br>
+                                    Maximum file size: 10MB per file | Maximum total size: 100MB
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upload Controls Row -->
+            <div class="dashboard-row" id="uploadControlsRow" style="display: none;">
+                <div class="dashboard-grid grid-cols-1">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header d-flex justify-content-between align-items-center">
+                            <h5 class="dashboard-card-title mb-0">Upload Queue</h5>
+                            <div>
+                                <button class="btn btn-outline-secondary btn-sm me-2" id="selectAllFiles">
+                                    <i class="bi bi-check-all me-1"></i>Select All
+                                </button>
+                                <button class="btn btn-outline-danger btn-sm me-2" id="removeAllFiles">
+                                    <i class="bi bi-trash me-1"></i>Remove All
+                                </button>
+                                <button class="btn btn-success btn-sm" id="uploadAllFiles">
+                                    <i class="bi bi-cloud-upload me-1"></i>Upload All
+                                </button>
+                            </div>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div id="fileList" class="file-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress and Completed Row -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-2">
+                    <!-- Upload Progress -->
+                    <div class="dashboard-card" id="progressCard" style="display: none;">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title mb-0">Upload Progress</h5>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="fw-semibold">Overall Progress</span>
+                                    <span id="overallProgress">0%</span>
+                                </div>
+                                <div class="progress" style="height: 8px;">
+                                    <div class="progress-bar bg-success" role="progressbar" id="overallProgressBar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div id="uploadingFiles"></div>
+                        </div>
+                    </div>
+
+                    <!-- Completed Uploads -->
+                    <div class="dashboard-card" id="completedCard" style="display: none;">
+                        <div class="dashboard-card-header d-flex justify-content-between align-items-center">
+                            <h5 class="dashboard-card-title mb-0">Completed Uploads</h5>
+                            <button class="btn btn-outline-primary btn-sm" id="clearCompleted">
+                                <i class="bi bi-trash me-1"></i>Clear All
+                            </button>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div id="completedList" class="completed-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>        </div>
+    </main>
+
+    {{> footer}}
+</div>
+
+{{> scripts}}
+
+<script>
+class MultiFileUploader {
+            constructor() {
+                this.files = new Map();
+                this.maxFileSize = 10 * 1024 * 1024; // 10MB
+                this.maxTotalSize = 100 * 1024 * 1024; // 100MB
+                this.allowedTypes = [
+                    'image/jpeg', 'image/jpg', 'image/png', 'image/gif',
+                    'application/pdf', 'application/msword',
+                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                    'text/plain', 'application/zip', 'application/x-rar-compressed'
+                ];
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.setupDragAndDrop();
+            }
+
+            setupEventListeners() {
+                const fileInput = document.getElementById('fileInput');
+                const browseFiles = document.getElementById('browseFiles');
+                const selectAllFiles = document.getElementById('selectAllFiles');
+                const removeAllFiles = document.getElementById('removeAllFiles');
+                const uploadAllFiles = document.getElementById('uploadAllFiles');
+                const clearCompleted = document.getElementById('clearCompleted');
+
+                browseFiles.addEventListener('click', () => fileInput.click());
+                fileInput.addEventListener('change', (e) => this.handleFileSelect(e.target.files));
+                selectAllFiles.addEventListener('click', () => this.selectAllFiles());
+                removeAllFiles.addEventListener('click', () => this.removeAllFiles());
+                uploadAllFiles.addEventListener('click', () => this.uploadAllFiles());
+                clearCompleted.addEventListener('click', () => this.clearCompleted());
+            }
+
+            setupDragAndDrop() {
+                const uploadZone = document.getElementById('uploadZone');
+
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    uploadZone.addEventListener(eventName, this.preventDefaults, false);
+                });
+
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    uploadZone.addEventListener(eventName, () => this.highlight(uploadZone), false);
+                });
+
+                ['dragleave', 'drop'].forEach(eventName => {
+                    uploadZone.addEventListener(eventName, () => this.unhighlight(uploadZone), false);
+                });
+
+                uploadZone.addEventListener('drop', (e) => this.handleDrop(e), false);
+            }
+
+            preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            highlight(element) {
+                element.classList.add('drag-over');
+            }
+
+            unhighlight(element) {
+                element.classList.remove('drag-over');
+            }
+
+            handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                this.handleFileSelect(files);
+            }
+
+            handleFileSelect(files) {
+                Array.from(files).forEach(file => {
+                    if (this.validateFile(file)) {
+                        const fileId = this.generateFileId();
+                        this.files.set(fileId, {
+                            file: file,
+                            id: fileId,
+                            status: 'pending',
+                            progress: 0,
+                            selected: false
+                        });
+                    }
+                });
+                this.updateUI();
+            }
+
+            validateFile(file) {
+                // Check file size
+                if (file.size > this.maxFileSize) {
+                    this.showAlert(`File "${file.name}" is too large. Maximum size is 10MB.`, 'warning');
+                    return false;
+                }
+
+                // Check file type
+                if (!this.allowedTypes.includes(file.type)) {
+                    this.showAlert(`File "${file.name}" has unsupported format.`, 'warning');
+                    return false;
+                }
+
+                // Check total size
+                const currentTotal = Array.from(this.files.values()).reduce((sum, fileData) => sum + fileData.file.size, 0);
+                if (currentTotal + file.size > this.maxTotalSize) {
+                    this.showAlert('Total file size exceeds 100MB limit.', 'warning');
+                    return false;
+                }
+
+                return true;
+            }
+
+            generateFileId() {
+                return Date.now().toString(36) + Math.random().toString(36).substr(2);
+            }
+
+            updateUI() {
+                const uploadControlsRow = document.getElementById('uploadControlsRow');
+
+                if (this.files.size > 0) {
+                    uploadControlsRow.style.display = 'block';
+                    this.renderFileList();
+                } else {
+                    uploadControlsRow.style.display = 'none';
+                }
+            }
+
+            renderFileList() {
+                const fileList = document.getElementById('fileList');
+                fileList.innerHTML = '';
+
+                this.files.forEach((fileData, fileId) => {
+                    if (fileData.status === 'pending' || fileData.status === 'uploading') {
+                        const fileItem = this.createFileItem(fileData);
+                        fileList.appendChild(fileItem);
+                    }
+                });
+            }
+
+            createFileItem(fileData) {
+                const div = document.createElement('div');
+                div.className = 'file-item';
+                div.innerHTML = `
+                    <div class="d-flex align-items-center p-3 border rounded mb-2 ${fileData.selected ? 'border-primary bg-light' : 'border-light'}">
+                        <input type="checkbox" class="form-check-input me-3" ${fileData.selected ? 'checked' : ''}
+                               onchange="uploader.toggleFileSelection('${fileData.id}')">
+                        <div class="file-preview me-3">
+                            ${this.getFilePreview(fileData.file)}
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="fw-semibold">${fileData.file.name}</div>
+                            <div class="text-muted small">
+                                ${this.formatFileSize(fileData.file.size)} • ${fileData.file.type}
+                            </div>
+                            <div class="text-muted small">
+                                Status: <span class="badge bg-secondary">${fileData.status}</span>
+                            </div>
+                        </div>
+                        <div class="file-actions">
+                            <button class="btn btn-outline-danger btn-sm" onclick="uploader.removeFile('${fileData.id}')">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                return div;
+            }
+
+            getFilePreview(file) {
+                if (file.type.startsWith('image/')) {
+                    const url = URL.createObjectURL(file);
+                    return `<img src="${url}" alt="Preview" class="file-thumbnail" width="40" height="40" style="object-fit: cover; border-radius: 4px;">`;
+                } else {
+                    const iconMap = {
+                        'application/pdf': 'file-pdf',
+                        'application/msword': 'file-word',
+                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'file-word',
+                        'text/plain': 'file-text',
+                        'application/zip': 'file-zip',
+                        'application/x-rar-compressed': 'file-zip'
+                    };
+                    const icon = iconMap[file.type] || 'file';
+                    return `<i class="bi bi-${icon} text-primary" style="font-size: 2rem;"></i>`;
+                }
+            }
+
+            formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+
+            toggleFileSelection(fileId) {
+                if (this.files.has(fileId)) {
+                    const fileData = this.files.get(fileId);
+                    fileData.selected = !fileData.selected;
+                    this.updateUI();
+                }
+            }
+
+            selectAllFiles() {
+                this.files.forEach(fileData => {
+                    if (fileData.status === 'pending') {
+                        fileData.selected = true;
+                    }
+                });
+                this.updateUI();
+            }
+
+            removeFile(fileId) {
+                this.files.delete(fileId);
+                this.updateUI();
+            }
+
+            removeAllFiles() {
+                const filesToRemove = [];
+                this.files.forEach((fileData, fileId) => {
+                    if (fileData.status === 'pending') {
+                        filesToRemove.push(fileId);
+                    }
+                });
+                filesToRemove.forEach(fileId => this.files.delete(fileId));
+                this.updateUI();
+            }
+
+            async uploadAllFiles() {
+                const selectedFiles = Array.from(this.files.entries())
+                    .filter(([id, data]) => data.selected && data.status === 'pending');
+
+                if (selectedFiles.length === 0) {
+                    this.showAlert('Please select files to upload.', 'warning');
+                    return;
+                }
+
+                // Show progress card
+                document.getElementById('progressCard').style.display = 'block';
+
+                for (const [fileId, fileData] of selectedFiles) {
+                    await this.uploadFile(fileData);
+                }
+
+                this.updateOverallProgress();
+            }
+
+            async uploadFile(fileData) {
+                fileData.status = 'uploading';
+                this.updateUI();
+                this.addToUploadingList(fileData);
+
+                // Simulate upload with progress
+                return new Promise((resolve) => {
+                    let progress = 0;
+                    const interval = setInterval(() => {
+                        progress += Math.random() * 15;
+                        if (progress >= 100) {
+                            progress = 100;
+                            fileData.status = 'completed';
+                            fileData.progress = 100;
+                            this.moveToCompleted(fileData);
+                            this.removeFromUploadingList(fileData.id);
+                            clearInterval(interval);
+                            resolve();
+                        } else {
+                            fileData.progress = progress;
+                            this.updateFileProgress(fileData.id, progress);
+                        }
+                    }, 100 + Math.random() * 200);
+                });
+            }
+
+            addToUploadingList(fileData) {
+                const uploadingFiles = document.getElementById('uploadingFiles');
+                const div = document.createElement('div');
+                div.id = `uploading-${fileData.id}`;
+                div.className = 'uploading-file mb-3';
+                div.innerHTML = `
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="file-preview me-3">
+                            ${this.getFilePreview(fileData.file)}
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="fw-semibold">${fileData.file.name}</div>
+                            <div class="text-muted small">${this.formatFileSize(fileData.file.size)}</div>
+                        </div>
+                        <div class="upload-status">
+                            <span id="progress-text-${fileData.id}">0%</span>
+                        </div>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                        <div class="progress-bar bg-primary" id="progress-bar-${fileData.id}"
+                             role="progressbar" style="width: 0%"></div>
+                    </div>
+                `;
+                uploadingFiles.appendChild(div);
+            }
+
+            updateFileProgress(fileId, progress) {
+                const progressText = document.getElementById(`progress-text-${fileId}`);
+                const progressBar = document.getElementById(`progress-bar-${fileId}`);
+                if (progressText) progressText.textContent = Math.round(progress) + '%';
+                if (progressBar) progressBar.style.width = progress + '%';
+            }
+
+            removeFromUploadingList(fileId) {
+                const element = document.getElementById(`uploading-${fileId}`);
+                if (element) {
+                    element.remove();
+                }
+            }
+
+            moveToCompleted(fileData) {
+                const completedCard = document.getElementById('completedCard');
+                const completedList = document.getElementById('completedList');
+
+                completedCard.style.display = 'block';
+
+                const div = document.createElement('div');
+                div.className = 'completed-file d-flex align-items-center p-3 border rounded mb-2 border-success bg-success bg-opacity-10';
+                div.innerHTML = `
+                    <div class="file-preview me-3">
+                        ${this.getFilePreview(fileData.file)}
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="fw-semibold">${fileData.file.name}</div>
+                        <div class="text-muted small">
+                            ${this.formatFileSize(fileData.file.size)} • Uploaded successfully
+                        </div>
+                    </div>
+                    <div class="text-success">
+                        <i class="bi bi-check-circle-fill"></i>
+                    </div>
+                `;
+                completedList.appendChild(div);
+            }
+
+            updateOverallProgress() {
+                const totalFiles = Array.from(this.files.values()).filter(f => f.selected).length;
+                const completedFiles = Array.from(this.files.values()).filter(f => f.status === 'completed' && f.selected).length;
+
+                if (totalFiles > 0) {
+                    const progress = (completedFiles / totalFiles) * 100;
+                    const progressText = document.getElementById('overallProgress');
+                    const progressBar = document.getElementById('overallProgressBar');
+
+                    if (progressText) progressText.textContent = Math.round(progress) + '%';
+                    if (progressBar) progressBar.style.width = progress + '%';
+                }
+            }
+
+            clearCompleted() {
+                const completedList = document.getElementById('completedList');
+                completedList.innerHTML = '';
+                document.getElementById('completedCard').style.display = 'none';
+
+                // Remove completed files from memory
+                const completedIds = [];
+                this.files.forEach((fileData, fileId) => {
+                    if (fileData.status === 'completed') {
+                        completedIds.push(fileId);
+                    }
+                });
+                completedIds.forEach(id => this.files.delete(id));
+            }
+
+            showAlert(message, type = 'info') {
+                // Create alert element
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+                alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+                alertDiv.innerHTML = `
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+
+                document.body.appendChild(alertDiv);
+
+                // Auto remove after 5 seconds
+                setTimeout(() => {
+                    if (alertDiv.parentNode) {
+                        alertDiv.remove();
+                    }
+                }, 5000);
+            }
+        }
+
+        // Add drag-over styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .upload-zone {
+                border: 2px dashed #dee2e6;
+                border-radius: 8px;
+                padding: 3rem;
+                text-align: center;
+                background: #f8f9fa;
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+            .upload-zone:hover, .upload-zone.drag-over {
+                border-color: #0d6efd;
+                background: rgba(13, 110, 253, 0.05);
+            }
+            .upload-icon {
+                font-size: 3rem;
+                color: #6c757d;
+                margin-bottom: 1rem;
+            }
+            .file-list, .completed-list {
+                max-height: 400px;
+                overflow-y: auto;
+            }
+            .file-thumbnail {
+                border: 1px solid #dee2e6;
+            }
+            .notification-item {
+                display: flex;
+                align-items: center;
+                padding: 0.75rem;
+                text-decoration: none;
+                color: inherit;
+                border-radius: 0.375rem;
+                margin-bottom: 0.25rem;
+            }
+            .notification-item:hover {
+                background-color: #f8f9fa;
+            }
+            .notification-icon {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 0.75rem;
+                flex-shrink: 0;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize uploader when page loads
+        let uploader;
+        document.addEventListener('DOMContentLoaded', function() {
+            uploader = new MultiFileUploader();
+        });
+</script>

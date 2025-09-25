@@ -62,10 +62,67 @@
             </div>
 
             <!-- Notifications -->
-            <button class="btn btn-light btn-icon position-relative" id="notificationsToggle">
-                <i class="bi bi-bell"></i>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">3</span>
-            </button>
+            <div class="dropdown">
+                <button class="btn btn-light btn-icon position-relative" data-bs-toggle="dropdown" id="notificationsToggle">
+                    <i class="bi bi-bell"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">3</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" style="width: 320px;">
+                    <li class="dropdown-header d-flex align-items-center justify-content-between">
+                        <span>Notifications</span>
+                        <small class="text-muted">3 new</small>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item py-2" href="#">
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle bg-primary bg-opacity-10 p-2 me-3" style="width: 40px; height: 40px;">
+                                    <i class="bi bi-calendar-check text-primary"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="fw-semibold">New Event</div>
+                                    <div class="text-muted small">Science Fair on March 15</div>
+                                    <div class="text-muted small">5 minutes ago</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item py-2" href="#">
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle bg-success bg-opacity-10 p-2 me-3" style="width: 40px; height: 40px;">
+                                    <i class="bi bi-check-circle text-success"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="fw-semibold">Assignment Submitted</div>
+                                    <div class="text-muted small">John submitted his project</div>
+                                    <div class="text-muted small">2 hours ago</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item py-2" href="#">
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle bg-warning bg-opacity-10 p-2 me-3" style="width: 40px; height: 40px;">
+                                    <i class="bi bi-exclamation-triangle text-warning"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="fw-semibold">System Alert</div>
+                                    <div class="text-muted small">Database backup completed</div>
+                                    <div class="text-muted small">Yesterday</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item text-center" href="notifications.html">
+                            <small>View all notifications</small>
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
             <!-- Quick Actions -->
             <div class="dropdown">
@@ -85,9 +142,13 @@
             <div class="dropdown">
                 <button class="btn btn-light d-flex align-items-center" data-bs-toggle="dropdown">
                     <div class="user-avatar me-2">
-                        <i class="bi bi-person-circle"></i>
+                        <img src="https://ui-avatars.com/api/?name={{#if user.name}}{{user.name}}{{else}}Admin User{{/if}}&background=6366f1&color=fff&size=32"
+                             alt="{{#if user.name}}{{user.name}}{{else}}Admin{{/if}}"
+                             class="rounded-circle"
+                             width="32"
+                             height="32">
                     </div>
-                    <span class="d-none d-md-inline">{{#if userName}}{{userName}}{{else}}Admin{{/if}}</span>
+                    <span class="d-none d-md-inline">{{#if user.name}}{{user.name}}{{else}}Admin{{/if}}</span>
                     <i class="bi bi-chevron-down ms-1"></i>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">

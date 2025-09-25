@@ -1,0 +1,367 @@
+{{> head}}
+
+<style>
+/* Critical CSS for immediate render */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .top-navbar { background: white; height: 60px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 0 1rem; }
+        .dashboard-content { padding: 24px; }
+
+        /* Loading animation */
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+</style>
+
+{{> sidebar}}
+
+<!-- Main Content Wrapper -->
+<div class="main-wrapper" id="mainWrapper">
+    {{> header}}
+
+    <!-- Main Content -->
+    <main class="dashboard-content" id="main-content">
+        <div class="container-fluid">
+<!-- Page Header -->
+            <div class="mb-3">
+                <h1 class="h3 font-bold">Bar Charts</h1>
+                <p class="text-muted text-sm">Interactive bar chart visualizations for data analysis and reporting.</p>
+            </div>
+
+            <!-- Bar Charts Content Row -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-2">
+                    <!-- Student Enrollment Chart -->
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Student Enrollment by Department</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="enrollmentChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Course Performance Chart -->
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Course Performance Analysis</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Revenue and Budget Charts Row -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-2">
+                    <!-- Monthly Revenue Chart -->
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Monthly Revenue</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Department Budget Chart -->
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Department Budget Allocation</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="budgetChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single Wide Chart Row -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-1">
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Quarterly Academic Performance Comparison</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="quarterlyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        </div>
+    </main>
+
+    {{> footer}}
+</div>
+
+{{> scripts}}
+
+<script>
+// Sample data for charts
+        const enrollmentData = {
+            labels: ['Computer Science', 'Engineering', 'Business', 'Arts & Sciences', 'Medicine', 'Law', 'Education', 'Nursing'],
+            datasets: [{
+                label: 'Undergraduate',
+                data: [245, 189, 167, 203, 98, 76, 134, 156],
+                backgroundColor: '#007bff',
+                borderColor: '#0056b3',
+                borderWidth: 1
+            }, {
+                label: 'Graduate',
+                data: [67, 89, 45, 78, 123, 34, 56, 67],
+                backgroundColor: '#28a745',
+                borderColor: '#1e7e34',
+                borderWidth: 1
+            }, {
+                label: 'PhD',
+                data: [23, 34, 12, 45, 67, 23, 18, 29],
+                backgroundColor: '#ffc107',
+                borderColor: '#d39e00',
+                borderWidth: 1
+            }]
+        };
+
+        const performanceData = {
+            labels: ['Math 101', 'Physics 201', 'Chemistry 105', 'Biology 110', 'English 102', 'History 205', 'Economics 301', 'Psychology 101'],
+            datasets: [{
+                label: 'Average Score',
+                data: [78.5, 82.3, 76.8, 89.2, 85.6, 79.4, 88.1, 83.7],
+                backgroundColor: function(context) {
+                    const value = context.parsed.y;
+                    if (value >= 85) return '#28a745';
+                    if (value >= 75) return '#ffc107';
+                    return '#dc3545';
+                },
+                borderColor: '#6c757d',
+                borderWidth: 1
+            }]
+        };
+
+        const revenueData = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'Tuition Fees',
+                data: [180000, 175000, 182000, 190000, 195000, 185000, 200000, 205000, 198000, 210000, 215000, 220000],
+                backgroundColor: '#007bff',
+                borderColor: '#0056b3',
+                borderWidth: 1
+            }, {
+                label: 'Additional Fees',
+                data: [25000, 23000, 27000, 30000, 28000, 26000, 32000, 31000, 29000, 35000, 33000, 36000],
+                backgroundColor: '#6610f2',
+                borderColor: '#520dc2',
+                borderWidth: 1
+            }, {
+                label: 'Other Income',
+                data: [15000, 12000, 18000, 16000, 14000, 17000, 19000, 21000, 18000, 22000, 20000, 24000],
+                backgroundColor: '#17a2b8',
+                borderColor: '#138496',
+                borderWidth: 1
+            }]
+        };
+
+        const budgetData = {
+            labels: ['Computer Science', 'Engineering', 'Business', 'Arts & Sciences', 'Medicine', 'Administration'],
+            datasets: [{
+                label: 'Allocated',
+                data: [350000, 420000, 280000, 320000, 650000, 180000],
+                backgroundColor: '#28a745',
+                borderColor: '#1e7e34',
+                borderWidth: 1
+            }, {
+                label: 'Spent',
+                data: [245000, 315000, 195000, 230000, 475000, 135000],
+                backgroundColor: '#ffc107',
+                borderColor: '#d39e00',
+                borderWidth: 1
+            }]
+        };
+
+        const quarterlyData = {
+            labels: ['Q1 2023', 'Q2 2023', 'Q3 2023', 'Q4 2023', 'Q1 2024', 'Q2 2024'],
+            datasets: [{
+                label: 'Computer Science',
+                data: [85.2, 87.1, 88.5, 89.3, 90.1, 91.2],
+                backgroundColor: '#007bff',
+                borderColor: '#0056b3',
+                borderWidth: 1
+            }, {
+                label: 'Engineering',
+                data: [82.8, 84.2, 85.6, 87.1, 88.3, 89.7],
+                backgroundColor: '#28a745',
+                borderColor: '#1e7e34',
+                borderWidth: 1
+            }, {
+                label: 'Business',
+                data: [78.9, 80.3, 81.7, 83.2, 84.8, 86.1],
+                backgroundColor: '#ffc107',
+                borderColor: '#d39e00',
+                borderWidth: 1
+            }, {
+                label: 'Arts & Sciences',
+                data: [81.5, 83.1, 84.7, 86.2, 87.5, 88.9],
+                backgroundColor: '#dc3545',
+                borderColor: '#c82333',
+                borderWidth: 1
+            }, {
+                label: 'Medicine',
+                data: [88.7, 90.2, 91.8, 93.1, 94.5, 95.3],
+                backgroundColor: '#6f42c1',
+                borderColor: '#59359a',
+                borderWidth: 1
+            }]
+        };
+
+        // Chart configuration options
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false // We're using custom legends
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0,0,0,0.8)',
+                    titleColor: 'white',
+                    bodyColor: 'white',
+                    borderColor: '#dee2e6',
+                    borderWidth: 1
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(0,0,0,0.1)'
+                    },
+                    ticks: {
+                        color: '#6c757d'
+                    }
+                },
+                x: {
+                    grid: {
+                        color: 'rgba(0,0,0,0.1)'
+                    },
+                    ticks: {
+                        color: '#6c757d'
+                    }
+                }
+            }
+        };
+
+        // Initialize charts when DOM is loaded
+        $(document).ready(function() {
+            // Student Enrollment Chart
+            const enrollmentCtx = document.getElementById('enrollmentChart').getContext('2d');
+            const enrollmentChart = new Chart(enrollmentCtx, {
+                type: 'bar',
+                data: enrollmentData,
+                options: chartOptions
+            });
+
+            // Course Performance Chart
+            const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+            const performanceChart = new Chart(performanceCtx, {
+                type: 'bar',
+                data: performanceData,
+                options: {
+                    ...chartOptions,
+                    scales: {
+                        ...chartOptions.scales,
+                        y: {
+                            ...chartOptions.scales.y,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            // Revenue Chart
+            const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+            const revenueChart = new Chart(revenueCtx, {
+                type: 'bar',
+                data: revenueData,
+                options: {
+                    ...chartOptions,
+                    scales: {
+                        ...chartOptions.scales,
+                        y: {
+                            ...chartOptions.scales.y,
+                            ticks: {
+                                ...chartOptions.scales.y.ticks,
+                                callback: function(value) {
+                                    return '$' + (value / 1000) + 'K';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Budget Chart
+            const budgetCtx = document.getElementById('budgetChart').getContext('2d');
+            const budgetChart = new Chart(budgetCtx, {
+                type: 'bar',
+                data: budgetData,
+                options: {
+                    ...chartOptions,
+                    scales: {
+                        ...chartOptions.scales,
+                        y: {
+                            ...chartOptions.scales.y,
+                            ticks: {
+                                ...chartOptions.scales.y.ticks,
+                                callback: function(value) {
+                                    return '$' + (value / 1000) + 'K';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Quarterly Chart
+            const quarterlyCtx = document.getElementById('quarterlyChart').getContext('2d');
+            const quarterlyChart = new Chart(quarterlyCtx, {
+                type: 'bar',
+                data: quarterlyData,
+                options: {
+                    ...chartOptions,
+                    scales: {
+                        ...chartOptions.scales,
+                        y: {
+                            ...chartOptions.scales.y,
+                            min: 70,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            // Period selector functionality
+            $('.chart-period-btn').on('click', function() {
+                const $this = $(this);
+                const $container = $this.closest('.chart-wrapper');
+
+                // Update active state
+                $container.find('.chart-period-btn').removeClass('active');
+                $this.addClass('active');
+
+                // Here you would typically update the chart data based on the selected period
+                console.log('Selected period:', $this.data('period'));
+            });
+        });
+
+        // Export chart function
+        function exportChart(chartId) {
+            const canvas = document.getElementById(chartId);
+            const link = document.createElement('a');
+            link.download = chartId + '_' + new Date().toISOString().split('T')[0] + '.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+</script>

@@ -1,0 +1,402 @@
+{{> head}}
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .top-navbar { background: white; height: 60px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .dashboard-content { padding: 24px; }
+        .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+        .dashboard-card { background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .dashboard-card-header { padding: 16px 20px; border-bottom: 1px solid #e5e7eb; }
+        .dashboard-card-body { padding: 20px; }
+        .dashboard-card-title { margin: 0; font-size: 1.125rem; font-weight: 600; color: #1f2937; }
+</style>
+
+{{> sidebar}}
+
+<!-- Main Content Wrapper -->
+<div class="main-wrapper" id="mainWrapper">
+    {{> header}}
+
+    <!-- Main Content -->
+    <main class="dashboard-content" id="main-content">
+        <div class="container-fluid">
+<!-- Page Header -->
+            <div class="mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h3 fw-bold mb-2">Add New Course</h1>
+                        <p class="text-muted mb-0">Create a new course for the academic curriculum</p>
+                    </div>
+                    <div class="d-none d-md-flex gap-2">
+                        <button type="button" class="btn btn-outline-secondary">
+                            <i class="bi bi-question-circle me-2"></i>Help
+                        </button>
+                        <button type="button" class="btn btn-light" onclick="window.location.href='all-courses.html'">
+                            <i class="bi bi-arrow-left me-2"></i>Back to Courses
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <form class="needs-validation" novalidate>
+                <div class="dashboard-grid" style="grid-template-columns: 2fr 1fr; gap: 20px;">
+                    <div>
+                            <!-- Basic Information -->
+                            <div class="dashboard-card mb-3">
+                                <div class="dashboard-card-header">
+                                    <h5 class="dashboard-card-title">Basic Information</h5>
+                                </div>
+                                <div class="dashboard-card-body">
+                                    <div class="dashboard-grid grid-cols-2 mb-3">
+                                        <div>
+                                            <label for="courseCode" class="form-label">Course Code <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="courseCode" placeholder="e.g., CS101" required>
+                                            <div class="invalid-feedback">
+                                                Please provide a valid course code.
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="courseName" class="form-label">Course Name <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="courseName" placeholder="e.g., Introduction to Computer Science" required>
+                                            <div class="invalid-feedback">
+                                                Please provide a course name.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="dashboard-grid grid-cols-2 mb-3">
+                                        <div>
+                                            <label for="department" class="form-label">Department <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="department" required>
+                                                <option value="">Select Department</option>
+                                                <option value="cs">Computer Science</option>
+                                                <option value="math">Mathematics</option>
+                                                <option value="physics">Physics</option>
+                                                <option value="chemistry">Chemistry</option>
+                                                <option value="biology">Biology</option>
+                                                <option value="business">Business Administration</option>
+                                                <option value="engineering">Engineering</option>
+                                                <option value="english">English Literature</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please select a department.
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="professor" class="form-label">Professor <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="professor" required>
+                                                <option value="">Select Professor</option>
+                                                <option value="1">Dr. Robert Smith</option>
+                                                <option value="2">Dr. Emily Johnson</option>
+                                                <option value="3">Prof. Michael Chen</option>
+                                                <option value="4">Dr. Sarah Williams</option>
+                                                <option value="5">Prof. David Brown</option>
+                                                <option value="6">Dr. Jennifer Garcia</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please select a professor.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="courseDescription" class="form-label">Course Description</label>
+                                        <textarea class="form-control" id="courseDescription" rows="4"
+                                            placeholder="Enter detailed course description..."></textarea>
+                                    </div>
+
+                                    <div class="dashboard-grid grid-cols-3 mb-3">
+                                        <div>
+                                            <label for="credits" class="form-label">Credits <span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" id="credits" min="1" max="6" value="3" required>
+                                            <div class="invalid-feedback">
+                                                Credits must be between 1 and 6.
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="duration" class="form-label">Duration (weeks) <span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" id="duration" min="1" max="52" value="16" required>
+                                            <div class="invalid-feedback">
+                                                Duration must be between 1 and 52 weeks.
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="maxStudents" class="form-label">Max Students</label>
+                                            <input type="number" class="form-control" id="maxStudents" min="1" max="500" value="30">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="prerequisites" class="form-label">Prerequisites</label>
+                                        <input type="text" class="form-control" id="prerequisites"
+                                            placeholder="e.g., MATH101, CS100 (comma separated)">
+                                        <small class="text-muted">Enter prerequisite course codes separated by commas</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Schedule Information -->
+                            <div class="dashboard-card mb-3">
+                                <div class="dashboard-card-header">
+                                    <h5 class="dashboard-card-title">Schedule Information</h5>
+                                </div>
+                                <div class="dashboard-card-body">
+                                    <div class="dashboard-grid grid-cols-2 mb-3">
+                                        <div>
+                                            <label for="semester" class="form-label">Semester <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="semester" required>
+                                                <option value="">Select Semester</option>
+                                                <option value="spring2025">Spring 2025</option>
+                                                <option value="summer2025">Summer 2025</option>
+                                                <option value="fall2025">Fall 2025</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please select a semester.
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="courseType" class="form-label">Course Type <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="courseType" required>
+                                                <option value="">Select Type</option>
+                                                <option value="core">Core Course</option>
+                                                <option value="elective">Elective</option>
+                                                <option value="lab">Laboratory</option>
+                                                <option value="seminar">Seminar</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please select a course type.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Class Days <span class="text-danger">*</span></label>
+                                        <div class="d-flex flex-wrap gap-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="monday" name="days">
+                                                <label class="form-check-label" for="monday">Monday</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="tuesday" name="days">
+                                                <label class="form-check-label" for="tuesday">Tuesday</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="wednesday" name="days">
+                                                <label class="form-check-label" for="wednesday">Wednesday</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="thursday" name="days">
+                                                <label class="form-check-label" for="thursday">Thursday</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="friday" name="days">
+                                                <label class="form-check-label" for="friday">Friday</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="dashboard-grid grid-cols-2 mb-3">
+                                        <div>
+                                            <label for="startTime" class="form-label">Start Time <span class="text-danger">*</span></label>
+                                            <input type="time" class="form-control" id="startTime" required>
+                                            <div class="invalid-feedback">
+                                                Please select a start time.
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="endTime" class="form-label">End Time <span class="text-danger">*</span></label>
+                                            <input type="time" class="form-control" id="endTime" required>
+                                            <div class="invalid-feedback">
+                                                Please select an end time.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="classroom" class="form-label">Classroom/Location</label>
+                                        <input type="text" class="form-control" id="classroom" placeholder="e.g., Building A, Room 101">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <!-- Course Image -->
+                            <div class="dashboard-card mb-3">
+                                <div class="dashboard-card-header">
+                                    <h5 class="dashboard-card-title">Course Image</h5>
+                                </div>
+                                <div class="dashboard-card-body text-center">
+                                    <div class="position-relative d-inline-block mb-3">
+                                        <img src="https://picsum.photos/400/250?random=1"
+                                             alt="Course Thumbnail"
+                                             class="img-fluid rounded"
+                                             id="courseImagePreview"
+                                             style="max-height: 200px; width: 100%; object-fit: cover;">
+                                        <div class="position-absolute top-0 end-0 p-2">
+                                            <span class="badge bg-primary">Preview</span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="courseImage" class="form-label">Upload Course Image</label>
+                                        <input class="form-control" type="file" id="courseImage" accept="image/*">
+                                        <small class="text-muted">JPG, PNG up to 5MB. Recommended: 800x500px</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Course Settings -->
+                            <div class="dashboard-card mb-3">
+                                <div class="dashboard-card-header">
+                                    <h5 class="dashboard-card-title">Course Settings</h5>
+                                </div>
+                                <div class="dashboard-card-body">
+                                    <div class="mb-3">
+                                        <label for="courseStatus" class="form-label">Status</label>
+                                        <select class="form-select" id="courseStatus">
+                                            <option value="active" selected>Active</option>
+                                            <option value="draft">Draft</option>
+                                            <option value="inactive">Inactive</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="enrollmentType" class="form-label">Enrollment Type</label>
+                                        <select class="form-select" id="enrollmentType">
+                                            <option value="open" selected>Open Enrollment</option>
+                                            <option value="approval">Requires Approval</option>
+                                            <option value="closed">Closed</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Course Options</label>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="onlineAvailable" checked>
+                                            <label class="form-check-label" for="onlineAvailable">Available Online</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="certificateOffered">
+                                            <label class="form-check-label" for="certificateOffered">Certificate Offered</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="recordedLectures">
+                                            <label class="form-check-label" for="recordedLectures">Recorded Lectures Available</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Fee Structure -->
+                            <div class="dashboard-card">
+                                <div class="dashboard-card-header">
+                                    <h5 class="dashboard-card-title">Fee Structure</h5>
+                                </div>
+                                <div class="dashboard-card-body">
+                                    <div class="dashboard-grid grid-cols-3 mb-3">
+                                        <div>
+                                            <label for="courseFee" class="form-label">Course Fee ($)</label>
+                                            <input type="number" class="form-control" id="courseFee" min="0" step="0.01" placeholder="0.00">
+                                        </div>
+                                        <div>
+                                            <label for="labFee" class="form-label">Lab Fee ($)</label>
+                                            <input type="number" class="form-control" id="labFee" min="0" step="0.01" placeholder="0.00">
+                                        </div>
+                                        <div>
+                                            <label for="materialFee" class="form-label">Material Fee ($)</label>
+                                            <input type="number" class="form-control" id="materialFee" min="0" step="0.01" placeholder="0.00">
+                                        </div>
+                                    </div>
+
+                                    <div class="border-top pt-3 mt-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="h6 mb-0">Total Course Fee:</span>
+                                            <span class="h5 mb-0 text-primary fw-bold" id="totalFee">$0.00</span>
+                                        </div>
+                                        <small class="text-muted">All fees are per semester</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="row">
+                        <div class="col-12">
+                            <hr class="my-4">
+                            <div class="d-flex gap-3">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-check-lg me-2"></i>Create Course
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary">
+                                    <i class="bi bi-x-lg me-2"></i>Cancel
+                                </button>
+                                <button type="reset" class="btn btn-outline-warning">
+                                    <i class="bi bi-arrow-clockwise me-2"></i>Reset Form
+                                </button>
+                                <button type="button" class="btn btn-outline-info">
+                                    <i class="bi bi-file-text me-2"></i>Save as Draft
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>        </div>
+    </main>
+
+    {{> footer}}
+</div>
+
+{{> scripts}}
+
+<script>
+// Form validation
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+
+        // Fee calculator
+        function calculateTotalFee() {
+            const courseFee = parseFloat(document.getElementById('courseFee').value) || 0;
+            const labFee = parseFloat(document.getElementById('labFee').value) || 0;
+            const materialFee = parseFloat(document.getElementById('materialFee').value) || 0;
+            const total = courseFee + labFee + materialFee;
+            document.getElementById('totalFee').textContent = '$' + total.toFixed(2);
+        }
+
+        document.getElementById('courseFee').addEventListener('input', calculateTotalFee);
+        document.getElementById('labFee').addEventListener('input', calculateTotalFee);
+        document.getElementById('materialFee').addEventListener('input', calculateTotalFee);
+
+        // Image preview
+        document.getElementById('courseImage').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('courseImagePreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+/*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+        !function(e){"use strict";var t=function(t,n,r,o){var i,a=e.document,d=a.createElement("link");if(n)i=n;else{var f=(a.body||a.getElementsByTagName("head")[0]).childNodes;i=f[f.length-1]}var l=a.styleSheets;if(o)for(var s in o)o.hasOwnProperty(s)&&d.setAttribute(s,o[s]);d.rel="stylesheet",d.href=t,d.media="only x",function e(t){if(a.body)return t();setTimeout(function(){e(t)})}(function(){i.parentNode.insertBefore(d,n?i:i.nextSibling)});var u=function(e){for(var t=d.href,n=l.length;n--;)if(l[n].href===t)return e();setTimeout(function(){u(e)})};function c(){d.addEventListener&&d.removeEventListener("load",c),d.media=r||"all"}return d.addEventListener&&d.addEventListener("load",c),(d.onloadcssdefined=u)(c),d};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this);
+        /*! loadCSS rel=preload polyfill. [c]2017 Filament Group, Inc. MIT License */
+        !function(t){if(t.loadCSS){var e=loadCSS.relpreload={};if(e.support=function(){try{return t.document.createElement("link").relList.supports("preload")}catch(t){return!1}},e.poly=function(){for(var e=t.document.getElementsByTagName("link"),r=0;r<e.length;r++){var n=e[r];"preload"===n.rel&&"style"===n.getAttribute("as")&&(t.loadCSS(n.href,n,n.getAttribute("media")),n.rel=null)}},!e.support()){e.poly();var r=t.setInterval(e.poly,300);t.addEventListener&&t.addEventListener("load",function(){e.poly(),t.clearInterval(r)}),t.attachEvent&&t.attachEvent("onload",function(){t.clearInterval(r)})}}}(this);
+</script>

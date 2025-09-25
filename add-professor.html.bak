@@ -1,0 +1,319 @@
+{{> head}}
+
+<style>
+/* Critical CSS for immediate render */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .top-navbar { background: white; height: 60px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .dashboard-content { padding: 24px; }
+</style>
+
+{{> sidebar}}
+
+<!-- Main Content Wrapper -->
+<div class="main-wrapper" id="mainWrapper">
+    {{> header}}
+
+    <!-- Main Content -->
+    <main class="dashboard-content" id="main-content">
+        <div class="container-fluid">
+<!-- Page Header -->
+            <div class="mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h3 font-bold">Add New Professor</h1>
+                        <p class="text-muted text-sm">Register a new faculty member to your institution.</p>
+                    </div>
+                    <div>
+                        <a href="all-professors.html" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-2"></i>Back to Professors
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Professor Form -->
+            <div class="dashboard-row">
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title mb-0">Professor Registration</h5>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <form class="needs-validation" novalidate>
+                            <!-- Personal Information Section -->
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <h6 class="text-primary fw-semibold mb-3">
+                                        <i class="bi bi-person-circle me-2"></i>Personal Information
+                                    </h6>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-2">
+                                    <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="title" required>
+                                        <option selected disabled value="">Choose...</option>
+                                        <option value="Dr.">Dr.</option>
+                                        <option value="Prof.">Prof.</option>
+                                        <option value="Mr.">Mr.</option>
+                                        <option value="Ms.">Ms.</option>
+                                        <option value="Mrs.">Mrs.</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select a title.</div>
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="firstName" required>
+                                    <div class="invalid-feedback">Please provide a valid first name.</div>
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="lastName" required>
+                                    <div class="invalid-feedback">Please provide a valid last name.</div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" id="email" required>
+                                    <div class="invalid-feedback">Please provide a valid email address.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                                    <input type="tel" class="form-control" id="phone" required>
+                                    <div class="invalid-feedback">Please provide a valid phone number.</div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                                    <input type="date" class="form-control" id="dateOfBirth">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="gender" class="form-label">Gender</label>
+                                    <select class="form-select" id="gender">
+                                        <option selected disabled value="">Choose...</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                        <option value="Prefer not to say">Prefer not to say</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <label for="address" class="form-label">Address</label>
+                                    <textarea class="form-control" id="address" rows="2" placeholder="Enter full address"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Academic Information Section -->
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <h6 class="text-primary fw-semibold mb-3">
+                                        <i class="bi bi-mortarboard me-2"></i>Academic Information
+                                    </h6>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="employeeId" class="form-label">Employee ID <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="employeeId" required placeholder="e.g., EMP001">
+                                    <div class="invalid-feedback">Please provide an employee ID.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="department" class="form-label">Department <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="department" required>
+                                        <option selected disabled value="">Choose Department...</option>
+                                        <option value="Computer Science">Computer Science</option>
+                                        <option value="Mathematics">Mathematics</option>
+                                        <option value="Physics">Physics</option>
+                                        <option value="Chemistry">Chemistry</option>
+                                        <option value="Biology">Biology</option>
+                                        <option value="English Literature">English Literature</option>
+                                        <option value="History">History</option>
+                                        <option value="Economics">Economics</option>
+                                        <option value="Business Administration">Business Administration</option>
+                                        <option value="Engineering">Engineering</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select a department.</div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="position" class="form-label">Position <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="position" required>
+                                        <option selected disabled value="">Choose Position...</option>
+                                        <option value="Professor">Professor</option>
+                                        <option value="Associate Professor">Associate Professor</option>
+                                        <option value="Assistant Professor">Assistant Professor</option>
+                                        <option value="Lecturer">Lecturer</option>
+                                        <option value="Senior Lecturer">Senior Lecturer</option>
+                                        <option value="Visiting Professor">Visiting Professor</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select a position.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="employmentType" class="form-label">Employment Type <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="employmentType" required>
+                                        <option selected disabled value="">Choose Type...</option>
+                                        <option value="Full-Time">Full-Time</option>
+                                        <option value="Part-Time">Part-Time</option>
+                                        <option value="Contract">Contract</option>
+                                        <option value="Adjunct">Adjunct</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select employment type.</div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="joiningDate" class="form-label">Joining Date <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" id="joiningDate" required>
+                                    <div class="invalid-feedback">Please provide joining date.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="salary" class="form-label">Monthly Salary</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" class="form-control" id="salary" placeholder="0.00" step="0.01">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Educational Background -->
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <h6 class="text-primary fw-semibold mb-3">
+                                        <i class="bi bi-book me-2"></i>Educational Background
+                                    </h6>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="highestDegree" class="form-label">Highest Degree <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="highestDegree" required>
+                                        <option selected disabled value="">Choose Degree...</option>
+                                        <option value="PhD">PhD</option>
+                                        <option value="Master's">Master's</option>
+                                        <option value="Bachelor's">Bachelor's</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select highest degree.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="specialization" class="form-label">Specialization/Field</label>
+                                    <input type="text" class="form-control" id="specialization" placeholder="e.g., Machine Learning">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="university" class="form-label">University/Institution</label>
+                                    <input type="text" class="form-control" id="university" placeholder="Name of university">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="graduationYear" class="form-label">Graduation Year</label>
+                                    <input type="number" class="form-control" id="graduationYear" min="1950" max="2024" placeholder="YYYY">
+                                </div>
+                            </div>
+
+                            <!-- Additional Information -->
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <h6 class="text-primary fw-semibold mb-3">
+                                        <i class="bi bi-info-circle me-2"></i>Additional Information
+                                    </h6>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="experience" class="form-label">Years of Experience</label>
+                                    <input type="number" class="form-control" id="experience" min="0" placeholder="Years">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="office" class="form-label">Office Location</label>
+                                    <input type="text" class="form-control" id="office" placeholder="e.g., Room 301, Building A">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <label for="subjects" class="form-label">Subjects to Teach</label>
+                                    <input type="text" class="form-control" id="subjects" placeholder="e.g., Data Structures, Algorithms, Machine Learning">
+                                    <div class="form-text">Separate multiple subjects with commas</div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <label for="bio" class="form-label">Biography/About</label>
+                                    <textarea class="form-control" id="bio" rows="3" placeholder="Brief description about the professor's background and expertise"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Profile Photo -->
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <label for="profilePhoto" class="form-label">Profile Photo</label>
+                                    <input type="file" class="form-control" id="profilePhoto" accept="image/*">
+                                    <div class="form-text">Upload a professional headshot (JPG, PNG, max 2MB)</div>
+                                </div>
+                            </div>
+
+                            <!-- Form Actions -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <hr class="my-4">
+                                    <div class="d-flex gap-3">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="bi bi-check-lg me-2"></i>Save Professor
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary">
+                                            <i class="bi bi-x-lg me-2"></i>Cancel
+                                        </button>
+                                        <button type="reset" class="btn btn-outline-warning">
+                                            <i class="bi bi-arrow-clockwise me-2"></i>Reset Form
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>        </div>
+    </main>
+
+    {{> footer}}
+</div>
+
+{{> scripts}}
+
+<script>
+// Bootstrap form validation
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+</script>

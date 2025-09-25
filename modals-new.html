@@ -1,0 +1,179 @@
+{{> head}}
+
+<style>
+/* Modal Examples Styling */
+        .demo-section {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .student-card {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .student-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .student-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+</style>
+
+{{> sidebar}}
+
+<!-- Main Content Wrapper -->
+<div class="main-wrapper" id="mainWrapper">
+    {{> header}}
+
+    <!-- Main Content -->
+    <main class="dashboard-content" id="main-content">
+        <div class="container-fluid">
+<!-- Page Header -->
+                <div class="page-header mb-4">
+                    <h1 class="h3 mb-2">Modal Components</h1>
+                    <p class="text-muted">Bootstrap 5 modal examples for dialogs, forms, and confirmations</p>        </div>
+    </main>
+
+    {{> footer}}
+</div>
+
+{{> scripts}}
+
+<script>
+// Page-specific JavaScript
+
+        // Show Student Details Modal
+        function showStudentDetails(name, department, id) {
+            // Create dynamic modal content
+            const modalContent = `
+                <div class="text-center mb-4">
+                    <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=4361ee&color=fff&size=80" alt="Student" class="rounded-circle mb-3">
+                    <h5>${name}</h5>
+                    <p class="text-muted">${department} • ID: ${id}</p>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <strong>GPA:</strong> 3.85
+                    </div>
+                    <div class="col-6">
+                        <strong>Credits:</strong> 45/120
+                    </div>
+                    <div class="col-6 mt-2">
+                        <strong>Status:</strong> <span class="badge bg-success">Active</span>
+                    </div>
+                    <div class="col-6 mt-2">
+                        <strong>Year:</strong> Sophomore
+                    </div>
+                </div>
+                <hr>
+                <h6>Current Courses</h6>
+                <ul class="list-unstyled">
+                    <li><i class="bi bi-book me-2 text-primary"></i>Advanced Mathematics</li>
+                    <li><i class="bi bi-book me-2 text-primary"></i>Data Structures</li>
+                    <li><i class="bi bi-book me-2 text-primary"></li>Computer Graphics</li>
+                </ul>
+            `;
+
+            // Create modal dynamically
+            const modalHTML = `
+                <div class="modal fade" id="studentDetailsModal" tabindex="-1" aria-labelledby="studentDetailsTitle">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="studentDetailsTitle">${name}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                ${modalContent}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Edit Student</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Remove existing modal and add new one
+            const existingModal = document.getElementById('studentDetailsModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            new bootstrap.Modal(document.getElementById('studentDetailsModal')).show();
+        }
+
+        // Modal Builder
+        function buildModal() {
+            const title = document.getElementById('modalTitle').value || 'Custom Modal';
+            const content = document.getElementById('modalContent').value || 'This is a custom modal created with the modal builder.';
+            const size = document.getElementById('modalSize').value;
+            const theme = document.getElementById('modalTheme').value;
+            const centered = document.getElementById('modalCentered').checked;
+            const scrollable = document.getElementById('modalScrollable').checked;
+            const backdrop = document.getElementById('modalBackdrop').checked;
+
+            const modalId = 'customModal_' + Date.now();
+            const sizeClass = size ? ` ${size}` : '';
+            const centeredClass = centered ? ' modal-dialog-centered' : '';
+            const scrollableClass = scrollable ? ' modal-dialog-scrollable' : '';
+            const backdropAttr = backdrop ? '' : ' data-bs-backdrop="static"';
+
+            const modalHTML = `
+                <div class="modal fade" id="${modalId}" tabindex="-1" aria-labelledby="${modalId}Label"${backdropAttr}>
+                    <div class="modal-dialog${sizeClass}${centeredClass}${scrollableClass}">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-${theme}" id="${modalId}Label">${title}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                ${content}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-${theme}">Action</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('dynamicModalContainer').innerHTML = modalHTML;
+            new bootstrap.Modal(document.getElementById(modalId)).show();
+        }
+
+        // Clear Modal Builder
+        function clearBuilder() {
+            document.getElementById('modalTitle').value = '';
+            document.getElementById('modalContent').value = '';
+            document.getElementById('modalSize').value = '';
+            document.getElementById('modalTheme').value = 'primary';
+            document.getElementById('modalCentered').checked = false;
+            document.getElementById('modalScrollable').checked = false;
+            document.getElementById('modalBackdrop').checked = true;
+        }
+</script>

@@ -1,0 +1,282 @@
+{{> head}}
+
+<style>
+/* Critical CSS for immediate render */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .top-navbar { background: white; height: 60px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .dashboard-content { padding: 24px; }
+
+        /* Loading animation */
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+</style>
+
+{{> sidebar}}
+
+<!-- Main Content Wrapper -->
+<div class="main-wrapper" id="mainWrapper">
+    {{> header}}
+
+    <!-- Main Content -->
+    <main class="dashboard-content" id="main-content">
+        <div class="container-fluid">
+<!-- Page Header -->
+            <div class="mb-3">
+                <h1 class="h3 font-bold">C3 Charts</h1>
+                <p class="text-muted text-sm">Interactive charts powered by C3.js and D3.js for advanced data visualization</p>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="dashboard-grid">
+                <!-- Line Chart -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-title-wrapper">
+                            <h3 class="card-title">Multi-Line Chart</h3>
+                            <p class="card-subtitle">Student enrollment trends over time</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container" style="height: 300px;">
+                            <div id="lineChart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Area Chart -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-title-wrapper">
+                            <h3 class="card-title">Area Chart</h3>
+                            <p class="card-subtitle">Course completion rates</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container" style="height: 300px;">
+                            <div id="areaChart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bar Chart -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-title-wrapper">
+                            <h3 class="card-title">Bar Chart</h3>
+                            <p class="card-subtitle">Department enrollment comparison</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container" style="height: 300px;">
+                            <div id="barChart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pie Chart -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-title-wrapper">
+                            <h3 class="card-title">Pie Chart</h3>
+                            <p class="card-subtitle">Student distribution by level</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container" style="height: 300px;">
+                            <div id="pieChart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Donut Chart -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-title-wrapper">
+                            <h3 class="card-title">Donut Chart</h3>
+                            <p class="card-subtitle">Student status overview</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container" style="height: 300px;">
+                            <div id="donutChart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spline Chart -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-title-wrapper">
+                            <h3 class="card-title">Spline Chart</h3>
+                            <p class="card-subtitle">Academic performance trends</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container" style="height: 300px;">
+                            <div id="splineChart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>        </div>
+    </main>
+
+    {{> footer}}
+</div>
+
+{{> scripts}}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+            try {
+                // Line Chart
+                var lineChart = c3.generate({
+                    bindto: '#lineChart',
+                    data: {
+                        columns: [
+                            ['Students', 30, 200, 100, 400, 150, 250, 300],
+                            ['Professors', 50, 20, 10, 40, 15, 25, 50],
+                            ['Courses', 100, 150, 80, 200, 120, 180, 220]
+                        ],
+                        type: 'line'
+                    },
+                    color: {
+                        pattern: ['#007bff', '#dc3545', '#28a745']
+                    },
+                    grid: {
+                        y: {
+                            show: true
+                        }
+                    },
+                    point: {
+                        r: 4
+                    }
+                });
+
+                // Area Chart
+                var areaChart = c3.generate({
+                    bindto: '#areaChart',
+                    data: {
+                        columns: [
+                            ['Enrollment', 300, 350, 300, 400, 500, 450, 600],
+                            ['Graduates', 130, 100, 140, 200, 150, 180, 250]
+                        ],
+                        types: {
+                            'Enrollment': 'area-spline',
+                            'Graduates': 'area-spline'
+                        }
+                    },
+                    color: {
+                        pattern: ['#007bff', '#dc3545']
+                    },
+                    grid: {
+                        y: {
+                            show: true
+                        }
+                    }
+                });
+
+                // Bar Chart
+                var barChart = c3.generate({
+                    bindto: '#barChart',
+                    data: {
+                        columns: [
+                            ['Computer Science', 120, 140, 160, 180, 200],
+                            ['Mathematics', 80, 90, 100, 110, 120],
+                            ['Physics', 60, 70, 80, 90, 100]
+                        ],
+                        type: 'bar'
+                    },
+                    color: {
+                        pattern: ['#007bff', '#dc3545', '#28a745']
+                    },
+                    bar: {
+                        width: {
+                            ratio: 0.6
+                        }
+                    },
+                    axis: {
+                        x: {
+                            type: 'category',
+                            categories: ['2019', '2020', '2021', '2022', '2023']
+                        }
+                    }
+                });
+
+                // Pie Chart
+                var pieChart = c3.generate({
+                    bindto: '#pieChart',
+                    data: {
+                        columns: [
+                            ['Undergraduate', 45],
+                            ['Graduate', 25],
+                            ['PhD', 15],
+                            ['Research', 15]
+                        ],
+                        type: 'pie'
+                    },
+                    color: {
+                        pattern: ['#007bff', '#dc3545', '#28a745', '#ffc107']
+                    },
+                    pie: {
+                        label: {
+                            format: function (value, ratio, id) {
+                                return d3.format('.1%')(ratio);
+                            }
+                        }
+                    }
+                });
+
+                // Donut Chart
+                var donutChart = c3.generate({
+                    bindto: '#donutChart',
+                    data: {
+                        columns: [
+                            ['Active Students', 350],
+                            ['Inactive', 50],
+                            ['Alumni', 200],
+                            ['Dropouts', 25]
+                        ],
+                        type: 'donut'
+                    },
+                    color: {
+                        pattern: ['#007bff', '#dc3545', '#28a745', '#ffc107']
+                    },
+                    donut: {
+                        title: "Student Status",
+                        label: {
+                            format: function (value, ratio, id) {
+                                return value;
+                            }
+                        }
+                    }
+                });
+
+                // Spline Chart
+                var splineChart = c3.generate({
+                    bindto: '#splineChart',
+                    data: {
+                        columns: [
+                            ['Academic Performance', 100, 165, 140, 270, 200, 140, 300, 250, 180, 350],
+                            ['Attendance Rate', 80, 125, 110, 200, 160, 120, 220, 190, 150, 280]
+                        ],
+                        type: 'spline'
+                    },
+                    color: {
+                        pattern: ['#007bff', '#dc3545']
+                    },
+                    grid: {
+                        y: {
+                            show: true
+                        }
+                    }
+                });
+
+                console.log('All C3 charts initialized successfully');
+            } catch (error) {
+                console.error('Error initializing C3 charts:', error);
+            }
+        });
+</script>

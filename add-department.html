@@ -1,0 +1,630 @@
+{{> head}}
+
+<style>
+/* Critical CSS for immediate render */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .top-navbar { background: white; height: 60px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 0 1rem; }
+        .dashboard-content { padding: 24px; }
+
+        /* Loading animation */
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+</style>
+
+{{> sidebar}}
+
+<!-- Main Content Wrapper -->
+<div class="main-wrapper" id="mainWrapper">
+    {{> header}}
+
+    <!-- Main Content -->
+    <main class="dashboard-content" id="main-content">
+        <div class="container-fluid">
+<!-- Page Header -->
+            <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h3 font-bold">Add New Department</h1>
+                        <p class="text-muted text-sm">Create a new academic department with comprehensive information and settings.</p>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a href="departments.html" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-2"></i>Back to Departments
+                        </a>
+                        <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#templateModal">
+                            <i class="bi bi-file-earmark-text me-2"></i>Use Template
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Progress -->
+            <div class="dashboard-row">
+                <div class="dashboard-card mb-4">
+                    <div class="dashboard-card-body py-3">
+                        <div class="progress-header d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="mb-0">Form Progress</h6>
+                            <span class="badge bg-primary progress-badge">Step 1 of 3</span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated"
+                                 role="progressbar" style="width: 33%"
+                                 aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Department Form -->
+            <form id="addDepartmentForm" class="needs-validation" novalidate>
+                <!-- Department Information -->
+                <div class="dashboard-row">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <div class="d-flex align-items-center">
+                                <div class="form-step-icon bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                    <i class="bi bi-building text-primary"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-0">Department Information</h5>
+                                    <p class="text-muted small mb-0">Basic department details and identification</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <label for="departmentName" class="form-label">Department Name *</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="departmentName"
+                                           name="departmentName"
+                                           placeholder="e.g., Computer Science"
+                                           required>
+                                    <div class="invalid-feedback">
+                                        Please provide a valid department name.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="departmentCode" class="form-label">Department Code *</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="departmentCode"
+                                           name="departmentCode"
+                                           placeholder="e.g., CS"
+                                           pattern="[A-Z]{2,5}"
+                                           maxlength="5"
+                                           style="text-transform: uppercase;"
+                                           required>
+                                    <div class="form-text">2-5 uppercase letters (e.g., CS, MECH, BBA)</div>
+                                    <div class="invalid-feedback">
+                                        Please provide a valid department code (2-5 uppercase letters).
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="establishedYear" class="form-label">Established Year</label>
+                                    <input type="number"
+                                           class="form-control"
+                                           id="establishedYear"
+                                           name="establishedYear"
+                                           min="1900"
+                                           max="2025"
+                                           placeholder="e.g., 1995">
+                                    <div class="invalid-feedback">
+                                        Please provide a valid year between 1900 and 2025.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="departmentStatus" class="form-label">Status *</label>
+                                    <select class="form-select" id="departmentStatus" name="departmentStatus" required>
+                                        <option value="">Choose status...</option>
+                                        <option value="active">Active</option>
+                                        <option value="planning">Planning Phase</option>
+                                        <option value="paused">Temporarily Paused</option>
+                                        <option value="disabled">Disabled</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Please select a department status.
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="description" class="form-label">Department Description</label>
+                                    <textarea class="form-control"
+                                              id="description"
+                                              name="description"
+                                              rows="4"
+                                              placeholder="Provide a comprehensive description of the department, its mission, and objectives..."></textarea>
+                                    <div class="form-text">Optional: Describe the department's mission, vision, and primary objectives.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Department Head Information -->
+                <div class="dashboard-row">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <div class="d-flex align-items-center">
+                                <div class="form-step-icon bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                    <i class="bi bi-person-badge text-success"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-0">Department Head Information</h5>
+                                    <p class="text-muted small mb-0">Contact and leadership details</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <label for="headName" class="form-label">Department Head Name *</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="headName"
+                                           name="headName"
+                                           placeholder="e.g., Dr. John Smith"
+                                           required>
+                                    <div class="invalid-feedback">
+                                        Please provide the department head's name.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="headTitle" class="form-label">Title/Position</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="headTitle"
+                                           name="headTitle"
+                                           placeholder="e.g., Professor, Associate Professor"
+                                           value="Professor">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="headEmail" class="form-label">Email Address *</label>
+                                    <input type="email"
+                                           class="form-control"
+                                           id="headEmail"
+                                           name="headEmail"
+                                           placeholder="john.smith@kiaalap.edu"
+                                           required>
+                                    <div class="invalid-feedback">
+                                        Please provide a valid email address.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="headPhone" class="form-label">Phone Number</label>
+                                    <input type="tel"
+                                           class="form-control"
+                                           id="headPhone"
+                                           name="headPhone"
+                                           placeholder="+1-555-0123"
+                                           pattern="[\+]?[0-9\-\s\(\)]+"
+                                           maxlength="20">
+                                    <div class="invalid-feedback">
+                                        Please provide a valid phone number.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="officeLocation" class="form-label">Office Location</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="officeLocation"
+                                           name="officeLocation"
+                                           placeholder="e.g., Building A, Room 301">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="appointmentDate" class="form-label">Appointment Date</label>
+                                    <input type="date"
+                                           class="form-control"
+                                           id="appointmentDate"
+                                           name="appointmentDate">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Department Metrics & Budget -->
+                <div class="dashboard-row">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <div class="d-flex align-items-center">
+                                <div class="form-step-icon bg-info bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                    <i class="bi bi-graph-up text-info"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-0">Department Metrics & Budget</h5>
+                                    <p class="text-muted small mb-0">Financial and enrollment information</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="row g-4">
+                                <div class="col-md-4">
+                                    <label for="currentStudents" class="form-label">Current Students</label>
+                                    <input type="number"
+                                           class="form-control"
+                                           id="currentStudents"
+                                           name="currentStudents"
+                                           min="0"
+                                           placeholder="0"
+                                           value="0">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="maxCapacity" class="form-label">Maximum Capacity</label>
+                                    <input type="number"
+                                           class="form-control"
+                                           id="maxCapacity"
+                                           name="maxCapacity"
+                                           min="1"
+                                           placeholder="e.g., 2000">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="facultyCount" class="form-label">Faculty Members</label>
+                                    <input type="number"
+                                           class="form-control"
+                                           id="facultyCount"
+                                           name="facultyCount"
+                                           min="0"
+                                           placeholder="0"
+                                           value="0">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="annualBudget" class="form-label">Annual Budget (USD)</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number"
+                                               class="form-control"
+                                               id="annualBudget"
+                                               name="annualBudget"
+                                               min="0"
+                                               step="1000"
+                                               placeholder="0">
+                                        <span class="input-group-text">.00</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="budgetYear" class="form-label">Budget Year</label>
+                                    <select class="form-select" id="budgetYear" name="budgetYear">
+                                        <option value="">Select year...</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2025" selected>2025</option>
+                                        <option value="2026">2026</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Settings -->
+                <div class="dashboard-row">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <div class="d-flex align-items-center">
+                                <div class="form-step-icon bg-warning bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                    <i class="bi bi-gear text-warning"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-0">Additional Settings</h5>
+                                    <p class="text-muted small mb-0">Optional configuration and features</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="row g-4">
+                                <div class="col-md-12">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="allowOnlineApplication" name="allowOnlineApplication" checked>
+                                        <label class="form-check-label" for="allowOnlineApplication">
+                                            Allow Online Applications
+                                        </label>
+                                        <div class="form-text">Students can apply to this department through the online portal</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="enableNotifications" name="enableNotifications" checked>
+                                        <label class="form-check-label" for="enableNotifications">
+                                            Enable Email Notifications
+                                        </label>
+                                        <div class="form-text">Department head will receive email notifications for important updates</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="publiclyVisible" name="publiclyVisible" checked>
+                                        <label class="form-check-label" for="publiclyVisible">
+                                            Publicly Visible
+                                        </label>
+                                        <div class="form-text">Department information will be visible on the public website</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="departmentWebsite" class="form-label">Department Website</label>
+                                    <input type="url"
+                                           class="form-control"
+                                           id="departmentWebsite"
+                                           name="departmentWebsite"
+                                           placeholder="https://cs.kiaalap.edu">
+                                    <div class="form-text">Optional: Department's dedicated website URL</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="socialMedia" class="form-label">Social Media</label>
+                                    <input type="url"
+                                           class="form-control"
+                                           id="socialMedia"
+                                           name="socialMedia"
+                                           placeholder="https://linkedin.com/company/kiaalap-cs">
+                                    <div class="form-text">Optional: LinkedIn, Twitter, or Facebook page</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="dashboard-row">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="form-text">
+                                    <i class="bi bi-info-circle me-1"></i>
+                                    Fields marked with * are required. You can edit all information later.
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-outline-secondary" id="saveDraft">
+                                        <i class="bi bi-file-earmark me-2"></i>Save as Draft
+                                    </button>
+                                    <button type="button" class="btn btn-outline-info" id="previewDepartment">
+                                        <i class="bi bi-eye me-2"></i>Preview
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-check-circle me-2"></i>Create Department
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>        </div>
+    </main>
+
+    {{> footer}}
+</div>
+
+{{> scripts}}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+            // Form validation
+            const form = document.getElementById('addDepartmentForm');
+            const progressBar = document.querySelector('.progress-bar');
+            const progressBadge = document.querySelector('.progress-badge');
+
+            // Auto-uppercase department code
+            const deptCodeInput = document.getElementById('departmentCode');
+            deptCodeInput.addEventListener('input', function() {
+                this.value = this.value.toUpperCase().replace(/[^A-Z]/g, '');
+            });
+
+            // Template selection
+            const templateCards = document.querySelectorAll('.template-card');
+            const applyTemplateBtn = document.getElementById('applyTemplate');
+            let selectedTemplate = null;
+
+            templateCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    templateCards.forEach(c => c.classList.remove('border-primary'));
+                    this.classList.add('border-primary');
+                    selectedTemplate = this.dataset.template;
+                    applyTemplateBtn.disabled = false;
+                });
+            });
+
+            // Apply template
+            applyTemplateBtn.addEventListener('click', function() {
+                const templates = {
+                    engineering: {
+                        name: 'Computer Science',
+                        code: 'CS',
+                        head: 'Dr. John Smith',
+                        email: 'john.smith@kiaalap.edu',
+                        maxCapacity: 2000,
+                        description: 'The Computer Science department focuses on software engineering, artificial intelligence, cybersecurity, and computer systems.'
+                    },
+                    business: {
+                        name: 'Business Administration',
+                        code: 'BBA',
+                        head: 'Dr. Sarah Johnson',
+                        email: 'sarah.johnson@kiaalap.edu',
+                        maxCapacity: 1500,
+                        description: 'The Business Administration department offers comprehensive programs in management, finance, marketing, and entrepreneurship.'
+                    },
+                    science: {
+                        name: 'Biology',
+                        code: 'BIO',
+                        head: 'Dr. Michael Brown',
+                        email: 'michael.brown@kiaalap.edu',
+                        maxCapacity: 800,
+                        description: 'The Biology department provides cutting-edge education in life sciences, biotechnology, and medical research.'
+                    },
+                    'liberal-arts': {
+                        name: 'English Literature',
+                        code: 'ENG',
+                        head: 'Dr. Emma Davis',
+                        email: 'emma.davis@kiaalap.edu',
+                        maxCapacity: 600,
+                        description: 'The English Literature department offers comprehensive studies in literature, creative writing, and linguistic analysis.'
+                    }
+                };
+
+                const template = templates[selectedTemplate];
+                if (template) {
+                    document.getElementById('departmentName').value = template.name;
+                    document.getElementById('departmentCode').value = template.code;
+                    document.getElementById('headName').value = template.head;
+                    document.getElementById('headEmail').value = template.email;
+                    document.getElementById('maxCapacity').value = template.maxCapacity;
+                    document.getElementById('description').value = template.description;
+                    document.getElementById('departmentStatus').value = 'active';
+
+                    // Close modal
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('templateModal'));
+                    modal.hide();
+
+                    // Update progress
+                    updateProgress();
+                }
+            });
+
+            // Preview functionality
+            document.getElementById('previewDepartment').addEventListener('click', function() {
+                generatePreview();
+            });
+
+            function generatePreview() {
+                const formData = new FormData(form);
+                const previewContent = document.getElementById('previewContent');
+
+                previewContent.innerHTML = `
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Department Information</h6>
+                            <table class="table table-sm">
+                                <tr><th>Name:</th><td>${formData.get('departmentName') || 'Not specified'}</td></tr>
+                                <tr><th>Code:</th><td>${formData.get('departmentCode') || 'Not specified'}</td></tr>
+                                <tr><th>Status:</th><td><span class="badge bg-${formData.get('departmentStatus') === 'active' ? 'success' : 'warning'}">${formData.get('departmentStatus') || 'Not specified'}</span></td></tr>
+                                <tr><th>Established:</th><td>${formData.get('establishedYear') || 'Not specified'}</td></tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Department Head</h6>
+                            <table class="table table-sm">
+                                <tr><th>Name:</th><td>${formData.get('headName') || 'Not specified'}</td></tr>
+                                <tr><th>Email:</th><td>${formData.get('headEmail') || 'Not specified'}</td></tr>
+                                <tr><th>Phone:</th><td>${formData.get('headPhone') || 'Not specified'}</td></tr>
+                                <tr><th>Office:</th><td>${formData.get('officeLocation') || 'Not specified'}</td></tr>
+                            </table>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <h6>Description</h6>
+                            <p class="text-muted">${formData.get('description') || 'No description provided'}</p>
+                        </div>
+                    </div>
+                `;
+
+                const previewModal = new bootstrap.Modal(document.getElementById('previewModal'));
+                previewModal.show();
+            }
+
+            // Form submission
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                if (form.checkValidity()) {
+                    // Simulate form submission
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Creating...';
+
+                    setTimeout(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+
+                        const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                        successModal.show();
+                    }, 2000);
+                } else {
+                    // Show validation errors
+                    const firstInvalid = form.querySelector(':invalid');
+                    if (firstInvalid) {
+                        firstInvalid.focus();
+                        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+
+                form.classList.add('was-validated');
+            });
+
+            // Progress tracking
+            function updateProgress() {
+                const requiredFields = form.querySelectorAll('[required]');
+                let filledFields = 0;
+
+                requiredFields.forEach(field => {
+                    if (field.value.trim()) filledFields++;
+                });
+
+                const progress = Math.round((filledFields / requiredFields.length) * 100);
+                progressBar.style.width = progress + '%';
+                progressBar.setAttribute('aria-valuenow', progress);
+
+                if (progress < 34) {
+                    progressBadge.textContent = 'Step 1 of 3';
+                } else if (progress < 67) {
+                    progressBadge.textContent = 'Step 2 of 3';
+                } else {
+                    progressBadge.textContent = 'Step 3 of 3';
+                }
+            }
+
+            // Update progress on input changes
+            form.addEventListener('input', updateProgress);
+            form.addEventListener('change', updateProgress);
+
+            // Save draft functionality
+            document.getElementById('saveDraft').addEventListener('click', function() {
+                const formData = new FormData(form);
+                const draftData = {};
+                for (let [key, value] of formData.entries()) {
+                    draftData[key] = value;
+                }
+
+                localStorage.setItem('departmentDraft', JSON.stringify(draftData));
+
+                // Show confirmation
+                const toast = document.createElement('div');
+                toast.className = 'toast position-fixed top-0 end-0 m-3';
+                toast.innerHTML = `
+                    <div class="toast-body">
+                        <i class="bi bi-check-circle text-success me-2"></i>
+                        Draft saved successfully!
+                    </div>
+                `;
+                document.body.appendChild(toast);
+
+                const bsToast = new bootstrap.Toast(toast);
+                bsToast.show();
+
+                toast.addEventListener('hidden.bs.toast', () => {
+                    document.body.removeChild(toast);
+                });
+            });
+
+            // Load draft on page load
+            const savedDraft = localStorage.getItem('departmentDraft');
+            if (savedDraft) {
+                const draftData = JSON.parse(savedDraft);
+                Object.keys(draftData).forEach(key => {
+                    const field = form.querySelector(`[name="${key}"]`);
+                    if (field) {
+                        if (field.type === 'checkbox') {
+                            field.checked = draftData[key] === 'on';
+                        } else {
+                            field.value = draftData[key];
+                        }
+                    }
+                });
+                updateProgress();
+            }
+
+            // Initial progress update
+            updateProgress();
+        });
+</script>
