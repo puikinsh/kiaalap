@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kiaalap - Add New Student">
+    <meta name="keywords" content="education, dashboard, students, management, admin">
+    <meta name="author" content="Kiaalap">
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="preconnect" href="https://ui-avatars.com" crossorigin>
+
+    <title>Kiaalap - Add Student</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Critical CSS for above-the-fold content -->
+    <style>*{box-sizing:border-box;margin:0;padding:0}body{background:#f5f7fa;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif}.sidebar{background:#1f2937;height:100vh;left:0;position:fixed;top:0;width:260px;z-index:1040}.main-wrapper{margin-left:260px;min-height:100vh;transition:margin-left .3s ease}.top-navbar{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.1);height:64px}.dashboard-content{padding:24px}</style>
+
+    <!-- Async load stylesheets -->
+
+    <!-- Fallback for no-JS -->
+    <noscript>
+    </noscript>
+  <link rel="stylesheet" crossorigin href="./assets/bootstrap-C31-XpK9.css">
+  <link rel="stylesheet" crossorigin href="./assets/bootstrap-icons--Sisaltn.css">
+  <link rel="stylesheet" crossorigin href="./assets/dashboard-DOMAAUp6.css">
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <h5>
+                    <i class="bi bi-mortarboard-fill"></i>
+                    Kiaalap
+                </h5>
+                <button class="sidebar-close" id="sidebarClose">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="menu-section">
+                <div class="menu-section-title">Main</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#dashboard" data-bs-target="#dashboardSubmenu" aria-expanded="false">
+                            <i class="bi bi-speedometer2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <ul id="dashboardSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="index.html">Dashboard v.1</a></li>
+                            <li><a class="nav-link" href="index-1.html">Dashboard v.2</a></li>
+                            <li><a class="nav-link" href="index-2.html">Dashboard v.3</a></li>
+                            <li><a class="nav-link" href="analytics.html">Analytics</a></li>
+                            <li><a class="nav-link" href="widgets.html">Widgets</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">
+                            <i class="bi bi-calendar-event"></i>
+                            <span>Events</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Academic</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#professors" data-bs-target="#professorsSubmenu" aria-expanded="false">
+                            <i class="bi bi-person-badge"></i>
+                            <span>Professors</span>
+                        </a>
+                        <ul id="professorsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-professors.html">All Professors</a></li>
+                            <li><a class="nav-link" href="add-professor.html">Add Professor</a></li>
+                            <li><a class="nav-link" href="edit-professor.html">Edit Professor</a></li>
+                            <li><a class="nav-link" href="professor-profile.html">Professor Profile</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu active" href="#students" data-bs-target="#studentsSubmenu" aria-expanded="true">
+                            <i class="bi bi-people"></i>
+                            <span>Students</span>
+                        </a>
+                        <ul id="studentsSubmenu" class="submenu collapse show list-unstyled">
+                            <li><a class="nav-link" href="all-students.html">All Students</a></li>
+                            <li><a class="nav-link active" href="add-student.html">Add Student</a></li>
+                            <li><a class="nav-link" href="edit-student.html">Edit Student</a></li>
+                            <li><a class="nav-link" href="student-profile.html">Student Profile</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#courses" data-bs-target="#coursesSubmenu" aria-expanded="false">
+                            <i class="bi bi-book"></i>
+                            <span>Courses</span>
+                        </a>
+                        <ul id="coursesSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-courses.html">All Courses</a></li>
+                            <li><a class="nav-link" href="add-course.html">Add Course</a></li>
+                            <li><a class="nav-link" href="edit-course.html">Edit Course</a></li>
+                            <li><a class="nav-link" href="course-info.html">Course Info</a></li>
+                            <li><a class="nav-link" href="course-payment.html">Course Payment</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#library" data-bs-target="#librarySubmenu" aria-expanded="false">
+                            <i class="bi bi-journal-bookmark"></i>
+                            <span>Library</span>
+                        </a>
+                        <ul id="librarySubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="library-assets.html">Library Assets</a></li>
+                            <li><a class="nav-link" href="add-library-assets.html">Add Library Asset</a></li>
+                            <li><a class="nav-link" href="edit-library-assets.html">Edit Library Asset</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#departments" data-bs-target="#departmentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-building"></i>
+                            <span>Departments</span>
+                        </a>
+                        <ul id="departmentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="departments.html">Departments List</a></li>
+                            <li><a class="nav-link" href="add-department.html">Add Department</a></li>
+                            <li><a class="nav-link" href="edit-department.html">Edit Department</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Communication</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#mailbox" data-bs-target="#mailboxSubmenu" aria-expanded="false">
+                            <i class="bi bi-envelope"></i>
+                            <span>Mailbox</span>
+                        </a>
+                        <ul id="mailboxSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="mailbox.html">Inbox</a></li>
+                            <li><a class="nav-link" href="mailbox-view.html">View Mail</a></li>
+                            <li><a class="nav-link" href="mailbox-compose.html">Compose Mail</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Search Backdrop -->
+    <div class="search-backdrop" id="searchBackdrop"></div>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper" id="mainWrapper">
+        <!-- Header -->
+        <nav class="navbar top-navbar">
+            <div class="container-fluid d-flex align-items-center h-100">
+                <!-- Hamburger Menu -->
+                <button class="hamburger-menu" id="sidebarToggle">
+                    <i class="bi bi-list"></i>
+                </button>
+
+                <!-- Breadcrumb for desktop -->
+                <nav aria-label="breadcrumb" class="d-none d-lg-block ms-3">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Academic</a></li>
+                        <li class="breadcrumb-item"><a href="all-students.html">Students</a></li>
+                        <li class="breadcrumb-item active">Add Student</li>
+                    </ol>
+                </nav>
+
+                <!-- Logo for mobile -->
+                <div class="navbar-brand d-lg-none fw-bold me-auto">Kiaalap</div>
+
+                <!-- Spacer for desktop -->
+                <div class="flex-grow-1 d-none d-lg-block"></div>
+
+                <!-- Right Actions -->
+                <div class="d-flex align-items-center gap-2">
+                    <!-- Search -->
+                    <div class="search-container">
+                        <button class="btn btn-light btn-icon" id="searchToggle">
+                            <i class="bi bi-search"></i>
+                        </button>
+
+                        <form class="search-form" id="searchForm">
+                            <i class="bi bi-search search-icon"></i>
+                            <input type="text"
+                                   class="form-control"
+                                   id="searchInput"
+                                   placeholder="Search..."
+                                   data-bs-toggle="dropdown">
+                            <button type="button" class="close-search" id="closeSearch">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+
+                            <ul class="dropdown-menu w-100 mt-2">
+                                <li><a class="dropdown-item" href="all-students.html">All Students</a></li>
+                                <li><a class="dropdown-item" href="#">Recent Registrations</a></li>
+                                <li><a class="dropdown-item" href="#">Pending Approvals</a></li>
+                            </ul>
+                        </form>
+                    </div>
+
+                    <!-- Messages -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-icon position-relative"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-chat-dots"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"
+                                  style="font-size: 0.625rem;">5</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <h6 class="mb-0">Messages</h6>
+                            </div>
+                            <div class="p-2" style="max-height: 300px; overflow-y: auto;">
+                                <a href="#" class="notification-item">
+                                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=10b981&color=fff"
+                                         class="rounded-circle"
+                                         width="36"
+                                         height="36"
+                                         alt="Admin">
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Admin User</div>
+                                        <div class="text-muted small">Please complete registration</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">10 min ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="border-top p-2 text-center">
+                                <a href="#" class="text-primary small">View All Messages</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-icon position-relative"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-bell"></i>
+                            <span class="notification-dot"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <h6 class="mb-0">Notifications</h6>
+                            </div>
+                            <div class="p-2" style="max-height: 350px; overflow-y: auto;">
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon bg-warning bg-opacity-10 text-warning">
+                                        <i class="bi bi-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Pending Registrations</div>
+                                        <div class="text-muted small">5 students awaiting approval</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">1 hour ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="border-top p-2 text-center">
+                                <a href="#" class="text-primary small">View All Notifications</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="dropdown">
+                        <button class="btn btn-light d-flex align-items-center px-2 btn-icon"
+                                data-bs-toggle="dropdown">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces"
+                                 alt="User"
+                                 class="user-avatar"
+                                 loading="lazy"
+                                 width="32"
+                                 height="32">
+                            <span class="hide-mobile ms-2" style="font-size: 0.875rem;">Sarah Johnson</span>
+                            <i class="bi bi-chevron-down hide-mobile ms-1" style="font-size: 0.75rem;"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li class="px-3 py-2 border-bottom">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces"
+                                         alt="User"
+                                         width="48"
+                                         height="48"
+                                         class="rounded-circle">
+                                    <div class="ms-3">
+                                        <div class="fw-semibold">Sarah Johnson</div>
+                                        <div class="text-muted small">sarah.johnson@kiaalap.edu</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-bell me-2"></i> Preferences</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sign Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="dashboard-content" id="main-content">
+            <div class="container-fluid">
+                <!-- Page Header -->
+                <div class="row mb-4">
+                    <div class="col-lg-12">
+                        <h4 class="page-title">Add New Student</h4>
+                        <p class="text-muted">Fill in the information below to add a new student to the system</p>
+                    </div>
+                </div>
+
+                <!-- Form Tabs -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-body">
+                                <!-- Tab Navigation -->
+                                <ul class="nav nav-tabs mb-4" id="studentFormTabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true">
+                                            <i class="bi bi-person-circle me-2"></i>Basic Information
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="account-tab" data-bs-toggle="tab" data-bs-target="#account" type="button" role="tab" aria-controls="account" aria-selected="false">
+                                            <i class="bi bi-shield-lock me-2"></i>Account Information
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="social-tab" data-bs-toggle="tab" data-bs-target="#social" type="button" role="tab" aria-controls="social" aria-selected="false">
+                                            <i class="bi bi-share me-2"></i>Social Information
+                                        </button>
+                                    </li>
+                                </ul>
+
+                                <!-- Tab Content -->
+                                <div class="tab-content" id="studentFormTabContent">
+                                    <!-- Basic Information Tab -->
+                                    <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
+                                        <form class="needs-validation" novalidate>
+                                            <div class="row gx-4 gy-3">
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="fullName" class="form-label">Full Name <span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control" id="fullName" placeholder="Enter full name" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid name.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="studentId" class="form-label">Student ID <span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control" id="studentId" placeholder="Enter student ID" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a student ID.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="department" class="form-label">Department <span class="text-danger">*</span></label>
+                                                        <select class="form-select" id="department" required>
+                                                            <option value="" selected disabled>Select Department</option>
+                                                            <option value="cs">Computer Science</option>
+                                                            <option value="eng">Engineering</option>
+                                                            <option value="bus">Business Administration</option>
+                                                            <option value="med">Medicine</option>
+                                                            <option value="psy">Psychology</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">
+                                                            Please select a department.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="course" class="form-label">Course</label>
+                                                        <input type="text" class="form-control" id="course" placeholder="Enter course name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="dateOfBirth" class="form-label">Date of Birth <span class="text-danger">*</span></label>
+                                                        <input type="date" class="form-control" id="dateOfBirth" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide date of birth.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="gender" class="form-label">Gender <span class="text-danger">*</span></label>
+                                                        <select class="form-select" id="gender" required>
+                                                            <option value="" selected disabled>Select Gender</option>
+                                                            <option value="male">Male</option>
+                                                            <option value="female">Female</option>
+                                                            <option value="other">Other</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">
+                                                            Please select a gender.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                                                        <input type="tel" class="form-control" id="phone" placeholder="Enter phone number" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a phone number.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="parentPhone" class="form-label">Parent/Guardian Phone</label>
+                                                        <input type="tel" class="form-control" id="parentPhone" placeholder="Enter parent phone">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="address" class="form-label">Address</label>
+                                                        <textarea class="form-control" id="address" rows="3" placeholder="Enter address"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="city" class="form-label">City</label>
+                                                        <input type="text" class="form-control" id="city" placeholder="Enter city">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="state" class="form-label">State/Province</label>
+                                                        <input type="text" class="form-control" id="state" placeholder="Enter state">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="postalCode" class="form-label">Postal Code</label>
+                                                        <input type="text" class="form-control" id="postalCode" placeholder="Enter postal code">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="profileImage" class="form-label">Profile Image</label>
+                                                        <input class="form-control" type="file" id="profileImage" accept="image/*">
+                                                        <div class="form-text">Accepted formats: JPG, PNG, GIF (Max 2MB)</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-12 px-2">
+                                                    <button type="submit" class="btn btn-primary">
+                                                        <i class="bi bi-check-circle me-2"></i>Save Basic Information
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary ms-2" onclick="window.location.href='all-students.html'">
+                                                        <i class="bi bi-x-circle me-2"></i>Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <!-- Account Information Tab -->
+                                    <div class="tab-pane fade" id="account" role="tabpanel" aria-labelledby="account-tab">
+                                        <form class="needs-validation" novalidate>
+                                            <div class="row gx-4 gy-3">
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                                                        <input type="email" class="form-control" id="email" placeholder="Enter email address" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid email.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control" id="username" placeholder="Enter username" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a username.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                                                        <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a password.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="confirmPassword" class="form-label">Confirm Password <span class="text-danger">*</span></label>
+                                                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password" required>
+                                                        <div class="invalid-feedback">
+                                                            Passwords must match.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="accountStatus" class="form-label">Account Status</label>
+                                                        <select class="form-select" id="accountStatus">
+                                                            <option value="active" selected>Active</option>
+                                                            <option value="inactive">Inactive</option>
+                                                            <option value="suspended">Suspended</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="role" class="form-label">Role</label>
+                                                        <select class="form-select" id="role">
+                                                            <option value="student" selected>Student</option>
+                                                            <option value="class_rep">Class Representative</option>
+                                                            <option value="prefect">Prefect</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-12 px-2">
+                                                    <button type="submit" class="btn btn-primary">
+                                                        <i class="bi bi-check-circle me-2"></i>Save Account Information
+                                                    </button>
+                                                    <button type="reset" class="btn btn-secondary ms-2">
+                                                        <i class="bi bi-arrow-clockwise me-2"></i>Reset
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <!-- Social Information Tab -->
+                                    <div class="tab-pane fade" id="social" role="tabpanel" aria-labelledby="social-tab">
+                                        <form>
+                                            <div class="row gx-4 gy-3">
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="facebook" class="form-label">Facebook Profile</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class="bi bi-facebook"></i></span>
+                                                            <input type="url" class="form-control" id="facebook" placeholder="https://facebook.com/username">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="twitter" class="form-label">Twitter Profile</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class="bi bi-twitter"></i></span>
+                                                            <input type="url" class="form-control" id="twitter" placeholder="https://twitter.com/username">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="linkedin" class="form-label">LinkedIn Profile</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class="bi bi-linkedin"></i></span>
+                                                            <input type="url" class="form-control" id="linkedin" placeholder="https://linkedin.com/in/username">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="instagram" class="form-label">Instagram Profile</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class="bi bi-instagram"></i></span>
+                                                            <input type="url" class="form-control" id="instagram" placeholder="https://instagram.com/username">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="website" class="form-label">Personal Website</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class="bi bi-globe"></i></span>
+                                                            <input type="url" class="form-control" id="website" placeholder="https://example.com">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 px-2">
+                                                    <div class="mb-4">
+                                                        <label for="github" class="form-label">GitHub Profile</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"><i class="bi bi-github"></i></span>
+                                                            <input type="url" class="form-control" id="github" placeholder="https://github.com/username">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-12 px-2">
+                                                    <button type="submit" class="btn btn-primary">
+                                                        <i class="bi bi-check-circle me-2"></i>Save Social Information
+                                                    </button>
+                                                    <button type="button" class="btn btn-success ms-2" onclick="window.location.href='all-students.html'">
+                                                        <i class="bi bi-check-all me-2"></i>Complete Registration
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <p class="mb-0">© 2025 Kiaalap. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts with defer for performance -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="src/js/dashboard.js" defer></script>
+
+    <!-- Form Validation Script -->
+    <script defer>
+        document.addEventListener('DOMContentLoaded', function() {
+            const forms = document.querySelectorAll('.needs-validation');
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        });
+    </script>
+</body>
+</html>

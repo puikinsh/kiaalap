@@ -1,0 +1,583 @@
+---
+layout: "base"
+title: "Add library assets"
+pageTitle: "Add library assets"
+showPageHeader: true
+breadcrumb:
+  - title: "Add library assets"
+pageSpecificStyles: |
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+          .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+          .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+          .top-navbar { background: white; height: 64px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+          .dashboard-content { padding: 24px; }
+  
+          /* Loading animation */
+          @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+          .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+  
+          /* Form styling */
+          .form-card {
+              background: white;
+              border-radius: 12px;
+              box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+              border: none;
+          }
+          .preview-area {
+              border: 2px dashed #d1d5db;
+              border-radius: 8px;
+              padding: 2rem;
+              text-align: center;
+              background: #f9fafb;
+              transition: border-color 0.3s ease;
+          }
+          .preview-area.drag-over {
+              border-color: #6366f1;
+              background: #f0f0ff;
+          }
+          .preview-image {
+              max-width: 200px;
+              max-height: 150px;
+              object-fit: cover;
+              border-radius: 8px;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+          }
+          .required-field::after {
+              content: " *";
+              color: #ef4444;
+          }
+pageSpecificJS: |
+  document.addEventListener('DOMContentLoaded', function() {
+              const form = document.getElementById('addAssetForm');
+              const imageInput = document.getElementById('coverImage');
+              const selectImageBtn = document.getElementById('selectImageBtn');
+              const previewArea = document.getElementById('imagePreview');
+              const previewContainer = document.getElementById('imagePreviewContainer');
+              const previewImg = document.getElementById('previewImg');
+              const removeImageBtn = document.getElementById('removeImageBtn');
+  
+              // Image upload functionality
+              selectImageBtn.addEventListener('click', () => imageInput.click());
+  
+              imageInput.addEventListener('change', function(e) {
+                  const file = e.target.files[0];
+                  if (file) {
+                      handleImageUpload(file);
+                  }
+              });
+  
+              // Drag and drop functionality
+              previewArea.addEventListener('dragover', function(e) {
+                  e.preventDefault();
+                  previewArea.classList.add('drag-over');
+              });
+  
+              previewArea.addEventListener('dragleave', function(e) {
+                  e.preventDefault();
+                  previewArea.classList.remove('drag-over');
+              });
+  
+              previewArea.addEventListener('drop', function(e) {
+                  e.preventDefault();
+                  previewArea.classList.remove('drag-over');
+                  const file = e.dataTransfer.files[0];
+                  if (file && file.type.startsWith('image/')) {
+                      handleImageUpload(file);
+                  }
+              });
+  
+              function handleImageUpload(file) {
+                  if (file.size > 5 * 1024 * 1024) {
+                      alert('File size must be less than 5MB');
+                      return;
+                  }
+  
+                  const reader = new FileReader();
+                  reader.onload = function(e) {
+                      previewImg.src = e.target.result;
+                      previewArea.classList.add('d-none');
+                      previewContainer.classList.remove('d-none');
+                  };
+                  reader.readAsDataURL(file);
+              }
+  
+              removeImageBtn.addEventListener('click', function() {
+                  imageInput.value = '';
+                  previewArea.classList.remove('d-none');
+                  previewContainer.classList.add('d-none');
+                  previewImg.src = '';
+              });
+  
+              // Form validation
+              form.addEventListener('submit', function(e) {
+                  e.preventDefault();
+                  e.stopPropagation();
+  
+                  if (form.checkValidity()) {
+                      // Simulate form submission
+                      const submitBtn = form.querySelector('button[type="submit"]');
+                      const originalText = submitBtn.innerHTML;
+                      submitBtn.innerHTML = '<i class="spinner-border spinner-border-sm me-2"></i>Saving...';
+                      submitBtn.disabled = true;
+  
+                      setTimeout(() => {
+                          alert('Asset added successfully!');
+                          // In real app, would redirect to library-assets.html
+                          console.log('Form data:', new FormData(form));
+                          submitBtn.innerHTML = originalText;
+                          submitBtn.disabled = false;
+                      }, 2000);
+                  }
+  
+                  form.classList.add('was-validated');
+              });
+  
+              // Save and add another functionality
+              document.getElementById('saveAndAddAnother').addEventListener('click', function() {
+                  if (form.checkValidity()) {
+                      // Save current form then reset for new entry
+                      console.log('Saving and resetting form...');
+                      form.reset();
+                      form.classList.remove('was-validated');
+                      removeImageBtn.click();
+                  }
+              });
+  
+              // Fill sample data
+              document.getElementById('fillSampleData').addEventListener('click', function() {
+                  document.getElementById('assetTitle').value = 'Introduction to Computer Science';
+                  document.getElementById('assetCategory').value = 'books';
+                  document.getElementById('assetAuthor').value = 'Thomas H. Cormen, Charles E. Leiserson';
+                  document.getElementById('assetPublisher').value = 'MIT Press';
+                  document.getElementById('assetISBN').value = '978-0-262-03384-8';
+                  document.getElementById('assetEdition').value = '4th';
+                  document.getElementById('assetYear').value = '2022';
+                  document.getElementById('assetDescription').value = 'A comprehensive introduction to computer algorithms and data structures.';
+                  document.getElementById('assetLocation').value = 'main-library';
+                  document.getElementById('assetStatus').value = 'available';
+                  document.getElementById('assetCopies').value = '3';
+                  document.getElementById('assetPrice').value = '89.99';
+                  document.getElementById('assetCallNumber').value = 'QA76.6.C662';
+                  document.getElementById('assetLanguage').value = 'english';
+                  document.getElementById('assetPages').value = '1312';
+                  document.getElementById('assetSubjects').value = 'Computer Science, Algorithms, Data Structures, Programming';
+              });
+  
+              // Clear form
+              document.getElementById('clearForm').addEventListener('click', function() {
+                  if (confirm('Are you sure you want to clear all form data?')) {
+                      form.reset();
+                      form.classList.remove('was-validated');
+                      removeImageBtn.click();
+                  }
+              });
+  
+              // Preview functionality
+              document.getElementById('previewAsset').addEventListener('click', function() {
+                  // Would show a modal with asset preview
+                  console.log('Showing asset preview...');
+              });
+  
+              // Auto-generate barcode if not provided
+              document.getElementById('assetTitle').addEventListener('blur', function() {
+                  const barcodeField = document.getElementById('assetBarcode');
+                  if (!barcodeField.value && this.value) {
+                      // Generate a simple barcode based on timestamp and title
+                      const timestamp = Date.now();
+                      const titleCode = this.value.substring(0, 3).toUpperCase();
+                      barcodeField.value = `LIB${titleCode}${timestamp}`.slice(-12);
+                  }
+              });
+          });
+---
+
+<!-- Page Header -->
+                <div class="dashboard-card mb-3">
+                    <div class="dashboard-card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h1 class="h3 mb-1">Add Library Asset</h1>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                                        <li class="breadcrumb-item"><a href="#">Library</a></li>
+                                        <li class="breadcrumb-item"><a href="library-assets.html">Assets</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Add Asset</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <a href="library-assets.html" class="btn btn-outline-secondary">
+                                    <i class="bi bi-arrow-left me-1"></i>
+                                    Back to Assets
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alert for Form Instructions -->
+                <div class="alert alert-info mb-4" role="alert">
+                    <i class="bi bi-info-circle me-2"></i>
+                    Fill in the required fields marked with <span class="text-danger">*</span> to add a new library asset. You can always edit this information later.
+                </div>
+
+                <!-- Add Asset Form -->
+                <form id="addAssetForm" novalidate>
+                    <div class="dashboard-grid" style="grid-template-columns: 2fr 1fr; gap: 20px;">
+                        <div>
+                            <!-- Basic Information -->
+                            <div class="dashboard-card">
+                                <div class="dashboard-card-header">
+                                    <h5 class="dashboard-card-title">
+                                        <i class="bi bi-info-circle me-2"></i>
+                                        Basic Information
+                                    </h5>
+                                </div>
+                                <div class="dashboard-card-body">
+                                    <div class="dashboard-grid mb-3" style="grid-template-columns: 2fr 1fr; gap: 16px;">
+                                        <div>
+                                            <label for="assetTitle" class="form-label required-field">Title</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="assetTitle"
+                                                   name="title"
+                                                   placeholder="Enter asset title"
+                                                   required
+                                                   aria-describedby="titleHelp">
+                                            <div class="invalid-feedback">
+                                                Please provide a valid title.
+                                            </div>
+                                            <small id="titleHelp" class="form-text text-muted">
+                                                The main title of the book, journal, or media.
+                                            </small>
+                                        </div>
+                                        <div>
+                                            <label for="assetCategory" class="form-label required-field">Category</label>
+                                            <select class="form-select" id="assetCategory" name="category" required>
+                                                <option value="">Select category</option>
+                                                <option value="books">Books</option>
+                                                <option value="journals">Journals</option>
+                                                <option value="digital">Digital Media</option>
+                                                <option value="reference">Reference Materials</option>
+                                                <option value="periodicals">Periodicals</option>
+                                                <option value="audio">Audio Materials</option>
+                                                <option value="video">Video Materials</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please select a category.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="dashboard-grid grid-cols-2 mb-3">
+                                        <div>
+                                            <label for="assetAuthor" class="form-label">Author(s)</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="assetAuthor"
+                                                   name="author"
+                                                   placeholder="Enter author name(s)"
+                                                   aria-describedby="authorHelp">
+                                            <small id="authorHelp" class="form-text text-muted">
+                                                Separate multiple authors with commas.
+                                            </small>
+                                        </div>
+                                        <div>
+                                            <label for="assetPublisher" class="form-label">Publisher</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="assetPublisher"
+                                                   name="publisher"
+                                                   placeholder="Enter publisher name">
+                                        </div>
+                                    </div>
+
+                                    <div class="dashboard-grid grid-cols-3 mb-3">
+                                        <div>
+                                            <label for="assetISBN" class="form-label">ISBN/ISSN</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="assetISBN"
+                                                   name="isbn"
+                                                   placeholder="978-0-123456-78-9"
+                                                   aria-describedby="isbnHelp">
+                                            <small id="isbnHelp" class="form-text text-muted">
+                                                International Standard Book/Serial Number.
+                                            </small>
+                                        </div>
+                                        <div>
+                                            <label for="assetEdition" class="form-label">Edition</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="assetEdition"
+                                                   name="edition"
+                                                   placeholder="1st, 2nd, etc.">
+                                        </div>
+                                        <div>
+                                            <label for="assetYear" class="form-label">Publication Year</label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="assetYear"
+                                                   name="year"
+                                                   placeholder="2025"
+                                                   min="1900"
+                                                   max="2030">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="assetDescription" class="form-label">Description</label>
+                                        <textarea class="form-control"
+                                                  id="assetDescription"
+                                                  name="description"
+                                                  rows="4"
+                                                  placeholder="Enter a brief description of the asset..."
+                                                  aria-describedby="descHelp"></textarea>
+                                        <small id="descHelp" class="form-text text-muted">
+                                            Provide a summary, table of contents, or key topics covered.
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <!-- Cover Image -->
+                            <div class="dashboard-card">
+                                <div class="dashboard-card-header">
+                                    <h5 class="dashboard-card-title">
+                                        <i class="bi bi-image me-2"></i>
+                                        Cover Image
+                                    </h5>
+                                </div>
+                                <div class="dashboard-card-body">
+                                    <div class="preview-area" id="imagePreview">
+                                        <i class="bi bi-cloud-upload fs-1 text-muted mb-3"></i>
+                                        <p class="mb-2">Drop image here or <button type="button" class="btn btn-link p-0" id="selectImageBtn">browse files</button></p>
+                                        <small class="text-muted">Recommended: 300x400px, JPG or PNG, max 5MB</small>
+                                        <input type="file" id="coverImage" name="coverImage" accept="image/*" class="d-none">
+                                    </div>
+                                    <div id="imagePreviewContainer" class="d-none mt-3 text-center">
+                                        <img id="previewImg" src="" alt="Cover preview" class="preview-image mb-2">
+                                        <div>
+                                            <button type="button" class="btn btn-outline-danger btn-sm" id="removeImageBtn">
+                                                <i class="bi bi-trash me-1"></i>
+                                                Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="dashboard-card mt-4">
+                                <div class="dashboard-card-header">
+                                    <h5 class="dashboard-card-title">
+                                        <i class="bi bi-gear me-2"></i>
+                                        Actions
+                                    </h5>
+                                </div>
+                                <div class="dashboard-card-body">
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="bi bi-check-lg me-2"></i>
+                                            Save Asset
+                                        </button>
+                                        <button type="button" class="btn btn-outline-primary" id="saveAndAddAnother">
+                                            <i class="bi bi-plus-lg me-2"></i>
+                                            Save & Add Another
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary" id="previewAsset">
+                                            <i class="bi bi-eye me-2"></i>
+                                            Preview
+                                        </button>
+                                        <hr>
+                                        <a href="library-assets.html" class="btn btn-outline-danger">
+                                            <i class="bi bi-x-lg me-2"></i>
+                                            Cancel
+                                        </a>
+                                    </div>
+
+                                    <div class="mt-4">
+                                        <h6 class="text-muted small mb-2">QUICK ACTIONS</h6>
+                                        <div class="d-grid gap-1">
+                                            <button type="button" class="btn btn-outline-secondary btn-sm" id="fillSampleData">
+                                                <i class="bi bi-magic me-1"></i>
+                                                Fill Sample Data
+                                            </button>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm" id="clearForm">
+                                                <i class="bi bi-arrow-clockwise me-1"></i>
+                                                Clear Form
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Library Details -->
+                    <div class="dashboard-card mb-3 mt-4">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">
+                                <i class="bi bi-building me-2"></i>
+                                Library Details
+                            </h5>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="dashboard-grid grid-cols-2 mb-3">
+                                <div>
+                                    <label for="assetLocation" class="form-label required-field">Location</label>
+                                    <select class="form-select" id="assetLocation" name="location" required>
+                                        <option value="">Select location</option>
+                                        <option value="main-library">Main Library</option>
+                                        <option value="science-library">Science Library</option>
+                                        <option value="medical-library">Medical Library</option>
+                                        <option value="digital-archive">Digital Archive</option>
+                                        <option value="reference-section">Reference Section</option>
+                                        <option value="periodicals-section">Periodicals Section</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Please select a location.
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="assetStatus" class="form-label required-field">Status</label>
+                                    <select class="form-select" id="assetStatus" name="status" required>
+                                        <option value="">Select status</option>
+                                        <option value="available" selected>Available</option>
+                                        <option value="checked-out">Checked Out</option>
+                                        <option value="reserved">Reserved</option>
+                                        <option value="maintenance">Under Maintenance</option>
+                                        <option value="missing">Missing</option>
+                                        <option value="damaged">Damaged</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Please select a status.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dashboard-grid grid-cols-3 mb-3">
+                                <div>
+                                    <label for="assetCopies" class="form-label">Number of Copies</label>
+                                    <input type="number"
+                                           class="form-control"
+                                           id="assetCopies"
+                                           name="copies"
+                                           placeholder="1"
+                                           min="1"
+                                           value="1">
+                                </div>
+                                <div>
+                                    <label for="assetPrice" class="form-label">Purchase Price</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number"
+                                               class="form-control"
+                                               id="assetPrice"
+                                               name="price"
+                                               placeholder="0.00"
+                                               step="0.01"
+                                               min="0">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="assetAcquisition" class="form-label">Acquisition Date</label>
+                                    <input type="date"
+                                           class="form-control"
+                                           id="assetAcquisition"
+                                           name="acquisitionDate">
+                                </div>
+                            </div>
+
+                            <div class="dashboard-grid grid-cols-2">
+                                <div>
+                                    <label for="assetCallNumber" class="form-label">Call Number</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="assetCallNumber"
+                                           name="callNumber"
+                                           placeholder="e.g., QA76.73.P98"
+                                           aria-describedby="callHelp">
+                                    <small id="callHelp" class="form-text text-muted">
+                                        Library classification number for shelving.
+                                    </small>
+                                </div>
+                                <div>
+                                    <label for="assetBarcode" class="form-label">Barcode</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="assetBarcode"
+                                           name="barcode"
+                                           placeholder="Auto-generated if empty">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Information -->
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">
+                                <i class="bi bi-plus-circle me-2"></i>
+                                Additional Information
+                            </h5>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="dashboard-grid grid-cols-2 mb-3">
+                                <div>
+                                    <label for="assetLanguage" class="form-label">Language</label>
+                                    <select class="form-select" id="assetLanguage" name="language">
+                                        <option value="">Select language</option>
+                                        <option value="english" selected>English</option>
+                                        <option value="spanish">Spanish</option>
+                                        <option value="french">French</option>
+                                        <option value="german">German</option>
+                                        <option value="chinese">Chinese</option>
+                                        <option value="japanese">Japanese</option>
+                                        <option value="arabic">Arabic</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="assetPages" class="form-label">Number of Pages</label>
+                                    <input type="number"
+                                           class="form-control"
+                                           id="assetPages"
+                                           name="pages"
+                                           placeholder="e.g., 350"
+                                           min="1">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="assetSubjects" class="form-label">Subject Keywords</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="assetSubjects"
+                                       name="subjects"
+                                       placeholder="Enter keywords separated by commas"
+                                       aria-describedby="subjectsHelp">
+                                <small id="subjectsHelp" class="form-text text-muted">
+                                    e.g., Computer Science, Programming, Algorithms, Data Structures
+                                </small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="assetNotes" class="form-label">Internal Notes</label>
+                                <textarea class="form-control"
+                                          id="assetNotes"
+                                          name="notes"
+                                          rows="3"
+                                          placeholder="Any special notes for library staff..."
+                                          aria-describedby="notesHelp"></textarea>
+                                <small id="notesHelp" class="form-text text-muted">
+                                    Private notes visible only to library staff.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </form>

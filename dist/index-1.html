@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kiaalap - Dashboard V.2 - Advanced Analytics Dashboard">
+    <meta name="keywords" content="education, dashboard, analytics, students, professors, courses">
+    <meta name="author" content="Kiaalap">
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="preconnect" href="https://ui-avatars.com" crossorigin>
+
+    <title>Kiaalap - Dashboard V.2</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Critical CSS for above-the-fold content -->
+    <style>*{box-sizing:border-box;margin:0;padding:0}body{background:#f5f7fa;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif}.sidebar{background:#1f2937;height:100vh;left:0;position:fixed;top:0;width:260px;z-index:1040}.main-wrapper{margin-left:260px;min-height:100vh;transition:margin-left .3s ease}.top-navbar{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.1);height:64px}.dashboard-content{padding:24px}</style>
+
+    <!-- Load stylesheets -->
+  <link rel="stylesheet" crossorigin href="./assets/bootstrap-C31-XpK9.css">
+  <link rel="stylesheet" crossorigin href="./assets/bootstrap-icons--Sisaltn.css">
+  <link rel="stylesheet" crossorigin href="./assets/dashboard-DOMAAUp6.css">
+  <link rel="stylesheet" crossorigin href="./assets/charts-layout-CS7VU_kX.css">
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <!-- Required DOM elements for dashboard.js -->
+    <div class="search-backdrop" id="searchBackdrop"></div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <h5>
+                    <i class="bi bi-mortarboard-fill"></i>
+                    Kiaalap
+                </h5>
+                <button class="sidebar-close" id="sidebarClose">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="menu-section">
+                <div class="menu-section-title">Main</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu active" href="#dashboard" data-bs-target="#dashboardSubmenu" aria-expanded="true">
+                            <i class="bi bi-speedometer2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <ul id="dashboardSubmenu" class="submenu collapse show list-unstyled">
+                            <li><a class="nav-link" href="index.html">Dashboard v.1</a></li>
+                            <li><a class="nav-link active" href="index-1.html">Dashboard v.2</a></li>
+                            <li><a class="nav-link" href="index-2.html">Dashboard v.3</a></li>
+                            <li><a class="nav-link" href="analytics.html">Analytics</a></li>
+                            <li><a class="nav-link" href="widgets.html">Widgets</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">
+                            <i class="bi bi-calendar-event"></i>
+                            <span>Events</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Academic</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#professors" data-bs-target="#professorsSubmenu" aria-expanded="false">
+                            <i class="bi bi-person-badge"></i>
+                            <span>Professors</span>
+                        </a>
+                        <ul id="professorsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-professors.html">All Professors</a></li>
+                            <li><a class="nav-link" href="add-professor.html">Add Professor</a></li>
+                            <li><a class="nav-link" href="edit-professor.html">Edit Professor</a></li>
+                            <li><a class="nav-link" href="professor-profile.html">Professor Profile</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#students" data-bs-target="#studentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-people"></i>
+                            <span>Students</span>
+                        </a>
+                        <ul id="studentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-students.html">All Students</a></li>
+                            <li><a class="nav-link" href="add-student.html">Add Student</a></li>
+                            <li><a class="nav-link" href="edit-student.html">Edit Student</a></li>
+                            <li><a class="nav-link" href="student-profile.html">Student Profile</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#courses" data-bs-target="#coursesSubmenu" aria-expanded="false">
+                            <i class="bi bi-book"></i>
+                            <span>Courses</span>
+                        </a>
+                        <ul id="coursesSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-courses.html">All Courses</a></li>
+                            <li><a class="nav-link" href="add-course.html">Add Course</a></li>
+                            <li><a class="nav-link" href="edit-course.html">Edit Course</a></li>
+                            <li><a class="nav-link" href="course-info.html">Course Info</a></li>
+                            <li><a class="nav-link" href="course-payment.html">Course Payment</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#library" data-bs-target="#librarySubmenu" aria-expanded="false">
+                            <i class="bi bi-journal-bookmark"></i>
+                            <span>Library</span>
+                        </a>
+                        <ul id="librarySubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="library-assets.html">Library Assets</a></li>
+                            <li><a class="nav-link" href="add-library-assets.html">Add Library Asset</a></li>
+                            <li><a class="nav-link" href="edit-library-assets.html">Edit Library Asset</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#departments" data-bs-target="#departmentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-building"></i>
+                            <span>Departments</span>
+                        </a>
+                        <ul id="departmentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="departments.html">Departments List</a></li>
+                            <li><a class="nav-link" href="add-department.html">Add Department</a></li>
+                            <li><a class="nav-link" href="edit-department.html">Edit Department</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Communication</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#mailbox" data-bs-target="#mailboxSubmenu" aria-expanded="false">
+                            <i class="bi bi-envelope"></i>
+                            <span>Mailbox</span>
+                        </a>
+                        <ul id="mailboxSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="mailbox.html">Inbox</a></li>
+                            <li><a class="nav-link" href="mailbox-compose.html">Compose</a></li>
+                            <li><a class="nav-link" href="mailbox-view.html">View Message</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Interface</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#components" data-bs-target="#componentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-layout-wtf"></i>
+                            <span>Components</span>
+                        </a>
+                        <ul id="componentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="buttons.html">Buttons</a></li>
+                            <li><a class="nav-link" href="alerts.html">Alerts</a></li>
+                            <li><a class="nav-link" href="modals.html">Modals</a></li>
+                            <li><a class="nav-link" href="tabs.html">Tabs</a></li>
+                            <li><a class="nav-link" href="accordion.html">Accordion</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#forms" data-bs-target="#formsSubmenu" aria-expanded="false">
+                            <i class="bi bi-card-list"></i>
+                            <span>Forms</span>
+                        </a>
+                        <ul id="formsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="basic-form-element.html">Basic Forms</a></li>
+                            <li><a class="nav-link" href="advance-form-element.html">Advanced Forms</a></li>
+                            <li><a class="nav-link" href="password-meter.html">Password Meter</a></li>
+                            <li><a class="nav-link" href="multi-upload.html">File Upload</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#charts" data-bs-target="#chartsSubmenu" aria-expanded="false">
+                            <i class="bi bi-bar-chart"></i>
+                            <span>Charts</span>
+                        </a>
+                        <ul id="chartsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="line-charts.html">Line Charts</a></li>
+                            <li><a class="nav-link" href="area-charts.html">Area Charts</a></li>
+                            <li><a class="nav-link" href="bar-charts.html">Bar Charts</a></li>
+                            <li><a class="nav-link" href="c3.html">C3 Charts</a></li>
+                            <li><a class="nav-link" href="peity.html">Peity Charts</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#tables" data-bs-target="#tablesSubmenu" aria-expanded="false">
+                            <i class="bi bi-table"></i>
+                            <span>Tables</span>
+                        </a>
+                        <ul id="tablesSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="static-table.html">Static Tables</a></li>
+                            <li><a class="nav-link" href="data-table.html">Data Tables</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Pages</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#authentication" data-bs-target="#authSubmenu" aria-expanded="false">
+                            <i class="bi bi-shield-lock"></i>
+                            <span>Authentication</span>
+                        </a>
+                        <ul id="authSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="login.html">Login</a></li>
+                            <li><a class="nav-link" href="register.html">Register</a></li>
+                            <li><a class="nav-link" href="lock.html">Lock Screen</a></li>
+                            <li><a class="nav-link" href="password-recovery.html">Forgot Password</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#errors" data-bs-target="#errorsSubmenu" aria-expanded="false">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            <span>Error Pages</span>
+                        </a>
+                        <ul id="errorsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="404.html">404 Error</a></li>
+                            <li><a class="nav-link" href="500.html">500 Error</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper" id="mainWrapper">
+        <!-- Header -->
+        <nav class="navbar top-navbar">
+            <div class="container-fluid d-flex align-items-center h-100">
+                <!-- Hamburger Menu -->
+                <button class="hamburger-menu" id="sidebarToggle">
+                    <i class="bi bi-list"></i>
+                </button>
+
+                <!-- Breadcrumb for desktop -->
+                <nav aria-label="breadcrumb" class="d-none d-lg-block ms-3">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard V.2</li>
+                    </ol>
+                </nav>
+
+                <!-- Logo for mobile -->
+                <div class="navbar-brand d-lg-none fw-bold me-auto">Kiaalap</div>
+
+                <!-- Spacer for desktop -->
+                <div class="flex-grow-1 d-none d-lg-block"></div>
+
+                <!-- Right Actions -->
+                <div class="d-flex align-items-center gap-2">
+                    <!-- Search -->
+                    <div class="search-container">
+                        <button class="btn btn-light btn-icon" id="searchToggle">
+                            <i class="bi bi-search"></i>
+                        </button>
+
+                        <form class="search-form" id="searchForm">
+                            <i class="bi bi-search search-icon"></i>
+                            <input type="text"
+                                   class="form-control"
+                                   id="searchInput"
+                                   placeholder="Search analytics..."
+                                   data-bs-toggle="dropdown">
+                            <button type="button" class="close-search" id="closeSearch">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+
+                            <ul class="dropdown-menu w-100 mt-2">
+                                <li><a class="dropdown-item" href="#">Performance Metrics</a></li>
+                                <li><a class="dropdown-item" href="#">Revenue Reports</a></li>
+                                <li><a class="dropdown-item" href="#">Student Analytics</a></li>
+                            </ul>
+                        </form>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <button class="btn btn-primary btn-sm hide-mobile">
+                        <i class="bi bi-plus-circle me-1"></i> New Report
+                    </button>
+
+                    <!-- Messages -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-icon position-relative"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-chat-dots"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"
+                                  style="font-size: 0.625rem;">3</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <h6 class="mb-0">Messages</h6>
+                            </div>
+                            <div class="p-2" style="max-height: 300px; overflow-y: auto;">
+                                <a href="#" class="notification-item">
+                                    <img src="https://ui-avatars.com/api/?name=Alice+Cooper&background=dc3545&color=fff"
+                                         class="rounded-circle"
+                                         width="36"
+                                         height="36"
+                                         alt="Alice">
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Alice Cooper</div>
+                                        <div class="text-muted small">Analytics report ready</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">5 min ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="notification-item">
+                                    <img src="https://ui-avatars.com/api/?name=Bob+Wilson&background=198754&color=fff"
+                                         class="rounded-circle"
+                                         width="36"
+                                         height="36"
+                                         alt="Bob">
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Bob Wilson</div>
+                                        <div class="text-muted small">Revenue target achieved</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">1 hour ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="border-top p-2 text-center">
+                                <a href="#" class="text-primary small">View All Messages</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-icon position-relative"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-bell"></i>
+                            <span class="notification-dot"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <h6 class="mb-0">Notifications</h6>
+                            </div>
+                            <div class="p-2" style="max-height: 350px; overflow-y: auto;">
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon bg-success bg-opacity-10 text-success">
+                                        <i class="bi bi-graph-up"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Revenue Growth</div>
+                                        <div class="text-muted small">Monthly revenue increased by 15%</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">10 minutes ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon bg-info bg-opacity-10 text-info">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">New Enrollments</div>
+                                        <div class="text-muted small">25 new students enrolled today</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">30 minutes ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon bg-warning bg-opacity-10 text-warning">
+                                        <i class="bi bi-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">System Update</div>
+                                        <div class="text-muted small">Maintenance scheduled tonight</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">2 hours ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="border-top p-2 text-center">
+                                <a href="#" class="text-primary small">View All Notifications</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="dropdown">
+                        <button class="btn btn-light d-flex align-items-center px-2 btn-icon"
+                                data-bs-toggle="dropdown">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=faces"
+                                 alt="User"
+                                 class="user-avatar"
+                                 loading="lazy"
+                                 width="32"
+                                 height="32">
+                            <span class="hide-mobile ms-2" style="font-size: 0.875rem;">Alex Johnson</span>
+                            <i class="bi bi-chevron-down hide-mobile ms-1" style="font-size: 0.75rem;"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li class="px-3 py-2 border-bottom">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=faces"
+                                         alt="User"
+                                         width="48"
+                                         height="48"
+                                         class="rounded-circle">
+                                    <div class="ms-3">
+                                        <div class="fw-semibold">Alex Johnson</div>
+                                        <div class="text-muted small">alex.johnson@kiaalap.edu</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-bell me-2"></i> Preferences</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sign Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Dashboard Content -->
+        <main class="dashboard-content" id="main-content" role="main">
+            <!-- Page Header -->
+            <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h3 font-bold">Advanced Analytics Dashboard</h1>
+                        <p class="text-muted text-sm">Comprehensive performance metrics and financial insights for your educational institution.</p>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-secondary">
+                            <i class="bi bi-download me-2"></i>Export Report
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="bi bi-graph-up me-2"></i>View Analytics
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Performance Indicators -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-4">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body text-center">
+                            <div class="mb-3">
+                                <div class="stat-icon-large bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-cash-stack" style="font-size: 24px; color: #0d6efd;"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value text-primary fw-bold mb-1" style="font-size: 2rem;">$2.4M</div>
+                            <div class="stat-label text-muted mb-2">Total Revenue</div>
+                            <div class="stat-change text-success small fw-semibold">
+                                <i class="bi bi-arrow-up" style="font-size: 12px;"></i> +15.2%
+                            </div>
+                            <div class="text-muted" style="font-size: 0.75rem;">from last month</div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body text-center">
+                            <div class="mb-3">
+                                <div class="stat-icon-large bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-people" style="font-size: 24px; color: #198754;"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value text-success fw-bold mb-1" style="font-size: 2rem;">8,547</div>
+                            <div class="stat-label text-muted mb-2">Active Students</div>
+                            <div class="stat-change text-success small fw-semibold">
+                                <i class="bi bi-arrow-up" style="font-size: 12px;"></i> +324
+                            </div>
+                            <div class="text-muted" style="font-size: 0.75rem;">this week</div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body text-center">
+                            <div class="mb-3">
+                                <div class="stat-icon-large bg-info bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-book" style="font-size: 24px; color: #0dcaf0;"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value text-info fw-bold mb-1" style="font-size: 2rem;">127</div>
+                            <div class="stat-label text-muted mb-2">Active Courses</div>
+                            <div class="stat-change text-secondary small fw-semibold">
+                                <i class="bi bi-dash-lg" style="font-size: 12px;"></i> No change
+                            </div>
+                            <div class="text-muted" style="font-size: 0.75rem;">from last month</div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body text-center">
+                            <div class="mb-3">
+                                <div class="stat-icon-large bg-warning bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-emoji-smile" style="font-size: 24px; color: #ffc107;"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value text-warning fw-bold mb-1" style="font-size: 2rem;">94.2%</div>
+                            <div class="stat-label text-muted mb-2">Satisfaction Rate</div>
+                            <div class="stat-change text-success small fw-semibold">
+                                <i class="bi bi-arrow-up" style="font-size: 12px;"></i> +2.1%
+                            </div>
+                            <div class="text-muted" style="font-size: 0.75rem;">improvement</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Revenue and Enrollment Charts -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-2">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header d-flex justify-content-between align-items-center">
+                            <h5 class="dashboard-card-title mb-0">Revenue Trends</h5>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                    Last 6 months
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Last 3 months</a></li>
+                                    <li><a class="dropdown-item" href="#">Last 6 months</a></li>
+                                    <li><a class="dropdown-item" href="#">Last year</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="chart-container">
+                                <canvas id="revenueChart" width="400" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header d-flex justify-content-between align-items-center">
+                            <h5 class="dashboard-card-title mb-0">Student Enrollment</h5>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                    This year
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">This month</a></li>
+                                    <li><a class="dropdown-item" href="#">This year</a></li>
+                                    <li><a class="dropdown-item" href="#">All time</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="chart-container">
+                                <canvas id="enrollmentChart" width="400" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Metrics -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-3">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h6 class="dashboard-card-title">Course Performance</h6>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="row text-center">
+                                <div class="col-4">
+                                    <div class="border-end">
+                                        <div class="fw-bold text-success">98%</div>
+                                        <small class="text-muted">Completion</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="border-end">
+                                        <div class="fw-bold text-primary">4.6</div>
+                                        <small class="text-muted">Avg Rating</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="fw-bold text-info">92%</div>
+                                    <small class="text-muted">Pass Rate</small>
+                                </div>
+                            </div>
+                            <hr class="my-3">
+                            <div class="small text-muted">
+                                <strong>Top Performing:</strong> Advanced Programming (96% completion)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h6 class="dashboard-card-title">Financial Overview</h6>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span>Tuition Revenue</span>
+                                    <strong class="text-success">$1.8M</strong>
+                                </div>
+                                <div class="progress progress-sm">
+                                    <div class="progress-bar bg-success" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span>Other Income</span>
+                                    <strong class="text-primary">$600K</strong>
+                                </div>
+                                <div class="progress progress-sm">
+                                    <div class="progress-bar bg-primary" style="width: 25%"></div>
+                                </div>
+                            </div>
+                            <div class="small text-muted">
+                                <strong>Budget Utilization:</strong> 82% of annual budget
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h6 class="dashboard-card-title">Quick Actions</h6>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-primary btn-sm">
+                                    <i class="bi bi-file-earmark-text me-2"></i>Generate Report
+                                </button>
+                                <button class="btn btn-outline-success btn-sm">
+                                    <i class="bi bi-person-plus me-2"></i>Add Student
+                                </button>
+                                <button class="btn btn-outline-info btn-sm">
+                                    <i class="bi bi-book-half me-2"></i>New Course
+                                </button>
+                                <button class="btn btn-outline-warning btn-sm">
+                                    <i class="bi bi-calendar-event me-2"></i>Schedule Event
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity and Top Performers -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-2">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header d-flex justify-content-between align-items-center">
+                            <h5 class="dashboard-card-title mb-0">Top Performing Students</h5>
+                            <a href="all-students.html" class="btn btn-outline-primary btn-sm">View All</a>
+                        </div>
+                            <div class="dashboard-card-body">
+                                <div class="list-group list-group-flush">
+                                    <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                        <div class="bg-warning bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; border: 2px solid #ffc107; background-color: #fff3cd !important;">
+                                            <strong style="color: #b25500; font-size: 16px; font-weight: bold;">1</strong>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Sarah Chen</h6>
+                                            <small class="text-muted">Computer Science - Senior</small>
+                                            <div class="small text-success">GPA: 3.98 | 15 courses completed</div>
+                                        </div>
+                                        <div class="text-warning">
+                                            <i class="bi bi-trophy-fill" style="font-size: 1.2rem; color: #ffc107;"></i>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                        <div class="bg-secondary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; border: 2px solid #6c757d; background-color: #f8f9fa !important;">
+                                            <strong style="color: #495057; font-size: 16px; font-weight: bold;">2</strong>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Marcus Rodriguez</h6>
+                                            <small class="text-muted">Mathematics - Junior</small>
+                                            <div class="small text-success">GPA: 3.95 | 12 courses completed</div>
+                                        </div>
+                                        <div class="text-secondary">
+                                            <i class="bi bi-award-fill" style="font-size: 1.2rem; color: #6c757d;"></i>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                        <div class="bg-info bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; border: 2px solid #0dcaf0; background-color: #cff4fc !important;">
+                                            <strong style="color: #055160; font-size: 16px; font-weight: bold;">3</strong>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Emma Thompson</h6>
+                                            <small class="text-muted">Biology - Senior</small>
+                                            <div class="small text-success">GPA: 3.92 | 14 courses completed</div>
+                                        </div>
+                                        <div class="text-info">
+                                            <i class="bi bi-star-fill" style="font-size: 1.2rem; color: #0dcaf0;"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header d-flex justify-content-between align-items-center">
+                            <h5 class="dashboard-card-title mb-0">Revenue Sources</h5>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Report</a>
+                        </div>
+                        <div class="dashboard-card-body">
+                                <div class="list-group list-group-flush">
+                                    <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                        <div class="bg-success bg-opacity-10 text-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                            <i class="bi bi-mortarboard" style="color: #198754;"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Tuition Fees</h6>
+                                            <small class="text-muted">Undergraduate & Graduate</small>
+                                            <div class="small text-muted">75% of total revenue</div>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="fw-bold text-success">$1.8M</div>
+                                            <small class="text-success">+12%</small>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                        <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                            <i class="bi bi-building" style="color: #0d6efd;"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Facility Rentals</h6>
+                                            <small class="text-muted">Events & Conferences</small>
+                                            <div class="small text-muted">15% of total revenue</div>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="fw-bold text-primary">$360K</div>
+                                            <small class="text-success">+8%</small>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                        <div class="bg-info bg-opacity-10 text-info rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                            <i class="bi bi-gift" style="color: #0dcaf0;"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Grants & Donations</h6>
+                                            <small class="text-muted">Research & Scholarships</small>
+                                            <div class="small text-muted">10% of total revenue</div>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="fw-bold text-info">$240K</div>
+                                            <small class="text-success">+25%</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="mb-0">&copy; 2025 Kiaalap. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <p class="mb-0">Built with <i class="bi bi-heart-fill text-danger"></i> for education</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+    <!-- Dashboard JS -->
+    <script src="src/js/dashboard.js" defer></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+
+    <!-- Charts initialization -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Revenue Trend Chart
+            const revenueCtx = document.getElementById('revenueChart');
+            if (revenueCtx) {
+                new Chart(revenueCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Aug 2024', 'Sep 2024', 'Oct 2024', 'Nov 2024', 'Dec 2024', 'Jan 2025'],
+                        datasets: [{
+                            label: 'Revenue ($000)',
+                            data: [380, 420, 450, 480, 390, 520],
+                            borderColor: '#0d6efd',
+                            backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            pointRadius: 6,
+                            pointHoverRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return '$' + value + 'K';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Student Enrollment Chart
+            const enrollmentCtx = document.getElementById('enrollmentChart');
+            if (enrollmentCtx) {
+                new Chart(enrollmentCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'New Enrollments',
+                            data: [1200, 1100, 1350, 1250, 1400, 1320],
+                            backgroundColor: '#198754',
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import { glob } from 'glob';
-// import handlebars from 'vite-plugin-handlebars';
-// import { helpers } from './src/helpers/handlebars-helpers.js';
+import handlebars from 'vite-plugin-handlebars';
+import { helpers } from './src/helpers/handlebars-helpers.js';
 
 // Find all HTML files
 const htmlFiles = glob.sync('*.html').reduce((acc, file) => {
@@ -11,16 +11,174 @@ const htmlFiles = glob.sync('*.html').reduce((acc, file) => {
   return acc;
 }, {});
 
+// Get page-specific context
+function getPageContext(filename) {
+  // Navigation state logic
+  const navigation = {
+    dashboard: { active: false, expanded: false },
+    academic: { professors: false, students: false, courses: false, library: false, departments: false },
+    communication: { mailbox: false },
+    interface: { components: false, forms: false, charts: false, tables: false },
+    pages: { auth: false, errors: false }
+  };
+
+  // Set navigation state based on page
+  if (['index', 'index-1', 'index-2', 'analytics', 'widgets'].includes(filename)) {
+    navigation.dashboard.active = true;
+    navigation.dashboard.expanded = true;
+  } else if (filename.includes('professor')) {
+    navigation.academic.professors = true;
+  } else if (filename.includes('student')) {
+    navigation.academic.students = true;
+  } else if (filename.includes('course')) {
+    navigation.academic.courses = true;
+  } else if (filename.includes('library')) {
+    navigation.academic.library = true;
+  } else if (filename.includes('department')) {
+    navigation.academic.departments = true;
+  } else if (filename.includes('mailbox')) {
+    navigation.communication.mailbox = true;
+  } else if (['buttons', 'alerts', 'modals', 'tabs', 'accordion'].includes(filename)) {
+    navigation.interface.components = true;
+  } else if (filename.includes('form') || filename.includes('password-meter') || filename.includes('upload')) {
+    navigation.interface.forms = true;
+  } else if (filename.includes('chart') || filename.includes('c3') || filename.includes('peity')) {
+    navigation.interface.charts = true;
+  } else if (filename.includes('table')) {
+    navigation.interface.tables = true;
+  } else if (['login', 'register', 'lock', 'password-recovery'].includes(filename)) {
+    navigation.pages.auth = true;
+  } else if (['404', '500'].includes(filename)) {
+    navigation.pages.errors = true;
+  }
+
+  // Page-specific configurations
+  const pageConfigs = {
+    'index': {
+      title: 'Dashboard',
+      pageTitle: 'Dashboard Overview',
+      pageDescription: 'Welcome to your Kiaalap admin dashboard',
+      showPageHeader: true,
+      breadcrumb: [{ title: 'Dashboard', url: 'index.html' }]
+    },
+    'modals': {
+      title: 'Modal Components',
+      pageTitle: 'Modal Components',
+      pageDescription: 'Bootstrap 5 modal examples for dialogs, forms, and confirmations',
+      showPageHeader: true,
+      breadcrumb: [
+        { title: 'Interface', url: '#' },
+        { title: 'Modal Components', url: 'modals.html' }
+      ]
+    },
+    'buttons': {
+      title: 'Button Components',
+      pageTitle: 'Button Components',
+      pageDescription: 'Bootstrap 5 button styles and variants',
+      showPageHeader: true,
+      breadcrumb: [
+        { title: 'Interface', url: '#' },
+        { title: 'Button Components', url: 'buttons.html' }
+      ]
+    },
+    'alerts': {
+      title: 'Alert Components',
+      pageTitle: 'Alert Components',
+      pageDescription: 'Bootstrap 5 alert components for notifications',
+      showPageHeader: true,
+      breadcrumb: [
+        { title: 'Interface', url: '#' },
+        { title: 'Alert Components', url: 'alerts.html' }
+      ]
+    }
+  };
+
+  // Default configuration
+  const defaultConfig = {
+    title: filename.charAt(0).toUpperCase() + filename.slice(1).replace(/-/g, ' '),
+    pageTitle: filename.charAt(0).toUpperCase() + filename.slice(1).replace(/-/g, ' '),
+    showPageHeader: true,
+    breadcrumb: [{ title: filename.charAt(0).toUpperCase() + filename.slice(1).replace(/-/g, ' ') }]
+  };
+
+  return {
+    page: filename,
+    navigation,
+    ...(pageConfigs[filename] || defaultConfig)
+  };
+}
+
 export default defineConfig({
   root: './',
   base: './',
   plugins: [
-    // Handlebars plugin disabled - using JavaScript templating system instead
-    // handlebars({
-    //   partialDirectory: resolve(__dirname, 'src/partials'),
-    //   helpers: helpers,
-    //   context: (pagePath) => { ... }
-    // })
+    handlebars({
+      partialDirectory: resolve(__dirname, 'src/partials'),
+      helpers: helpers,
+      context: (pagePath) => {
+        // Get the filename without path and extension
+        const filename = pagePath.split('/').pop().replace('.html', '');
+
+        // Base context for all pages
+        const baseContext = {
+          currentYear: new Date().getFullYear(),
+          meta: {
+            description: 'Kiaalap - Modern Education Management Dashboard for Universities',
+            keywords: 'education, dashboard, university, management, admin',
+            author: 'Kiaalap'
+          },
+          user: {
+            name: 'Sarah Johnson',
+            email: 'sarah.johnson@kiaalap.edu',
+            avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces',
+            messageCount: 5,
+            hasNotifications: true,
+            messages: [
+              {
+                name: 'Sarah Johnson',
+                message: 'Can you review my thesis?',
+                time: '2 min ago',
+                avatar: 'https://ui-avatars.com/api/?name=Sarah+Johnson&background=10b981&color=fff'
+              },
+              {
+                name: 'Mike Chen',
+                message: 'Meeting at 3 PM today',
+                time: '1 hour ago',
+                avatar: 'https://ui-avatars.com/api/?name=Mike+Chen&background=6366f1&color=fff'
+              }
+            ],
+            notifications: [
+              {
+                type: 'primary',
+                icon: 'bi-calendar-check',
+                title: 'New Event',
+                message: 'Science Fair on March 15',
+                time: '5 minutes ago'
+              },
+              {
+                type: 'success',
+                icon: 'bi-check-circle',
+                title: 'Assignment Submitted',
+                message: 'John submitted his project',
+                time: '2 hours ago'
+              },
+              {
+                type: 'warning',
+                icon: 'bi-exclamation-triangle',
+                title: 'System Alert',
+                message: 'Database backup completed',
+                time: 'Yesterday'
+              }
+            ]
+          }
+        };
+
+        // Page-specific context
+        const pageContext = getPageContext(filename);
+
+        return { ...baseContext, ...pageContext };
+      }
+    })
   ],
   build: {
     outDir: 'dist',

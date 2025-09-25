@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kiaalap - All Students Management Dashboard">
+    <meta name="keywords" content="education, dashboard, students, management, admin">
+    <meta name="author" content="Kiaalap">
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="preconnect" href="https://ui-avatars.com" crossorigin>
+
+    <title>Kiaalap - All Students</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Critical CSS for above-the-fold content -->
+    <style>
+        /* Critical CSS for immediate render */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .top-navbar { background: white; height: 64px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .dashboard-content { padding: 24px; }
+    </style>
+
+    <!-- Load stylesheets -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="src/css/dashboard.css">
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <h5>
+                    <i class="bi bi-mortarboard-fill"></i>
+                    Kiaalap
+                </h5>
+                <button class="sidebar-close" id="sidebarClose">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="menu-section">
+                <div class="menu-section-title">Main</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#dashboard" data-bs-target="#dashboardSubmenu" aria-expanded="false">
+                            <i class="bi bi-speedometer2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <ul id="dashboardSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="index.html">Dashboard v.1</a></li>
+                            <li><a class="nav-link" href="index-1.html">Dashboard v.2</a></li>
+                            <li><a class="nav-link" href="index-2.html">Dashboard v.3</a></li>
+                            <li><a class="nav-link" href="analytics.html">Analytics</a></li>
+                            <li><a class="nav-link" href="widgets.html">Widgets</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">
+                            <i class="bi bi-calendar-event"></i>
+                            <span>Events</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Academic</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#professors" data-bs-target="#professorsSubmenu" aria-expanded="false">
+                            <i class="bi bi-person-badge"></i>
+                            <span>Professors</span>
+                        </a>
+                        <ul id="professorsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-professors.html">All Professors</a></li>
+                            <li><a class="nav-link" href="add-professor.html">Add Professor</a></li>
+                            <li><a class="nav-link" href="edit-professor.html">Edit Professor</a></li>
+                            <li><a class="nav-link" href="professor-profile.html">Professor Profile</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu active" href="#students" data-bs-target="#studentsSubmenu" aria-expanded="true">
+                            <i class="bi bi-people"></i>
+                            <span>Students</span>
+                        </a>
+                        <ul id="studentsSubmenu" class="submenu collapse show list-unstyled">
+                            <li><a class="nav-link active" href="all-students.html">All Students</a></li>
+                            <li><a class="nav-link" href="add-student.html">Add Student</a></li>
+                            <li><a class="nav-link" href="edit-student.html">Edit Student</a></li>
+                            <li><a class="nav-link" href="student-profile.html">Student Profile</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#courses" data-bs-target="#coursesSubmenu" aria-expanded="false">
+                            <i class="bi bi-book"></i>
+                            <span>Courses</span>
+                        </a>
+                        <ul id="coursesSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-courses.html">All Courses</a></li>
+                            <li><a class="nav-link" href="add-course.html">Add Course</a></li>
+                            <li><a class="nav-link" href="edit-course.html">Edit Course</a></li>
+                            <li><a class="nav-link" href="course-info.html">Course Info</a></li>
+                            <li><a class="nav-link" href="course-payment.html">Course Payment</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#library" data-bs-target="#librarySubmenu" aria-expanded="false">
+                            <i class="bi bi-journal-bookmark"></i>
+                            <span>Library</span>
+                        </a>
+                        <ul id="librarySubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="library-assets.html">Library Assets</a></li>
+                            <li><a class="nav-link" href="add-library-assets.html">Add Library Asset</a></li>
+                            <li><a class="nav-link" href="edit-library-assets.html">Edit Library Asset</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#departments" data-bs-target="#departmentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-building"></i>
+                            <span>Departments</span>
+                        </a>
+                        <ul id="departmentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="departments.html">Departments List</a></li>
+                            <li><a class="nav-link" href="add-department.html">Add Department</a></li>
+                            <li><a class="nav-link" href="edit-department.html">Edit Department</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Communication</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#mailbox" data-bs-target="#mailboxSubmenu" aria-expanded="false">
+                            <i class="bi bi-envelope"></i>
+                            <span>Mailbox</span>
+                        </a>
+                        <ul id="mailboxSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="mailbox.html">Inbox</a></li>
+                            <li><a class="nav-link" href="mailbox-view.html">View Mail</a></li>
+                            <li><a class="nav-link" href="mailbox-compose.html">Compose Mail</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Search Backdrop -->
+    <div class="search-backdrop" id="searchBackdrop"></div>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper" id="mainWrapper">
+        <!-- Header -->
+        <nav class="navbar top-navbar">
+            <div class="container-fluid d-flex align-items-center h-100">
+                <!-- Hamburger Menu -->
+                <button class="hamburger-menu" id="sidebarToggle">
+                    <i class="bi bi-list"></i>
+                </button>
+
+                <!-- Breadcrumb for desktop -->
+                <nav aria-label="breadcrumb" class="d-none d-lg-block ms-3">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Academic</a></li>
+                        <li class="breadcrumb-item active">All Students</li>
+                    </ol>
+                </nav>
+
+                <!-- Logo for mobile -->
+                <div class="navbar-brand d-lg-none fw-bold me-auto">Kiaalap</div>
+
+                <!-- Spacer for desktop -->
+                <div class="flex-grow-1 d-none d-lg-block"></div>
+
+                <!-- Right Actions -->
+                <div class="d-flex align-items-center gap-2">
+                    <!-- Search -->
+                    <div class="search-container">
+                        <button class="btn btn-light btn-icon" id="searchToggle">
+                            <i class="bi bi-search"></i>
+                        </button>
+
+                        <form class="search-form" id="searchForm">
+                            <i class="bi bi-search search-icon"></i>
+                            <input type="text"
+                                   class="form-control"
+                                   id="searchInput"
+                                   placeholder="Search students..."
+                                   data-bs-toggle="dropdown">
+                            <button type="button" class="close-search" id="closeSearch">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+
+                            <ul class="dropdown-menu w-100 mt-2">
+                                <li><a class="dropdown-item" href="#">Search by Name</a></li>
+                                <li><a class="dropdown-item" href="#">Search by ID</a></li>
+                                <li><a class="dropdown-item" href="#">Search by Department</a></li>
+                            </ul>
+                        </form>
+                    </div>
+
+                    <!-- Messages -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-icon position-relative"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-chat-dots"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"
+                                  style="font-size: 0.625rem;">5</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <h6 class="mb-0">Messages</h6>
+                            </div>
+                            <div class="p-2" style="max-height: 300px; overflow-y: auto;">
+                                <a href="#" class="notification-item">
+                                    <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&background=10b981&color=fff"
+                                         class="rounded-circle"
+                                         width="36"
+                                         height="36"
+                                         alt="Sarah">
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Sarah Johnson</div>
+                                        <div class="text-muted small">Can you review my assignment?</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">2 min ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="border-top p-2 text-center">
+                                <a href="#" class="text-primary small">View All Messages</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-icon position-relative"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-bell"></i>
+                            <span class="notification-dot"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <h6 class="mb-0">Notifications</h6>
+                            </div>
+                            <div class="p-2" style="max-height: 350px; overflow-y: auto;">
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon bg-success bg-opacity-10 text-success">
+                                        <i class="bi bi-check-circle"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Enrollment Successful</div>
+                                        <div class="text-muted small">New student registered</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">5 min ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="border-top p-2 text-center">
+                                <a href="#" class="text-primary small">View All Notifications</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="dropdown">
+                        <button class="btn btn-light d-flex align-items-center px-2 btn-icon"
+                                data-bs-toggle="dropdown">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces"
+                                 alt="User"
+                                 class="user-avatar"
+                                 loading="lazy"
+                                 width="32"
+                                 height="32">
+                            <span class="hide-mobile ms-2" style="font-size: 0.875rem;">Sarah Johnson</span>
+                            <i class="bi bi-chevron-down hide-mobile ms-1" style="font-size: 0.75rem;"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li class="px-3 py-2 border-bottom">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces"
+                                         alt="User"
+                                         width="48"
+                                         height="48"
+                                         class="rounded-circle">
+                                    <div class="ms-3">
+                                        <div class="fw-semibold">Sarah Johnson</div>
+                                        <div class="text-muted small">sarah.johnson@kiaalap.edu</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-bell me-2"></i> Preferences</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sign Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="dashboard-content" id="main-content">
+            <div class="container-fluid">
+                <!-- Page Header -->
+                <div class="row mb-3">
+                    <div class="col-lg-12">
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-header d-flex justify-content-between align-items-center">
+                                <h4 class="dashboard-card-title mb-0">All Students</h4>
+                                <a href="add-student.html" class="btn btn-primary">
+                                    <i class="bi bi-plus-circle me-2"></i>Add New Student
+                                </a>
+                            </div>
+                            <div class="dashboard-card-body">
+                                <!-- Search and Filter -->
+                                <div class="row gx-3 gy-2 mb-3">
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                            <input type="text" class="form-control" placeholder="Search students...">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-select">
+                                            <option selected>All Departments</option>
+                                            <option>Computer Science</option>
+                                            <option>Engineering</option>
+                                            <option>Business</option>
+                                            <option>Medicine</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-select">
+                                            <option selected>All Years</option>
+                                            <option>First Year</option>
+                                            <option>Second Year</option>
+                                            <option>Third Year</option>
+                                            <option>Fourth Year</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Students Grid -->
+                <div class="row g-3">
+                    <!-- Student Card 1 -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="dashboard-card h-100">
+                            <div class="dashboard-card-body text-center">
+                                <img src="https://ui-avatars.com/api/?name=Alex+Johnson&background=6366f1&color=fff"
+                                     alt="Alex Johnson"
+                                     class="rounded-circle mb-3"
+                                     width="100"
+                                     height="100"
+                                     loading="lazy">
+                                <h5 class="mb-1">Alex Johnson</h5>
+                                <p class="text-muted mb-2">Computer Science</p>
+                                <p class="text-muted small mb-3"><strong>Age:</strong> 20 Years</p>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="student-profile.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                    <a href="edit-student.html" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Student Card 2 -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="dashboard-card h-100">
+                            <div class="dashboard-card-body text-center">
+                                <img src="https://ui-avatars.com/api/?name=Sarah+Miller&background=ec4899&color=fff"
+                                     alt="Sarah Miller"
+                                     class="rounded-circle mb-3"
+                                     width="100"
+                                     height="100"
+                                     loading="lazy">
+                                <h5 class="mb-1">Sarah Miller</h5>
+                                <p class="text-muted mb-2">Business Administration</p>
+                                <p class="text-muted small mb-3"><strong>Age:</strong> 21 Years</p>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="student-profile.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                    <a href="edit-student.html" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Student Card 3 -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="dashboard-card h-100">
+                            <div class="dashboard-card-body text-center">
+                                <img src="https://ui-avatars.com/api/?name=Mike+Chen&background=10b981&color=fff"
+                                     alt="Mike Chen"
+                                     class="rounded-circle mb-3"
+                                     width="100"
+                                     height="100"
+                                     loading="lazy">
+                                <h5 class="mb-1">Mike Chen</h5>
+                                <p class="text-muted mb-2">Engineering</p>
+                                <p class="text-muted small mb-3"><strong>Age:</strong> 19 Years</p>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="student-profile.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                    <a href="edit-student.html" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Student Card 4 -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="dashboard-card h-100">
+                            <div class="dashboard-card-body text-center">
+                                <img src="https://ui-avatars.com/api/?name=Emma+Wilson&background=f59e0b&color=fff"
+                                     alt="Emma Wilson"
+                                     class="rounded-circle mb-3"
+                                     width="100"
+                                     height="100"
+                                     loading="lazy">
+                                <h5 class="mb-1">Emma Wilson</h5>
+                                <p class="text-muted mb-2">Medicine</p>
+                                <p class="text-muted small mb-3"><strong>Age:</strong> 22 Years</p>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="student-profile.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                    <a href="edit-student.html" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Student Card 5 -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="dashboard-card h-100">
+                            <div class="dashboard-card-body text-center">
+                                <img src="https://ui-avatars.com/api/?name=James+Brown&background=8b5cf6&color=fff"
+                                     alt="James Brown"
+                                     class="rounded-circle mb-3"
+                                     width="100"
+                                     height="100"
+                                     loading="lazy">
+                                <h5 class="mb-1">James Brown</h5>
+                                <p class="text-muted mb-2">Psychology</p>
+                                <p class="text-muted small mb-3"><strong>Age:</strong> 20 Years</p>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="student-profile.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                    <a href="edit-student.html" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Student Card 6 -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="dashboard-card h-100">
+                            <div class="dashboard-card-body text-center">
+                                <img src="https://ui-avatars.com/api/?name=Lisa+Anderson&background=ef4444&color=fff"
+                                     alt="Lisa Anderson"
+                                     class="rounded-circle mb-3"
+                                     width="100"
+                                     height="100"
+                                     loading="lazy">
+                                <h5 class="mb-1">Lisa Anderson</h5>
+                                <p class="text-muted mb-2">Mathematics</p>
+                                <p class="text-muted small mb-3"><strong>Age:</strong> 21 Years</p>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="student-profile.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                    <a href="edit-student.html" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Student Card 7 -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="dashboard-card h-100">
+                            <div class="dashboard-card-body text-center">
+                                <img src="https://ui-avatars.com/api/?name=David+Lee&background=14b8a6&color=fff"
+                                     alt="David Lee"
+                                     class="rounded-circle mb-3"
+                                     width="100"
+                                     height="100"
+                                     loading="lazy">
+                                <h5 class="mb-1">David Lee</h5>
+                                <p class="text-muted mb-2">Physics</p>
+                                <p class="text-muted small mb-3"><strong>Age:</strong> 19 Years</p>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="student-profile.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                    <a href="edit-student.html" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Student Card 8 -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="dashboard-card h-100">
+                            <div class="dashboard-card-body text-center">
+                                <img src="https://ui-avatars.com/api/?name=Amy+Garcia&background=f97316&color=fff"
+                                     alt="Amy Garcia"
+                                     class="rounded-circle mb-3"
+                                     width="100"
+                                     height="100"
+                                     loading="lazy">
+                                <h5 class="mb-1">Amy Garcia</h5>
+                                <p class="text-muted mb-2">Chemistry</p>
+                                <p class="text-muted small mb-3"><strong>Age:</strong> 20 Years</p>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="student-profile.html" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                    <a href="edit-student.html" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <nav aria-label="Student pagination">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                                <li class="page-item active" aria-current="page">
+                                    <a class="page-link" href="#">1</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <p class="mb-0">© 2025 Kiaalap. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts with defer for performance -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="src/js/dashboard.js" defer></script>
+</body>
+</html>

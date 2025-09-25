@@ -1,0 +1,36 @@
+---
+layout: "base"
+title: "Student Profile"
+pageTitle: "Student Profile"
+pageDescription: "View detailed student information and academic progress"
+showPageHeader: true
+breadcrumb:
+  - title: "Academic"
+    url: "#"
+  - title: "Students"
+    url: "#"
+  - title: "Student Profile"
+    url: "student-profile.html"
+pageSpecificStyles: |
+  /* Critical CSS for immediate render */
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+          .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+          .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+          .top-navbar { background: white; height: 64px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+          .dashboard-content { padding: 24px; }
+---
+
+<!-- Profile Header -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-auto text-center text-md-start mb-3 mb-md-0 pe-md-3">
+                                        <img src="https://ui-avatars.com/api/?name=Alex+Johnson&background=6366f1&color=fff&size=120"
+                                             alt="Alex Johnson"
+                                             class="rounded-circle"
+                                             width="120"
+                                             height="120"
+                                             loading="lazy">

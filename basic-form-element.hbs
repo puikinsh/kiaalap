@@ -1,0 +1,313 @@
+---
+layout: "base"
+title: "Basic Forms"
+pageTitle: "Basic Form Elements"
+pageDescription: "Standard form inputs and controls"
+showPageHeader: true
+breadcrumb:
+  - title: "Interface"
+    url: "#"
+  - title: "Forms"
+    url: "#"
+  - title: "Basic Forms"
+    url: "basic-form-element.html"
+pageSpecificStyles: |
+  /* Critical CSS for immediate render */
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+          .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+          .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+          .top-navbar { background: white; height: 64px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+          .dashboard-content { padding: 24px; }
+  
+          /* Loading animation */
+          @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+          .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+---
+
+<!-- Page Header -->
+            <div class="mb-3">
+                <h1 class="h3 font-bold">Basic Form Elements</h1>
+                <p class="text-muted text-sm">Essential form controls for building user-friendly interfaces.</p>
+            </div>
+
+            <!-- Basic Form Content -->
+            <div class="dashboard-row">
+                <!-- Text Inputs -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title">Text Input Fields</h5>
+                        <p class="text-muted small mb-0">Standard text input controls</p>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <form class="dashboard-grid grid-cols-2">
+                            <div class="form-group">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="Enter first name">
+                                <div class="form-text">Your first name as it appears on official documents</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="Enter last name">
+                                <div class="form-text">Your last name or surname</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" placeholder="name@kiaalap.edu">
+                                <div class="form-text">We'll never share your email with anyone else</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" placeholder="+1 (555) 000-0000">
+                                <div class="form-text">Include country code for international numbers</div>
+                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="address" placeholder="123 Main Street, City, State 12345">
+                                <div class="form-text">Full address including city and postal code</div>
+                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label for="bio" class="form-label">Bio / Description</label>
+                                <textarea class="form-control" id="bio" rows="3" placeholder="Tell us about yourself..."></textarea>
+                                <div class="form-text">Brief description or biography (optional)</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-row">
+                <!-- Selection Controls -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title">Selection Controls</h5>
+                        <p class="text-muted small mb-0">Dropdown, radio, and checkbox inputs</p>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <form class="dashboard-grid grid-cols-2">
+                            <div class="form-group">
+                                <label for="department" class="form-label">Department</label>
+                                <select class="form-select" id="department">
+                                    <option selected>Choose your department...</option>
+                                    <option value="cs">Computer Science</option>
+                                    <option value="math">Mathematics</option>
+                                    <option value="physics">Physics</option>
+                                    <option value="chemistry">Chemistry</option>
+                                    <option value="biology">Biology</option>
+                                    <option value="english">English Literature</option>
+                                </select>
+                                <div class="form-text">Select your primary department</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="semester" class="form-label">Current Semester</label>
+                                <select class="form-select" id="semester">
+                                    <option selected>Choose semester...</option>
+                                    <option value="1">1st Semester</option>
+                                    <option value="2">2nd Semester</option>
+                                    <option value="3">3rd Semester</option>
+                                    <option value="4">4th Semester</option>
+                                    <option value="5">5th Semester</option>
+                                    <option value="6">6th Semester</option>
+                                    <option value="7">7th Semester</option>
+                                    <option value="8">8th Semester</option>
+                                </select>
+                                <div class="form-text">Your current academic semester</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Student Status</label>
+                                <div class="mt-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="studentStatus" id="fullTime" value="full-time" checked>
+                                        <label class="form-check-label" for="fullTime">
+                                            Full-time Student
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="studentStatus" id="partTime" value="part-time">
+                                        <label class="form-check-label" for="partTime">
+                                            Part-time Student
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="studentStatus" id="exchange" value="exchange">
+                                        <label class="form-check-label" for="exchange">
+                                            Exchange Student
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-text">Your current enrollment status</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Additional Services</label>
+                                <div class="mt-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="library">
+                                        <label class="form-check-label" for="library">
+                                            Library Access
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="parking">
+                                        <label class="form-check-label" for="parking">
+                                            Parking Permit
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="meal">
+                                        <label class="form-check-label" for="meal">
+                                            Meal Plan
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="gym">
+                                        <label class="form-check-label" for="gym">
+                                            Gym Membership
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-text">Select additional services you need</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-row">
+                <!-- Form States and Styling -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title">Form States & Styling</h5>
+                        <p class="text-muted small mb-0">Different input states and styling options</p>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <form class="dashboard-grid grid-cols-2">
+                            <div class="form-group">
+                                <label for="normalInput" class="form-label">Normal Input</label>
+                                <input type="text" class="form-control" id="normalInput" placeholder="Normal state">
+                                <div class="form-text">This is a normal input field</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="focusInput" class="form-label">Focus Input</label>
+                                <input type="text" class="form-control" id="focusInput" placeholder="Click to focus" autofocus>
+                                <div class="form-text">This input has focus styling</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="disabledInput" class="form-label">Disabled Input</label>
+                                <input type="text" class="form-control" id="disabledInput" placeholder="Disabled input" disabled>
+                                <div class="form-text">This input is disabled</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="readonlyInput" class="form-label">Readonly Input</label>
+                                <input type="text" class="form-control" id="readonlyInput" value="Read-only value" readonly>
+                                <div class="form-text">This input is read-only</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="validInput" class="form-label">Valid Input</label>
+                                <input type="text" class="form-control is-valid" id="validInput" value="Valid input">
+                                <div class="valid-feedback">This looks good!</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="invalidInput" class="form-label">Invalid Input</label>
+                                <input type="text" class="form-control is-invalid" id="invalidInput" value="Invalid input">
+                                <div class="invalid-feedback">Please provide a valid input.</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-row">
+                <!-- Input Groups and Sizing -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title">Input Groups & Sizing</h5>
+                        <p class="text-muted small mb-0">Input groups with icons and different sizes</p>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <form>
+                            <!-- Input Groups -->
+                            <div class="mb-4">
+                                <h6>Input Groups</h6>
+                                <div class="dashboard-grid grid-cols-2">
+                                    <div class="form-group">
+                                        <label for="usernameGroup" class="form-label">Username</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-person"></i>
+                                            </span>
+                                            <input type="text" class="form-control" id="usernameGroup" placeholder="Username">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="emailGroup" class="form-label">Email</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-envelope"></i>
+                                            </span>
+                                            <input type="email" class="form-control" id="emailGroup" placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="websiteGroup" class="form-label">Website</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">https://</span>
+                                            <input type="text" class="form-control" id="websiteGroup" placeholder="example.com">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="priceGroup" class="form-label">Price</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input type="number" class="form-control" id="priceGroup" placeholder="0.00">
+                                            <span class="input-group-text">.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Input Sizing -->
+                            <div class="mb-4">
+                                <h6>Input Sizing</h6>
+                                <div class="d-flex flex-column gap-3">
+                                    <div class="form-group">
+                                        <label for="largeInput" class="form-label">Large Input</label>
+                                        <input type="text" class="form-control form-control-lg" id="largeInput" placeholder="Large input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="normalSizeInput" class="form-label">Normal Input</label>
+                                        <input type="text" class="form-control" id="normalSizeInput" placeholder="Normal input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="smallInput" class="form-label">Small Input</label>
+                                        <input type="text" class="form-control form-control-sm" id="smallInput" placeholder="Small input">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Form Controls -->
+                            <div class="mb-4">
+                                <h6>Form Controls</h6>
+                                <div class="dashboard-grid grid-cols-2">
+                                    <div class="form-group">
+                                        <label for="plainTextInput" class="form-label">Plain Text</label>
+                                        <input type="text" readonly class="form-control-plaintext" id="plainTextInput" value="email@example.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="floatingInput" class="form-label">Floating Label</label>
+                                        <div class="form-floating">
+                                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                            <label for="floatingInput">Email address</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-primary">Save Information</button>
+                                <button type="reset" class="btn btn-outline-secondary ms-2">Clear Form</button>
+                                <button type="button" class="btn btn-outline-info ms-2">Preview</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>

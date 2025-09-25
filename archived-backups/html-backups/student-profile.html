@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kiaalap - Student Profile">
+    <meta name="keywords" content="education, dashboard, student, profile, academic">
+    <meta name="author" content="Kiaalap">
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="preconnect" href="https://ui-avatars.com" crossorigin>
+
+    <title>Kiaalap - Student Profile</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Critical CSS for above-the-fold content -->
+    <style>
+        /* Critical CSS for immediate render */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .top-navbar { background: white; height: 64px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .dashboard-content { padding: 24px; }
+    </style>
+
+    <!-- Async load stylesheets -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="preload" href="node_modules/bootstrap-icons/font/bootstrap-icons.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="src/css/dashboard.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+    <!-- Fallback for no-JS -->
+    <noscript>
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="src/css/dashboard.css">
+    </noscript>
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <h5>
+                    <i class="bi bi-mortarboard-fill"></i>
+                    Kiaalap
+                </h5>
+                <button class="sidebar-close" id="sidebarClose">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="menu-section">
+                <div class="menu-section-title">Main</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#dashboard" data-bs-target="#dashboardSubmenu" aria-expanded="false">
+                            <i class="bi bi-speedometer2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <ul id="dashboardSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="index.html">Dashboard v.1</a></li>
+                            <li><a class="nav-link" href="index-1.html">Dashboard v.2</a></li>
+                            <li><a class="nav-link" href="index-2.html">Dashboard v.3</a></li>
+                            <li><a class="nav-link" href="analytics.html">Analytics</a></li>
+                            <li><a class="nav-link" href="widgets.html">Widgets</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">
+                            <i class="bi bi-calendar-event"></i>
+                            <span>Events</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Academic</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#professors" data-bs-target="#professorsSubmenu" aria-expanded="false">
+                            <i class="bi bi-person-badge"></i>
+                            <span>Professors</span>
+                        </a>
+                        <ul id="professorsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-professors.html">All Professors</a></li>
+                            <li><a class="nav-link" href="add-professor.html">Add Professor</a></li>
+                            <li><a class="nav-link" href="edit-professor.html">Edit Professor</a></li>
+                            <li><a class="nav-link" href="professor-profile.html">Professor Profile</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu active" href="#students" data-bs-target="#studentsSubmenu" aria-expanded="true">
+                            <i class="bi bi-people"></i>
+                            <span>Students</span>
+                        </a>
+                        <ul id="studentsSubmenu" class="submenu collapse show list-unstyled">
+                            <li><a class="nav-link" href="all-students.html">All Students</a></li>
+                            <li><a class="nav-link" href="add-student.html">Add Student</a></li>
+                            <li><a class="nav-link" href="edit-student.html">Edit Student</a></li>
+                            <li><a class="nav-link active" href="student-profile.html">Student Profile</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#courses" data-bs-target="#coursesSubmenu" aria-expanded="false">
+                            <i class="bi bi-book"></i>
+                            <span>Courses</span>
+                        </a>
+                        <ul id="coursesSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-courses.html">All Courses</a></li>
+                            <li><a class="nav-link" href="add-course.html">Add Course</a></li>
+                            <li><a class="nav-link" href="edit-course.html">Edit Course</a></li>
+                            <li><a class="nav-link" href="course-info.html">Course Info</a></li>
+                            <li><a class="nav-link" href="course-payment.html">Course Payment</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#library" data-bs-target="#librarySubmenu" aria-expanded="false">
+                            <i class="bi bi-journal-bookmark"></i>
+                            <span>Library</span>
+                        </a>
+                        <ul id="librarySubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="library-assets.html">Library Assets</a></li>
+                            <li><a class="nav-link" href="add-library-assets.html">Add Library Asset</a></li>
+                            <li><a class="nav-link" href="edit-library-assets.html">Edit Library Asset</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#departments" data-bs-target="#departmentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-building"></i>
+                            <span>Departments</span>
+                        </a>
+                        <ul id="departmentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="departments.html">Departments List</a></li>
+                            <li><a class="nav-link" href="add-department.html">Add Department</a></li>
+                            <li><a class="nav-link" href="edit-department.html">Edit Department</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Communication</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#mailbox" data-bs-target="#mailboxSubmenu" aria-expanded="false">
+                            <i class="bi bi-envelope"></i>
+                            <span>Mailbox</span>
+                        </a>
+                        <ul id="mailboxSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="mailbox.html">Inbox</a></li>
+                            <li><a class="nav-link" href="mailbox-view.html">View Mail</a></li>
+                            <li><a class="nav-link" href="mailbox-compose.html">Compose Mail</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Search Backdrop -->
+    <div class="search-backdrop" id="searchBackdrop"></div>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper" id="mainWrapper">
+        <!-- Header -->
+        <nav class="navbar top-navbar">
+            <div class="container-fluid d-flex align-items-center h-100">
+                <!-- Hamburger Menu -->
+                <button class="hamburger-menu" id="sidebarToggle">
+                    <i class="bi bi-list"></i>
+                </button>
+
+                <!-- Breadcrumb for desktop -->
+                <nav aria-label="breadcrumb" class="d-none d-lg-block ms-3">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Academic</a></li>
+                        <li class="breadcrumb-item"><a href="all-students.html">Students</a></li>
+                        <li class="breadcrumb-item active">Student Profile</li>
+                    </ol>
+                </nav>
+
+                <!-- Logo for mobile -->
+                <div class="navbar-brand d-lg-none fw-bold me-auto">Kiaalap</div>
+
+                <!-- Spacer for desktop -->
+                <div class="flex-grow-1 d-none d-lg-block"></div>
+
+                <!-- Right Actions -->
+                <div class="d-flex align-items-center gap-2">
+                    <!-- Search -->
+                    <div class="search-container">
+                        <button class="btn btn-light btn-icon" id="searchToggle">
+                            <i class="bi bi-search"></i>
+                        </button>
+
+                        <form class="search-form" id="searchForm">
+                            <i class="bi bi-search search-icon"></i>
+                            <input type="text"
+                                   class="form-control"
+                                   id="searchInput"
+                                   placeholder="Search..."
+                                   data-bs-toggle="dropdown">
+                            <button type="button" class="close-search" id="closeSearch">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+
+                            <ul class="dropdown-menu w-100 mt-2">
+                                <li><a class="dropdown-item" href="all-students.html">All Students</a></li>
+                                <li><a class="dropdown-item" href="#">Student Grades</a></li>
+                                <li><a class="dropdown-item" href="#">Attendance Records</a></li>
+                                <li><a class="dropdown-item" href="edit-student.html">Edit Student</a></li>
+                            </ul>
+                        </form>
+                    </div>
+
+                    <!-- Messages -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-icon position-relative"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-chat-dots"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"
+                                  style="font-size: 0.625rem;">5</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <h6 class="mb-0">Messages</h6>
+                            </div>
+                            <div class="p-2" style="max-height: 300px; overflow-y: auto;">
+                                <a href="#" class="notification-item">
+                                    <img src="https://ui-avatars.com/api/?name=Alex+Johnson&background=10b981&color=fff"
+                                         class="rounded-circle"
+                                         width="36"
+                                         height="36"
+                                         alt="Student">
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Alex Johnson</div>
+                                        <div class="text-muted small">Question about assignment</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">15 min ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="border-top p-2 text-center">
+                                <a href="#" class="text-primary small">View All Messages</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-icon position-relative"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-bell"></i>
+                            <span class="notification-dot"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <h6 class="mb-0">Notifications</h6>
+                            </div>
+                            <div class="p-2" style="max-height: 350px; overflow-y: auto;">
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon bg-success bg-opacity-10 text-success">
+                                        <i class="bi bi-check-circle"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Grade Posted</div>
+                                        <div class="text-muted small">New grade available for review</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">1 hour ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="border-top p-2 text-center">
+                                <a href="#" class="text-primary small">View All Notifications</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="dropdown">
+                        <button class="btn btn-light d-flex align-items-center px-2 btn-icon"
+                                data-bs-toggle="dropdown">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces"
+                                 alt="User"
+                                 class="user-avatar"
+                                 loading="lazy"
+                                 width="32"
+                                 height="32">
+                            <span class="hide-mobile ms-2" style="font-size: 0.875rem;">Sarah Johnson</span>
+                            <i class="bi bi-chevron-down hide-mobile ms-1" style="font-size: 0.75rem;"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li class="px-3 py-2 border-bottom">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces"
+                                         alt="User"
+                                         width="48"
+                                         height="48"
+                                         class="rounded-circle">
+                                    <div class="ms-3">
+                                        <div class="fw-semibold">Sarah Johnson</div>
+                                        <div class="text-muted small">sarah.johnson@kiaalap.edu</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-bell me-2"></i> Preferences</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sign Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="dashboard-content" id="main-content">
+            <div class="container-fluid">
+                <!-- Profile Header -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-auto text-center text-md-start mb-3 mb-md-0 pe-md-3">
+                                        <img src="https://ui-avatars.com/api/?name=Alex+Johnson&background=6366f1&color=fff&size=120"
+                                             alt="Alex Johnson"
+                                             class="rounded-circle"
+                                             width="120"
+                                             height="120"
+                                             loading="lazy">
+                                    </div>
+                                    <div class="col-md ms-md-2">
+                                        <h3 class="mb-1">Alex Johnson</h3>
+                                        <p class="text-muted mb-2">Computer Science Department</p>
+                                        <div class="d-flex flex-wrap gap-2">
+                                            <span class="badge bg-primary"><i class="bi bi-hash me-1"></i>STU2024001</span>
+                                            <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Active</span>
+                                            <span class="badge bg-info text-dark"><i class="bi bi-calendar me-1"></i>3rd Year</span>
+                                            <span class="badge bg-warning text-dark"><i class="bi bi-trophy me-1"></i>Honor Roll</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-auto mt-3 mt-md-0 ms-md-3">
+                                        <div class="btn-group" role="group">
+                                            <a href="edit-student.html" class="btn btn-outline-primary">
+                                                <i class="bi bi-pencil me-2"></i>Edit Profile
+                                            </a>
+                                            <button type="button" class="btn btn-outline-secondary">
+                                                <i class="bi bi-download me-2"></i>Download Report
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="row gx-4 gy-3 mb-4">
+                    <div class="col-lg-3 col-md-6 px-2">
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <div class="rounded-circle bg-primary bg-opacity-10 d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
+                                            <i class="bi bi-book text-primary fs-4"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h6 class="text-muted mb-1">Enrolled Courses</h6>
+                                        <h4 class="mb-0">6</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 px-2">
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <div class="rounded-circle bg-success bg-opacity-10 d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
+                                            <i class="bi bi-graph-up text-success fs-4"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h6 class="text-muted mb-1">GPA</h6>
+                                        <h4 class="mb-0">3.85</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 px-2">
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <div class="rounded-circle bg-warning bg-opacity-10 d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
+                                            <i class="bi bi-clock-history text-warning fs-4"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h6 class="text-muted mb-1">Attendance</h6>
+                                        <h4 class="mb-0">92%</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 px-2">
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <div class="rounded-circle bg-info bg-opacity-10 d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
+                                            <i class="bi bi-award text-info fs-4"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h6 class="text-muted mb-1">Credits Earned</h6>
+                                        <h4 class="mb-0">72/120</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Details Tabs -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-body">
+                                <!-- Tab Navigation -->
+                                <ul class="nav nav-tabs mb-4" id="profileTabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab">
+                                            <i class="bi bi-person me-2"></i>Overview
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="courses-tab" data-bs-toggle="tab" data-bs-target="#courses" type="button" role="tab">
+                                            <i class="bi bi-book me-2"></i>Courses
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="grades-tab" data-bs-toggle="tab" data-bs-target="#grades" type="button" role="tab">
+                                            <i class="bi bi-clipboard-check me-2"></i>Grades
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="attendance-tab" data-bs-toggle="tab" data-bs-target="#attendance" type="button" role="tab">
+                                            <i class="bi bi-calendar-check me-2"></i>Attendance
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="activities-tab" data-bs-toggle="tab" data-bs-target="#activities" type="button" role="tab">
+                                            <i class="bi bi-lightning me-2"></i>Activities
+                                        </button>
+                                    </li>
+                                </ul>
+
+                                <!-- Tab Content -->
+                                <div class="tab-content" id="profileTabContent">
+                                    <!-- Overview Tab -->
+                                    <div class="tab-pane fade show active" id="overview" role="tabpanel">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <h5 class="mb-3">Personal Information</h5>
+                                                <table class="table table-borderless">
+                                                    <tr>
+                                                        <td class="text-muted">Full Name:</td>
+                                                        <td>Alex Johnson</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted">Student ID:</td>
+                                                        <td>STU2024001</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted">Date of Birth:</td>
+                                                        <td>March 15, 2004</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted">Gender:</td>
+                                                        <td>Male</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted">Email:</td>
+                                                        <td><a href="mailto:alex.johnson@university.edu">alex.johnson@university.edu</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted">Phone:</td>
+                                                        <td>+1 234-567-8900</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted">Address:</td>
+                                                        <td>123 University Avenue, Building A, Room 205<br>New York, NY 10001</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <h5 class="mb-3">Academic Information</h5>
+                                                <table class="table table-borderless">
+                                                    <tr>
+                                                        <td class="text-muted">Department:</td>
+                                                        <td>Computer Science</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted">Program:</td>
+                                                        <td>Bachelor of Computer Science</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted">Year:</td>
+                                                        <td>3rd Year</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted">Enrollment Date:</td>
+                                                        <td>September 1, 2021</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted">Expected Graduation:</td>
+                                                        <td>June 2026</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted">Academic Advisor:</td>
+                                                        <td>Dr. Sarah Williams</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted">Status:</td>
+                                                        <td><span class="badge bg-success">Active</span></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <hr class="my-4">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h5 class="mb-3">Emergency Contact</h5>
+                                                <table class="table table-borderless">
+                                                    <tr>
+                                                        <td class="text-muted" width="200">Contact Name:</td>
+                                                        <td>Robert Johnson (Father)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted">Relationship:</td>
+                                                        <td>Parent</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-muted">Phone:</td>
+                                                        <td>+1 234-567-8901</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Courses Tab -->
+                                    <div class="tab-pane fade" id="courses" role="tabpanel">
+                                        <h5 class="mb-3">Current Semester Courses</h5>
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Course Code</th>
+                                                        <th>Course Name</th>
+                                                        <th>Instructor</th>
+                                                        <th>Credits</th>
+                                                        <th>Schedule</th>
+                                                        <th>Room</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>CS301</td>
+                                                        <td>Data Structures & Algorithms</td>
+                                                        <td>Prof. Michael Chen</td>
+                                                        <td>4</td>
+                                                        <td>Mon, Wed 10:00-11:30</td>
+                                                        <td>Room 201</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>CS302</td>
+                                                        <td>Database Management Systems</td>
+                                                        <td>Dr. Emily Davis</td>
+                                                        <td>3</td>
+                                                        <td>Tue, Thu 14:00-15:30</td>
+                                                        <td>Room 305</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>CS303</td>
+                                                        <td>Web Development</td>
+                                                        <td>Prof. James Wilson</td>
+                                                        <td>3</td>
+                                                        <td>Mon, Wed 14:00-15:30</td>
+                                                        <td>Lab 102</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>CS304</td>
+                                                        <td>Operating Systems</td>
+                                                        <td>Dr. Robert Brown</td>
+                                                        <td>4</td>
+                                                        <td>Tue, Thu 10:00-11:30</td>
+                                                        <td>Room 401</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>MATH201</td>
+                                                        <td>Discrete Mathematics</td>
+                                                        <td>Prof. Linda Martinez</td>
+                                                        <td>3</td>
+                                                        <td>Fri 09:00-12:00</td>
+                                                        <td>Room 150</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>ENG201</td>
+                                                        <td>Technical Writing</td>
+                                                        <td>Dr. Susan Taylor</td>
+                                                        <td>2</td>
+                                                        <td>Wed 16:00-18:00</td>
+                                                        <td>Room 220</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!-- Grades Tab -->
+                                    <div class="tab-pane fade" id="grades" role="tabpanel">
+                                        <h5 class="mb-3">Academic Performance</h5>
+                                        <div class="row mb-4">
+                                            <div class="col-md-4">
+                                                <div class="alert alert-info">
+                                                    <h6>Current Semester GPA</h6>
+                                                    <h3 class="mb-0">3.85</h3>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="alert alert-success">
+                                                    <h6>Cumulative GPA</h6>
+                                                    <h3 class="mb-0">3.78</h3>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="alert alert-warning">
+                                                    <h6>Class Rank</h6>
+                                                    <h3 class="mb-0">15/250</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h6 class="mb-3">Recent Grades</h6>
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Course</th>
+                                                        <th>Assignment</th>
+                                                        <th>Type</th>
+                                                        <th>Score</th>
+                                                        <th>Grade</th>
+                                                        <th>Date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>CS301</td>
+                                                        <td>Midterm Exam</td>
+                                                        <td><span class="badge bg-danger">Exam</span></td>
+                                                        <td>88/100</td>
+                                                        <td><span class="badge bg-success">A-</span></td>
+                                                        <td>Nov 15, 2025</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>CS302</td>
+                                                        <td>Database Project</td>
+                                                        <td><span class="badge bg-primary">Project</span></td>
+                                                        <td>95/100</td>
+                                                        <td><span class="badge bg-success">A</span></td>
+                                                        <td>Nov 10, 2025</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>CS303</td>
+                                                        <td>Web App Assignment</td>
+                                                        <td><span class="badge bg-info">Assignment</span></td>
+                                                        <td>92/100</td>
+                                                        <td><span class="badge bg-success">A</span></td>
+                                                        <td>Nov 8, 2025</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>MATH201</td>
+                                                        <td>Quiz 3</td>
+                                                        <td><span class="badge bg-warning text-dark">Quiz</span></td>
+                                                        <td>18/20</td>
+                                                        <td><span class="badge bg-success">A-</span></td>
+                                                        <td>Nov 5, 2025</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!-- Attendance Tab -->
+                                    <div class="tab-pane fade" id="attendance" role="tabpanel">
+                                        <h5 class="mb-3">Attendance Summary</h5>
+                                        <div class="row mb-4">
+                                            <div class="col-md-3">
+                                                <div class="text-center">
+                                                    <h2 class="text-success">92%</h2>
+                                                    <p class="text-muted">Overall Attendance</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="text-center">
+                                                    <h2 class="text-primary">156</h2>
+                                                    <p class="text-muted">Classes Attended</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="text-center">
+                                                    <h2 class="text-warning">8</h2>
+                                                    <p class="text-muted">Classes Missed</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="text-center">
+                                                    <h2 class="text-info">6</h2>
+                                                    <p class="text-muted">Late Arrivals</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h6 class="mb-3">Recent Attendance</h6>
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Course</th>
+                                                        <th>Time</th>
+                                                        <th>Status</th>
+                                                        <th>Remarks</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Dec 12, 2025</td>
+                                                        <td>CS301 - Data Structures</td>
+                                                        <td>10:00 AM</td>
+                                                        <td><span class="badge bg-success">Present</span></td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Dec 12, 2025</td>
+                                                        <td>CS303 - Web Development</td>
+                                                        <td>2:00 PM</td>
+                                                        <td><span class="badge bg-success">Present</span></td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Dec 11, 2025</td>
+                                                        <td>CS302 - Database Systems</td>
+                                                        <td>2:00 PM</td>
+                                                        <td><span class="badge bg-warning">Late</span></td>
+                                                        <td>15 mins late</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Dec 11, 2025</td>
+                                                        <td>CS304 - Operating Systems</td>
+                                                        <td>10:00 AM</td>
+                                                        <td><span class="badge bg-success">Present</span></td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Dec 10, 2025</td>
+                                                        <td>MATH201 - Discrete Math</td>
+                                                        <td>9:00 AM</td>
+                                                        <td><span class="badge bg-danger">Absent</span></td>
+                                                        <td>Medical leave</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!-- Activities Tab -->
+                                    <div class="tab-pane fade" id="activities" role="tabpanel">
+                                        <h5 class="mb-3">Extracurricular Activities</h5>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-4">
+                                                    <h6 class="mb-3">Clubs & Organizations</h6>
+                                                    <div class="list-group">
+                                                        <div class="list-group-item">
+                                                            <div class="d-flex w-100 justify-content-between">
+                                                                <h6 class="mb-1">Computer Science Club</h6>
+                                                                <small class="text-muted">Since 2021</small>
+                                                            </div>
+                                                            <p class="mb-1">Vice President</p>
+                                                            <small>Organizing coding competitions and workshops</small>
+                                                        </div>
+                                                        <div class="list-group-item">
+                                                            <div class="d-flex w-100 justify-content-between">
+                                                                <h6 class="mb-1">Robotics Team</h6>
+                                                                <small class="text-muted">Since 2022</small>
+                                                            </div>
+                                                            <p class="mb-1">Lead Programmer</p>
+                                                            <small>Developing autonomous navigation systems</small>
+                                                        </div>
+                                                        <div class="list-group-item">
+                                                            <div class="d-flex w-100 justify-content-between">
+                                                                <h6 class="mb-1">Student Council</h6>
+                                                                <small class="text-muted">Since 2023</small>
+                                                            </div>
+                                                            <p class="mb-1">Technology Committee Member</p>
+                                                            <small>Managing student portal improvements</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="mb-4">
+                                                    <h6 class="mb-3">Achievements & Awards</h6>
+                                                    <div class="list-group">
+                                                        <div class="list-group-item">
+                                                            <div class="d-flex w-100 justify-content-between">
+                                                                <h6 class="mb-1">Dean's List</h6>
+                                                                <small class="text-muted">Fall 2024</small>
+                                                            </div>
+                                                            <small>Academic excellence with GPA above 3.75</small>
+                                                        </div>
+                                                        <div class="list-group-item">
+                                                            <div class="d-flex w-100 justify-content-between">
+                                                                <h6 class="mb-1">Hackathon Winner</h6>
+                                                                <small class="text-muted">March 2025</small>
+                                                            </div>
+                                                            <small>1st place in University Coding Challenge</small>
+                                                        </div>
+                                                        <div class="list-group-item">
+                                                            <div class="d-flex w-100 justify-content-between">
+                                                                <h6 class="mb-1">Research Publication</h6>
+                                                                <small class="text-muted">June 2025</small>
+                                                            </div>
+                                                            <small>Co-author on ML research paper</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <p class="mb-0">© 2025 Kiaalap. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts with defer for performance -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="src/js/dashboard.js" defer></script>
+</body>
+</html>

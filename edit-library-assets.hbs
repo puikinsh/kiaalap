@@ -1,0 +1,228 @@
+---
+layout: "base"
+title: "Edit library assets"
+pageTitle: "Edit library assets"
+showPageHeader: true
+breadcrumb:
+  - title: "Edit library assets"
+pageSpecificStyles: |
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+          .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+          .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+          .top-navbar { background: white; height: 64px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+          .dashboard-content { padding: 24px; }
+  
+          /* Loading animation */
+          @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+          .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+  
+          /* Form styling */
+          .form-card {
+              background: white;
+              border-radius: 12px;
+              box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+              border: none;
+          }
+          .preview-area {
+              border: 2px dashed #d1d5db;
+              border-radius: 8px;
+              padding: 2rem;
+              text-align: center;
+              background: #f9fafb;
+              transition: border-color 0.3s ease;
+          }
+          .preview-area.drag-over {
+              border-color: #6366f1;
+              background: #f0f0ff;
+          }
+          .preview-image {
+              max-width: 200px;
+              max-height: 150px;
+              object-fit: cover;
+              border-radius: 8px;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+          }
+          .required-field::after {
+              content: " *";
+              color: #ef4444;
+          }
+pageSpecificJS: |
+  document.addEventListener('DOMContentLoaded', function() {
+              const form = document.getElementById('editAssetForm');
+              const imageInput = document.getElementById('coverImage');
+              const selectImageBtn = document.getElementById('selectImageBtn');
+              const previewArea = document.getElementById('imagePreview');
+              const previewContainer = document.getElementById('imagePreviewContainer');
+              const previewImg = document.getElementById('previewImg');
+              const removeImageBtn = document.getElementById('removeImageBtn');
+  
+              // Image upload functionality
+              selectImageBtn.addEventListener('click', () => imageInput.click());
+  
+              imageInput.addEventListener('change', function(e) {
+                  const file = e.target.files[0];
+                  if (file) {
+                      handleImageUpload(file);
+                  }
+              });
+  
+              // Drag and drop functionality
+              previewArea.addEventListener('dragover', function(e) {
+                  e.preventDefault();
+                  previewArea.classList.add('drag-over');
+              });
+  
+              previewArea.addEventListener('dragleave', function(e) {
+                  e.preventDefault();
+                  previewArea.classList.remove('drag-over');
+              });
+  
+              previewArea.addEventListener('drop', function(e) {
+                  e.preventDefault();
+                  previewArea.classList.remove('drag-over');
+                  const file = e.dataTransfer.files[0];
+                  if (file && file.type.startsWith('image/')) {
+                      handleImageUpload(file);
+                  }
+              });
+  
+              function handleImageUpload(file) {
+                  if (file.size > 5 * 1024 * 1024) {
+                      alert('File size must be less than 5MB');
+                      return;
+                  }
+  
+                  const reader = new FileReader();
+                  reader.onload = function(e) {
+                      previewImg.src = e.target.result;
+                      previewArea.classList.add('d-none');
+                      previewContainer.classList.remove('d-none');
+                  };
+                  reader.readAsDataURL(file);
+              }
+  
+              removeImageBtn.addEventListener('click', function() {
+                  imageInput.value = '';
+                  previewArea.classList.remove('d-none');
+                  previewContainer.classList.add('d-none');
+                  previewImg.src = '';
+              });
+  
+              // Form validation
+              form.addEventListener('submit', function(e) {
+                  e.preventDefault();
+                  e.stopPropagation();
+  
+                  if (form.checkValidity()) {
+                      // Simulate form submission
+                      const submitBtn = form.querySelector('button[type="submit"]');
+                      const originalText = submitBtn.innerHTML;
+                      submitBtn.innerHTML = '<i class="spinner-border spinner-border-sm me-2"></i>Saving...';
+                      submitBtn.disabled = true;
+  
+                      setTimeout(() => {
+                          alert('Asset updated successfully!');
+                          // In real app, would redirect to library-assets.html
+                          console.log('Form data:', new FormData(form));
+                          submitBtn.innerHTML = originalText;
+                          submitBtn.disabled = false;
+                      }, 2000);
+                  }
+  
+                  form.classList.add('was-validated');
+              });
+  
+              // Reset changes functionality
+              document.getElementById('resetChanges').addEventListener('click', function() {
+                  if (confirm('Are you sure you want to reset all changes?')) {
+                      // Reset to original values
+                      location.reload();
+                  }
+              });
+  
+              // Load original data
+              const originalData = {
+                  title: 'Introduction to Computer Science',
+                  category: 'books',
+                  author: 'Thomas H. Cormen, Charles E. Leiserson',
+                  publisher: 'MIT Press',
+                  isbn: '978-0-262-03384-8',
+                  edition: '4th',
+                  year: '2022',
+                  description: 'A comprehensive introduction to computer algorithms and data structures, covering essential topics for computer science students.',
+                  location: 'main-library',
+                  status: 'available',
+                  copies: '3',
+                  price: '89.99',
+                  callNumber: 'QA76.6.C662',
+                  barcode: 'LIB-INT-2022-384',
+                  language: 'english',
+                  pages: '1312',
+                  subjects: 'Computer Science, Algorithms, Data Structures, Programming'
+              };
+  
+              // Fill sample data restores original values
+              document.getElementById('fillSampleData').addEventListener('click', function() {
+                  document.getElementById('assetTitle').value = originalData.title;
+                  document.getElementById('assetCategory').value = originalData.category;
+                  document.getElementById('assetAuthor').value = originalData.author;
+                  document.getElementById('assetPublisher').value = originalData.publisher;
+                  document.getElementById('assetISBN').value = originalData.isbn;
+                  document.getElementById('assetEdition').value = originalData.edition;
+                  document.getElementById('assetYear').value = originalData.year;
+                  document.getElementById('assetDescription').value = originalData.description;
+                  document.getElementById('assetLocation').value = originalData.location;
+                  document.getElementById('assetStatus').value = originalData.status;
+                  document.getElementById('assetCopies').value = originalData.copies;
+                  document.getElementById('assetPrice').value = originalData.price;
+                  document.getElementById('assetCallNumber').value = originalData.callNumber;
+                  document.getElementById('assetBarcode').value = originalData.barcode;
+                  document.getElementById('assetLanguage').value = originalData.language;
+                  document.getElementById('assetPages').value = originalData.pages;
+                  document.getElementById('assetSubjects').value = originalData.subjects;
+              });
+  
+              // Clear form
+              document.getElementById('clearForm').addEventListener('click', function() {
+                  if (confirm('Are you sure you want to clear all form data?')) {
+                      form.reset();
+                      form.classList.remove('was-validated');
+                      removeImageBtn.click();
+                  }
+              });
+  
+              // Preview functionality
+              document.getElementById('previewAsset').addEventListener('click', function() {
+                  // Would show a modal with asset preview
+                  console.log('Showing asset preview...');
+              });
+  
+              // Auto-generate barcode if not provided
+              document.getElementById('assetTitle').addEventListener('blur', function() {
+                  const barcodeField = document.getElementById('assetBarcode');
+                  if (!barcodeField.value && this.value) {
+                      // Generate a simple barcode based on timestamp and title
+                      const timestamp = Date.now();
+                      const titleCode = this.value.substring(0, 3).toUpperCase();
+                      barcodeField.value = `LIB${titleCode}${timestamp}`.slice(-12);
+                  }
+              });
+          });
+---
+
+<!-- Page Header -->
+                    <div class="dashboard-row">
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h1 class="h3 mb-1">Edit Library Asset</h1>
+                                        <nav aria-label="breadcrumb">
+                                            <ol class="breadcrumb">
+                                                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                                                <li class="breadcrumb-item"><a href="#">Library</a></li>
+                                                <li class="breadcrumb-item"><a href="library-assets.html">Assets</a></li>
+                                                <li class="breadcrumb-item active" aria-current="page">Edit Asset</li>
+                                            </ol>
+                                        </nav>

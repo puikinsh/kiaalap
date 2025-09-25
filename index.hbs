@@ -1,0 +1,213 @@
+---
+layout: "base"
+title: "Dashboard"
+pageTitle: "Dashboard Overview"
+pageDescription: "Welcome to your Kiaalap admin dashboard"
+showPageHeader: true
+breadcrumb:
+  - title: "Dashboard"
+    url: "index.html"
+pageSpecificStyles: |
+  /* Critical CSS for immediate render */
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+          .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+          .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+          .top-navbar { background: white; height: 64px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+          .dashboard-content { padding: 24px; }
+  
+          /* Loading animation */
+          @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+          .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+---
+
+<!-- Page Header -->
+            <div class="mb-3">
+                <h1 class="h3 font-bold">Dashboard Overview</h1>
+                <p class="text-muted text-sm">Welcome back! Here's what's happening with your institution today.</p>
+            </div>
+
+            <!-- Stats Cards Row -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-4">
+                    <div class="stats-card">
+                        <div class="stats-card-label">Computer Technologies</div>
+                        <div class="stats-card-value">$5,000</div>
+                        <span class="stats-card-change positive">+20%</span>
+                        <div class="progress-custom">
+                            <div class="progress-bar-custom bg-success" style="width: 20%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stats-card">
+                        <div class="stats-card-label">Accounting</div>
+                        <div class="stats-card-value">$3,000</div>
+                        <span class="stats-card-change positive">+30%</span>
+                        <div class="progress-custom">
+                            <div class="progress-bar-custom bg-danger" style="width: 30%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stats-card">
+                        <div class="stats-card-label">Electrical Engineering</div>
+                        <div class="stats-card-value">$2,000</div>
+                        <span class="stats-card-change positive">+60%</span>
+                        <div class="progress-custom">
+                            <div class="progress-bar-custom bg-info" style="width: 60%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stats-card">
+                        <div class="stats-card-label">Chemical Engineering</div>
+                        <div class="stats-card-value">$3,500</div>
+                        <span class="stats-card-change positive">+80%</span>
+                        <div class="progress-custom">
+                            <div class="progress-bar-custom bg-warning" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-3" style="grid-template-columns: 2fr 1fr;">
+                    <!-- Main Chart -->
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">University Earnings</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="earningsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Side Stats -->
+                    <div style="display: flex; flex-direction: column; gap: 24px;">
+                        <div class="stats-card">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div>
+                                    <div class="stats-card-label">Total Visits</div>
+                                    <div class="stats-card-value">1,500</div>
+                                </div>
+                                <i class="bi bi-eye text-info" style="font-size: 24px;"></i>
+                            </div>
+                            <div class="chart-container-small">
+                                <canvas id="visitsSparkline"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="stats-card">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div>
+                                    <div class="stats-card-label">Page Views</div>
+                                    <div class="stats-card-value">3,000</div>
+                                </div>
+                                <i class="bi bi-file-text text-success" style="font-size: 24px;"></i>
+                            </div>
+                            <div class="chart-container-small">
+                                <canvas id="pageViewsSparkline"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="stats-card">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div>
+                                    <div class="stats-card-label">Bounce Rate</div>
+                                    <div class="stats-card-value">42%</div>
+                                </div>
+                                <i class="bi bi-arrow-up-circle text-warning" style="font-size: 24px;"></i>
+                            </div>
+                            <div class="chart-container-small">
+                                <canvas id="bounceRateSparkline"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="dashboard-grid grid-cols-2">
+                <!-- Recent Students -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header d-flex justify-content-between align-items-center">
+                        <h5 class="dashboard-card-title mb-0">Recent Students</h5>
+                        <a href="all-students.html" class="btn btn-outline-primary btn-sm">View All</a>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                <img src="https://ui-avatars.com/api/?name=John+Smith&background=0d6efd&color=fff" alt="John Smith" class="rounded-circle me-3" width="40" height="40" loading="lazy">
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">John Smith</h6>
+                                    <small class="text-muted">Computer Science - Freshman</small>
+                                    <div class="small text-muted">Enrolled 2 hours ago</div>
+                                </div>
+                                <span class="badge bg-success">Active</span>
+                            </div>
+                            <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                <img src="https://ui-avatars.com/api/?name=Emily+Davis&background=198754&color=fff" alt="Emily Davis" class="rounded-circle me-3" width="40" height="40" loading="lazy">
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">Emily Davis</h6>
+                                    <small class="text-muted">Biology - Sophomore</small>
+                                    <div class="small text-muted">Enrolled 1 day ago</div>
+                                </div>
+                                <span class="badge bg-success">Active</span>
+                            </div>
+                            <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                <img src="https://ui-avatars.com/api/?name=Michael+Brown&background=dc3545&color=fff" alt="Michael Brown" class="rounded-circle me-3" width="40" height="40" loading="lazy">
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">Michael Brown</h6>
+                                    <small class="text-muted">Mathematics - Junior</small>
+                                    <div class="small text-muted">Enrolled 3 days ago</div>
+                                </div>
+                                <span class="badge bg-warning">Pending</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Popular Courses -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header d-flex justify-content-between align-items-center">
+                        <h5 class="dashboard-card-title mb-0">Popular Courses</h5>
+                        <a href="all-courses.html" class="btn btn-outline-primary btn-sm">View All</a>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                    <i class="bi bi-code-slash" style="color: #0d6efd;"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">Advanced Programming</h6>
+                                    <small class="text-muted">Prof. Sarah Johnson</small>
+                                    <div class="small text-muted">45 enrolled students</div>
+                                </div>
+                                <span class="badge bg-success">85% Full</span>
+                            </div>
+                            <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                <div class="bg-success bg-opacity-10 text-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                    <i class="bi bi-calculator" style="color: #198754;"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">Calculus II</h6>
+                                    <small class="text-muted">Prof. Michael Chen</small>
+                                    <div class="small text-muted">38 enrolled students</div>
+                                </div>
+                                <span class="badge bg-success">76% Full</span>
+                            </div>
+                            <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                <div class="bg-info bg-opacity-10 text-info rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                    <i class="bi bi-microscope" style="color: #0dcaf0;"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">Biology Lab</h6>
+                                    <small class="text-muted">Prof. Lisa Thompson</small>
+                                    <div class="small text-muted">28 enrolled students</div>
+                                </div>
+                                <span class="badge bg-warning text-dark">56% Full</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>

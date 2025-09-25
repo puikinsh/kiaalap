@@ -1,0 +1,464 @@
+---
+layout: "base"
+title: "Dashboard v3"
+pageTitle: "Dashboard v3"
+pageDescription: "Modern dashboard with latest features"
+showPageHeader: true
+breadcrumb:
+  - title: "Dashboard v3"
+    url: "index-2.html"
+pageSpecificStyles: |
+  /* Critical CSS for immediate render */
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+          .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+          .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+          .top-navbar { background: white; height: 64px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+          .dashboard-content { padding: 24px; }
+pageSpecificJS: |
+  document.addEventListener('DOMContentLoaded', function() {
+              // Course Performance Chart
+              const coursePerformanceCtx = document.getElementById('coursePerformanceChart');
+              if (coursePerformanceCtx) {
+                  new Chart(coursePerformanceCtx, {
+                      type: 'doughnut',
+                      data: {
+                          labels: ['Excellent (4.5+)', 'Good (4.0-4.4)', 'Average (3.5-3.9)', 'Below Average (<3.5)'],
+                          datasets: [{
+                              data: [45, 32, 18, 5],
+                              backgroundColor: [
+                                  '#198754',
+                                  '#0d6efd',
+                                  '#ffc107',
+                                  '#dc3545'
+                              ],
+                              borderWidth: 0
+                          }]
+                      },
+                      options: {
+                          responsive: true,
+                          maintainAspectRatio: false,
+                          plugins: {
+                              legend: {
+                                  position: 'bottom',
+                                  labels: {
+                                      padding: 20,
+                                      usePointStyle: true
+                                  }
+                              }
+                          }
+                      }
+                  });
+              }
+  
+              // Student Progress Chart
+              const studentProgressCtx = document.getElementById('studentProgressChart');
+              if (studentProgressCtx) {
+                  new Chart(studentProgressCtx, {
+                      type: 'line',
+                      data: {
+                          labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+                          datasets: [{
+                              label: 'Completed Assignments (%)',
+                              data: [85, 88, 92, 87, 94, 91],
+                              borderColor: '#198754',
+                              backgroundColor: 'rgba(25, 135, 84, 0.1)',
+                              tension: 0.4,
+                              fill: true,
+                              pointRadius: 5,
+                              pointHoverRadius: 7
+                          }, {
+                              label: 'Class Attendance (%)',
+                              data: [92, 90, 94, 96, 93, 95],
+                              borderColor: '#0d6efd',
+                              backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                              tension: 0.4,
+                              fill: true,
+                              pointRadius: 5,
+                              pointHoverRadius: 7
+                          }]
+                      },
+                      options: {
+                          responsive: true,
+                          maintainAspectRatio: false,
+                          plugins: {
+                              legend: {
+                                  position: 'top',
+                                  align: 'end'
+                              }
+                          },
+                          scales: {
+                              y: {
+                                  beginAtZero: false,
+                                  min: 80,
+                                  max: 100,
+                                  ticks: {
+                                      callback: function(value) {
+                                          return value + '%';
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                  });
+              }
+          });
+---
+
+<!-- Page Header -->
+            <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h3 font-bold">Academic Management Dashboard</h1>
+                        <p class="text-muted text-sm">Comprehensive overview of courses, student progress, and academic performance metrics.</p>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-secondary">
+                            <i class="bi bi-calendar-week me-2"></i>Academic Calendar
+                        </button>
+                        <button class="btn btn-success">
+                            <i class="bi bi-plus-circle me-2"></i>New Semester
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Academic Overview Cards -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-4">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body text-center">
+                            <div class="mb-3">
+                                <div class="stat-icon-large bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-book-half" style="font-size: 24px; color: #198754;"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value text-success fw-bold mb-1" style="font-size: 2rem;">142</div>
+                            <div class="stat-label text-muted mb-2">Active Courses</div>
+                            <div class="stat-change text-success small fw-semibold">
+                                <i class="bi bi-arrow-up" style="font-size: 12px;"></i> +8
+                            </div>
+                            <div class="text-muted" style="font-size: 0.75rem;">new this semester</div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body text-center">
+                            <div class="mb-3">
+                                <div class="stat-icon-large bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-people-fill" style="font-size: 24px; color: #0d6efd;"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value text-primary fw-bold mb-1" style="font-size: 2rem;">9,284</div>
+                            <div class="stat-label text-muted mb-2">Enrolled Students</div>
+                            <div class="stat-change text-success small fw-semibold">
+                                <i class="bi bi-arrow-up" style="font-size: 12px;"></i> +412
+                            </div>
+                            <div class="text-muted" style="font-size: 0.75rem;">since last month</div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body text-center">
+                            <div class="mb-3">
+                                <div class="stat-icon-large bg-warning bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-person-badge" style="font-size: 24px; color: #ffc107;"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value text-warning fw-bold mb-1" style="font-size: 2rem;">68</div>
+                            <div class="stat-label text-muted mb-2">Faculty Members</div>
+                            <div class="stat-change text-success small fw-semibold">
+                                <i class="bi bi-arrow-up" style="font-size: 12px;"></i> +3
+                            </div>
+                            <div class="text-muted" style="font-size: 0.75rem;">new hires</div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body text-center">
+                            <div class="mb-3">
+                                <div class="stat-icon-large bg-info bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-award" style="font-size: 24px; color: #0dcaf0;"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value text-info fw-bold mb-1" style="font-size: 2rem;">4.7</div>
+                            <div class="stat-label text-muted mb-2">Course Rating</div>
+                            <div class="stat-change text-success small fw-semibold">
+                                <i class="bi bi-arrow-up" style="font-size: 12px;"></i> +0.3
+                            </div>
+                            <div class="text-muted" style="font-size: 0.75rem;">average improvement</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Performance and Student Progress -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-2">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header d-flex justify-content-between align-items-center">
+                            <h5 class="dashboard-card-title mb-0">Course Performance</h5>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                    Current Semester
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Current Semester</a></li>
+                                    <li><a class="dropdown-item" href="#">Last Semester</a></li>
+                                    <li><a class="dropdown-item" href="#">Academic Year</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="chart-container">
+                                <canvas id="coursePerformanceChart" width="400" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header d-flex justify-content-between align-items-center">
+                            <h5 class="dashboard-card-title mb-0">Student Progress</h5>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                    All Departments
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">All Departments</a></li>
+                                    <li><a class="dropdown-item" href="#">Computer Science</a></li>
+                                    <li><a class="dropdown-item" href="#">Mathematics</a></li>
+                                    <li><a class="dropdown-item" href="#">Biology</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="chart-container">
+                                <canvas id="studentProgressChart" width="400" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Academic Insights -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-3">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h6 class="dashboard-card-title">Department Overview</h6>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-primary bg-opacity-10 rounded me-2" style="width: 8px; height: 8px;"></div>
+                                        <span class="small">Computer Science</span>
+                                    </div>
+                                    <strong>34 courses</strong>
+                                </div>
+                                <div class="progress progress-sm">
+                                    <div class="progress-bar bg-primary" style="width: 45%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-success bg-opacity-10 rounded me-2" style="width: 8px; height: 8px;"></div>
+                                        <span class="small">Mathematics</span>
+                                    </div>
+                                    <strong>28 courses</strong>
+                                </div>
+                                <div class="progress progress-sm">
+                                    <div class="progress-bar bg-success" style="width: 37%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-info bg-opacity-10 rounded me-2" style="width: 8px; height: 8px;"></div>
+                                        <span class="small">Biology</span>
+                                    </div>
+                                    <strong>22 courses</strong>
+                                </div>
+                                <div class="progress progress-sm">
+                                    <div class="progress-bar bg-info" style="width: 29%"></div>
+                                </div>
+                            </div>
+                            <div class="small text-muted">
+                                <strong>Total:</strong> 84 courses across 12 departments
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h6 class="dashboard-card-title">Academic Calendar</h6>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="mb-3">
+                                <div class="d-flex align-items-start">
+                                    <div class="bg-warning bg-opacity-10 text-warning rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 32px; height: 32px; flex-shrink: 0;">
+                                        <i class="bi bi-calendar-event" style="font-size: 14px;"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1">Spring Registration</h6>
+                                        <small class="text-muted">Opens February 1st</small>
+                                        <div class="small text-warning fw-semibold">In 2 weeks</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="d-flex align-items-start">
+                                    <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 32px; height: 32px; flex-shrink: 0;">
+                                        <i class="bi bi-mortarboard" style="font-size: 14px;"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1">Midterm Exams</h6>
+                                        <small class="text-muted">March 15-22, 2025</small>
+                                        <div class="small text-primary fw-semibold">In 8 weeks</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="d-flex align-items-start">
+                                    <div class="bg-success bg-opacity-10 text-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 32px; height: 32px; flex-shrink: 0;">
+                                        <i class="bi bi-trophy" style="font-size: 14px;"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1">Graduation Ceremony</h6>
+                                        <small class="text-muted">May 18, 2025</small>
+                                        <div class="small text-success fw-semibold">In 16 weeks</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h6 class="dashboard-card-title">Quick Actions</h6>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-primary btn-sm">
+                                    <i class="bi bi-plus-circle me-2"></i>Create Course
+                                </button>
+                                <button class="btn btn-outline-success btn-sm">
+                                    <i class="bi bi-person-plus me-2"></i>Enroll Student
+                                </button>
+                                <button class="btn btn-outline-info btn-sm">
+                                    <i class="bi bi-calendar-plus me-2"></i>Schedule Class
+                                </button>
+                                <button class="btn btn-outline-warning btn-sm">
+                                    <i class="bi bi-file-earmark-text me-2"></i>Grade Report
+                                </button>
+                                <button class="btn btn-outline-secondary btn-sm">
+                                    <i class="bi bi-gear me-2"></i>Settings
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Course Activity and Top Students -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-2">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header d-flex justify-content-between align-items-center">
+                            <h5 class="dashboard-card-title mb-0">Recent Course Activity</h5>
+                            <a href="all-courses.html" class="btn btn-outline-primary btn-sm">View All</a>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="list-group list-group-flush">
+                                <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                    <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                        <i class="bi bi-plus-circle" style="color: #0d6efd; font-size: 16px;"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1">New Course Created</h6>
+                                        <small class="text-muted">Advanced Machine Learning</small>
+                                        <div class="small text-muted">Prof. Sarah Johnson - 2 hours ago</div>
+                                    </div>
+                                    <span class="badge bg-primary">New</span>
+                                </div>
+                                <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                    <div class="bg-success bg-opacity-10 text-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                        <i class="bi bi-person-check" style="color: #198754; font-size: 16px;"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1">Student Enrollment</h6>
+                                        <small class="text-muted">15 new students in Data Structures</small>
+                                        <div class="small text-muted">Prof. Michael Chen - 4 hours ago</div>
+                                    </div>
+                                    <span class="badge bg-success">+15</span>
+                                </div>
+                                <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                    <div class="bg-warning bg-opacity-10 text-warning rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                        <i class="bi bi-file-earmark-check" style="color: #ffc107; font-size: 16px;"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1">Assignment Graded</h6>
+                                        <small class="text-muted">Programming Assignment #3</small>
+                                        <div class="small text-muted">Prof. Lisa Wang - 6 hours ago</div>
+                                    </div>
+                                    <span class="badge bg-warning text-dark">85% avg</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header d-flex justify-content-between align-items-center">
+                            <h5 class="dashboard-card-title mb-0">Top Performing Courses</h5>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Report</a>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="list-group list-group-flush">
+                                <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                    <div class="bg-success bg-opacity-10 text-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                        <strong style="color: #198754; font-size: 16px; font-weight: bold;">1</strong>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1">Advanced Programming</h6>
+                                        <small class="text-muted">Prof. Sarah Johnson</small>
+                                        <div class="small text-success">4.9/5.0 rating • 98% completion</div>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="fw-bold text-success">45</div>
+                                        <small class="text-muted">enrolled</small>
+                                    </div>
+                                </div>
+                                <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                    <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                        <strong style="color: #0d6efd; font-size: 16px; font-weight: bold;">2</strong>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1">Data Structures</h6>
+                                        <small class="text-muted">Prof. Michael Chen</small>
+                                        <div class="small text-success">4.8/5.0 rating • 96% completion</div>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="fw-bold text-primary">38</div>
+                                        <small class="text-muted">enrolled</small>
+                                    </div>
+                                </div>
+                                <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                    <div class="bg-warning bg-opacity-10 text-warning rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                        <strong style="color: #ffc107; font-size: 16px; font-weight: bold;">3</strong>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1">Machine Learning</h6>
+                                        <small class="text-muted">Prof. David Kim</small>
+                                        <div class="small text-success">4.7/5.0 rating • 94% completion</div>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="fw-bold text-warning">32</div>
+                                        <small class="text-muted">enrolled</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>

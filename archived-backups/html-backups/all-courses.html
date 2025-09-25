@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kiaalap - All Courses Management Dashboard">
+    <meta name="keywords" content="education, dashboard, courses, university, management">
+    <meta name="author" content="Kiaalap">
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="preconnect" href="https://ui-avatars.com" crossorigin>
+
+    <title>Kiaalap - All Courses</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Critical CSS for immediate render -->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .top-navbar { background: white; height: 64px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .dashboard-content { padding: 24px; }
+        .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+        .dashboard-card { background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .dashboard-card-header { padding: 16px 20px; border-bottom: 1px solid #e5e7eb; }
+        .dashboard-card-body { padding: 20px; }
+        .dashboard-card-title { margin: 0; font-size: 1.125rem; font-weight: 600; color: #1f2937; }
+    </style>
+
+    <!-- Load stylesheets -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="src/css/dashboard.css">
+
+    <!-- Fallback for no-JS -->
+    <noscript>
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="src/css/dashboard.css">
+    </noscript>
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <!-- Search Backdrop -->
+    <div class="search-backdrop" id="searchBackdrop" aria-hidden="true"></div>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <h5>
+                    <i class="bi bi-mortarboard-fill"></i>
+                    Kiaalap
+                </h5>
+                <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="menu-section">
+                <div class="menu-section-title">Main</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#dashboard" data-bs-target="#dashboardSubmenu" aria-expanded="false">
+                            <i class="bi bi-speedometer2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <ul id="dashboardSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="index.html">Dashboard v.1</a></li>
+                            <li><a class="nav-link" href="index-2.html">Dashboard v.2</a></li>
+                            <li><a class="nav-link" href="analytics.html">Analytics</a></li>
+                            <li><a class="nav-link" href="widgets.html">Widgets</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">
+                            <i class="bi bi-calendar-event"></i>
+                            <span>Events</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Academic</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#professors" data-bs-target="#professorsSubmenu" aria-expanded="false">
+                            <i class="bi bi-person-badge"></i>
+                            <span>Professors</span>
+                        </a>
+                        <ul id="professorsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-professors.html">All Professors</a></li>
+                            <li><a class="nav-link" href="add-professor.html">Add Professor</a></li>
+                            <li><a class="nav-link" href="professor-profile.html">Professor Profile</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#students" data-bs-target="#studentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-people"></i>
+                            <span>Students</span>
+                        </a>
+                        <ul id="studentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-students.html">All Students</a></li>
+                            <li><a class="nav-link" href="add-student.html">Add Student</a></li>
+                            <li><a class="nav-link" href="student-profile.html">Student Profile</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu active" href="#courses" data-bs-target="#coursesSubmenu" aria-expanded="true">
+                            <i class="bi bi-book"></i>
+                            <span>Courses</span>
+                        </a>
+                        <ul id="coursesSubmenu" class="submenu collapse show list-unstyled">
+                            <li><a class="nav-link active" href="all-courses.html">All Courses</a></li>
+                            <li><a class="nav-link" href="add-course.html">Add Course</a></li>
+                            <li><a class="nav-link" href="edit-course.html">Edit Course</a></li>
+                            <li><a class="nav-link" href="course-info.html">Course Info</a></li>
+                            <li><a class="nav-link" href="course-payment.html">Course Payment</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#library" data-bs-target="#librarySubmenu" aria-expanded="false">
+                            <i class="bi bi-journal-bookmark"></i>
+                            <span>Library</span>
+                        </a>
+                        <ul id="librarySubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="library-assets.html">Library Assets</a></li>
+                            <li><a class="nav-link" href="add-library-assets.html">Add Asset</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#departments" data-bs-target="#departmentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-building"></i>
+                            <span>Departments</span>
+                        </a>
+                        <ul id="departmentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="departments.html">All Departments</a></li>
+                            <li><a class="nav-link" href="add-department.html">Add Department</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Communication</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#mailbox" data-bs-target="#mailboxSubmenu" aria-expanded="false">
+                            <i class="bi bi-envelope"></i>
+                            <span>Mailbox</span>
+                        </a>
+                        <ul id="mailboxSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="mailbox.html">Inbox</a></li>
+                            <li><a class="nav-link" href="mailbox-compose.html">Compose</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper" id="mainWrapper">
+        <!-- Header -->
+        <header class="navbar top-navbar" role="banner">
+            <div class="container-fluid d-flex align-items-center h-100">
+                <!-- Hamburger Menu -->
+                <button class="hamburger-menu" id="sidebarToggle" aria-label="Toggle sidebar" aria-expanded="false">
+                    <i class="bi bi-list" aria-hidden="true"></i>
+                </button>
+
+                <!-- Breadcrumb for desktop -->
+                <nav aria-label="Breadcrumb" class="d-none d-lg-block ms-3">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Academic</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">All Courses</li>
+                    </ol>
+                </nav>
+
+                <!-- Logo for mobile -->
+                <div class="navbar-brand d-lg-none fw-bold me-auto">Kiaalap</div>
+
+                <!-- Spacer for desktop -->
+                <div class="flex-grow-1 d-none d-lg-block"></div>
+
+                <!-- Right Actions -->
+                <div class="d-flex align-items-center gap-2">
+                    <!-- Search -->
+                    <div class="search-container">
+                        <button class="btn btn-light btn-icon" id="searchToggle" aria-label="Toggle search">
+                            <i class="bi bi-search" aria-hidden="true"></i>
+                        </button>
+
+                        <form class="search-form" id="searchForm" role="search">
+                            <label for="searchInput" class="visually-hidden">Search</label>
+                            <i class="bi bi-search search-icon" aria-hidden="true"></i>
+                            <input type="search"
+                                   class="form-control"
+                                   id="searchInput"
+                                   placeholder="Search courses..."
+                                   aria-label="Search"
+                                   autocomplete="off">
+                            <button type="button" class="close-search" id="closeSearch" aria-label="Close search">
+                                <i class="bi bi-x-lg" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <button class="btn btn-primary btn-sm hide-mobile" onclick="window.location.href='add-course.html'">
+                        <i class="bi bi-plus-circle me-1"></i> Add Course
+                    </button>
+
+                    <!-- Notifications -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-icon position-relative"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-bell"></i>
+                            <span class="notification-dot"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <h6 class="mb-0">Notifications</h6>
+                            </div>
+                            <div class="p-2" style="max-height: 350px; overflow-y: auto;">
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon bg-primary bg-opacity-10 text-primary">
+                                        <i class="bi bi-book"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">New Course Added</div>
+                                        <div class="text-muted small">Advanced AI Course</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">5 minutes ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="dropdown">
+                        <button class="btn btn-light d-flex align-items-center px-2 btn-icon"
+                                data-bs-toggle="dropdown">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces"
+                                 alt="User"
+                                 class="user-avatar"
+                                 loading="lazy"
+                                 width="32"
+                                 height="32">
+                            <span class="hide-mobile ms-2" style="font-size: 0.875rem;">Sarah Johnson</span>
+                            <i class="bi bi-chevron-down hide-mobile ms-1" style="font-size: 0.75rem;" aria-hidden="true"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li class="px-3 py-2 border-bottom">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces"
+                                         alt="User"
+                                         width="48"
+                                         height="48"
+                                         class="rounded-circle">
+                                    <div class="ms-3">
+                                        <div class="fw-semibold">Sarah Johnson</div>
+                                        <div class="text-muted small">sarah.johnson@kiaalap.edu</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sign Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-content" id="main-content" role="main">
+            <!-- Page Header -->
+            <div class="mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h3 font-bold mb-1">All Courses</h1>
+                        <p class="text-muted">Manage your institution's course catalog</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" onclick="window.location.href='add-course.html'">
+                            <i class="bi bi-plus-circle me-2"></i> Add New Course
+                        </button>
+                        <button class="btn btn-outline-secondary ms-2">
+                            <i class="bi bi-download me-2"></i> Export
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="dashboard-grid grid-cols-4 mb-3">
+                <div class="stats-card">
+                    <div class="stats-card-label">Total Courses</div>
+                    <div class="stats-card-value">156</div>
+                    <span class="stats-card-change positive">+12% from last month</span>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-card-label">Active Courses</div>
+                    <div class="stats-card-value">142</div>
+                    <span class="stats-card-change positive">+8 new</span>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-card-label">Total Students</div>
+                    <div class="stats-card-value">3,245</div>
+                    <span class="stats-card-change positive">+18%</span>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-card-label">Avg. Enrollment</div>
+                    <div class="stats-card-value">21</div>
+                    <span class="stats-card-change negative">-2</span>
+                </div>
+            </div>
+
+            <!-- Filters Row -->
+            <div class="dashboard-card mb-3">
+                <div class="row gx-4 gy-3">
+                    <div class="col-md-3">
+                        <label for="departmentFilter" class="form-label small">Department</label>
+                        <select class="form-select" id="departmentFilter">
+                            <option selected>All Departments</option>
+                            <option value="1">Computer Science</option>
+                            <option value="2">Mathematics</option>
+                            <option value="3">Physics</option>
+                            <option value="4">Chemistry</option>
+                            <option value="5">Biology</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="semesterFilter" class="form-label small">Semester</label>
+                        <select class="form-select" id="semesterFilter">
+                            <option selected>All Semesters</option>
+                            <option value="1">Fall 2025</option>
+                            <option value="2">Spring 2025</option>
+                            <option value="3">Summer 2025</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="statusFilter" class="form-label small">Status</label>
+                        <select class="form-select" id="statusFilter">
+                            <option selected>All Status</option>
+                            <option value="1">Active</option>
+                            <option value="2">Inactive</option>
+                            <option value="3">Completed</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="searchFilter" class="form-label small">Search</label>
+                        <input type="text" class="form-control" id="searchFilter" placeholder="Search courses...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Courses Table -->
+            <div class="dashboard-card">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    <input class="form-check-input" type="checkbox" id="selectAll">
+                                </th>
+                                <th scope="col">Course Code</th>
+                                <th scope="col">Course Name</th>
+                                <th scope="col">Department</th>
+                                <th scope="col">Professor</th>
+                                <th scope="col">Credits</th>
+                                <th scope="col">Students</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input class="form-check-input" type="checkbox">
+                                </td>
+                                <td class="fw-semibold">CS101</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=50&h=50&fit=crop"
+                                             alt="Course"
+                                             class="rounded me-3"
+                                             width="40"
+                                             height="40"
+                                             loading="lazy">
+                                        <div>
+                                            <div class="fw-semibold">Introduction to Computer Science</div>
+                                            <small class="text-muted">Mon, Wed, Fri - 10:00 AM</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Computer Science</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://ui-avatars.com/api/?name=John+Smith&background=6366f1&color=fff"
+                                             alt="Professor"
+                                             class="rounded-circle me-2"
+                                             width="30"
+                                             height="30"
+                                             loading="lazy">
+                                        <span>Dr. John Smith</span>
+                                    </div>
+                                </td>
+                                <td>3</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span>45</span>
+                                        <div class="progress ms-2" style="width: 60px; height: 6px;">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge bg-success">Active</span></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="course-info.html"><i class="bi bi-eye me-2"></i> View</a></li>
+                                            <li><a class="dropdown-item" href="edit-course.html"><i class="bi bi-pencil me-2"></i> Edit</a></li>
+                                            <li><a class="dropdown-item" href="#"><i class="bi bi-people me-2"></i> Students</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i> Delete</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input class="form-check-input" type="checkbox">
+                                </td>
+                                <td class="fw-semibold">MATH201</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=50&h=50&fit=crop"
+                                             alt="Course"
+                                             class="rounded me-3"
+                                             width="40"
+                                             height="40"
+                                             loading="lazy">
+                                        <div>
+                                            <div class="fw-semibold">Calculus II</div>
+                                            <small class="text-muted">Tue, Thu - 2:00 PM</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Mathematics</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://ui-avatars.com/api/?name=Emily+Chen&background=10b981&color=fff"
+                                             alt="Professor"
+                                             class="rounded-circle me-2"
+                                             width="30"
+                                             height="30"
+                                             loading="lazy">
+                                        <span>Dr. Emily Chen</span>
+                                    </div>
+                                </td>
+                                <td>4</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span>32</span>
+                                        <div class="progress ms-2" style="width: 60px; height: 6px;">
+                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 64%" aria-valuenow="64" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge bg-success">Active</span></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="course-info.html"><i class="bi bi-eye me-2"></i> View</a></li>
+                                            <li><a class="dropdown-item" href="edit-course.html"><i class="bi bi-pencil me-2"></i> Edit</a></li>
+                                            <li><a class="dropdown-item" href="#"><i class="bi bi-people me-2"></i> Students</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i> Delete</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input class="form-check-input" type="checkbox">
+                                </td>
+                                <td class="fw-semibold">PHY301</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://images.unsplash.com/photo-1636466497217-26a8cbeaf0aa?w=50&h=50&fit=crop"
+                                             alt="Course"
+                                             class="rounded me-3"
+                                             width="40"
+                                             height="40"
+                                             loading="lazy">
+                                        <div>
+                                            <div class="fw-semibold">Quantum Mechanics</div>
+                                            <small class="text-muted">Mon, Wed - 3:30 PM</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Physics</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://ui-avatars.com/api/?name=Robert+Wilson&background=f59e0b&color=fff"
+                                             alt="Professor"
+                                             class="rounded-circle me-2"
+                                             width="30"
+                                             height="30"
+                                             loading="lazy">
+                                        <span>Dr. Robert Wilson</span>
+                                    </div>
+                                </td>
+                                <td>4</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span>28</span>
+                                        <div class="progress ms-2" style="width: 60px; height: 6px;">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge bg-success">Active</span></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="course-info.html"><i class="bi bi-eye me-2"></i> View</a></li>
+                                            <li><a class="dropdown-item" href="edit-course.html"><i class="bi bi-pencil me-2"></i> Edit</a></li>
+                                            <li><a class="dropdown-item" href="#"><i class="bi bi-people me-2"></i> Students</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i> Delete</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input class="form-check-input" type="checkbox">
+                                </td>
+                                <td class="fw-semibold">BIO102</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=50&h=50&fit=crop"
+                                             alt="Course"
+                                             class="rounded me-3"
+                                             width="40"
+                                             height="40"
+                                             loading="lazy">
+                                        <div>
+                                            <div class="fw-semibold">Cell Biology</div>
+                                            <small class="text-muted">Tue, Thu - 9:00 AM</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Biology</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://ui-avatars.com/api/?name=Maria+Garcia&background=ec4899&color=fff"
+                                             alt="Professor"
+                                             class="rounded-circle me-2"
+                                             width="30"
+                                             height="30"
+                                             loading="lazy">
+                                        <span>Dr. Maria Garcia</span>
+                                    </div>
+                                </td>
+                                <td>3</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span>50</span>
+                                        <div class="progress ms-2" style="width: 60px; height: 6px;">
+                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge bg-warning">Full</span></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="course-info.html"><i class="bi bi-eye me-2"></i> View</a></li>
+                                            <li><a class="dropdown-item" href="edit-course.html"><i class="bi bi-pencil me-2"></i> Edit</a></li>
+                                            <li><a class="dropdown-item" href="#"><i class="bi bi-people me-2"></i> Students</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i> Delete</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input class="form-check-input" type="checkbox">
+                                </td>
+                                <td class="fw-semibold">CHEM202</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=50&h=50&fit=crop"
+                                             alt="Course"
+                                             class="rounded me-3"
+                                             width="40"
+                                             height="40"
+                                             loading="lazy">
+                                        <div>
+                                            <div class="fw-semibold">Organic Chemistry</div>
+                                            <small class="text-muted">Mon, Wed, Fri - 1:00 PM</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Chemistry</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://ui-avatars.com/api/?name=David+Lee&background=8b5cf6&color=fff"
+                                             alt="Professor"
+                                             class="rounded-circle me-2"
+                                             width="30"
+                                             height="30"
+                                             loading="lazy">
+                                        <span>Dr. David Lee</span>
+                                    </div>
+                                </td>
+                                <td>4</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span>38</span>
+                                        <div class="progress ms-2" style="width: 60px; height: 6px;">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 76%" aria-valuenow="76" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge bg-success">Active</span></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="course-info.html"><i class="bi bi-eye me-2"></i> View</a></li>
+                                            <li><a class="dropdown-item" href="edit-course.html"><i class="bi bi-pencil me-2"></i> Edit</a></li>
+                                            <li><a class="dropdown-item" href="#"><i class="bi bi-people me-2"></i> Students</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i> Delete</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input class="form-check-input" type="checkbox">
+                                </td>
+                                <td class="fw-semibold">ENG101</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=50&h=50&fit=crop"
+                                             alt="Course"
+                                             class="rounded me-3"
+                                             width="40"
+                                             height="40"
+                                             loading="lazy">
+                                        <div>
+                                            <div class="fw-semibold">English Literature</div>
+                                            <small class="text-muted">Tue, Thu - 11:00 AM</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>English</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://ui-avatars.com/api/?name=Susan+Brown&background=14b8a6&color=fff"
+                                             alt="Professor"
+                                             class="rounded-circle me-2"
+                                             width="30"
+                                             height="30"
+                                             loading="lazy">
+                                        <span>Prof. Susan Brown</span>
+                                    </div>
+                                </td>
+                                <td>3</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span>25</span>
+                                        <div class="progress ms-2" style="width: 60px; height: 6px;">
+                                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge bg-success">Active</span></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="course-info.html"><i class="bi bi-eye me-2"></i> View</a></li>
+                                            <li><a class="dropdown-item" href="edit-course.html"><i class="bi bi-pencil me-2"></i> Edit</a></li>
+                                            <li><a class="dropdown-item" href="#"><i class="bi bi-people me-2"></i> Students</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i> Delete</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input class="form-check-input" type="checkbox">
+                                </td>
+                                <td class="fw-semibold">HIST203</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://images.unsplash.com/photo-1461360370896-922624d12aa1?w=50&h=50&fit=crop"
+                                             alt="Course"
+                                             class="rounded me-3"
+                                             width="40"
+                                             height="40"
+                                             loading="lazy">
+                                        <div>
+                                            <div class="fw-semibold">World History</div>
+                                            <small class="text-muted">Mon, Wed - 4:00 PM</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>History</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://ui-avatars.com/api/?name=Michael+Jones&background=ef4444&color=fff"
+                                             alt="Professor"
+                                             class="rounded-circle me-2"
+                                             width="30"
+                                             height="30"
+                                             loading="lazy">
+                                        <span>Dr. Michael Jones</span>
+                                    </div>
+                                </td>
+                                <td>3</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span>0</span>
+                                        <div class="progress ms-2" style="width: 60px; height: 6px;">
+                                            <div class="progress-bar bg-secondary" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge bg-secondary">Inactive</span></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="course-info.html"><i class="bi bi-eye me-2"></i> View</a></li>
+                                            <li><a class="dropdown-item" href="edit-course.html"><i class="bi bi-pencil me-2"></i> Edit</a></li>
+                                            <li><a class="dropdown-item" href="#"><i class="bi bi-check-circle me-2"></i> Activate</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i> Delete</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <div>
+                        <p class="text-muted mb-0">Showing 1 to 7 of 156 entries</p>
+                    </div>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination mb-0">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                            </li>
+                            <li class="page-item active" aria-current="page">
+                                <a class="page-link" href="#">1</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="mb-0">&copy; 2025 Kiaalap. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <p class="mb-0">Built with <i class="bi bi-heart-fill text-danger"></i> for education</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Inline Performance Script -->
+    <script>
+        // Lazy load images that are not immediately visible
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img[src*="unsplash"], img[src*="ui-avatars"]');
+            images.forEach(img => {
+                if (!img.hasAttribute('loading')) {
+                    img.setAttribute('loading', 'lazy');
+                }
+            });
+
+            // Select all checkbox functionality
+            const selectAll = document.getElementById('selectAll');
+            const checkboxes = document.querySelectorAll('tbody input[type="checkbox"]');
+
+            selectAll?.addEventListener('change', function() {
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = this.checked;
+                });
+            });
+
+            // Individual checkbox change
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+                    const someChecked = Array.from(checkboxes).some(cb => cb.checked);
+
+                    if (selectAll) {
+                        selectAll.checked = allChecked;
+                        selectAll.indeterminate = !allChecked && someChecked;
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Optimized Script Loading -->
+    <!-- Load Bootstrap with defer -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+
+    <!-- Load dashboard functionality -->
+    <script src="src/js/dashboard.js" defer></script>
+
+    <!-- Performance monitoring -->
+    <script>
+        if ('PerformanceObserver' in window) {
+            try {
+                const observer = new PerformanceObserver((list) => {
+                    for (const entry of list.getEntries()) {
+                        console.log('LCP:', entry.startTime, 'ms');
+                    }
+                });
+                observer.observe({type: 'largest-contentful-paint', buffered: true});
+            } catch (e) {}
+        }
+    </script>
+</body>
+</html>

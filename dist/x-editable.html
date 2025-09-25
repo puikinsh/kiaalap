@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="X-Editable - Inline editing components for Kiaalap Dashboard">
+    <meta name="keywords" content="x-editable, inline editing, forms, dashboard">
+    <meta name="author" content="Kiaalap">
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="preconnect" href="https://ui-avatars.com" crossorigin>
+    <link rel="dns-prefetch" href="https://flagcdn.com">
+
+    <title>X-Editable - Kiaalap Dashboard</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Critical CSS for above-the-fold content -->
+    <style>*{box-sizing:border-box;margin:0;padding:0}body{background:#f5f7fa;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif}.sidebar{background:#1f2937;height:100vh;left:0;position:fixed;top:0;width:260px;z-index:1040}.main-wrapper{margin-left:260px;min-height:100vh;transition:margin-left .3s ease}.top-navbar{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.1);height:64px}.dashboard-content{padding:24px}@keyframes pulse{0%,to{opacity:1}50%{opacity:.5}}.loading{animation:pulse 2s cubic-bezier(.4,0,.6,1) infinite;background:#e5e7eb}</style>
+
+    <!-- Load stylesheets -->
+    <!-- Custom X-Editable CSS -->
+    <style>.editable-container{background:#fff;border:1px solid #ddd;border-radius:4px;box-shadow:0 2px 10px rgba(0,0,0,.1);max-width:300px;min-width:200px;padding:10px;position:absolute;z-index:1050}.editable-form{margin-bottom:0}.editable-input{margin-bottom:10px;width:100%}.editable-buttons{text-align:right}.editable-buttons .btn{margin-left:5px}a.editable-click{border-bottom:1px dashed #007bff;color:#007bff;cursor:pointer;display:inline-block;min-width:20px;text-decoration:none}a.editable-click:hover{border-bottom-color:#0056b3;color:#0056b3}.editable-empty{color:#6c757d;font-style:italic}.editable-loading{opacity:.6;pointer-events:none}.editable-backdrop{background:transparent;height:100%;left:0;position:fixed;top:0;width:100%;z-index:1040}</style>
+  <link rel="stylesheet" crossorigin href="./assets/bootstrap-C31-XpK9.css">
+  <link rel="stylesheet" crossorigin href="./assets/bootstrap-icons--Sisaltn.css">
+  <link rel="stylesheet" crossorigin href="./assets/dashboard-DOMAAUp6.css">
+  <link rel="stylesheet" crossorigin href="./assets/charts-layout-CS7VU_kX.css">
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <!-- Required DOM elements for dashboard.js -->
+    <div class="search-backdrop" id="searchBackdrop"></div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <h5>
+                    <i class="bi bi-mortarboard-fill"></i>
+                    Kiaalap
+                </h5>
+                <button class="sidebar-close" id="sidebarClose">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="menu-section">
+                <div class="menu-section-title">Main</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#dashboard" data-bs-target="#dashboardSubmenu" aria-expanded="false">
+                            <i class="bi bi-speedometer2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <ul id="dashboardSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="index.html">Dashboard v.1</a></li>
+                            <li><a class="nav-link" href="index-1.html">Dashboard v.2</a></li>
+                            <li><a class="nav-link" href="index-2.html">Dashboard v.3</a></li>
+                            <li><a class="nav-link" href="analytics.html">Analytics</a></li>
+                            <li><a class="nav-link" href="widgets.html">Widgets</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">
+                            <i class="bi bi-calendar-event"></i>
+                            <span>Events</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Academic</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#professors" data-bs-target="#professorsSubmenu" aria-expanded="false">
+                            <i class="bi bi-person-badge"></i>
+                            <span>Professors</span>
+                        </a>
+                        <ul id="professorsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-professors.html">All Professors</a></li>
+                            <li><a class="nav-link" href="add-professor.html">Add Professor</a></li>
+                            <li><a class="nav-link" href="edit-professor.html">Edit Professor</a></li>
+                            <li><a class="nav-link" href="professor-profile.html">Professor Profile</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#students" data-bs-target="#studentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-people"></i>
+                            <span>Students</span>
+                        </a>
+                        <ul id="studentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-students.html">All Students</a></li>
+                            <li><a class="nav-link" href="add-student.html">Add Student</a></li>
+                            <li><a class="nav-link" href="edit-student.html">Edit Student</a></li>
+                            <li><a class="nav-link" href="student-profile.html">Student Profile</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#courses" data-bs-target="#coursesSubmenu" aria-expanded="false">
+                            <i class="bi bi-book"></i>
+                            <span>Courses</span>
+                        </a>
+                        <ul id="coursesSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-courses.html">All Courses</a></li>
+                            <li><a class="nav-link" href="add-course.html">Add Course</a></li>
+                            <li><a class="nav-link" href="edit-course.html">Edit Course</a></li>
+                            <li><a class="nav-link" href="course-info.html">Course Info</a></li>
+                            <li><a class="nav-link" href="course-payment.html">Course Payment</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#library" data-bs-target="#librarySubmenu" aria-expanded="false">
+                            <i class="bi bi-journal-bookmark"></i>
+                            <span>Library</span>
+                        </a>
+                        <ul id="librarySubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="library-assets.html">Library Assets</a></li>
+                            <li><a class="nav-link" href="add-library-assets.html">Add Asset</a></li>
+                            <li><a class="nav-link" href="edit-library-assets.html">Edit Asset</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#departments" data-bs-target="#departmentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-building"></i>
+                            <span>Departments</span>
+                        </a>
+                        <ul id="departmentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="departments.html">All Departments</a></li>
+                            <li><a class="nav-link" href="add-department.html">Add Department</a></li>
+                            <li><a class="nav-link" href="edit-department.html">Edit Department</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Interface</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#components" data-bs-target="#componentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-palette"></i>
+                            <span>Components</span>
+                        </a>
+                        <ul id="componentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="buttons.html">Buttons</a></li>
+                            <li><a class="nav-link" href="alerts.html">Alerts</a></li>
+                            <li><a class="nav-link" href="modals.html">Modals</a></li>
+                            <li><a class="nav-link" href="tabs.html">Tabs</a></li>
+                            <li><a class="nav-link" href="accordion.html">Accordion</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu active" href="#forms" data-bs-target="#formsSubmenu" aria-expanded="true">
+                            <i class="bi bi-file-text"></i>
+                            <span>Forms</span>
+                        </a>
+                        <ul id="formsSubmenu" class="submenu collapse show list-unstyled">
+                            <li><a class="nav-link" href="basic-form-element.html">Basic Form Elements</a></li>
+                            <li><a class="nav-link" href="advance-form-element.html">Advanced Form Elements</a></li>
+                            <li><a class="nav-link active" href="x-editable.html">X-Editable</a></li>
+                            <li><a class="nav-link" href="dual-list-box.html">Dual List Box</a></li>
+                            <li><a class="nav-link" href="images-cropper.html">Image Cropper</a></li>
+                            <li><a class="nav-link" href="password-meter.html">Password Meter</a></li>
+                            <li><a class="nav-link" href="multi-upload.html">Multi Upload</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#charts" data-bs-target="#chartsSubmenu" aria-expanded="false">
+                            <i class="bi bi-bar-chart"></i>
+                            <span>Charts</span>
+                        </a>
+                        <ul id="chartsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="line-charts.html">Line Charts</a></li>
+                            <li><a class="nav-link" href="area-charts.html">Area Charts</a></li>
+                            <li><a class="nav-link" href="bar-charts.html">Bar Charts</a></li>
+                            <li><a class="nav-link" href="c3.html">C3 Charts</a></li>
+                            <li><a class="nav-link" href="peity.html">Peity Charts</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#tables" data-bs-target="#tablesSubmenu" aria-expanded="false">
+                            <i class="bi bi-table"></i>
+                            <span>Tables</span>
+                        </a>
+                        <ul id="tablesSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="static-table.html">Static Tables</a></li>
+                            <li><a class="nav-link" href="data-table.html">Data Tables</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Pages</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#authentication" data-bs-target="#authSubmenu" aria-expanded="false">
+                            <i class="bi bi-shield-lock"></i>
+                            <span>Authentication</span>
+                        </a>
+                        <ul id="authSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="login.html">Login</a></li>
+                            <li><a class="nav-link" href="register.html">Register</a></li>
+                            <li><a class="nav-link" href="lock.html">Lock Screen</a></li>
+                            <li><a class="nav-link" href="password-recovery.html">Forgot Password</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#errors" data-bs-target="#errorsSubmenu" aria-expanded="false">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            <span>Error Pages</span>
+                        </a>
+                        <ul id="errorsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="404.html">404 Error</a></li>
+                            <li><a class="nav-link" href="500.html">500 Error</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper" id="mainWrapper">
+        <!-- Header -->
+        <nav class="navbar top-navbar">
+            <div class="container-fluid d-flex align-items-center h-100">
+                <!-- Hamburger Menu -->
+                <button class="hamburger-menu" id="sidebarToggle">
+                    <i class="bi bi-list"></i>
+                </button>
+
+                <!-- Breadcrumb for desktop -->
+                <nav aria-label="breadcrumb" class="d-none d-lg-block ms-3">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Forms</a></li>
+                        <li class="breadcrumb-item active">X-Editable</li>
+                    </ol>
+                </nav>
+
+                <!-- Logo for mobile -->
+                <div class="navbar-brand d-lg-none fw-bold me-auto">Kiaalap</div>
+
+                <!-- Spacer for desktop -->
+                <div class="flex-grow-1 d-none d-lg-block"></div>
+
+                <!-- Right Actions -->
+                <div class="d-flex align-items-center gap-2">
+                    <!-- Search -->
+                    <div class="search-container">
+                        <button class="btn btn-light btn-icon" id="searchToggle">
+                            <i class="bi bi-search"></i>
+                        </button>
+
+                        <form class="search-form" id="searchForm">
+                            <i class="bi bi-search search-icon"></i>
+                            <input type="text"
+                                   class="form-control"
+                                   id="searchInput"
+                                   placeholder="Search..."
+                                   data-bs-toggle="dropdown">
+                            <button type="button" class="close-search" id="closeSearch">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+
+                            <ul class="dropdown-menu w-100 mt-2">
+                                <li><a class="dropdown-item" href="#">Student Registration</a></li>
+                                <li><a class="dropdown-item" href="#">Course Schedule</a></li>
+                                <li><a class="dropdown-item" href="#">Grade Reports</a></li>
+                            </ul>
+                        </form>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <button class="btn btn-primary btn-sm hide-mobile">
+                        <i class="bi bi-plus-circle me-1"></i> New
+                    </button>
+
+                    <!-- Messages -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-icon position-relative"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-chat-dots"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"
+                                  style="font-size: 0.625rem;">5</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <h6 class="mb-0">Messages</h6>
+                            </div>
+                            <div class="p-2" style="max-height: 300px; overflow-y: auto;">
+                                <a href="#" class="notification-item">
+                                    <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&background=10b981&color=fff"
+                                         class="rounded-circle"
+                                         width="36"
+                                         height="36"
+                                         alt="Sarah">
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Sarah Johnson</div>
+                                        <div class="text-muted small">Can you review my thesis?</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">2 min ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="notification-item">
+                                    <img src="https://ui-avatars.com/api/?name=Mike+Chen&background=6366f1&color=fff"
+                                         class="rounded-circle"
+                                         width="36"
+                                         height="36"
+                                         alt="Mike">
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Mike Chen</div>
+                                        <div class="text-muted small">Meeting at 3 PM today</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">1 hour ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="border-top p-2 text-center">
+                                <a href="#" class="small text-decoration-none">View all messages</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-icon position-relative"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-bell"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                  style="font-size: 0.625rem;">12</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <h6 class="mb-0">Notifications</h6>
+                            </div>
+                            <div class="p-2" style="max-height: 300px; overflow-y: auto;">
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon bg-primary">
+                                        <i class="bi bi-person-plus"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">New student registered</div>
+                                        <div class="text-muted small">John Smith joined Computer Science</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">5 min ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="border-top p-2 text-center">
+                                <a href="#" class="small text-decoration-none">View all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="dropdown">
+                        <button class="btn btn-light d-flex align-items-center px-2 btn-icon"
+                                data-bs-toggle="dropdown">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces"
+                                 alt="User"
+                                 class="user-avatar"
+                                 loading="lazy"
+                                 width="32"
+                                 height="32">
+                            <span class="hide-mobile ms-2" style="font-size: 0.875rem;">Sarah Johnson</span>
+                            <i class="bi bi-chevron-down hide-mobile ms-1" style="font-size: 0.75rem;"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li class="px-3 py-2 border-bottom">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces"
+                                         alt="User"
+                                         width="48"
+                                         height="48"
+                                         class="rounded-circle">
+                                    <div class="ms-3">
+                                        <div class="fw-semibold">Sarah Johnson</div>
+                                        <div class="text-muted small">sarah.johnson@kiaalap.edu</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-bell me-2"></i> Preferences</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sign Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Dashboard Content -->
+        <main class="dashboard-content" id="main-content" role="main">
+            <!-- Page Header -->
+            <div class="mb-3">
+                <h1 class="h3 font-bold">X-Editable Forms</h1>
+                <p class="text-muted text-sm">Inline editing components for seamless content management.</p>
+            </div>
+
+            <!-- X-Editable Content Row -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-2">
+                    <!-- Basic X-Editable Examples -->
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Basic X-Editable Examples</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <div class="p-3">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Field Type</th>
+                                            <th>Value</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Text Field</strong></td>
+                                            <td><a href="#" id="username" data-type="text" data-pk="1" data-title="Enter username">superuser</a></td>
+                                            <td>Simple text input</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Email</strong></td>
+                                            <td><a href="#" id="email" data-type="email" data-pk="1" data-title="Enter email">user@example.com</a></td>
+                                            <td>Email validation</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Textarea</strong></td>
+                                            <td><a href="#" id="comments" data-type="textarea" data-pk="1" data-title="Enter comments">This is a sample comment that can be edited inline.</a></td>
+                                            <td>Multi-line text</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Select</strong></td>
+                                            <td><a href="#" id="status" data-type="select" data-pk="1" data-value="2" data-source="[{value: 1, text: 'Active'},{value: 2, text: 'Inactive'},{value: 3, text: 'Pending'}]" data-title="Select status">Inactive</a></td>
+                                            <td>Dropdown selection</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Date</strong></td>
+                                            <td><a href="#" id="dob" data-type="date" data-pk="1" data-title="Select date">2023-05-15</a></td>
+                                            <td>Date picker</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Number</strong></td>
+                                            <td><a href="#" id="age" data-type="number" data-pk="1" data-title="Enter age">25</a></td>
+                                            <td>Numeric input</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Profile Example -->
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">User Profile Example</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <div class="p-3">
+                                <div class="row">
+                                    <div class="col-md-4 text-center mb-4">
+                                        <img src="https://ui-avatars.com/api/?name=John+Doe&size=150&background=007bff&color=fff" alt="Profile" class="rounded-circle mb-3" width="100" height="100">
+                                        <h5><a href="#" id="fullname" data-type="text" data-pk="1" data-title="Enter full name">John Doe</a></h5>
+                                        <p class="text-muted"><a href="#" id="job_title" data-type="text" data-pk="1" data-title="Enter job title">Senior Developer</a></p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="row mb-2">
+                                            <div class="col-sm-3"><strong>Email:</strong></div>
+                                            <div class="col-sm-9"><a href="#" id="profile_email" data-type="email" data-pk="1" data-title="Enter email">john.doe@company.com</a></div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-sm-3"><strong>Phone:</strong></div>
+                                            <div class="col-sm-9"><a href="#" id="phone" data-type="text" data-pk="1" data-title="Enter phone">+1 (555) 123-4567</a></div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-sm-3"><strong>Department:</strong></div>
+                                            <div class="col-sm-9"><a href="#" id="department" data-type="select" data-pk="1" data-value="it" data-source="[{value: 'it', text: 'IT'},{value: 'hr', text: 'HR'},{value: 'finance', text: 'Finance'},{value: 'marketing', text: 'Marketing'}]" data-title="Select department">IT</a></div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-sm-3"><strong>Joined:</strong></div>
+                                            <div class="col-sm-9"><a href="#" id="join_date" data-type="date" data-pk="1" data-title="Select join date">2020-03-15</a></div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-sm-3"><strong>Location:</strong></div>
+                                            <div class="col-sm-9"><a href="#" id="location" data-type="text" data-pk="1" data-title="Enter location">New York, NY</a></div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-sm-3"><strong>Bio:</strong></div>
+                                            <div class="col-sm-9"><a href="#" id="bio" data-type="textarea" data-pk="1" data-title="Enter bio">Experienced developer with expertise in modern web technologies and team leadership.</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced X-Editable Row -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-1">
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Advanced X-Editable Types</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <div class="p-3">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Field Type</th>
+                                                <th>Value</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><strong>Checklist</strong></td>
+                                                <td><a href="#" id="skills" data-type="checklist" data-pk="1" data-value="[1,3]" data-source="[{value: 1, text: 'HTML'},{value: 2, text: 'CSS'},{value: 3, text: 'JavaScript'},{value: 4, text: 'PHP'},{value: 5, text: 'Python'}]" data-title="Select skills">HTML, JavaScript</a></td>
+                                                <td>Multiple checkboxes</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Select2</strong></td>
+                                                <td><a href="#" id="framework" data-type="select2" data-pk="1" data-value="react" data-source="[{id: 'react', text: 'React'},{id: 'angular', text: 'Angular'},{id: 'vue', text: 'Vue.js'},{id: 'svelte', text: 'Svelte'}]" data-title="Choose framework">React</a></td>
+                                                <td>Enhanced select with search</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Dashboard Footer -->
+        <footer class="dashboard-footer">
+            <div class="container-fluid">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="text-muted small">
+                        © 2024 Kiaalap. Built with Bootstrap 5.
+                    </div>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-decoration-none small text-muted">Privacy</a>
+                        <a href="#" class="text-decoration-none small text-muted">Terms</a>
+                        <a href="#" class="text-decoration-none small text-muted">Support</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="src/js/dashboard.js"></script>
+    <script>
+        // Custom X-Editable Implementation
+        $(document).ready(function() {
+            let activeEditable = null;
+
+            // Initialize all editable elements
+            $('[data-type]').each(function() {
+                const $element = $(this);
+                $element.addClass('editable-click');
+
+                // Add empty class if no content
+                if (!$element.text().trim()) {
+                    $element.addClass('editable-empty').text('Empty');
+                }
+            });
+
+            // Handle click events
+            $(document).on('click', '.editable-click', function(e) {
+                e.preventDefault();
+
+                if (activeEditable) {
+                    closeEditable(activeEditable);
+                }
+
+                const $this = $(this);
+                openEditable($this);
+            });
+
+            // Close on backdrop click
+            $(document).on('click', '.editable-backdrop', function() {
+                if (activeEditable) {
+                    closeEditable(activeEditable);
+                }
+            });
+
+            // Close on escape key
+            $(document).on('keydown', function(e) {
+                if (e.key === 'Escape' && activeEditable) {
+                    closeEditable(activeEditable);
+                }
+            });
+
+            function openEditable($element) {
+                activeEditable = $element;
+
+                const type = $element.data('type');
+                const value = $element.hasClass('editable-empty') ? '' : $element.text();
+                const title = $element.data('title') || 'Enter value';
+
+                // Create backdrop
+                const $backdrop = $('<div class="editable-backdrop"></div>');
+                $('body').append($backdrop);
+
+                // Create container
+                const $container = $('<div class="editable-container"></div>');
+
+                // Create form
+                const $form = $('<form class="editable-form"></form>');
+
+                // Create input based on type
+                let $input;
+                switch (type) {
+                    case 'textarea':
+                        $input = $('<textarea class="form-control editable-input" rows="3"></textarea>');
+                        break;
+                    case 'select':
+                        $input = $('<select class="form-select editable-input"></select>');
+                        const source = $element.data('source');
+                        if (source && Array.isArray(source)) {
+                            source.forEach(option => {
+                                const $option = $('<option></option>')
+                                    .val(option.value)
+                                    .text(option.text);
+                                if (option.value == $element.data('value')) {
+                                    $option.prop('selected', true);
+                                }
+                                $input.append($option);
+                            });
+                        }
+                        break;
+                    case 'email':
+                        $input = $('<input type="email" class="form-control editable-input">');
+                        break;
+                    case 'number':
+                        $input = $('<input type="number" class="form-control editable-input">');
+                        break;
+                    case 'date':
+                        $input = $('<input type="date" class="form-control editable-input">');
+                        break;
+                    default:
+                        $input = $('<input type="text" class="form-control editable-input">');
+                }
+
+                if (type !== 'select') {
+                    $input.val(value);
+                }
+
+                // Create buttons
+                const $buttons = $('<div class="editable-buttons"></div>');
+                const $submitBtn = $('<button type="submit" class="btn btn-primary btn-sm">✓</button>');
+                const $cancelBtn = $('<button type="button" class="btn btn-secondary btn-sm">✕</button>');
+
+                $buttons.append($submitBtn, $cancelBtn);
+                $form.append($input, $buttons);
+                $container.append($form);
+
+                // Position container
+                const offset = $element.offset();
+                $container.css({
+                    left: offset.left,
+                    top: offset.top + $element.outerHeight() + 5
+                });
+
+                $('body').append($container);
+                $input.focus();
+
+                // Handle form submission
+                $form.on('submit', function(e) {
+                    e.preventDefault();
+                    submitEditable($element, $input, $container, $backdrop);
+                });
+
+                // Handle cancel
+                $cancelBtn.on('click', function() {
+                    closeEditable($element, $container, $backdrop);
+                });
+            }
+
+            function submitEditable($element, $input, $container, $backdrop) {
+                const newValue = $input.val();
+                const type = $element.data('type');
+
+                // Validation
+                if (validateValue($element, newValue)) {
+                    // Update display
+                    if (type === 'select') {
+                        const selectedText = $input.find('option:selected').text();
+                        $element.text(selectedText);
+                        $element.data('value', newValue);
+                    } else {
+                        $element.text(newValue || 'Empty');
+                    }
+
+                    // Handle empty state
+                    if (!newValue) {
+                        $element.addClass('editable-empty');
+                    } else {
+                        $element.removeClass('editable-empty');
+                    }
+
+                    closeEditable($element, $container, $backdrop);
+
+                    // Simulate server update
+                    console.log('Updated field:', $element.attr('id'), 'with value:', newValue);
+                }
+            }
+
+            function validateValue($element, value) {
+                const type = $element.data('type');
+                const id = $element.attr('id');
+
+                // Email validation
+                if (type === 'email' && value) {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(value)) {
+                        alert('Please enter a valid email address');
+                        return false;
+                    }
+                }
+
+                // Age validation
+                if (id === 'age' && value) {
+                    const age = parseInt(value);
+                    if (age < 18 || age > 100) {
+                        alert('Age must be between 18 and 100');
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            function closeEditable($element, $container, $backdrop) {
+                if ($container) $container.remove();
+                if ($backdrop) $backdrop.remove();
+                activeEditable = null;
+            }
+        });
+    </script>
+</body>
+</html>

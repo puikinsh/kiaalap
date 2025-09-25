@@ -1,0 +1,482 @@
+---
+layout: "base"
+title: "Images cropper"
+pageTitle: "Images cropper"
+showPageHeader: true
+breadcrumb:
+  - title: "Images cropper"
+pageSpecificStyles: |
+  /* Critical CSS for immediate render */
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+          .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+          .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+          .top-navbar { background: white; height: 64px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+          .dashboard-content { padding: 24px; }
+  
+          /* Loading animation */
+          @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+          .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+pageSpecificJS: |
+  let cropper = null;
+  
+          // Initialize cropper when page loads
+          document.addEventListener('DOMContentLoaded', function() {
+              // Wait for Cropper.js to load
+              if (typeof Cropper !== 'undefined') {
+                  initializeCropper();
+                  setupEventListeners();
+              } else {
+                  // Retry after a short delay if Cropper.js isn't loaded yet
+                  setTimeout(() => {
+                      initializeCropper();
+                      setupEventListeners();
+                  }, 500);
+              }
+          });
+  
+          function initializeCropper() {
+              const image = document.getElementById('cropperImage');
+              cropper = new Cropper(image, {
+                  aspectRatio: NaN,
+                  viewMode: 1,
+                  dragMode: 'move',
+                  autoCropArea: 0.8,
+                  responsive: true,
+                  cropBoxResizable: true,
+                  cropBoxMovable: true,
+                  toggleDragModeOnDblclick: true,
+              });
+          }
+  
+          function setAspectRatio(ratio) {
+              if (cropper) {
+                  cropper.setAspectRatio(ratio);
+              }
+          }
+  
+          function getCroppedImage() {
+              if (!cropper) return;
+  
+              const canvas = cropper.getCroppedCanvas({
+                  width: 400,
+                  height: 300,
+                  minWidth: 256,
+                  minHeight: 256,
+                  maxWidth: 4096,
+                  maxHeight: 4096,
+                  imageSmoothingEnabled: true,
+                  imageSmoothingQuality: 'high',
+              });
+  
+              const croppedResult = document.getElementById('croppedResult');
+              croppedResult.innerHTML = '';
+              croppedResult.appendChild(canvas);
+              canvas.classList.add('img-fluid', 'rounded');
+  
+              // Update crop info
+              const cropData = cropper.getCropBoxData();
+              document.getElementById('cropInfo').textContent =
+                  `Dimensions: ${Math.round(cropData.width)}x${Math.round(cropData.height)}px`;
+          }
+  
+          function downloadCroppedImage() {
+              if (!cropper) return;
+  
+              const canvas = cropper.getCroppedCanvas();
+              canvas.toBlob(function(blob) {
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = 'cropped-image.png';
+                  a.click();
+                  URL.revokeObjectURL(url);
+              });
+          }
+  
+          function resetCropper() {
+              if (cropper) {
+                  cropper.reset();
+                  document.getElementById('croppedResult').innerHTML =
+                      '<p class="text-muted mb-0"><i class="bi bi-image" style="font-size: 3rem;"></i><br>Cropped image will appear here</p>';
+                  document.getElementById('cropInfo').textContent = 'No crop applied yet';
+              }
+          }
+  
+          function rotateCropper(degrees) {
+              if (cropper) {
+                  cropper.rotate(degrees);
+              }
+          }
+  
+          function flipCropper(direction) {
+              if (cropper) {
+                  if (direction === 'horizontal') {
+                      cropper.scaleX(-cropper.getData().scaleX || -1);
+                  } else {
+                      cropper.scaleY(-cropper.getData().scaleY || -1);
+                  }
+              }
+          }
+  
+          function zoomCropper(ratio) {
+              if (cropper) {
+                  cropper.zoom(ratio);
+              }
+          }
+  
+          function applyCropPreset(preset) {
+              if (!cropper) return;
+  
+              const presets = {
+                  avatar: { aspectRatio: 1, width: 200, height: 200 },
+                  cover: { aspectRatio: 1200/630, width: 1200, height: 630 },
+                  thumbnail: { aspectRatio: 300/200, width: 300, height: 200 },
+                  banner: { aspectRatio: 1920/400, width: 1920, height: 400 }
+              };
+  
+              const config = presets[preset];
+              if (config) {
+                  cropper.setAspectRatio(config.aspectRatio);
+                  setTimeout(() => {
+                      getCroppedImage();
+                  }, 100);
+              }
+          }
+  
+          function exportWithOptions() {
+              if (!cropper) return;
+  
+              const format = document.getElementById('exportFormat').value;
+              const quality = parseFloat(document.getElementById('exportQuality').value);
+              const sizeOption = document.getElementById('exportSize').value;
+  
+              let canvas;
+              if (sizeOption === 'custom') {
+                  const width = parseInt(document.getElementById('customWidth').value) || null;
+                  const height = parseInt(document.getElementById('customHeight').value) || null;
+                  canvas = cropper.getCroppedCanvas({ width, height });
+              } else {
+                  const multipliers = { small: 0.25, medium: 0.5, large: 0.75, original: 1 };
+                  const multiplier = multipliers[sizeOption] || 1;
+                  const cropData = cropper.getCropBoxData();
+                  const width = Math.round(cropData.width * multiplier);
+                  const height = Math.round(cropData.height * multiplier);
+                  canvas = cropper.getCroppedCanvas({ width, height });
+              }
+  
+              canvas.toBlob(function(blob) {
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  const extension = format.split('/')[1];
+                  a.download = `cropped-image.${extension}`;
+                  a.click();
+                  URL.revokeObjectURL(url);
+              }, format, quality);
+          }
+  
+          function exportMultiple() {
+              if (!cropper) return;
+  
+              const formats = ['image/png', 'image/jpeg', 'image/webp'];
+              formats.forEach(format => {
+                  const canvas = cropper.getCroppedCanvas();
+                  canvas.toBlob(function(blob) {
+                      const url = URL.createObjectURL(blob);
+                      const a = document.createElement('a');
+                      a.href = url;
+                      const extension = format.split('/')[1];
+                      a.download = `cropped-image.${extension}`;
+                      a.click();
+                      URL.revokeObjectURL(url);
+                  }, format, format === 'image/jpeg' ? 0.9 : 1);
+              });
+          }
+  
+          function setupEventListeners() {
+              // Image upload handler
+              document.getElementById('imageUpload').addEventListener('change', function(e) {
+                  const file = e.target.files[0];
+                  if (file) {
+                      const reader = new FileReader();
+                      reader.onload = function(event) {
+                          if (cropper) {
+                              cropper.destroy();
+                          }
+                          document.getElementById('cropperImage').src = event.target.result;
+                          setTimeout(() => {
+                              initializeCropper();
+                          }, 100);
+                      };
+                      reader.readAsDataURL(file);
+                  }
+              });
+  
+              // Quality slider
+              document.getElementById('exportQuality').addEventListener('input', function() {
+                  document.getElementById('qualityValue').textContent = Math.round(this.value * 100) + '%';
+              });
+  
+              // Export size selector
+              document.getElementById('exportSize').addEventListener('change', function() {
+                  const customInputs = document.getElementById('customSizeInputs');
+                  if (this.value === 'custom') {
+                      customInputs.style.display = 'block';
+                  } else {
+                      customInputs.style.display = 'none';
+                  }
+              });
+          }
+---
+
+<!-- Page Header -->
+            <div class="mb-3">
+                <h1 class="h3 font-bold">Image Cropper</h1>
+                <p class="text-muted text-sm">Advanced image cropping and editing tools</p>
+            </div>
+
+            <!-- Image Cropper Content -->
+            <div class="dashboard-row">
+                <!-- Image Upload and Basic Cropping -->
+                <div class="dashboard-grid grid-cols-1">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title mb-0">Image Upload & Crop</h5>
+                            <p class="text-muted small">Upload an image and crop it with various aspect ratios</p>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <!-- Image Container -->
+                                    <div class="text-center mb-3">
+                                        <div class="crop-container" style="max-height: 400px; overflow: hidden;">
+                                            <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                                                 alt="Sample Image" id="cropperImage" class="img-fluid">
+                                        </div>
+                                    </div>
+
+                                    <!-- Upload New Image -->
+                                    <div class="mb-3">
+                                        <label for="imageUpload" class="form-label fw-semibold">Upload New Image</label>
+                                        <input type="file" class="form-control" id="imageUpload" accept="image/*">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <!-- Crop Controls -->
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h6 class="card-title mb-0">Crop Controls</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <!-- Aspect Ratios -->
+                                            <div class="mb-3">
+                                                <label class="form-label fw-semibold">Aspect Ratio</label>
+                                                <div class="btn-group-vertical w-100" role="group">
+                                                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="setAspectRatio(NaN)">Free</button>
+                                                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="setAspectRatio(1)">1:1 (Square)</button>
+                                                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="setAspectRatio(4/3)">4:3</button>
+                                                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="setAspectRatio(16/9)">16:9</button>
+                                                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="setAspectRatio(2/3)">2:3 (Portrait)</button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Crop Actions -->
+                                            <div class="mb-3">
+                                                <label class="form-label fw-semibold">Actions</label>
+                                                <div class="d-grid gap-2">
+                                                    <button class="btn btn-success btn-sm" onclick="getCroppedImage()">
+                                                        <i class="bi bi-crop me-1"></i>Get Cropped
+                                                    </button>
+                                                    <button class="btn btn-info btn-sm" onclick="downloadCroppedImage()">
+                                                        <i class="bi bi-download me-1"></i>Download
+                                                    </button>
+                                                    <button class="btn btn-warning btn-sm" onclick="resetCropper()">
+                                                        <i class="bi bi-arrow-clockwise me-1"></i>Reset
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Transform Controls -->
+                                            <div class="mb-3">
+                                                <label class="form-label fw-semibold">Transform</label>
+                                                <div class="btn-group w-100 mb-2" role="group">
+                                                    <button class="btn btn-outline-secondary btn-sm" onclick="rotateCropper(-90)" title="Rotate Left">
+                                                        <i class="bi bi-arrow-counterclockwise"></i>
+                                                    </button>
+                                                    <button class="btn btn-outline-secondary btn-sm" onclick="rotateCropper(90)" title="Rotate Right">
+                                                        <i class="bi bi-arrow-clockwise"></i>
+                                                    </button>
+                                                    <button class="btn btn-outline-secondary btn-sm" onclick="flipCropper('horizontal')" title="Flip Horizontal">
+                                                        <i class="bi bi-arrows-expand"></i>
+                                                    </button>
+                                                    <button class="btn btn-outline-secondary btn-sm" onclick="flipCropper('vertical')" title="Flip Vertical">
+                                                        <i class="bi bi-arrows-collapse"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Zoom Controls -->
+                                            <div class="mb-3">
+                                                <label class="form-label fw-semibold">Zoom</label>
+                                                <div class="btn-group w-100" role="group">
+                                                    <button class="btn btn-outline-secondary btn-sm" onclick="zoomCropper(-0.1)" title="Zoom Out">
+                                                        <i class="bi bi-zoom-out"></i>
+                                                    </button>
+                                                    <button class="btn btn-outline-secondary btn-sm" onclick="zoomCropper(0.1)" title="Zoom In">
+                                                        <i class="bi bi-zoom-in"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Second Row -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-2">
+                    <!-- Cropped Result Preview -->
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title mb-0">Cropped Result</h5>
+                            <p class="text-muted small">Preview of your cropped image</p>
+                        </div>
+                        <div class="dashboard-card-body text-center">
+                            <div id="croppedResult" class="border rounded p-3 bg-light" style="min-height: 200px;">
+                                <p class="text-muted mb-0">
+                                    <i class="bi bi-image" style="font-size: 3rem;"></i><br>
+                                    Cropped image will appear here
+                                </p>
+                            </div>
+                            <div class="mt-3">
+                                <small class="text-muted" id="cropInfo">No crop applied yet</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preset Crops -->
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title mb-0">Preset Crops</h5>
+                            <p class="text-muted small">Quick crop presets for common use cases</p>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <button class="btn btn-outline-primary w-100" onclick="applyCropPreset('avatar')">
+                                        <i class="bi bi-person-circle me-2"></i>Avatar<br>
+                                        <small>200x200</small>
+                                    </button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btn btn-outline-primary w-100" onclick="applyCropPreset('cover')">
+                                        <i class="bi bi-image me-2"></i>Cover<br>
+                                        <small>1200x630</small>
+                                    </button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btn btn-outline-primary w-100" onclick="applyCropPreset('thumbnail')">
+                                        <i class="bi bi-grid-3x3 me-2"></i>Thumbnail<br>
+                                        <small>300x200</small>
+                                    </button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btn btn-outline-primary w-100" onclick="applyCropPreset('banner')">
+                                        <i class="bi bi-rectangle me-2"></i>Banner<br>
+                                        <small>1920x400</small>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle me-2"></i>
+                                <strong>Tips:</strong><br>
+                                • Drag to move the crop area<br>
+                                • Drag corners/edges to resize<br>
+                                • Use mouse wheel to zoom<br>
+                                • Double-click to reset zoom
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Export Options -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-1">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title mb-0">Export Options</h5>
+                            <p class="text-muted small">Export your cropped image in different formats and qualities</p>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group mb-3">
+                                        <label class="form-label fw-semibold">Output Format</label>
+                                        <select class="form-select" id="exportFormat">
+                                            <option value="image/png">PNG (Best Quality)</option>
+                                            <option value="image/jpeg" selected>JPEG (Smaller Size)</option>
+                                            <option value="image/webp">WebP (Modern Format)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mb-3">
+                                        <label class="form-label fw-semibold">Quality (JPEG/WebP)</label>
+                                        <input type="range" class="form-range" id="exportQuality" min="0.1" max="1" step="0.1" value="0.9">
+                                        <div class="d-flex justify-content-between">
+                                            <small class="text-muted">Low</small>
+                                            <small class="text-muted" id="qualityValue">90%</small>
+                                            <small class="text-muted">High</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mb-3">
+                                        <label class="form-label fw-semibold">Output Size</label>
+                                        <select class="form-select" id="exportSize">
+                                            <option value="original">Original Size</option>
+                                            <option value="small">Small (25%)</option>
+                                            <option value="medium">Medium (50%)</option>
+                                            <option value="large">Large (75%)</option>
+                                            <option value="custom">Custom Size</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" id="customSizeInputs" style="display: none;">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label class="form-label fw-semibold">Width (px)</label>
+                                        <input type="number" class="form-control" id="customWidth" min="1" placeholder="Width">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label class="form-label fw-semibold">Height (px)</label>
+                                        <input type="number" class="form-control" id="customHeight" min="1" placeholder="Height">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button class="btn btn-success" onclick="exportWithOptions()">
+                                    <i class="bi bi-download me-2"></i>Export with Options
+                                </button>
+                                <button class="btn btn-outline-info ms-2" onclick="exportMultiple()">
+                                    <i class="bi bi-files me-2"></i>Export Multiple Formats
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>

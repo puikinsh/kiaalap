@@ -1,0 +1,556 @@
+---
+layout: "base"
+title: "Course payment"
+pageTitle: "Course payment"
+showPageHeader: true
+breadcrumb:
+  - title: "Course payment"
+pageSpecificStyles: |
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+          .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+          .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+          .top-navbar { background: white; height: 64px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+          .dashboard-content { padding: 24px; }
+          .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+          .dashboard-card { background: white; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+          .dashboard-card-header { padding: 16px 20px; border-bottom: 1px solid #e5e7eb; }
+          .dashboard-card-body { padding: 20px; }
+          .dashboard-card-title { margin: 0; font-size: 1.125rem; font-weight: 600; color: #1f2937; }
+          .payment-secure { border-left: 4px solid #10b981; background-color: #f0fdf4; }
+pageSpecificJS: |
+  // Security: Disable right-click and some keyboard shortcuts on payment fields
+          document.addEventListener('DOMContentLoaded', function() {
+              const sensitiveFields = ['cardNumber', 'cvv', 'cardholderName'];
+  
+              sensitiveFields.forEach(fieldId => {
+                  const field = document.getElementById(fieldId);
+                  if (field) {
+                      field.addEventListener('contextmenu', e => e.preventDefault());
+                      field.addEventListener('keydown', function(e) {
+                          // Disable F12, Ctrl+Shift+I, Ctrl+U
+                          if (e.key === 'F12' ||
+                              (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+                              (e.ctrlKey && e.key === 'u')) {
+                              e.preventDefault();
+                          }
+                      });
+                  }
+              });
+  
+              // Form validation
+              const form = document.querySelector('.needs-validation');
+              form.addEventListener('submit', function(event) {
+                  if (!form.checkValidity()) {
+                      event.preventDefault();
+                      event.stopPropagation();
+                  }
+                  form.classList.add('was-validated');
+              });
+  
+              // Payment method toggle
+              const paymentMethods = document.querySelectorAll('input[name="paymentMethod"]');
+              paymentMethods.forEach(method => {
+                  method.addEventListener('change', function() {
+                      document.getElementById('creditCardForm').style.display =
+                          this.value === 'credit' ? 'block' : 'none';
+                      document.getElementById('bankTransferForm').style.display =
+                          this.value === 'bank' ? 'block' : 'none';
+                      document.getElementById('paypalForm').style.display =
+                          this.value === 'paypal' ? 'block' : 'none';
+                  });
+              });
+  
+              // Course selection and fee calculation
+              const courseSelect = document.getElementById('courseSelect');
+              courseSelect.addEventListener('change', function() {
+                  const selectedOption = this.options[this.selectedIndex];
+                  const courseFee = selectedOption.dataset.fee || '0.00';
+                  const labFee = selectedOption.dataset.lab || '0.00';
+                  const materialFee = selectedOption.dataset.material || '0.00';
+                  const processingFee = 2.50;
+  
+                  document.getElementById('courseFee').value = courseFee;
+                  document.getElementById('labFee').value = labFee;
+                  document.getElementById('materialFee').value = materialFee;
+  
+                  document.getElementById('summaryCourseFee').textContent = '$' + courseFee;
+                  document.getElementById('summaryLabFee').textContent = '$' + labFee;
+                  document.getElementById('summaryMaterialFee').textContent = '$' + materialFee;
+                  document.getElementById('summaryProcessingFee').textContent = '$' + processingFee.toFixed(2);
+  
+                  const total = parseFloat(courseFee) + parseFloat(labFee) + parseFloat(materialFee) + processingFee;
+                  document.getElementById('totalAmount').textContent = '$' + total.toFixed(2);
+              });
+  
+              // Card number formatting
+              const cardNumberField = document.getElementById('cardNumber');
+              cardNumberField.addEventListener('input', function() {
+                  let value = this.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+                  let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+                  this.value = formattedValue;
+              });
+  
+              // Student search simulation
+              document.getElementById('searchStudent').addEventListener('click', function() {
+                  const studentId = document.getElementById('studentId').value;
+                  if (studentId) {
+                      // Simulate student lookup
+                      document.getElementById('studentName').value = 'John Doe';
+                      document.getElementById('studentEmail').value = 'john.doe@student.edu';
+                      document.getElementById('studentPhone').value = '(555) 123-4567';
+                  }
+              });
+  
+              // Security: Clear sensitive data on page unload
+              window.addEventListener('beforeunload', function() {
+                  sensitiveFields.forEach(fieldId => {
+                      const field = document.getElementById(fieldId);
+                      if (field) field.value = '';
+                  });
+              });
+          });
+---
+
+<!-- Page Header -->
+            <div class="mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h3 fw-bold mb-2">Course Payment</h1>
+                        <p class="text-muted mb-0">Process course enrollment payments securely</p>
+                    </div>
+                    <div class="d-none d-md-flex gap-2">
+                        <button type="button" class="btn btn-outline-secondary">
+                            <i class="bi bi-shield-check me-2"></i>Security Info
+                        </button>
+                        <button type="button" class="btn btn-light" onclick="window.location.href='all-courses.html'">
+                            <i class="bi bi-arrow-left me-2"></i>Back to Courses
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Notice -->
+            <div class="dashboard-card mb-3" style="border-left: 4px solid #10b981; background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);">
+                <div class="dashboard-card-body" style="padding: 16px 20px;">
+                    <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: rgba(16, 185, 129, 0.1); border-radius: 12px; margin-right: 16px;">
+                            <i class="bi bi-shield-check text-success" style="font-size: 1.5rem;"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1 fw-semibold text-gray-900">🔒 Bank-Level Security</h6>
+                            <p class="mb-0 small text-muted">All payments are encrypted with 256-bit SSL and PCI DSS compliant. Your data is never stored on our servers.</p>
+                        </div>
+                        <div class="d-none d-md-flex align-items-center gap-2 text-success small">
+                            <i class="bi bi-patch-check"></i>
+                            <span class="fw-medium">Verified Secure</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Form -->
+            <form class="needs-validation" novalidate autocomplete="off">
+                <div class="dashboard-grid" style="grid-template-columns: 2fr 1fr; gap: 20px;">
+                    <div>
+                        <!-- Student Information -->
+                        <div class="dashboard-card mb-3">
+                            <div class="dashboard-card-header">
+                                <h5 class="dashboard-card-title">Student Information</h5>
+                            </div>
+                            <div class="dashboard-card-body">
+                                <div class="dashboard-grid grid-cols-2 mb-3">
+                                    <div>
+                                        <label for="studentId" class="form-label">Student ID <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="studentId" placeholder="Enter Student ID" required autocomplete="off">
+                                            <button class="btn btn-outline-secondary" type="button" id="searchStudent">
+                                                <i class="bi bi-search"></i>
+                                            </button>
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please provide a valid student ID.
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="studentName" class="form-label">Student Name</label>
+                                        <input type="text" class="form-control" id="studentName" readonly style="background-color: #f8f9fa;">
+                                    </div>
+                                </div>
+
+                                <div class="dashboard-grid grid-cols-2 mb-3">
+                                    <div>
+                                        <label for="studentEmail" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="studentEmail" readonly style="background-color: #f8f9fa;">
+                                    </div>
+                                    <div>
+                                        <label for="studentPhone" class="form-label">Phone</label>
+                                        <input type="tel" class="form-control" id="studentPhone" readonly style="background-color: #f8f9fa;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Course Selection -->
+                        <div class="dashboard-card mb-3">
+                            <div class="dashboard-card-header">
+                                <h5 class="dashboard-card-title">Course Selection</h5>
+                            </div>
+                            <div class="dashboard-card-body">
+                                <div class="mb-3">
+                                    <label for="courseSelect" class="form-label">Select Course <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="courseSelect" required>
+                                        <option value="">Choose a course...</option>
+                                        <option value="cs101" data-fee="1200.00" data-lab="150.00" data-material="50.00">CS101 - Introduction to Computer Science</option>
+                                        <option value="math201" data-fee="1100.00" data-lab="0.00" data-material="75.00">MATH201 - Calculus II</option>
+                                        <option value="phys101" data-fee="1300.00" data-lab="200.00" data-material="100.00">PHYS101 - General Physics</option>
+                                        <option value="eng101" data-fee="1000.00" data-lab="0.00" data-material="25.00">ENG101 - English Composition</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Please select a course.
+                                    </div>
+                                </div>
+
+                                <div class="dashboard-grid grid-cols-3">
+                                    <div>
+                                        <label class="form-label">Course Fee</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input type="text" class="form-control" id="courseFee" readonly style="background-color: #f8f9fa;">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="form-label">Lab Fee</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input type="text" class="form-control" id="labFee" readonly style="background-color: #f8f9fa;">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="form-label">Material Fee</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input type="text" class="form-control" id="materialFee" readonly style="background-color: #f8f9fa;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payment Information -->
+                        <div class="dashboard-card mb-3">
+                            <div class="dashboard-card-header">
+                                <div class="d-flex align-items-center">
+                                    <h5 class="dashboard-card-title mb-0">Payment Information</h5>
+                                    <i class="bi bi-lock-fill text-success ms-2" title="Secure Payment"></i>
+                                </div>
+                            </div>
+                            <div class="dashboard-card-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Payment Method <span class="text-danger">*</span></label>
+                                    <div class="d-flex gap-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard" value="credit" checked>
+                                            <label class="form-check-label" for="creditCard">
+                                                <i class="bi bi-credit-card me-1"></i>Credit Card
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="paymentMethod" id="bankTransfer" value="bank">
+                                            <label class="form-check-label" for="bankTransfer">
+                                                <i class="bi bi-bank me-1"></i>Bank Transfer
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="paymentMethod" id="paypal" value="paypal">
+                                            <label class="form-check-label" for="paypal">
+                                                <i class="bi bi-paypal me-1"></i>PayPal
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Credit Card Form -->
+                                <div id="creditCardForm">
+                                    <div class="dashboard-grid mb-3" style="grid-template-columns: 2fr 1fr;">
+                                        <div>
+                                            <label for="cardNumber" class="form-label">Card Number <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" autocomplete="new-password">
+                                            <div class="invalid-feedback">
+                                                Please provide a valid card number.
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="cvv" class="form-label">CVV <span class="text-danger">*</span></label>
+                                            <input type="password" class="form-control" id="cvv" placeholder="123" maxlength="4" autocomplete="new-password">
+                                            <div class="invalid-feedback">
+                                                Please provide CVV.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="dashboard-grid grid-cols-3 mb-3">
+                                        <div>
+                                            <label for="expiryMonth" class="form-label">Expiry Month <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="expiryMonth">
+                                                <option value="">Month</option>
+                                                <option value="01">01 - January</option>
+                                                <option value="02">02 - February</option>
+                                                <option value="03">03 - March</option>
+                                                <option value="04">04 - April</option>
+                                                <option value="05">05 - May</option>
+                                                <option value="06">06 - June</option>
+                                                <option value="07">07 - July</option>
+                                                <option value="08">08 - August</option>
+                                                <option value="09">09 - September</option>
+                                                <option value="10">10 - October</option>
+                                                <option value="11">11 - November</option>
+                                                <option value="12">12 - December</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please select expiry month.
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="expiryYear" class="form-label">Expiry Year <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="expiryYear">
+                                                <option value="">Year</option>
+                                                <option value="2025">2025</option>
+                                                <option value="2026">2026</option>
+                                                <option value="2027">2027</option>
+                                                <option value="2028">2028</option>
+                                                <option value="2029">2029</option>
+                                                <option value="2030">2030</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please select expiry year.
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label for="cardholderName" class="form-label">Cardholder Name <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="cardholderName" placeholder="John Doe" autocomplete="new-password">
+                                            <div class="invalid-feedback">
+                                                Please provide cardholder name.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Bank Transfer Form -->
+                                <div id="bankTransferForm" style="display: none;">
+                                    <div class="alert alert-info" role="alert">
+                                        <i class="bi bi-info-circle me-2"></i>
+                                        Bank transfer details will be provided after form submission. Processing may take 2-3 business days.
+                                    </div>
+                                </div>
+
+                                <!-- PayPal Form -->
+                                <div id="paypalForm" style="display: none;">
+                                    <div class="alert alert-info" role="alert">
+                                        <i class="bi bi-info-circle me-2"></i>
+                                        You will be redirected to PayPal to complete your payment securely.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Billing Address -->
+                        <div class="dashboard-card mb-3">
+                            <div class="dashboard-card-header">
+                                <h5 class="dashboard-card-title">Billing Address</h5>
+                            </div>
+                            <div class="dashboard-card-body">
+                                <div class="dashboard-grid grid-cols-2 mb-3">
+                                    <div>
+                                        <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="firstName" required autocomplete="new-password">
+                                        <div class="invalid-feedback">
+                                            Please provide first name.
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="lastName" required autocomplete="new-password">
+                                        <div class="invalid-feedback">
+                                            Please provide last name.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="address" placeholder="123 Main Street" required autocomplete="new-password">
+                                    <div class="invalid-feedback">
+                                        Please provide address.
+                                    </div>
+                                </div>
+
+                                <div class="dashboard-grid mb-3" style="grid-template-columns: 2fr 1fr 1fr;">
+                                    <div>
+                                        <label for="city" class="form-label">City <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="city" required autocomplete="new-password">
+                                        <div class="invalid-feedback">
+                                            Please provide city.
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="state" class="form-label">State <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="state" required>
+                                            <option value="">Choose...</option>
+                                            <option value="AL">Alabama</option>
+                                            <option value="CA">California</option>
+                                            <option value="FL">Florida</option>
+                                            <option value="NY">New York</option>
+                                            <option value="TX">Texas</option>
+                                            <!-- Add more states as needed -->
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please select state.
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="zipCode" class="form-label">ZIP Code <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="zipCode" required autocomplete="new-password">
+                                        <div class="invalid-feedback">
+                                            Please provide ZIP code.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <!-- Payment Summary -->
+                        <div class="dashboard-card mb-3 sticky-top" style="top: 24px;">
+                            <div class="dashboard-card-header">
+                                <h5 class="dashboard-card-title">Payment Summary</h5>
+                            </div>
+                            <div class="dashboard-card-body">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Course Fee:</span>
+                                    <span id="summaryCourseFee">$0.00</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Lab Fee:</span>
+                                    <span id="summaryLabFee">$0.00</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Material Fee:</span>
+                                    <span id="summaryMaterialFee">$0.00</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Processing Fee:</span>
+                                    <span id="summaryProcessingFee">$2.50</span>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <strong>Total Amount:</strong>
+                                    <strong class="text-primary" id="totalAmount">$0.00</strong>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                                        <label class="form-check-label" for="agreeTerms">
+                                            I agree to the <a href="#" class="text-decoration-none">Terms & Conditions</a> and <a href="#" class="text-decoration-none">Payment Policy</a>
+                                        </label>
+                                        <div class="invalid-feedback">
+                                            You must agree to the terms.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg" id="processPayment">
+                                        <i class="bi bi-lock me-2"></i>Process Secure Payment
+                                    </button>
+                                </div>
+
+                                <div class="text-center mt-3">
+                                    <small class="text-muted">
+                                        <i class="bi bi-shield-lock me-1"></i>
+                                        Secured by 256-bit SSL encryption
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Security Features -->
+                        <div class="dashboard-card mb-3">
+                            <div class="dashboard-card-header">
+                                <h5 class="dashboard-card-title">Security Features</h5>
+                            </div>
+                            <div class="dashboard-card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="bi bi-shield-check text-success me-3"></i>
+                                    <div>
+                                        <h6 class="mb-1">SSL Encryption</h6>
+                                        <small class="text-muted">256-bit SSL security</small>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="bi bi-credit-card-2-back text-success me-3"></i>
+                                    <div>
+                                        <h6 class="mb-1">PCI Compliant</h6>
+                                        <small class="text-muted">Industry standard security</small>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="bi bi-eye-slash text-success me-3"></i>
+                                    <div>
+                                        <h6 class="mb-1">Privacy Protected</h6>
+                                        <small class="text-muted">No data stored on servers</small>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-telephone text-success me-3"></i>
+                                    <div>
+                                        <h6 class="mb-1">24/7 Support</h6>
+                                        <small class="text-muted">Call (555) 123-4567</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Transactions -->
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-header">
+                                <h5 class="dashboard-card-title">Recent Transactions</h5>
+                            </div>
+                            <div class="dashboard-card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-success text-white rounded p-2 me-3">
+                                        <i class="bi bi-check-circle"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1">CS101 Payment</h6>
+                                        <small class="text-muted">Alex Johnson - $1,400.00</small>
+                                    </div>
+                                    <span class="badge bg-success">Paid</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-warning text-white rounded p-2 me-3">
+                                        <i class="bi bi-clock"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1">MATH201 Payment</h6>
+                                        <small class="text-muted">Sarah Wilson - $1,175.00</small>
+                                    </div>
+                                    <span class="badge bg-warning text-dark">Pending</span>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-info text-white rounded p-2 me-3">
+                                        <i class="bi bi-credit-card"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1">PHYS101 Payment</h6>
+                                        <small class="text-muted">Mike Chen - $1,600.00</small>
+                                    </div>
+                                    <span class="badge bg-info text-dark">Processing</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>

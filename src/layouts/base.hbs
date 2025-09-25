@@ -1,0 +1,29 @@
+{{> head}}
+
+    {{> sidebar}}
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper" id="mainWrapper">
+        {{> header}}
+
+        <!-- Main Content -->
+        <main class="dashboard-content" id="main-content">
+            <div class="container-fluid">
+                {{#if showPageHeader}}
+                <!-- Page Header -->
+                <div class="page-header mb-4">
+                    <h1 class="h3 mb-2">{{pageTitle}}</h1>
+                    {{#if pageDescription}}
+                    <p class="text-muted">{{pageDescription}}</p>
+                    {{/if}}
+                </div>
+                {{/if}}
+
+                {{{body}}}
+            </div>
+        </main>
+
+        {{> footer}}
+    </div>
+
+    {{> scripts}}

@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kiaalap - Modern Education Management Dashboard for Universities">
+    <meta name="keywords" content="education, dashboard, university, management, admin">
+    <meta name="author" content="Kiaalap">
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="preconnect" href="https://ui-avatars.com" crossorigin>
+    <link rel="dns-prefetch" href="https://flagcdn.com">
+
+    <title>Kiaalap - Dashboard</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Critical CSS for above-the-fold content -->
+    <style>
+        /* Critical CSS for immediate render */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .top-navbar { background: white; height: 64px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .dashboard-content { padding: 24px; }
+
+        /* Loading animation */
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+    </style>
+
+    <!-- Load stylesheets -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="src/css/dashboard.css">
+    <link rel="stylesheet" href="src/css/charts-layout.css">
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <!-- Required DOM elements for dashboard.js -->
+    <div class="search-backdrop" id="searchBackdrop"></div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <h5>
+                    <i class="bi bi-mortarboard-fill"></i>
+                    Kiaalap
+                </h5>
+                <button class="sidebar-close" id="sidebarClose">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="menu-section">
+                <div class="menu-section-title">Main</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu active" href="#dashboard" data-bs-target="#dashboardSubmenu" aria-expanded="true">
+                            <i class="bi bi-speedometer2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <ul id="dashboardSubmenu" class="submenu collapse show list-unstyled">
+                            <li><a class="nav-link active" href="index.html">Dashboard v.1</a></li>
+                            <li><a class="nav-link" href="index-1.html">Dashboard v.2</a></li>
+                            <li><a class="nav-link" href="index-2.html">Dashboard v.3</a></li>
+                            <li><a class="nav-link" href="analytics.html">Analytics</a></li>
+                            <li><a class="nav-link" href="widgets.html">Widgets</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">
+                            <i class="bi bi-calendar-event"></i>
+                            <span>Events</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Academic</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#professors" data-bs-target="#professorsSubmenu" aria-expanded="false">
+                            <i class="bi bi-person-badge"></i>
+                            <span>Professors</span>
+                        </a>
+                        <ul id="professorsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-professors.html">All Professors</a></li>
+                            <li><a class="nav-link" href="add-professor.html">Add Professor</a></li>
+                            <li><a class="nav-link" href="edit-professor.html">Edit Professor</a></li>
+                            <li><a class="nav-link" href="professor-profile.html">Professor Profile</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#students" data-bs-target="#studentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-people"></i>
+                            <span>Students</span>
+                        </a>
+                        <ul id="studentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-students.html">All Students</a></li>
+                            <li><a class="nav-link" href="add-student.html">Add Student</a></li>
+                            <li><a class="nav-link" href="edit-student.html">Edit Student</a></li>
+                            <li><a class="nav-link" href="student-profile.html">Student Profile</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#courses" data-bs-target="#coursesSubmenu" aria-expanded="false">
+                            <i class="bi bi-book"></i>
+                            <span>Courses</span>
+                        </a>
+                        <ul id="coursesSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-courses.html">All Courses</a></li>
+                            <li><a class="nav-link" href="add-course.html">Add Course</a></li>
+                            <li><a class="nav-link" href="edit-course.html">Edit Course</a></li>
+                            <li><a class="nav-link" href="course-info.html">Course Info</a></li>
+                            <li><a class="nav-link" href="course-payment.html">Course Payment</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#library" data-bs-target="#librarySubmenu" aria-expanded="false">
+                            <i class="bi bi-journal-bookmark"></i>
+                            <span>Library</span>
+                        </a>
+                        <ul id="librarySubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="library-assets.html">Library Assets</a></li>
+                            <li><a class="nav-link" href="add-library-assets.html">Add Library Asset</a></li>
+                            <li><a class="nav-link" href="edit-library-assets.html">Edit Library Asset</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#departments" data-bs-target="#departmentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-building"></i>
+                            <span>Departments</span>
+                        </a>
+                        <ul id="departmentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="departments.html">Departments List</a></li>
+                            <li><a class="nav-link" href="add-department.html">Add Department</a></li>
+                            <li><a class="nav-link" href="edit-department.html">Edit Department</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Communication</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#mailbox" data-bs-target="#mailboxSubmenu" aria-expanded="false">
+                            <i class="bi bi-envelope"></i>
+                            <span>Mailbox</span>
+                        </a>
+                        <ul id="mailboxSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="mailbox.html">Inbox</a></li>
+                            <li><a class="nav-link" href="mailbox-compose.html">Compose</a></li>
+                            <li><a class="nav-link" href="mailbox-view.html">View Message</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Interface</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#components" data-bs-target="#componentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-layout-wtf"></i>
+                            <span>Components</span>
+                        </a>
+                        <ul id="componentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="buttons.html">Buttons</a></li>
+                            <li><a class="nav-link" href="alerts.html">Alerts</a></li>
+                            <li><a class="nav-link" href="modals.html">Modals</a></li>
+                            <li><a class="nav-link" href="tabs.html">Tabs</a></li>
+                            <li><a class="nav-link" href="accordion.html">Accordion</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#forms" data-bs-target="#formsSubmenu" aria-expanded="false">
+                            <i class="bi bi-card-list"></i>
+                            <span>Forms</span>
+                        </a>
+                        <ul id="formsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="basic-form-element.html">Basic Forms</a></li>
+                            <li><a class="nav-link" href="advance-form-element.html">Advanced Forms</a></li>
+                            <li><a class="nav-link" href="password-meter.html">Password Meter</a></li>
+                            <li><a class="nav-link" href="multi-upload.html">File Upload</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#charts" data-bs-target="#chartsSubmenu" aria-expanded="false">
+                            <i class="bi bi-bar-chart"></i>
+                            <span>Charts</span>
+                        </a>
+                        <ul id="chartsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="line-charts.html">Line Charts</a></li>
+                            <li><a class="nav-link" href="area-charts.html">Area Charts</a></li>
+                            <li><a class="nav-link" href="bar-charts.html">Bar Charts</a></li>
+                            <li><a class="nav-link" href="c3.html">C3 Charts</a></li>
+                            <li><a class="nav-link" href="peity.html">Peity Charts</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#tables" data-bs-target="#tablesSubmenu" aria-expanded="false">
+                            <i class="bi bi-table"></i>
+                            <span>Tables</span>
+                        </a>
+                        <ul id="tablesSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="static-table.html">Static Tables</a></li>
+                            <li><a class="nav-link" href="data-table.html">Data Tables</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Pages</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#authentication" data-bs-target="#authSubmenu" aria-expanded="false">
+                            <i class="bi bi-shield-lock"></i>
+                            <span>Authentication</span>
+                        </a>
+                        <ul id="authSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="login.html">Login</a></li>
+                            <li><a class="nav-link" href="register.html">Register</a></li>
+                            <li><a class="nav-link" href="lock.html">Lock Screen</a></li>
+                            <li><a class="nav-link" href="password-recovery.html">Forgot Password</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#errors" data-bs-target="#errorsSubmenu" aria-expanded="false">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            <span>Error Pages</span>
+                        </a>
+                        <ul id="errorsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="404.html">404 Error</a></li>
+                            <li><a class="nav-link" href="500.html">500 Error</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper" id="mainWrapper">
+        <!-- Header -->
+        <nav class="navbar top-navbar">
+            <div class="container-fluid d-flex align-items-center h-100">
+                <!-- Hamburger Menu -->
+                <button class="hamburger-menu" id="sidebarToggle">
+                    <i class="bi bi-list"></i>
+                </button>
+
+                <!-- Breadcrumb for desktop -->
+                <nav aria-label="breadcrumb" class="d-none d-lg-block ms-3">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                </nav>
+
+                <!-- Logo for mobile -->
+                <div class="navbar-brand d-lg-none fw-bold me-auto">Kiaalap</div>
+
+                <!-- Spacer for desktop -->
+                <div class="flex-grow-1 d-none d-lg-block"></div>
+
+                <!-- Right Actions -->
+                <div class="d-flex align-items-center gap-2">
+                    <!-- Search -->
+                    <div class="search-container">
+                        <button class="btn btn-light btn-icon" id="searchToggle">
+                            <i class="bi bi-search"></i>
+                        </button>
+
+                        <form class="search-form" id="searchForm">
+                            <i class="bi bi-search search-icon"></i>
+                            <input type="text"
+                                   class="form-control"
+                                   id="searchInput"
+                                   placeholder="Search..."
+                                   data-bs-toggle="dropdown">
+                            <button type="button" class="close-search" id="closeSearch">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+
+                            <ul class="dropdown-menu w-100 mt-2">
+                                <li><a class="dropdown-item" href="#">Student Registration</a></li>
+                                <li><a class="dropdown-item" href="#">Course Schedule</a></li>
+                                <li><a class="dropdown-item" href="#">Grade Reports</a></li>
+                            </ul>
+                        </form>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <button class="btn btn-primary btn-sm hide-mobile">
+                        <i class="bi bi-plus-circle me-1"></i> New
+                    </button>
+
+                    <!-- Messages -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-icon position-relative"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-chat-dots"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"
+                                  style="font-size: 0.625rem;">5</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <h6 class="mb-0">Messages</h6>
+                            </div>
+                            <div class="p-2" style="max-height: 300px; overflow-y: auto;">
+                                <a href="#" class="notification-item">
+                                    <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&background=10b981&color=fff"
+                                         class="rounded-circle"
+                                         width="36"
+                                         height="36"
+                                         alt="Sarah">
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Sarah Johnson</div>
+                                        <div class="text-muted small">Can you review my thesis?</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">2 min ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="notification-item">
+                                    <img src="https://ui-avatars.com/api/?name=Mike+Chen&background=6366f1&color=fff"
+                                         class="rounded-circle"
+                                         width="36"
+                                         height="36"
+                                         alt="Mike">
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Mike Chen</div>
+                                        <div class="text-muted small">Meeting at 3 PM today</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">1 hour ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="border-top p-2 text-center">
+                                <a href="#" class="text-primary small">View All Messages</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-icon position-relative"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-bell"></i>
+                            <span class="notification-dot"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <h6 class="mb-0">Notifications</h6>
+                            </div>
+                            <div class="p-2" style="max-height: 350px; overflow-y: auto;">
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon bg-primary bg-opacity-10 text-primary">
+                                        <i class="bi bi-calendar-check"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">New Event</div>
+                                        <div class="text-muted small">Science Fair on March 15</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">5 minutes ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon bg-success bg-opacity-10 text-success">
+                                        <i class="bi bi-check-circle"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Assignment Submitted</div>
+                                        <div class="text-muted small">John submitted his project</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">2 hours ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon bg-warning bg-opacity-10 text-warning">
+                                        <i class="bi bi-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">System Alert</div>
+                                        <div class="text-muted small">Database backup completed</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">Yesterday</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="border-top p-2 text-center">
+                                <a href="#" class="text-primary small">View All Notifications</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="dropdown">
+                        <button class="btn btn-light d-flex align-items-center px-2 btn-icon"
+                                data-bs-toggle="dropdown">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces"
+                                 alt="User"
+                                 class="user-avatar"
+                                 loading="lazy"
+                                 width="32"
+                                 height="32">
+                            <span class="hide-mobile ms-2" style="font-size: 0.875rem;">Sarah Johnson</span>
+                            <i class="bi bi-chevron-down hide-mobile ms-1" style="font-size: 0.75rem;"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li class="px-3 py-2 border-bottom">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces"
+                                         alt="User"
+                                         width="48"
+                                         height="48"
+                                         class="rounded-circle">
+                                    <div class="ms-3">
+                                        <div class="fw-semibold">Sarah Johnson</div>
+                                        <div class="text-muted small">sarah.johnson@kiaalap.edu</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-bell me-2"></i> Preferences</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sign Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Dashboard Content -->
+        <main class="dashboard-content" id="main-content" role="main">
+            <!-- Page Header -->
+            <div class="mb-3">
+                <h1 class="h3 font-bold">Dashboard Overview</h1>
+                <p class="text-muted text-sm">Welcome back! Here's what's happening with your institution today.</p>
+            </div>
+
+            <!-- Stats Cards Row -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-4">
+                    <div class="stats-card">
+                        <div class="stats-card-label">Computer Technologies</div>
+                        <div class="stats-card-value">$5,000</div>
+                        <span class="stats-card-change positive">+20%</span>
+                        <div class="progress-custom">
+                            <div class="progress-bar-custom bg-success" style="width: 20%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stats-card">
+                        <div class="stats-card-label">Accounting</div>
+                        <div class="stats-card-value">$3,000</div>
+                        <span class="stats-card-change positive">+30%</span>
+                        <div class="progress-custom">
+                            <div class="progress-bar-custom bg-danger" style="width: 30%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stats-card">
+                        <div class="stats-card-label">Electrical Engineering</div>
+                        <div class="stats-card-value">$2,000</div>
+                        <span class="stats-card-change positive">+60%</span>
+                        <div class="progress-custom">
+                            <div class="progress-bar-custom bg-info" style="width: 60%"></div>
+                        </div>
+                    </div>
+
+                    <div class="stats-card">
+                        <div class="stats-card-label">Chemical Engineering</div>
+                        <div class="stats-card-value">$3,500</div>
+                        <span class="stats-card-change positive">+80%</span>
+                        <div class="progress-custom">
+                            <div class="progress-bar-custom bg-warning" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-3" style="grid-template-columns: 2fr 1fr;">
+                    <!-- Main Chart -->
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">University Earnings</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="earningsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Side Stats -->
+                    <div style="display: flex; flex-direction: column; gap: 24px;">
+                        <div class="stats-card">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div>
+                                    <div class="stats-card-label">Total Visits</div>
+                                    <div class="stats-card-value">1,500</div>
+                                </div>
+                                <i class="bi bi-eye text-info" style="font-size: 24px;"></i>
+                            </div>
+                            <div class="chart-container-small">
+                                <canvas id="visitsSparkline"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="stats-card">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div>
+                                    <div class="stats-card-label">Page Views</div>
+                                    <div class="stats-card-value">3,000</div>
+                                </div>
+                                <i class="bi bi-file-text text-success" style="font-size: 24px;"></i>
+                            </div>
+                            <div class="chart-container-small">
+                                <canvas id="pageViewsSparkline"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="stats-card">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div>
+                                    <div class="stats-card-label">Bounce Rate</div>
+                                    <div class="stats-card-value">42%</div>
+                                </div>
+                                <i class="bi bi-arrow-up-circle text-warning" style="font-size: 24px;"></i>
+                            </div>
+                            <div class="chart-container-small">
+                                <canvas id="bounceRateSparkline"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="dashboard-grid grid-cols-2">
+                <!-- Recent Students -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header d-flex justify-content-between align-items-center">
+                        <h5 class="dashboard-card-title mb-0">Recent Students</h5>
+                        <a href="all-students.html" class="btn btn-outline-primary btn-sm">View All</a>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                <img src="https://ui-avatars.com/api/?name=John+Smith&background=0d6efd&color=fff" alt="John Smith" class="rounded-circle me-3" width="40" height="40" loading="lazy">
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">John Smith</h6>
+                                    <small class="text-muted">Computer Science - Freshman</small>
+                                    <div class="small text-muted">Enrolled 2 hours ago</div>
+                                </div>
+                                <span class="badge bg-success">Active</span>
+                            </div>
+                            <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                <img src="https://ui-avatars.com/api/?name=Emily+Davis&background=198754&color=fff" alt="Emily Davis" class="rounded-circle me-3" width="40" height="40" loading="lazy">
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">Emily Davis</h6>
+                                    <small class="text-muted">Biology - Sophomore</small>
+                                    <div class="small text-muted">Enrolled 1 day ago</div>
+                                </div>
+                                <span class="badge bg-success">Active</span>
+                            </div>
+                            <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                <img src="https://ui-avatars.com/api/?name=Michael+Brown&background=dc3545&color=fff" alt="Michael Brown" class="rounded-circle me-3" width="40" height="40" loading="lazy">
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">Michael Brown</h6>
+                                    <small class="text-muted">Mathematics - Junior</small>
+                                    <div class="small text-muted">Enrolled 3 days ago</div>
+                                </div>
+                                <span class="badge bg-warning">Pending</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Popular Courses -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header d-flex justify-content-between align-items-center">
+                        <h5 class="dashboard-card-title mb-0">Popular Courses</h5>
+                        <a href="all-courses.html" class="btn btn-outline-primary btn-sm">View All</a>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                    <i class="bi bi-code-slash" style="color: #0d6efd;"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">Advanced Programming</h6>
+                                    <small class="text-muted">Prof. Sarah Johnson</small>
+                                    <div class="small text-muted">45 enrolled students</div>
+                                </div>
+                                <span class="badge bg-success">85% Full</span>
+                            </div>
+                            <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                <div class="bg-success bg-opacity-10 text-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                    <i class="bi bi-calculator" style="color: #198754;"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">Calculus II</h6>
+                                    <small class="text-muted">Prof. Michael Chen</small>
+                                    <div class="small text-muted">38 enrolled students</div>
+                                </div>
+                                <span class="badge bg-success">76% Full</span>
+                            </div>
+                            <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                <div class="bg-info bg-opacity-10 text-info rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                    <i class="bi bi-microscope" style="color: #0dcaf0;"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">Biology Lab</h6>
+                                    <small class="text-muted">Prof. Lisa Thompson</small>
+                                    <div class="small text-muted">28 enrolled students</div>
+                                </div>
+                                <span class="badge bg-warning text-dark">56% Full</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="mb-0">&copy; 2025 Kiaalap. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <p class="mb-0">Built with <i class="bi bi-heart-fill text-danger"></i> for education</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+    <!-- Dashboard JS -->
+    <script src="src/js/dashboard.js" defer></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <!-- Charts initialization -->
+    <script src="src/js/charts-responsive.js" defer></script>
+</body>
+</html>

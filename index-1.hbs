@@ -1,0 +1,420 @@
+---
+layout: "base"
+title: "Dashboard v2"
+pageTitle: "Dashboard v2"
+pageDescription: "Advanced dashboard with enhanced metrics"
+showPageHeader: true
+breadcrumb:
+  - title: "Dashboard v2"
+    url: "index-1.html"
+pageSpecificStyles: |
+  /* Critical CSS for immediate render */
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+          .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+          .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+          .top-navbar { background: white; height: 64px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+          .dashboard-content { padding: 24px; }
+pageSpecificJS: |
+  document.addEventListener('DOMContentLoaded', function() {
+              // Revenue Trend Chart
+              const revenueCtx = document.getElementById('revenueChart');
+              if (revenueCtx) {
+                  new Chart(revenueCtx, {
+                      type: 'line',
+                      data: {
+                          labels: ['Aug 2024', 'Sep 2024', 'Oct 2024', 'Nov 2024', 'Dec 2024', 'Jan 2025'],
+                          datasets: [{
+                              label: 'Revenue ($000)',
+                              data: [380, 420, 450, 480, 390, 520],
+                              borderColor: '#0d6efd',
+                              backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                              tension: 0.4,
+                              fill: true,
+                              pointRadius: 6,
+                              pointHoverRadius: 8
+                          }]
+                      },
+                      options: {
+                          responsive: true,
+                          maintainAspectRatio: false,
+                          plugins: {
+                              legend: {
+                                  display: false
+                              }
+                          },
+                          scales: {
+                              y: {
+                                  beginAtZero: true,
+                                  ticks: {
+                                      callback: function(value) {
+                                          return '$' + value + 'K';
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                  });
+              }
+  
+              // Student Enrollment Chart
+              const enrollmentCtx = document.getElementById('enrollmentChart');
+              if (enrollmentCtx) {
+                  new Chart(enrollmentCtx, {
+                      type: 'bar',
+                      data: {
+                          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                          datasets: [{
+                              label: 'New Enrollments',
+                              data: [1200, 1100, 1350, 1250, 1400, 1320],
+                              backgroundColor: '#198754',
+                              borderRadius: 4
+                          }]
+                      },
+                      options: {
+                          responsive: true,
+                          maintainAspectRatio: false,
+                          plugins: {
+                              legend: {
+                                  display: false
+                              }
+                          },
+                          scales: {
+                              y: {
+                                  beginAtZero: true
+                              }
+                          }
+                      }
+                  });
+              }
+          });
+---
+
+<!-- Page Header -->
+            <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h3 font-bold">Advanced Analytics Dashboard</h1>
+                        <p class="text-muted text-sm">Comprehensive performance metrics and financial insights for your educational institution.</p>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-secondary">
+                            <i class="bi bi-download me-2"></i>Export Report
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="bi bi-graph-up me-2"></i>View Analytics
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Performance Indicators -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-4">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body text-center">
+                            <div class="mb-3">
+                                <div class="stat-icon-large bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-cash-stack" style="font-size: 24px; color: #0d6efd;"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value text-primary fw-bold mb-1" style="font-size: 2rem;">$2.4M</div>
+                            <div class="stat-label text-muted mb-2">Total Revenue</div>
+                            <div class="stat-change text-success small fw-semibold">
+                                <i class="bi bi-arrow-up" style="font-size: 12px;"></i> +15.2%
+                            </div>
+                            <div class="text-muted" style="font-size: 0.75rem;">from last month</div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body text-center">
+                            <div class="mb-3">
+                                <div class="stat-icon-large bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-people" style="font-size: 24px; color: #198754;"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value text-success fw-bold mb-1" style="font-size: 2rem;">8,547</div>
+                            <div class="stat-label text-muted mb-2">Active Students</div>
+                            <div class="stat-change text-success small fw-semibold">
+                                <i class="bi bi-arrow-up" style="font-size: 12px;"></i> +324
+                            </div>
+                            <div class="text-muted" style="font-size: 0.75rem;">this week</div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body text-center">
+                            <div class="mb-3">
+                                <div class="stat-icon-large bg-info bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-book" style="font-size: 24px; color: #0dcaf0;"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value text-info fw-bold mb-1" style="font-size: 2rem;">127</div>
+                            <div class="stat-label text-muted mb-2">Active Courses</div>
+                            <div class="stat-change text-secondary small fw-semibold">
+                                <i class="bi bi-dash-lg" style="font-size: 12px;"></i> No change
+                            </div>
+                            <div class="text-muted" style="font-size: 0.75rem;">from last month</div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body text-center">
+                            <div class="mb-3">
+                                <div class="stat-icon-large bg-warning bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-emoji-smile" style="font-size: 24px; color: #ffc107;"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value text-warning fw-bold mb-1" style="font-size: 2rem;">94.2%</div>
+                            <div class="stat-label text-muted mb-2">Satisfaction Rate</div>
+                            <div class="stat-change text-success small fw-semibold">
+                                <i class="bi bi-arrow-up" style="font-size: 12px;"></i> +2.1%
+                            </div>
+                            <div class="text-muted" style="font-size: 0.75rem;">improvement</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Revenue and Enrollment Charts -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-2">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header d-flex justify-content-between align-items-center">
+                            <h5 class="dashboard-card-title mb-0">Revenue Trends</h5>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                    Last 6 months
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Last 3 months</a></li>
+                                    <li><a class="dropdown-item" href="#">Last 6 months</a></li>
+                                    <li><a class="dropdown-item" href="#">Last year</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="chart-container">
+                                <canvas id="revenueChart" width="400" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header d-flex justify-content-between align-items-center">
+                            <h5 class="dashboard-card-title mb-0">Student Enrollment</h5>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                    This year
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">This month</a></li>
+                                    <li><a class="dropdown-item" href="#">This year</a></li>
+                                    <li><a class="dropdown-item" href="#">All time</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="chart-container">
+                                <canvas id="enrollmentChart" width="400" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Metrics -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-3">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h6 class="dashboard-card-title">Course Performance</h6>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="row text-center">
+                                <div class="col-4">
+                                    <div class="border-end">
+                                        <div class="fw-bold text-success">98%</div>
+                                        <small class="text-muted">Completion</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="border-end">
+                                        <div class="fw-bold text-primary">4.6</div>
+                                        <small class="text-muted">Avg Rating</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="fw-bold text-info">92%</div>
+                                    <small class="text-muted">Pass Rate</small>
+                                </div>
+                            </div>
+                            <hr class="my-3">
+                            <div class="small text-muted">
+                                <strong>Top Performing:</strong> Advanced Programming (96% completion)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h6 class="dashboard-card-title">Financial Overview</h6>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span>Tuition Revenue</span>
+                                    <strong class="text-success">$1.8M</strong>
+                                </div>
+                                <div class="progress progress-sm">
+                                    <div class="progress-bar bg-success" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span>Other Income</span>
+                                    <strong class="text-primary">$600K</strong>
+                                </div>
+                                <div class="progress progress-sm">
+                                    <div class="progress-bar bg-primary" style="width: 25%"></div>
+                                </div>
+                            </div>
+                            <div class="small text-muted">
+                                <strong>Budget Utilization:</strong> 82% of annual budget
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h6 class="dashboard-card-title">Quick Actions</h6>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-primary btn-sm">
+                                    <i class="bi bi-file-earmark-text me-2"></i>Generate Report
+                                </button>
+                                <button class="btn btn-outline-success btn-sm">
+                                    <i class="bi bi-person-plus me-2"></i>Add Student
+                                </button>
+                                <button class="btn btn-outline-info btn-sm">
+                                    <i class="bi bi-book-half me-2"></i>New Course
+                                </button>
+                                <button class="btn btn-outline-warning btn-sm">
+                                    <i class="bi bi-calendar-event me-2"></i>Schedule Event
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity and Top Performers -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-2">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header d-flex justify-content-between align-items-center">
+                            <h5 class="dashboard-card-title mb-0">Top Performing Students</h5>
+                            <a href="all-students.html" class="btn btn-outline-primary btn-sm">View All</a>
+                        </div>
+                            <div class="dashboard-card-body">
+                                <div class="list-group list-group-flush">
+                                    <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                        <div class="bg-warning bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; border: 2px solid #ffc107; background-color: #fff3cd !important;">
+                                            <strong style="color: #b25500; font-size: 16px; font-weight: bold;">1</strong>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Sarah Chen</h6>
+                                            <small class="text-muted">Computer Science - Senior</small>
+                                            <div class="small text-success">GPA: 3.98 | 15 courses completed</div>
+                                        </div>
+                                        <div class="text-warning">
+                                            <i class="bi bi-trophy-fill" style="font-size: 1.2rem; color: #ffc107;"></i>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                        <div class="bg-secondary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; border: 2px solid #6c757d; background-color: #f8f9fa !important;">
+                                            <strong style="color: #495057; font-size: 16px; font-weight: bold;">2</strong>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Marcus Rodriguez</h6>
+                                            <small class="text-muted">Mathematics - Junior</small>
+                                            <div class="small text-success">GPA: 3.95 | 12 courses completed</div>
+                                        </div>
+                                        <div class="text-secondary">
+                                            <i class="bi bi-award-fill" style="font-size: 1.2rem; color: #6c757d;"></i>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                        <div class="bg-info bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; border: 2px solid #0dcaf0; background-color: #cff4fc !important;">
+                                            <strong style="color: #055160; font-size: 16px; font-weight: bold;">3</strong>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Emma Thompson</h6>
+                                            <small class="text-muted">Biology - Senior</small>
+                                            <div class="small text-success">GPA: 3.92 | 14 courses completed</div>
+                                        </div>
+                                        <div class="text-info">
+                                            <i class="bi bi-star-fill" style="font-size: 1.2rem; color: #0dcaf0;"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header d-flex justify-content-between align-items-center">
+                            <h5 class="dashboard-card-title mb-0">Revenue Sources</h5>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Report</a>
+                        </div>
+                        <div class="dashboard-card-body">
+                                <div class="list-group list-group-flush">
+                                    <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                        <div class="bg-success bg-opacity-10 text-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                            <i class="bi bi-mortarboard" style="color: #198754;"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Tuition Fees</h6>
+                                            <small class="text-muted">Undergraduate & Graduate</small>
+                                            <div class="small text-muted">75% of total revenue</div>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="fw-bold text-success">$1.8M</div>
+                                            <small class="text-success">+12%</small>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                        <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                            <i class="bi bi-building" style="color: #0d6efd;"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Facility Rentals</h6>
+                                            <small class="text-muted">Events & Conferences</small>
+                                            <div class="small text-muted">15% of total revenue</div>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="fw-bold text-primary">$360K</div>
+                                            <small class="text-success">+8%</small>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item d-flex align-items-center px-0 py-3">
+                                        <div class="bg-info bg-opacity-10 text-info rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                            <i class="bi bi-gift" style="color: #0dcaf0;"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Grants & Donations</h6>
+                                            <small class="text-muted">Research & Scholarships</small>
+                                            <div class="small text-muted">10% of total revenue</div>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="fw-bold text-info">$240K</div>
+                                            <small class="text-success">+25%</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>

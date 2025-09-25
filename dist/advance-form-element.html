@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Advance Form Element | Kiaalap - Kiaalap Admin Template</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon
+		============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" href="./assets/favicon-9EIT7vLh.ico">
+    <!-- Google Fonts
+		============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <!-- Critical CSS for above-the-fold content -->
+    <style>*{box-sizing:border-box;margin:0;padding:0}body{background:#f5f7fa;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif}.sidebar{background:#1f2937;height:100vh;left:0;position:fixed;top:0;width:260px;z-index:1040}.main-wrapper{margin-left:260px;min-height:100vh;transition:margin-left .3s ease}.top-navbar{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.1);height:64px}.dashboard-content{padding:24px}@keyframes pulse{0%,to{opacity:1}50%{opacity:.5}}.loading{animation:pulse 2s cubic-bezier(.4,0,.6,1) infinite;background:#e5e7eb}</style>
+
+    <!-- Load stylesheets -->
+
+  <link rel="stylesheet" crossorigin href="./assets/bootstrap-C31-XpK9.css">
+  <link rel="stylesheet" crossorigin href="./assets/bootstrap-icons--Sisaltn.css">
+  <link rel="stylesheet" crossorigin href="./assets/dashboard-DOMAAUp6.css">
+</head>
+
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <!-- Required DOM elements for dashboard.js -->
+    <div class="search-backdrop" id="searchBackdrop"></div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <h5>
+                    <i class="bi bi-mortarboard-fill"></i>
+                    Kiaalap
+                </h5>
+                <button class="sidebar-close" id="sidebarClose">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="menu-section">
+                <div class="menu-section-title">Main</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#dashboard" data-bs-target="#dashboardSubmenu" aria-expanded="false">
+                            <i class="bi bi-speedometer2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <ul id="dashboardSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="index.html">Dashboard v.1</a></li>
+                            <li><a class="nav-link" href="index-1.html">Dashboard v.2</a></li>
+                            <li><a class="nav-link" href="index-2.html">Dashboard v.3</a></li>
+                            <li><a class="nav-link" href="analytics.html">Analytics</a></li>
+                            <li><a class="nav-link" href="widgets.html">Widgets</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">
+                            <i class="bi bi-calendar-event"></i>
+                            <span>Events</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Academic</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#professors" data-bs-target="#professorsSubmenu" aria-expanded="false">
+                            <i class="bi bi-person-badge"></i>
+                            <span>Professors</span>
+                        </a>
+                        <ul id="professorsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-professors.html">All Professors</a></li>
+                            <li><a class="nav-link" href="add-professor.html">Add Professor</a></li>
+                            <li><a class="nav-link" href="edit-professor.html">Edit Professor</a></li>
+                            <li><a class="nav-link" href="professor-profile.html">Professor Profile</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#students" data-bs-target="#studentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-people"></i>
+                            <span>Students</span>
+                        </a>
+                        <ul id="studentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-students.html">All Students</a></li>
+                            <li><a class="nav-link" href="add-student.html">Add Student</a></li>
+                            <li><a class="nav-link" href="edit-student.html">Edit Student</a></li>
+                            <li><a class="nav-link" href="student-profile.html">Student Profile</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#courses" data-bs-target="#coursesSubmenu" aria-expanded="false">
+                            <i class="bi bi-book"></i>
+                            <span>Courses</span>
+                        </a>
+                        <ul id="coursesSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-courses.html">All Courses</a></li>
+                            <li><a class="nav-link" href="add-course.html">Add Course</a></li>
+                            <li><a class="nav-link" href="edit-course.html">Edit Course</a></li>
+                            <li><a class="nav-link" href="course-info.html">Course Info</a></li>
+                            <li><a class="nav-link" href="course-payment.html">Course Payment</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#library" data-bs-target="#librarySubmenu" aria-expanded="false">
+                            <i class="bi bi-journal-bookmark"></i>
+                            <span>Library</span>
+                        </a>
+                        <ul id="librarySubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="library-assets.html">Library Assets</a></li>
+                            <li><a class="nav-link" href="add-library-assets.html">Add Asset</a></li>
+                            <li><a class="nav-link" href="edit-library-assets.html">Edit Asset</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#departments" data-bs-target="#departmentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-building"></i>
+                            <span>Departments</span>
+                        </a>
+                        <ul id="departmentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="departments.html">All Departments</a></li>
+                            <li><a class="nav-link" href="add-department.html">Add Department</a></li>
+                            <li><a class="nav-link" href="edit-department.html">Edit Department</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Communication</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#mailbox" data-bs-target="#mailboxSubmenu" aria-expanded="false">
+                            <i class="bi bi-envelope"></i>
+                            <span>Mailbox</span>
+                        </a>
+                        <ul id="mailboxSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="mailbox.html">Inbox</a></li>
+                            <li><a class="nav-link" href="mailbox-compose.html">Compose</a></li>
+                            <li><a class="nav-link" href="mailbox-view.html">View Mail</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Interface</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#interface" data-bs-target="#interfaceSubmenu" aria-expanded="false">
+                            <i class="bi bi-palette"></i>
+                            <span>Interface</span>
+                        </a>
+                        <ul id="interfaceSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="buttons.html">Buttons</a></li>
+                            <li><a class="nav-link" href="alerts.html">Alerts</a></li>
+                            <li><a class="nav-link" href="modals.html">Modals</a></li>
+                            <li><a class="nav-link" href="tabs.html">Tabs</a></li>
+                            <li><a class="nav-link" href="accordion.html">Accordion</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#charts" data-bs-target="#chartsSubmenu" aria-expanded="false">
+                            <i class="bi bi-graph-up"></i>
+                            <span>Charts</span>
+                        </a>
+                        <ul id="chartsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="bar-charts.html">Bar Charts</a></li>
+                            <li><a class="nav-link" href="line-charts.html">Line Charts</a></li>
+                            <li><a class="nav-link" href="area-charts.html">Area Charts</a></li>
+                            <li><a class="nav-link" href="c3.html">C3 Charts</a></li>
+                            <li><a class="nav-link" href="sparkline.html">Sparkline Charts</a></li>
+                            <li><a class="nav-link" href="peity.html">Peity Charts</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#data-tables" data-bs-target="#dataTablesSubmenu" aria-expanded="false">
+                            <i class="bi bi-table"></i>
+                            <span>Data Tables</span>
+                        </a>
+                        <ul id="dataTablesSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="static-table.html">Static Table</a></li>
+                            <li><a class="nav-link" href="data-table.html">Data Table</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#forms" data-bs-target="#formsSubmenu" aria-expanded="false">
+                            <i class="bi bi-file-text"></i>
+                            <span>Forms</span>
+                        </a>
+                        <ul id="formsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="basic-form-element.html">Basic Form Elements</a></li>
+                            <li><a class="nav-link" href="advance-form-element.html">Advanced Form Elements</a></li>
+                            <li><a class="nav-link" href="password-meter.html">Password Meter</a></li>
+                            <li><a class="nav-link" href="multi-upload.html">Multi Upload</a></li>
+                            <li><a class="nav-link" href="tinymc.html">Text Editor</a></li>
+                            <li><a class="nav-link" href="dual-list-box.html">Dual List Box</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#app-views" data-bs-target="#appViewsSubmenu" aria-expanded="false">
+                            <i class="bi bi-window-stack"></i>
+                            <span>App Views</span>
+                        </a>
+                        <ul id="appViewsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="notifications.html">Notifications</a></li>
+                            <li><a class="nav-link" href="pdf-viewer.html">PDF Viewer</a></li>
+                            <li><a class="nav-link" href="code-editor.html">Code Editor</a></li>
+                            <li><a class="nav-link" href="tinymc.html">Rich Editor</a></li>
+                            <li><a class="nav-link" href="tree-view.html">Tree View</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Pages</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#pages" data-bs-target="#pagesSubmenu" aria-expanded="false">
+                            <i class="bi bi-file-earmark"></i>
+                            <span>Pages</span>
+                        </a>
+                        <ul id="pagesSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="login.html">Login</a></li>
+                            <li><a class="nav-link" href="register.html">Register</a></li>
+                            <li><a class="nav-link" href="lock.html">Lock Screen</a></li>
+                            <li><a class="nav-link" href="password-recovery.html">Password Recovery</a></li>
+                            <li><a class="nav-link" href="404.html">404 Page</a></li>
+                            <li><a class="nav-link" href="500.html">500 Page</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper" id="mainWrapper">
+        <!-- Header -->
+        <nav class="navbar top-navbar">
+            <div class="container-fluid d-flex align-items-center h-100">
+                <!-- Hamburger Menu -->
+                <button class="hamburger-menu" id="sidebarToggle">
+                    <i class="bi bi-list"></i>
+                </button>
+
+                <!-- Breadcrumb for desktop -->
+                <nav aria-label="breadcrumb" class="d-none d-lg-block ms-3">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Forms</a></li>
+                        <li class="breadcrumb-item active">Advanced Form Elements</li>
+                    </ol>
+                </nav>
+
+                <!-- Logo for mobile -->
+                <div class="navbar-brand d-lg-none fw-bold me-auto">Kiaalap</div>
+
+                <!-- Spacer for desktop -->
+                <div class="flex-grow-1 d-none d-lg-block"></div>
+
+                <!-- Right Actions -->
+                <div class="d-flex align-items-center gap-2">
+                    <!-- Search -->
+                    <div class="search-container">
+                        <button class="btn btn-light btn-icon" id="searchToggle">
+                            <i class="bi bi-search"></i>
+                        </button>
+
+                        <form class="search-form" id="searchForm">
+                            <i class="bi bi-search search-icon"></i>
+                            <input type="text"
+                                   class="form-control"
+                                   id="searchInput"
+                                   placeholder="Search..."
+                                   data-bs-toggle="dropdown">
+                            <button type="button" class="close-search" id="closeSearch">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+
+                            <ul class="dropdown-menu w-100 mt-2">
+                                <li><a class="dropdown-item" href="#">Student Registration</a></li>
+                                <li><a class="dropdown-item" href="#">Course Schedule</a></li>
+                                <li><a class="dropdown-item" href="#">Grade Reports</a></li>
+                            </ul>
+                        </form>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <button class="btn btn-primary btn-sm hide-mobile">
+                        <i class="bi bi-plus-circle me-1"></i> New
+                    </button>
+
+                    <!-- Messages -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-icon position-relative"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-chat-dots"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"
+                                  style="font-size: 0.625rem;">5</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <h6 class="mb-0">Messages</h6>
+                            </div>
+                            <div class="p-2" style="max-height: 300px; overflow-y: auto;">
+                                <a href="#" class="notification-item">
+                                    <img src="https://ui-avatars.com/api/?name=Form+Helper&background=10b981&color=fff"
+                                         class="rounded-circle"
+                                         width="36"
+                                         height="36"
+                                         alt="Helper">
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Form Helper</div>
+                                        <div class="text-muted small">Need help with validation?</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">5 min ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="border-top p-2 text-center">
+                                <a href="#" class="text-primary small">View All Messages</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-icon position-relative"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-bell"></i>
+                            <span class="notification-dot"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <h6 class="mb-0">Notifications</h6>
+                            </div>
+                            <div class="p-2" style="max-height: 350px; overflow-y: auto;">
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon bg-primary bg-opacity-10 text-primary">
+                                        <i class="bi bi-check-circle"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Form Validation</div>
+                                        <div class="text-muted small">All fields validated successfully</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">2 minutes ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon bg-success bg-opacity-10 text-success">
+                                        <i class="bi bi-file-earmark-check"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Form Submitted</div>
+                                        <div class="text-muted small">Advanced form data saved</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">1 hour ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="border-top p-2 text-center">
+                                <a href="#" class="text-primary small">View All Notifications</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="dropdown">
+                        <button class="btn btn-light d-flex align-items-center px-2 btn-icon"
+                                data-bs-toggle="dropdown">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces"
+                                 alt="User"
+                                 class="user-avatar"
+                                 loading="lazy"
+                                 width="32"
+                                 height="32">
+                            <span class="hide-mobile ms-2" style="font-size: 0.875rem;">Sarah Johnson</span>
+                            <i class="bi bi-chevron-down hide-mobile ms-1" style="font-size: 0.75rem;"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li class="px-3 py-2 border-bottom">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces"
+                                         alt="User"
+                                         width="48"
+                                         height="48"
+                                         class="rounded-circle">
+                                    <div class="ms-3">
+                                        <div class="fw-semibold">Sarah Johnson</div>
+                                        <div class="text-muted small">sarah.johnson@kiaalap.edu</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-bell me-2"></i> Preferences</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sign Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Dashboard Content -->
+        <main class="dashboard-content" id="main-content" role="main">
+            <!-- Page Header -->
+            <div class="mb-3">
+                <h1 class="h3 font-bold">Advanced Form Elements</h1>
+                <p class="text-muted text-sm">Create sophisticated forms with advanced input controls and validation.</p>
+            </div>
+
+            <!-- Advanced Form Content -->
+            <div class="dashboard-row">
+                <!-- Date and Time Pickers -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title">Date & Time Pickers</h5>
+                        <p class="text-muted small mb-0">Various date and time input controls</p>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <form class="dashboard-grid grid-cols-2">
+                            <div class="form-group">
+                                <label for="datePicker" class="form-label">Date Picker</label>
+                                <input type="date" class="form-control" id="datePicker" value="2025-01-15">
+                                <div class="form-text">Select a specific date</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="timePicker" class="form-label">Time Picker</label>
+                                <input type="time" class="form-control" id="timePicker" value="14:30">
+                                <div class="form-text">Select a specific time</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="datetimePicker" class="form-label">DateTime Local</label>
+                                <input type="datetime-local" class="form-control" id="datetimePicker" value="2025-01-15T14:30">
+                                <div class="form-text">Select date and time together</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="monthPicker" class="form-label">Month Picker</label>
+                                <input type="month" class="form-control" id="monthPicker" value="2025-01">
+                                <div class="form-text">Select a month and year</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-row">
+                <!-- Color and Range Inputs -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title">Color & Range Inputs</h5>
+                        <p class="text-muted small mb-0">Visual input controls for colors and ranges</p>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <form class="dashboard-grid grid-cols-2">
+                            <div class="form-group">
+                                <label for="colorPicker" class="form-label">Color Picker</label>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <input type="color" class="form-control form-control-color" id="colorPicker" value="#0d6efd">
+                                    <input type="text" class="form-control flex-grow-1" id="colorHex" value="#0d6efd" readonly>
+                                </div>
+                                <div class="form-text">Choose a color for your theme</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="rangeSlider" class="form-label">Range Slider</label>
+                                <input type="range" class="form-range" id="rangeSlider" min="0" max="100" value="50">
+                                <div class="d-flex justify-content-between small text-muted">
+                                    <span>0</span>
+                                    <span id="rangeValue">50</span>
+                                    <span>100</span>
+                                </div>
+                                <div class="form-text">Adjust the value using the slider</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="volumeRange" class="form-label">Volume Control</label>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <i class="bi bi-volume-mute"></i>
+                                    <input type="range" class="form-range flex-grow-1" id="volumeRange" min="0" max="100" value="75">
+                                    <i class="bi bi-volume-up"></i>
+                                </div>
+                                <div class="form-text">Control audio volume</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="progressRange" class="form-label">Progress Indicator</label>
+                                <input type="range" class="form-range" id="progressRange" min="0" max="100" value="25">
+                                <div class="progress mt-2" style="height: 8px;">
+                                    <div class="progress-bar" id="progressBar" role="progressbar" style="width: 25%"></div>
+                                </div>
+                                <div class="form-text">Visual progress representation</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-row">
+                <!-- Advanced Select Elements -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title">Advanced Select Elements</h5>
+                        <p class="text-muted small mb-0">Enhanced dropdown and multi-select controls</p>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <form class="dashboard-grid grid-cols-2">
+                            <div class="form-group">
+                                <label for="multiSelect" class="form-label">Multi-Select</label>
+                                <select class="form-select" id="multiSelect" multiple size="4">
+                                    <option value="cs">Computer Science</option>
+                                    <option value="math">Mathematics</option>
+                                    <option value="physics">Physics</option>
+                                    <option value="chemistry">Chemistry</option>
+                                    <option value="biology">Biology</option>
+                                    <option value="engineering">Engineering</option>
+                                </select>
+                                <div class="form-text">Hold Ctrl/Cmd to select multiple options</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="searchableSelect" class="form-label">Searchable Select</label>
+                                <select class="form-select" id="searchableSelect">
+                                    <option value="">Choose a country...</option>
+                                    <option value="us">United States</option>
+                                    <option value="uk">United Kingdom</option>
+                                    <option value="ca">Canada</option>
+                                    <option value="au">Australia</option>
+                                    <option value="de">Germany</option>
+                                    <option value="fr">France</option>
+                                    <option value="jp">Japan</option>
+                                    <option value="kr">South Korea</option>
+                                </select>
+                                <div class="form-text">Searchable dropdown with filtering</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Department Tags</label>
+                                <div class="form-control" style="min-height: 50px;">
+                                    <div class="d-flex flex-wrap gap-1">
+                                        <span class="badge bg-primary">Computer Science</span>
+                                        <span class="badge bg-success">Mathematics</span>
+                                        <span class="badge bg-info">Physics</span>
+                                        <input type="text" class="border-0 outline-0 flex-grow-1" placeholder="Add tag..." style="min-width: 100px;">
+                                    </div>
+                                </div>
+                                <div class="form-text">Type and press Enter to add tags</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="groupedSelect" class="form-label">Grouped Options</label>
+                                <select class="form-select" id="groupedSelect">
+                                    <option value="">Choose a course...</option>
+                                    <optgroup label="Computer Science">
+                                        <option value="cs101">Introduction to Programming</option>
+                                        <option value="cs201">Data Structures</option>
+                                        <option value="cs301">Algorithms</option>
+                                    </optgroup>
+                                    <optgroup label="Mathematics">
+                                        <option value="math101">Calculus I</option>
+                                        <option value="math201">Linear Algebra</option>
+                                        <option value="math301">Differential Equations</option>
+                                    </optgroup>
+                                </select>
+                                <div class="form-text">Options organized in groups</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-row">
+                <!-- File Upload and Media -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title">File Upload & Media</h5>
+                        <p class="text-muted small mb-0">Advanced file handling and media inputs</p>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <form class="dashboard-grid grid-cols-2">
+                            <div class="form-group">
+                                <label for="fileUpload" class="form-label">File Upload</label>
+                                <input type="file" class="form-control" id="fileUpload" multiple accept=".pdf,.doc,.docx,.txt">
+                                <div class="form-text">Upload documents (PDF, DOC, DOCX, TXT)</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="imageUpload" class="form-label">Image Upload</label>
+                                <input type="file" class="form-control" id="imageUpload" accept="image/*">
+                                <div class="form-text">Upload profile picture or course image</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Drag & Drop Zone</label>
+                                <div class="border border-2 border-dashed rounded p-4 text-center" style="border-color: #dee2e6 !important;">
+                                    <i class="bi bi-cloud-upload fs-1 text-muted"></i>
+                                    <div class="mt-2">
+                                        <strong>Drop files here</strong> or <a href="#" class="text-primary">browse</a>
+                                    </div>
+                                    <small class="text-muted">Max file size: 10MB</small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Uploaded Files</label>
+                                <div class="d-flex flex-column gap-2">
+                                    <div class="d-flex align-items-center gap-2 p-2 bg-light rounded">
+                                        <i class="bi bi-file-earmark-pdf text-danger"></i>
+                                        <span class="flex-grow-1">syllabus.pdf</span>
+                                        <small class="text-muted">2.4 MB</small>
+                                        <button type="button" class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2 p-2 bg-light rounded">
+                                        <i class="bi bi-file-earmark-image text-primary"></i>
+                                        <span class="flex-grow-1">course-banner.jpg</span>
+                                        <small class="text-muted">1.8 MB</small>
+                                        <button type="button" class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-row">
+                <!-- Advanced Input Controls -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title">Advanced Input Controls</h5>
+                        <p class="text-muted small mb-0">Specialized input types and controls</p>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <form class="dashboard-grid grid-cols-2">
+                            <div class="form-group">
+                                <label for="numberSpinner" class="form-label">Number Spinner</label>
+                                <input type="number" class="form-control" id="numberSpinner" min="0" max="100" step="5" value="25">
+                                <div class="form-text">Use arrows or type a number (step: 5)</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="urlInput" class="form-label">URL Input</label>
+                                <input type="url" class="form-control" id="urlInput" placeholder="https://example.com">
+                                <div class="form-text">Enter a valid URL</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="emailInput" class="form-label">Email Input</label>
+                                <input type="email" class="form-control" id="emailInput" placeholder="user@kiaalap.edu">
+                                <div class="form-text">Enter your institutional email</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="telInput" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="telInput" placeholder="+1 (555) 123-4567">
+                                <div class="form-text">Enter phone number with country code</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="patternInput" class="form-label">Student ID (Pattern)</label>
+                                <input type="text" class="form-control" id="patternInput" pattern="[A-Z]{2}[0-9]{6}" placeholder="CS123456">
+                                <div class="form-text">Format: 2 letters + 6 digits (e.g., CS123456)</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="searchInput" class="form-label">Search Input</label>
+                                <input type="search" class="form-control" id="searchInput" placeholder="Search courses...">
+                                <div class="form-text">Search with auto-suggestions</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-row">
+                <!-- Form Validation Example -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title">Form Validation Example</h5>
+                        <p class="text-muted small mb-0">Interactive form with real-time validation</p>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <form class="needs-validation" novalidate>
+                            <div class="dashboard-grid grid-cols-2">
+                                <div class="form-group">
+                                    <label for="validationCustom01" class="form-label">First Name *</label>
+                                    <input type="text" class="form-control" id="validationCustom01" required>
+                                    <div class="valid-feedback">Looks good!</div>
+                                    <div class="invalid-feedback">Please provide a valid first name.</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="validationCustom02" class="form-label">Last Name *</label>
+                                    <input type="text" class="form-control" id="validationCustom02" required>
+                                    <div class="valid-feedback">Looks good!</div>
+                                    <div class="invalid-feedback">Please provide a valid last name.</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="validationCustomEmail" class="form-label">Email Address *</label>
+                                    <input type="email" class="form-control" id="validationCustomEmail" required>
+                                    <div class="valid-feedback">Valid email address!</div>
+                                    <div class="invalid-feedback">Please provide a valid email address.</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="validationCustom04" class="form-label">Department *</label>
+                                    <select class="form-select" id="validationCustom04" required>
+                                        <option selected disabled value="">Choose department...</option>
+                                        <option>Computer Science</option>
+                                        <option>Mathematics</option>
+                                        <option>Physics</option>
+                                        <option>Chemistry</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select a valid department.</div>
+                                </div>
+                            </div>
+                            <div class="form-check mt-3">
+                                <input class="form-check-input" type="checkbox" id="validationCustom05" required>
+                                <label class="form-check-label" for="validationCustom05">
+                                    Agree to terms and conditions *
+                                </label>
+                                <div class="invalid-feedback">You must agree before submitting.</div>
+                            </div>
+                            <div class="mt-3">
+                                <button class="btn btn-primary" type="submit">Submit Form</button>
+                                <button class="btn btn-outline-secondary ms-2" type="reset">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="mb-0">&copy; 2025 Kiaalap. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <p class="mb-0">Built with <i class="bi bi-heart-fill text-danger"></i> for education</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+    <!-- Dashboard JS -->
+    <script src="src/js/dashboard.js" defer></script>
+
+    <!-- Advanced Form Elements JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Color picker sync
+            const colorPicker = document.getElementById('colorPicker');
+            const colorHex = document.getElementById('colorHex');
+            if (colorPicker && colorHex) {
+                colorPicker.addEventListener('input', function() {
+                    colorHex.value = this.value;
+                });
+            }
+
+            // Range sliders with live updates
+            const rangeSlider = document.getElementById('rangeSlider');
+            const rangeValue = document.getElementById('rangeValue');
+            if (rangeSlider && rangeValue) {
+                rangeSlider.addEventListener('input', function() {
+                    rangeValue.textContent = this.value;
+                });
+            }
+
+            // Progress range with progress bar
+            const progressRange = document.getElementById('progressRange');
+            const progressBar = document.getElementById('progressBar');
+            if (progressRange && progressBar) {
+                progressRange.addEventListener('input', function() {
+                    const value = this.value;
+                    progressBar.style.width = value + '%';
+                    progressBar.setAttribute('aria-valuenow', value);
+                });
+            }
+
+            // Form validation
+            const forms = document.querySelectorAll('.needs-validation');
+            Array.from(forms).forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+
+            // Tag input functionality
+            const tagInput = document.querySelector('input[placeholder="Add tag..."]');
+            if (tagInput) {
+                tagInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        const value = this.value.trim();
+                        if (value) {
+                            const tag = document.createElement('span');
+                            tag.className = 'badge bg-secondary';
+                            tag.innerHTML = value + ' <i class="bi bi-x-lg ms-1" style="cursor: pointer;" onclick="this.parentElement.remove()"></i>';
+                            this.parentElement.insertBefore(tag, this);
+                            this.value = '';
+                        }
+                    }
+                });
+            }
+
+            // File upload preview
+            const imageUpload = document.getElementById('imageUpload');
+            if (imageUpload) {
+                imageUpload.addEventListener('change', function() {
+                    const file = this.files[0];
+                    if (file) {
+                        console.log('Selected file:', file.name, 'Size:', Math.round(file.size / 1024) + 'KB');
+                    }
+                });
+            }
+
+            // Drag and drop functionality
+            const dropZone = document.querySelector('.border-dashed');
+            if (dropZone) {
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    dropZone.addEventListener(eventName, preventDefaults, false);
+                });
+
+                function preventDefaults(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    dropZone.addEventListener(eventName, highlight, false);
+                });
+
+                ['dragleave', 'drop'].forEach(eventName => {
+                    dropZone.addEventListener(eventName, unhighlight, false);
+                });
+
+                function highlight() {
+                    dropZone.classList.add('border-primary');
+                }
+
+                function unhighlight() {
+                    dropZone.classList.remove('border-primary');
+                }
+
+                dropZone.addEventListener('drop', handleDrop, false);
+
+                function handleDrop(e) {
+                    const dt = e.dataTransfer;
+                    const files = dt.files;
+                    console.log('Dropped files:', files.length);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

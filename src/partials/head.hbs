@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{meta.description}}">
+    <meta name="keywords" content="{{meta.keywords}}">
+    <meta name="author" content="{{meta.author}}">
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="preconnect" href="https://ui-avatars.com" crossorigin>
+    <link rel="dns-prefetch" href="https://flagcdn.com">
+
+    <title>{{title}} - Kiaalap Dashboard</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    {{#if criticalCSS}}
+    <!-- Critical CSS for above-the-fold content -->
+    <style>
+        {{{criticalCSS}}}
+    </style>
+    {{/if}}
+
+    <!-- Load stylesheets -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="src/css/dashboard.css">
+    {{#each additionalCSS}}
+    <link rel="stylesheet" href="{{this}}">
+    {{/each}}
+
+    {{#if pageSpecificStyles}}
+    <!-- Page-specific styles -->
+    <style>
+        {{{pageSpecificStyles}}}
+    </style>
+    {{/if}}
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <!-- Required DOM elements for dashboard.js -->
+    <div class="search-backdrop" id="searchBackdrop"></div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>

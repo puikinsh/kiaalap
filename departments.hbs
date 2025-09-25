@@ -1,0 +1,499 @@
+---
+layout: "base"
+title: "Departments"
+pageTitle: "Departments"
+showPageHeader: true
+breadcrumb:
+  - title: "Departments"
+pageSpecificStyles: |
+  /* Critical CSS for immediate render */
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+          .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+          .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+          .top-navbar { background: white; height: 64px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+          .dashboard-content { padding: 24px; }
+  
+          /* Loading animation */
+          @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+          .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+pageSpecificJS: |
+  document.addEventListener('DOMContentLoaded', function() {
+              // Department search functionality
+              const searchInput = document.getElementById('departmentSearch');
+              const statusFilter = document.getElementById('statusFilter');
+              const tableRows = document.querySelectorAll('tbody tr');
+  
+              function filterTable() {
+                  const searchTerm = searchInput.value.toLowerCase();
+                  const statusFilter = statusFilter.value.toLowerCase();
+  
+                  tableRows.forEach(row => {
+                      const departmentName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                      const status = row.querySelector('.badge').textContent.toLowerCase();
+  
+                      const matchesSearch = departmentName.includes(searchTerm);
+                      const matchesStatus = statusFilter === '' || status.includes(statusFilter);
+  
+                      row.style.display = matchesSearch && matchesStatus ? '' : 'none';
+                  });
+              }
+  
+              searchInput.addEventListener('input', filterTable);
+              statusFilter.addEventListener('change', filterTable);
+          });
+---
+
+<!-- Page Header -->
+            <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h3 font-bold">Departments Management</h1>
+                        <p class="text-muted text-sm">Manage academic departments, staff, and student enrollment across your institution.</p>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-secondary">
+                            <i class="bi bi-download me-2"></i>Export Data
+                        </button>
+                        <a href="add-department.html" class="btn btn-primary">
+                            <i class="bi bi-plus-circle me-2"></i>Add Department
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Department Statistics -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-4">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body text-center">
+                            <div class="mb-3">
+                                <div class="stat-icon-large bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-building" style="font-size: 24px; color: #0d6efd;"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value text-primary fw-bold mb-1" style="font-size: 2rem;">8</div>
+                            <div class="stat-label text-muted mb-2">Total Departments</div>
+                            <div class="stat-change text-success small fw-semibold">
+                                <i class="bi bi-arrow-up" style="font-size: 12px;"></i> +2 this year
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body text-center">
+                            <div class="mb-3">
+                                <div class="stat-icon-large bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-check-circle" style="font-size: 24px; color: #198754;"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value text-success fw-bold mb-1" style="font-size: 2rem;">6</div>
+                            <div class="stat-label text-muted mb-2">Active Departments</div>
+                            <div class="stat-change text-success small fw-semibold">
+                                <i class="bi bi-arrow-up" style="font-size: 12px;"></i> 100% operational
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body text-center">
+                            <div class="mb-3">
+                                <div class="stat-icon-large bg-info bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-people" style="font-size: 24px; color: #0dcaf0;"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value text-info fw-bold mb-1" style="font-size: 2rem;">8,247</div>
+                            <div class="stat-label text-muted mb-2">Total Students</div>
+                            <div class="stat-change text-success small fw-semibold">
+                                <i class="bi bi-arrow-up" style="font-size: 12px;"></i> +12.5% this semester
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-body text-center">
+                            <div class="mb-3">
+                                <div class="stat-icon-large bg-warning bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 60px; height: 60px;">
+                                    <i class="bi bi-person-badge" style="font-size: 24px; color: #ffc107;"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value text-warning fw-bold mb-1" style="font-size: 2rem;">156</div>
+                            <div class="stat-label text-muted mb-2">Faculty Members</div>
+                            <div class="stat-change text-success small fw-semibold">
+                                <i class="bi bi-arrow-up" style="font-size: 12px;"></i> +8 new hires
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Departments Table -->
+            <div class="dashboard-row">
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">All Departments</h5>
+                            <div class="d-flex gap-2">
+                                <div class="input-group" style="width: 300px;">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-search"></i>
+                                    </span>
+                                    <input type="text" class="form-control" placeholder="Search departments..." id="departmentSearch">
+                                </div>
+                                <select class="form-select" style="width: auto;" id="statusFilter">
+                                    <option value="">All Status</option>
+                                    <option value="active">Active</option>
+                                    <option value="paused">Paused</option>
+                                    <option value="disabled">Disabled</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Department</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Department Head</th>
+                                        <th scope="col">Contact</th>
+                                        <th scope="col">Students</th>
+                                        <th scope="col">Faculty</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold">1</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="department-icon bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                                    <i class="bi bi-laptop text-primary"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="fw-semibold">Computer Science</div>
+                                                    <div class="text-muted small">Established 1995</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                                <i class="bi bi-check-circle me-1"></i>Active
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://ui-avatars.com/api/?name=Dr+John+Smith&background=0d6efd&color=fff"
+                                                     class="rounded-circle me-2" width="32" height="32" alt="Dr. John Smith">
+                                                <div>
+                                                    <div class="fw-semibold small">Dr. John Smith</div>
+                                                    <div class="text-muted" style="font-size: 0.75rem;">john.smith@kiaalap.edu</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="small">
+                                                <div><i class="bi bi-envelope me-1"></i>cs@kiaalap.edu</div>
+                                                <div class="text-muted"><i class="bi bi-phone me-1"></i>+1-555-0123</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <div class="fw-bold text-primary">1,542</div>
+                                                <div class="text-muted small">enrolled</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <div class="fw-bold text-info">28</div>
+                                                <div class="text-muted small">faculty</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-light btn-sm" data-bs-toggle="dropdown">
+                                                    <i class="bi bi-three-dots"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View Details</a></li>
+                                                    <li><a class="dropdown-item" href="edit-department.html"><i class="bi bi-pencil me-2"></i>Edit Department</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i class="bi bi-people me-2"></i>Manage Faculty</a></li>
+                                                    <li><hr class="dropdown-divider"></li>
+                                                    <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">2</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="department-icon bg-warning bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                                    <i class="bi bi-gear text-warning"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="fw-semibold">Mechanical Engineering</div>
+                                                    <div class="text-muted small">Established 1988</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-warning-subtle text-warning border border-warning-subtle">
+                                                <i class="bi bi-pause-circle me-1"></i>Paused
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://ui-avatars.com/api/?name=Dr+Lisa+Chen&background=ffc107&color=000"
+                                                     class="rounded-circle me-2" width="32" height="32" alt="Dr. Lisa Chen">
+                                                <div>
+                                                    <div class="fw-semibold small">Dr. Lisa Chen</div>
+                                                    <div class="text-muted" style="font-size: 0.75rem;">lisa.chen@kiaalap.edu</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="small">
+                                                <div><i class="bi bi-envelope me-1"></i>mech@kiaalap.edu</div>
+                                                <div class="text-muted"><i class="bi bi-phone me-1"></i>+1-555-0124</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <div class="fw-bold text-primary">1,285</div>
+                                                <div class="text-muted small">enrolled</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <div class="fw-bold text-info">22</div>
+                                                <div class="text-muted small">faculty</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-light btn-sm" data-bs-toggle="dropdown">
+                                                    <i class="bi bi-three-dots"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View Details</a></li>
+                                                    <li><a class="dropdown-item" href="edit-department.html"><i class="bi bi-pencil me-2"></i>Edit Department</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i class="bi bi-people me-2"></i>Manage Faculty</a></li>
+                                                    <li><hr class="dropdown-divider"></li>
+                                                    <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">3</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="department-icon bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                                    <i class="bi bi-briefcase text-success"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="fw-semibold">Business Administration</div>
+                                                    <div class="text-muted small">Established 1992</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                                <i class="bi bi-check-circle me-1"></i>Active
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://ui-avatars.com/api/?name=Dr+Michael+Brown&background=198754&color=fff"
+                                                     class="rounded-circle me-2" width="32" height="32" alt="Dr. Michael Brown">
+                                                <div>
+                                                    <div class="fw-semibold small">Dr. Michael Brown</div>
+                                                    <div class="text-muted" style="font-size: 0.75rem;">michael.brown@kiaalap.edu</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="small">
+                                                <div><i class="bi bi-envelope me-1"></i>business@kiaalap.edu</div>
+                                                <div class="text-muted"><i class="bi bi-phone me-1"></i>+1-555-0125</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <div class="fw-bold text-primary">2,156</div>
+                                                <div class="text-muted small">enrolled</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <div class="fw-bold text-info">35</div>
+                                                <div class="text-muted small">faculty</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-light btn-sm" data-bs-toggle="dropdown">
+                                                    <i class="bi bi-three-dots"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View Details</a></li>
+                                                    <li><a class="dropdown-item" href="edit-department.html"><i class="bi bi-pencil me-2"></i>Edit Department</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i class="bi bi-people me-2"></i>Manage Faculty</a></li>
+                                                    <li><hr class="dropdown-divider"></li>
+                                                    <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">4</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="department-icon bg-info bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                                    <i class="bi bi-heart-pulse text-info"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="fw-semibold">Medicine</div>
+                                                    <div class="text-muted small">Established 1985</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                                <i class="bi bi-check-circle me-1"></i>Active
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://ui-avatars.com/api/?name=Dr+Sarah+Wilson&background=0dcaf0&color=000"
+                                                     class="rounded-circle me-2" width="32" height="32" alt="Dr. Sarah Wilson">
+                                                <div>
+                                                    <div class="fw-semibold small">Dr. Sarah Wilson</div>
+                                                    <div class="text-muted" style="font-size: 0.75rem;">sarah.wilson@kiaalap.edu</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="small">
+                                                <div><i class="bi bi-envelope me-1"></i>medicine@kiaalap.edu</div>
+                                                <div class="text-muted"><i class="bi bi-phone me-1"></i>+1-555-0126</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <div class="fw-bold text-primary">875</div>
+                                                <div class="text-muted small">enrolled</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <div class="fw-bold text-info">45</div>
+                                                <div class="text-muted small">faculty</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-light btn-sm" data-bs-toggle="dropdown">
+                                                    <i class="bi bi-three-dots"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View Details</a></li>
+                                                    <li><a class="dropdown-item" href="edit-department.html"><i class="bi bi-pencil me-2"></i>Edit Department</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i class="bi bi-people me-2"></i>Manage Faculty</a></li>
+                                                    <li><hr class="dropdown-divider"></li>
+                                                    <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">5</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="department-icon bg-secondary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                                    <i class="bi bi-palette text-secondary"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="fw-semibold">Fine Arts</div>
+                                                    <div class="text-muted small">Established 1998</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle">
+                                                <i class="bi bi-x-circle me-1"></i>Disabled
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://ui-avatars.com/api/?name=Dr+Emma+Davis&background=6c757d&color=fff"
+                                                     class="rounded-circle me-2" width="32" height="32" alt="Dr. Emma Davis">
+                                                <div>
+                                                    <div class="fw-semibold small">Dr. Emma Davis</div>
+                                                    <div class="text-muted" style="font-size: 0.75rem;">emma.davis@kiaalap.edu</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="small">
+                                                <div><i class="bi bi-envelope me-1"></i>arts@kiaalap.edu</div>
+                                                <div class="text-muted"><i class="bi bi-phone me-1"></i>+1-555-0127</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <div class="fw-bold text-primary">423</div>
+                                                <div class="text-muted small">enrolled</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <div class="fw-bold text-info">18</div>
+                                                <div class="text-muted small">faculty</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-light btn-sm" data-bs-toggle="dropdown">
+                                                    <i class="bi bi-three-dots"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View Details</a></li>
+                                                    <li><a class="dropdown-item" href="edit-department.html"><i class="bi bi-pencil me-2"></i>Edit Department</a></li>
+                                                    <li><a class="dropdown-item" href="#"><i class="bi bi-people me-2"></i>Manage Faculty</a></li>
+                                                    <li><hr class="dropdown-divider"></li>
+                                                    <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
+                        <nav aria-label="Departments pagination" class="mt-4">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                <li class="page-item active">
+                                    <a class="page-link" href="#">1</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">3</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>

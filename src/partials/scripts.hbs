@@ -1,0 +1,15 @@
+    <!-- Load JavaScript -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="src/js/dashboard.js"></script>
+
+    {{#each additionalJS}}
+    <script src="{{this}}"></script>
+    {{/each}}
+
+    {{#if pageSpecificJS}}
+    <script>
+        {{{pageSpecificJS}}}
+    </script>
+    {{/if}}
+</body>
+</html>

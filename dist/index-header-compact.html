@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiaalap - Compact Header with Sidebar Toggle</title>
+
+    <!-- Bootstrap 5.3.8 CSS from npm -->
+    <!-- Bootstrap Icons from npm -->
+
+    <style>:root{--sidebar-width:260px;--header-height:60px}body{background-color:#f5f7fa}.sidebar{background:#1e293b;height:100vh;left:0;position:fixed;top:0;transition:transform .3s ease-in-out;width:var(--sidebar-width);z-index:1000}.sidebar.collapsed{transform:translateX(-100%)}.sidebar-overlay{background:rgba(0,0,0,.5);height:100%;left:0;opacity:0;position:fixed;top:0;transition:opacity .3s ease-in-out;visibility:hidden;width:100%;z-index:999}.sidebar-overlay.active{opacity:1;visibility:visible}.main-wrapper{margin-left:var(--sidebar-width);min-height:100vh;transition:margin-left .3s ease-in-out}.main-wrapper.full-width{margin-left:0}.top-navbar{align-items:center;background:#fff;border-bottom:1px solid #e5e7eb;box-shadow:0 1px 3px 0 rgba(0,0,0,.1);display:flex;height:var(--header-height);padding:0 1rem!important}.hamburger-menu{background:none;border:none;color:#495057;cursor:pointer;font-size:1.25rem;margin-right:1rem;padding:.25rem .5rem}.hamburger-menu:hover{background-color:#f8f9fa;border-radius:6px}.search-container{position:relative}.search-container,.search-form{align-items:center;display:flex}.search-form{overflow:hidden;position:absolute;right:0;top:50%;transform:translateY(-50%);transition:width .3s ease-in-out;width:0}.search-form.active{width:300px}.search-form .form-control{border-color:#e5e7eb;border-radius:8px;height:36px;opacity:0;padding:.375rem .75rem .375rem 2.25rem;transition:opacity .3s ease-in-out;width:100%}.search-form.active .form-control{opacity:1}.search-form .search-icon{left:.75rem;z-index:10}.search-form .close-search,.search-form .search-icon{color:#6b7280;font-size:.875rem;position:absolute;top:50%;transform:translateY(-50%)}.search-form .close-search{background:none;border:none;cursor:pointer;opacity:0;right:.75rem;transition:opacity .3s ease-in-out}.search-form.active .close-search{opacity:1}.btn-header{border-radius:6px;font-size:1.125rem;padding:.375rem .625rem}.notification-dot{background-color:#ef4444;border:2px solid #fff;border-radius:50%;height:6px;position:absolute;right:6px;top:6px;width:6px}.user-avatar{border-radius:50%;height:32px;object-fit:cover;width:32px}.dropdown-menu{border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,.1);min-width:280px;padding:.5rem}.dropdown-item{border-radius:8px;font-size:.875rem;padding:.5rem .75rem}.dropdown-item:hover{background-color:#f3f4f6}.notification-item{align-items:start;border-radius:8px;display:flex;padding:.625rem;transition:background-color .2s}.notification-item:hover{background-color:#f8f9fa}.notification-icon{align-items:center;border-radius:8px;display:flex;flex-shrink:0;font-size:.875rem;height:36px;justify-content:center;margin-right:.625rem;width:36px}@media (max-width:768px){.sidebar{transform:translateX(-100%)}.sidebar.active{transform:translateX(0)}.main-wrapper{margin-left:0}.search-form.active{width:200px}.hide-mobile{display:none!important}}.search-backdrop{backdrop-filter:blur(2px);background:rgba(0,0,0,.3);bottom:0;left:0;opacity:0;position:fixed;right:0;top:0;transition:opacity .3s ease-in-out;visibility:hidden;z-index:999}.search-backdrop.active{opacity:1;visibility:visible}.btn-new{font-size:.875rem;padding:.375rem .75rem}</style>
+  <link rel="stylesheet" crossorigin href="./assets/bootstrap-C31-XpK9.css">
+  <link rel="stylesheet" crossorigin href="./assets/bootstrap-icons--Sisaltn.css">
+</head>
+<body>
+    <!-- Search Backdrop -->
+    <div class="search-backdrop" id="searchBackdrop"></div>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar d-flex flex-column" id="sidebar">
+        <div class="p-3 border-bottom border-dark">
+            <div class="d-flex align-items-center justify-content-between">
+                <h5 class="text-white mb-0">
+                    <i class="bi bi-mortarboard-fill me-2"></i>Kiaalap
+                </h5>
+                <button class="btn btn-link text-white d-lg-none p-0" id="closeSidebarMobile">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        </div>
+        <nav class="flex-grow-1 p-3">
+            <ul class="nav flex-column">
+                <li class="nav-item mb-1">
+                    <a class="nav-link text-white-50" href="#">
+                        <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item mb-1">
+                    <a class="nav-link text-white-50" href="#">
+                        <i class="bi bi-people me-2"></i> Students
+                    </a>
+                </li>
+                <li class="nav-item mb-1">
+                    <a class="nav-link text-white-50" href="#">
+                        <i class="bi bi-book me-2"></i> Courses
+                    </a>
+                </li>
+                <li class="nav-item mb-1">
+                    <a class="nav-link text-white-50" href="#">
+                        <i class="bi bi-person-badge me-2"></i> Teachers
+                    </a>
+                </li>
+                <li class="nav-item mb-1">
+                    <a class="nav-link text-white-50" href="#">
+                        <i class="bi bi-calendar3 me-2"></i> Schedule
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper" id="mainWrapper">
+        <!-- Compact Header -->
+        <nav class="navbar top-navbar sticky-top" style="z-index: 1000;">
+            <div class="container-fluid d-flex align-items-center h-100">
+                <!-- Hamburger Menu -->
+                <button class="hamburger-menu" id="sidebarToggle" type="button">
+                    <i class="bi bi-list"></i>
+                </button>
+
+                <!-- Logo/Brand for mobile -->
+                <div class="navbar-brand d-lg-none fw-bold me-auto">Kiaalap</div>
+
+                <!-- Spacer for desktop -->
+                <div class="flex-grow-1 d-none d-lg-block"></div>
+
+                <!-- Right Side Actions -->
+                <div class="d-flex align-items-center gap-2">
+                    <!-- Search Container -->
+                    <div class="search-container">
+                        <!-- Search Toggle Button -->
+                        <button class="btn btn-light btn-header" id="searchToggle" type="button">
+                            <i class="bi bi-search"></i>
+                        </button>
+
+                        <!-- Expandable Search Form -->
+                        <div class="search-form" id="searchForm">
+                            <i class="bi bi-search search-icon"></i>
+                            <input type="text"
+                                   class="form-control"
+                                   id="searchInput"
+                                   placeholder="Search..."
+                                   data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                            <button class="close-search" id="closeSearch">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+
+                            <!-- Minimal Search Dropdown -->
+                            <ul class="dropdown-menu w-100 mt-2" style="min-width: auto;">
+                                <li><a class="dropdown-item" href="#">Student Registration</a></li>
+                                <li><a class="dropdown-item" href="#">Course Schedule</a></li>
+                                <li><a class="dropdown-item" href="#">Grade Reports</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions (Desktop only) -->
+                    <button class="btn btn-primary btn-new hide-mobile">
+                        <i class="bi bi-plus-circle me-1"></i> New
+                    </button>
+
+                    <!-- Messages -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-header position-relative"
+                                type="button"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-chat-dots"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" style="font-size: 0.625rem;">
+                                5
+                            </span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0 fs-6">Messages</h6>
+                                    <a href="#" class="text-primary small text-decoration-none">View All</a>
+                                </div>
+                            </div>
+                            <div class="p-2" style="max-height: 300px; overflow-y: auto;">
+                                <a href="#" class="notification-item text-decoration-none text-dark">
+                                    <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&background=10b981&color=fff"
+                                         class="rounded-circle"
+                                         width="36"
+                                         height="36">
+                                    <div class="ms-2 flex-grow-1">
+                                        <div class="fw-semibold small">Sarah Johnson</div>
+                                        <div class="text-muted" style="font-size: 0.75rem;">Can you review my thesis?</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">2 min ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-header position-relative"
+                                type="button"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-bell"></i>
+                            <span class="notification-dot"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0 fs-6">Notifications</h6>
+                                    <a href="#" class="text-primary small text-decoration-none">Mark all read</a>
+                                </div>
+                            </div>
+                            <div class="p-2" style="max-height: 350px; overflow-y: auto;">
+                                <a href="#" class="notification-item text-decoration-none text-dark">
+                                    <div class="notification-icon bg-primary bg-opacity-10 text-primary">
+                                        <i class="bi bi-calendar-check"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">New Event Added</div>
+                                        <div class="text-muted" style="font-size: 0.75rem;">Science Fair on March 15</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">5 minutes ago</div>
+                                    </div>
+                                </a>
+
+                                <a href="#" class="notification-item text-decoration-none text-dark">
+                                    <div class="notification-icon bg-success bg-opacity-10 text-success">
+                                        <i class="bi bi-check-circle"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Assignment Submitted</div>
+                                        <div class="text-muted" style="font-size: 0.75rem;">12 students submitted</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">1 hour ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="dropdown">
+                        <button class="btn btn-light d-flex align-items-center gap-2 px-2 btn-header"
+                                type="button"
+                                data-bs-toggle="dropdown">
+                            <img src="https://ui-avatars.com/api/?name=John+Doe&background=6366f1&color=fff"
+                                 alt="User"
+                                 class="user-avatar">
+                            <div class="text-start hide-mobile">
+                                <div class="fw-semibold" style="font-size: 0.8rem; line-height: 1;">John Doe</div>
+                                <div class="text-muted" style="font-size: 0.7rem; line-height: 1;">Admin</div>
+                            </div>
+                            <i class="bi bi-chevron-down hide-mobile" style="font-size: 0.75rem;"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li class="px-3 py-2 border-bottom">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://ui-avatars.com/api/?name=John+Doe&background=6366f1&color=fff"
+                                         alt="User"
+                                         width="40"
+                                         height="40"
+                                         class="rounded-circle">
+                                    <div class="ms-3">
+                                        <div class="fw-semibold">John Doe</div>
+                                        <div class="text-muted small">john.doe@kiaalap.edu</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> My Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sign Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+        <main class="p-4">
+            <div class="container-fluid">
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb" class="mb-3">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Analytics</li>
+                    </ol>
+                </nav>
+
+                <!-- Page Title -->
+                <div class="row mb-4">
+                    <div class="col">
+                        <h1 class="h3 mb-1">Dashboard Analytics</h1>
+                        <p class="text-muted mb-0">Welcome back, John! Here's what's happening today.</p>
+                    </div>
+                </div>
+
+                <!-- Content Cards -->
+                <div class="row g-3">
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="text-muted mb-1">Total Students</h6>
+                                        <h3 class="mb-0">2,543</h3>
+                                        <small class="text-success">
+                                            <i class="bi bi-arrow-up"></i> 12%
+                                        </small>
+                                    </div>
+                                    <div class="bg-primary bg-opacity-10 p-2 rounded">
+                                        <i class="bi bi-people-fill text-primary fs-4"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="text-muted mb-1">Total Courses</h6>
+                                        <h3 class="mb-0">186</h3>
+                                        <small class="text-success">
+                                            <i class="bi bi-arrow-up"></i> 5%
+                                        </small>
+                                    </div>
+                                    <div class="bg-success bg-opacity-10 p-2 rounded">
+                                        <i class="bi bi-book-fill text-success fs-4"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="text-muted mb-1">Revenue</h6>
+                                        <h3 class="mb-0">$48,697</h3>
+                                        <small class="text-danger">
+                                            <i class="bi bi-arrow-down"></i> 3%
+                                        </small>
+                                    </div>
+                                    <div class="bg-warning bg-opacity-10 p-2 rounded">
+                                        <i class="bi bi-currency-dollar text-warning fs-4"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="text-muted mb-1">Events Today</h6>
+                                        <h3 class="mb-0">8</h3>
+                                        <small class="text-muted">3 upcoming</small>
+                                    </div>
+                                    <div class="bg-info bg-opacity-10 p-2 rounded">
+                                        <i class="bi bi-calendar-event text-info fs-4"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap 5.3.8 Bundle from npm -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Sidebar toggle functionality
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const mainWrapper = document.getElementById('mainWrapper');
+        const closeSidebarMobile = document.getElementById('closeSidebarMobile');
+
+        // Toggle sidebar
+        sidebarToggle.addEventListener('click', function() {
+            if (window.innerWidth > 768) {
+                // Desktop: toggle collapsed class
+                sidebar.classList.toggle('collapsed');
+                mainWrapper.classList.toggle('full-width');
+
+                // Save state to localStorage
+                const isCollapsed = sidebar.classList.contains('collapsed');
+                localStorage.setItem('sidebarCollapsed', isCollapsed);
+            } else {
+                // Mobile: show sidebar with overlay
+                sidebar.classList.add('active');
+                sidebarOverlay.classList.add('active');
+            }
+        });
+
+        // Close sidebar on mobile
+        closeSidebarMobile.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+        });
+
+        // Close sidebar when clicking overlay
+        sidebarOverlay.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+        });
+
+        // Restore sidebar state on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            if (isCollapsed && window.innerWidth > 768) {
+                sidebar.classList.add('collapsed');
+                mainWrapper.classList.add('full-width');
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+            } else {
+                sidebar.classList.remove('collapsed');
+                mainWrapper.classList.remove('full-width');
+            }
+        });
+
+        // Search functionality
+        const searchToggle = document.getElementById('searchToggle');
+        const searchForm = document.getElementById('searchForm');
+        const searchInput = document.getElementById('searchInput');
+        const closeSearch = document.getElementById('closeSearch');
+        const searchBackdrop = document.getElementById('searchBackdrop');
+
+        // Open search
+        searchToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            searchForm.classList.add('active');
+            searchBackdrop.classList.add('active');
+            searchToggle.style.visibility = 'hidden';
+            setTimeout(() => searchInput.focus(), 300);
+        });
+
+        // Close search
+        closeSearch.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closeSearchBar();
+        });
+
+        searchBackdrop.addEventListener('click', closeSearchBar);
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && searchForm.classList.contains('active')) {
+                closeSearchBar();
+            }
+        });
+
+        function closeSearchBar() {
+            searchForm.classList.remove('active');
+            searchBackdrop.classList.remove('active');
+            searchToggle.style.visibility = 'visible';
+            searchInput.value = '';
+            const dropdown = bootstrap.Dropdown.getInstance(searchInput);
+            if (dropdown) dropdown.hide();
+        }
+
+        searchForm.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        // Show dropdown when typing
+        searchInput.addEventListener('input', function() {
+            if (this.value.length > 0) {
+                const dropdown = new bootstrap.Dropdown(this);
+                dropdown.show();
+            }
+        });
+    </script>
+</body>
+</html>
