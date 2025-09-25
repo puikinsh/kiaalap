@@ -1,248 +1,718 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
-
+<html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Peity Charts - Lightweight inline SVG charts for simple data visualization">
+    <meta name="keywords" content="peity charts, inline charts, svg charts, dashboard, analytics">
+    <meta name="author" content="Kiaalap">
 
-    <title>Peity | Kiaalap - Kiaalap Admin Template</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- favicon
-		============================================ -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-    <!-- Google Fonts
-		============================================ -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
-    <!-- Bootstrap CSS
-		============================================ -->
-        <!-- Bootstrap 5.3.8 CSS -->
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="preconnect" href="https://ui-avatars.com" crossorigin>
+    <link rel="dns-prefetch" href="https://flagcdn.com">
+
+    <title>Peity Charts - Kiaalap Dashboard</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Critical CSS for above-the-fold content -->
+    <style>
+        /* Critical CSS for immediate render */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .top-navbar { background: white; height: 64px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .dashboard-content { padding: 24px; }
+
+        /* Loading animation */
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+    </style>
+
+    <!-- Load stylesheets -->
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
-    <!-- Modern Styles -->
-    <link rel="stylesheet" href="src/scss/main.scss">
-    <!-- responsive CSS
-		============================================ -->
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="src/css/dashboard.css">
+    <link rel="stylesheet" href="src/css/charts-layout.css">
 
+    <!-- Peity-specific styles -->
+    <style>
+        .peity-chart-item {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .peity-chart-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+
+        .peity-chart-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 10px;
+        }
+
+        .peity-chart-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+        }
+    </style>
 </head>
-
 <body>
-    <div class="wrapper">
-        <aside class="sidebar" id="sidebar">
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <!-- Required DOM elements for dashboard.js -->
+    <div class="search-backdrop" id="searchBackdrop"></div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <a href="#" class="sidebar-logo">
-                <i class="fas fa-graduation-cap" style="font-size: 1.5rem; color: var(--primary-color);"></i>
-                <span class="sidebar-logo-text">Kiaalap</span>
-            </a>
+            <div class="sidebar-brand">
+                <h5>
+                    <i class="bi bi-mortarboard-fill"></i>
+                    Kiaalap
+                </h5>
+                <button class="sidebar-close" id="sidebarClose">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
         </div>
 
-        <div class="sidebar-menu">
-            <!-- Dashboard Section -->
+        <nav class="sidebar-nav">
             <div class="menu-section">
                 <div class="menu-section-title">Main</div>
-                <ul class="nav-menu">
+                <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a href="#dashboard" class="nav-link active" data-bs-toggle="collapse" aria-expanded="true">
-                            <i class="nav-icon fas fa-home"></i>
-                            <span class="nav-text">Dashboard</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        <a class="nav-link has-submenu" href="#dashboard" data-bs-target="#dashboardSubmenu" aria-expanded="false">
+                            <i class="bi bi-speedometer2"></i>
+                            <span>Dashboard</span>
                         </a>
-                        <ul class="submenu collapse show" id="dashboard">
-                            <li><a href="#" class="nav-link">Analytics</a></li>
-                            <li><a href="#" class="nav-link">Reports</a></li>
-                            <li><a href="#" class="nav-link">Widgets</a></li>
+                        <ul id="dashboardSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="index.html">Dashboard v.1</a></li>
+                            <li><a class="nav-link" href="index-1.html">Dashboard v.2</a></li>
+                            <li><a class="nav-link" href="index-2.html">Dashboard v.3</a></li>
+                            <li><a class="nav-link" href="analytics.html">Analytics</a></li>
+                            <li><a class="nav-link" href="widgets.html">Widgets</a></li>
                         </ul>
                     </li>
-
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-calendar"></i>
-                            <span class="nav-text">Events</span>
+                        <a class="nav-link" href="events.html">
+                            <i class="bi bi-calendar-event"></i>
+                            <span>Events</span>
                         </a>
                     </li>
                 </ul>
             </div>
 
-            <!-- Academic Section -->
             <div class="menu-section">
                 <div class="menu-section-title">Academic</div>
-                <ul class="nav-menu">
+                <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a href="#professors" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                            <span class="nav-text">Professors</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        <a class="nav-link has-submenu" href="#professors" data-bs-target="#professorsSubmenu" aria-expanded="false">
+                            <i class="bi bi-person-badge"></i>
+                            <span>Professors</span>
                         </a>
-                        <ul class="submenu collapse" id="professors">
-                            <li><a href="#" class="nav-link">All Professors</a></li>
-                            <li><a href="#" class="nav-link">Add Professor</a></li>
-                            <li><a href="#" class="nav-link">Edit Professor</a></li>
+                        <ul id="professorsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-professors.html">All Professors</a></li>
+                            <li><a class="nav-link" href="add-professor.html">Add Professor</a></li>
+                            <li><a class="nav-link" href="edit-professor.html">Edit Professor</a></li>
+                            <li><a class="nav-link" href="professor-profile.html">Professor Profile</a></li>
                         </ul>
                     </li>
-
                     <li class="nav-item">
-                        <a href="#students" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-user-graduate"></i>
-                            <span class="nav-text">Students</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        <a class="nav-link has-submenu" href="#students" data-bs-target="#studentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-people"></i>
+                            <span>Students</span>
                         </a>
-                        <ul class="submenu collapse" id="students">
-                            <li><a href="#" class="nav-link">All Students</a></li>
-                            <li><a href="#" class="nav-link">Add Student</a></li>
-                            <li><a href="#" class="nav-link">Student Profile</a></li>
+                        <ul id="studentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-students.html">All Students</a></li>
+                            <li><a class="nav-link" href="add-student.html">Add Student</a></li>
+                            <li><a class="nav-link" href="edit-student.html">Edit Student</a></li>
+                            <li><a class="nav-link" href="student-profile.html">Student Profile</a></li>
                         </ul>
                     </li>
-
                     <li class="nav-item">
-                        <a href="#courses" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book"></i>
-                            <span class="nav-text">Courses</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        <a class="nav-link has-submenu" href="#courses" data-bs-target="#coursesSubmenu" aria-expanded="false">
+                            <i class="bi bi-book"></i>
+                            <span>Courses</span>
                         </a>
-                        <ul class="submenu collapse" id="courses">
-                            <li><a href="#" class="nav-link">All Courses</a></li>
-                            <li><a href="#" class="nav-link">Add Course</a></li>
-                            <li><a href="#" class="nav-link">Course Info</a></li>
+                        <ul id="coursesSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-courses.html">All Courses</a></li>
+                            <li><a class="nav-link" href="add-course.html">Add Course</a></li>
+                            <li><a class="nav-link" href="edit-course.html">Edit Course</a></li>
+                            <li><a class="nav-link" href="course-info.html">Course Info</a></li>
+                            <li><a class="nav-link" href="course-payment.html">Course Payment</a></li>
                         </ul>
                     </li>
-
                     <li class="nav-item">
-                        <a href="#library" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book-open"></i>
-                            <span class="nav-text">Library</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        <a class="nav-link has-submenu" href="#library" data-bs-target="#librarySubmenu" aria-expanded="false">
+                            <i class="bi bi-journal-bookmark"></i>
+                            <span>Library</span>
                         </a>
-                        <ul class="submenu collapse" id="library">
-                            <li><a href="#" class="nav-link">Library Assets</a></li>
-                            <li><a href="#" class="nav-link">Add Asset</a></li>
+                        <ul id="librarySubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="library-assets.html">Library Assets</a></li>
+                            <li><a class="nav-link" href="add-library-assets.html">Add Library Asset</a></li>
+                            <li><a class="nav-link" href="edit-library-assets.html">Edit Library Asset</a></li>
                         </ul>
                     </li>
-
                     <li class="nav-item">
-                        <a href="#departments" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-building"></i>
-                            <span class="nav-text">Departments</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        <a class="nav-link has-submenu" href="#departments" data-bs-target="#departmentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-building"></i>
+                            <span>Departments</span>
                         </a>
-                        <ul class="submenu collapse" id="departments">
-                            <li><a href="#" class="nav-link">All Departments</a></li>
-                            <li><a href="#" class="nav-link">Add Department</a></li>
+                        <ul id="departmentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="departments.html">Departments List</a></li>
+                            <li><a class="nav-link" href="add-department.html">Add Department</a></li>
+                            <li><a class="nav-link" href="edit-department.html">Edit Department</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
 
-            <!-- Tools Section -->
             <div class="menu-section">
-                <div class="menu-section-title">Tools</div>
-                <ul class="nav-menu">
+                <div class="menu-section-title">Communication</div>
+                <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a href="#mailbox" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-envelope"></i>
-                            <span class="nav-text">Mailbox</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        <a class="nav-link has-submenu" href="#mailbox" data-bs-target="#mailboxSubmenu" aria-expanded="false">
+                            <i class="bi bi-envelope"></i>
+                            <span>Mailbox</span>
                         </a>
-                        <ul class="submenu collapse" id="mailbox">
-                            <li><a href="#" class="nav-link">Inbox</a></li>
-                            <li><a href="#" class="nav-link">Compose</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#charts" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chart-line"></i>
-                            <span class="nav-text">Charts</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="charts">
-                            <li><a href="#" class="nav-link">Line Charts</a></li>
-                            <li><a href="#" class="nav-link">Bar Charts</a></li>
-                            <li><a href="#" class="nav-link">Area Charts</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#tables" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-table"></i>
-                            <span class="nav-text">Tables</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="tables">
-                            <li><a href="#" class="nav-link">Basic Tables</a></li>
-                            <li><a href="#" class="nav-link">Data Tables</a></li>
+                        <ul id="mailboxSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="mailbox.html">Inbox</a></li>
+                            <li><a class="nav-link" href="mailbox-compose.html">Compose</a></li>
+                            <li><a class="nav-link" href="mailbox-view.html">View Message</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
-        </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Interface</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#components" data-bs-target="#componentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-layout-wtf"></i>
+                            <span>Components</span>
+                        </a>
+                        <ul id="componentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="buttons.html">Buttons</a></li>
+                            <li><a class="nav-link" href="alerts.html">Alerts</a></li>
+                            <li><a class="nav-link" href="modals.html">Modals</a></li>
+                            <li><a class="nav-link" href="tabs.html">Tabs</a></li>
+                            <li><a class="nav-link" href="accordion.html">Accordion</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#forms" data-bs-target="#formsSubmenu" aria-expanded="false">
+                            <i class="bi bi-card-list"></i>
+                            <span>Forms</span>
+                        </a>
+                        <ul id="formsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="basic-form-element.html">Basic Forms</a></li>
+                            <li><a class="nav-link" href="advance-form-element.html">Advanced Forms</a></li>
+                            <li><a class="nav-link" href="password-meter.html">Password Meter</a></li>
+                            <li><a class="nav-link" href="multi-upload.html">File Upload</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu active" href="#charts" data-bs-target="#chartsSubmenu" aria-expanded="true">
+                            <i class="bi bi-bar-chart"></i>
+                            <span>Charts</span>
+                        </a>
+                        <ul id="chartsSubmenu" class="submenu collapse show list-unstyled">
+                            <li><a class="nav-link" href="line-charts.html">Line Charts</a></li>
+                            <li><a class="nav-link" href="area-charts.html">Area Charts</a></li>
+                            <li><a class="nav-link" href="bar-charts.html">Bar Charts</a></li>
+                            <li><a class="nav-link" href="c3.html">C3 Charts</a></li>
+                            <li><a class="nav-link active" href="peity.html">Peity Charts</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#tables" data-bs-target="#tablesSubmenu" aria-expanded="false">
+                            <i class="bi bi-table"></i>
+                            <span>Tables</span>
+                        </a>
+                        <ul id="tablesSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="static-table.html">Static Tables</a></li>
+                            <li><a class="nav-link" href="data-table.html">Data Tables</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Pages</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#authentication" data-bs-target="#authSubmenu" aria-expanded="false">
+                            <i class="bi bi-shield-lock"></i>
+                            <span>Authentication</span>
+                        </a>
+                        <ul id="authSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="login.html">Login</a></li>
+                            <li><a class="nav-link" href="register.html">Register</a></li>
+                            <li><a class="nav-link" href="lock.html">Lock Screen</a></li>
+                            <li><a class="nav-link" href="password-recovery.html">Forgot Password</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#errors" data-bs-target="#errorsSubmenu" aria-expanded="false">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            <span>Error Pages</span>
+                        </a>
+                        <ul id="errorsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="404.html">404 Error</a></li>
+                            <li><a class="nav-link" href="500.html">500 Error</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </aside>
 
-        <div class="main-content">
-            <header class="header">
-            <div class="header-left">
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-bars"></i>
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper" id="mainWrapper">
+        <!-- Header -->
+        <nav class="navbar top-navbar">
+            <div class="container-fluid d-flex align-items-center h-100">
+                <!-- Hamburger Menu -->
+                <button class="hamburger-menu" id="sidebarToggle">
+                    <i class="bi bi-list"></i>
                 </button>
 
-                <form class="search-form">
-                    <i class="search-icon fas fa-search"></i>
-                    <input type="text" class="search-input" placeholder="Search...">
-                </form>
-            </div>
+                <!-- Breadcrumb for desktop -->
+                <nav aria-label="breadcrumb" class="d-none d-lg-block ms-3">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#charts">Charts</a></li>
+                        <li class="breadcrumb-item active">Peity Charts</li>
+                    </ol>
+                </nav>
 
-            <div class="header-right">
-                <button class="header-btn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge"></span>
-                </button>
+                <!-- Logo for mobile -->
+                <div class="navbar-brand d-lg-none fw-bold me-auto">Kiaalap</div>
 
-                <button class="header-btn">
-                    <i class="fas fa-envelope"></i>
-                </button>
+                <!-- Spacer for desktop -->
+                <div class="flex-grow-1 d-none d-lg-block"></div>
 
-                <button class="header-btn">
-                    <i class="fas fa-cog"></i>
-                </button>
+                <!-- Right Actions -->
+                <div class="d-flex align-items-center gap-2">
+                    <!-- Search -->
+                    <div class="search-container">
+                        <button class="btn btn-light btn-icon" id="searchToggle">
+                            <i class="bi bi-search"></i>
+                        </button>
 
-                <div class="dropdown">
-                    <div class="user-menu" data-bs-toggle="dropdown">
-                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=4361ee&color=fff" alt="User" class="user-avatar">
-                        <div class="user-info">
-                            <span class="user-name">John Doe</span>
-                            <span class="user-role">Administrator</span>
-                        </div>
-                        <i class="fas fa-chevron-down ms-2" style="font-size: 0.75rem; color: #6b7280;"></i>
+                        <form class="search-form" id="searchForm">
+                            <i class="bi bi-search search-icon"></i>
+                            <input type="text"
+                                   class="form-control"
+                                   id="searchInput"
+                                   placeholder="Search..."
+                                   data-bs-toggle="dropdown">
+                            <button type="button" class="close-search" id="closeSearch">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+
+                            <ul class="dropdown-menu w-100 mt-2">
+                                <li><a class="dropdown-item" href="#">Student Registration</a></li>
+                                <li><a class="dropdown-item" href="#">Course Schedule</a></li>
+                                <li><a class="dropdown-item" href="#">Grade Reports</a></li>
+                            </ul>
+                        </form>
                     </div>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-        </header>
 
-            <div class="content-wrapper">
-                <div class="container-fluid p-4">
-                    
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="logo-pro">
-                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                    
+                    <!-- Quick Actions -->
+                    <button class="btn btn-primary btn-sm hide-mobile">
+                        <i class="bi bi-plus-circle me-1"></i> New
+                    </button>
+
+                    <!-- Messages -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-icon position-relative"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-chat-dots"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"
+                                  style="font-size: 0.625rem;">5</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <h6 class="mb-0">Messages</h6>
+                            </div>
+                            <div class="p-2" style="max-height: 300px; overflow-y: auto;">
+                                <a href="#" class="notification-item">
+                                    <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&background=10b981&color=fff"
+                                         class="rounded-circle"
+                                         width="36"
+                                         height="36"
+                                         alt="Sarah">
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Sarah Johnson</div>
+                                        <div class="text-muted small">Can you review my thesis?</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">2 min ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="notification-item">
+                                    <img src="https://ui-avatars.com/api/?name=Mike+Chen&background=6366f1&color=fff"
+                                         class="rounded-circle"
+                                         width="36"
+                                         height="36"
+                                         alt="Mike">
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Mike Chen</div>
+                                        <div class="text-muted small">Meeting at 3 PM today</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">1 hour ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="border-top p-2 text-center">
+                                <a href="#" class="text-primary small">View All Messages</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-icon position-relative"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-bell"></i>
+                            <span class="notification-dot"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <h6 class="mb-0">Notifications</h6>
+                            </div>
+                            <div class="p-2" style="max-height: 350px; overflow-y: auto;">
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon bg-primary bg-opacity-10 text-primary">
+                                        <i class="bi bi-calendar-check"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">New Event</div>
+                                        <div class="text-muted small">Science Fair on March 15</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">5 minutes ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon bg-success bg-opacity-10 text-success">
+                                        <i class="bi bi-check-circle"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Assignment Submitted</div>
+                                        <div class="text-muted small">John submitted his project</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">2 hours ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon bg-warning bg-opacity-10 text-warning">
+                                        <i class="bi bi-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">System Alert</div>
+                                        <div class="text-muted small">Database backup completed</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">Yesterday</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="border-top p-2 text-center">
+                                <a href="#" class="text-primary small">View All Notifications</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="dropdown">
+                        <button class="btn btn-light d-flex align-items-center px-2 btn-icon"
+                                data-bs-toggle="dropdown">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces"
+                                 alt="User"
+                                 class="user-avatar"
+                                 loading="lazy"
+                                 width="32"
+                                 height="32">
+                            <span class="hide-mobile ms-2" style="font-size: 0.875rem;">Sarah Johnson</span>
+                            <i class="bi bi-chevron-down hide-mobile ms-1" style="font-size: 0.75rem;"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li class="px-3 py-2 border-bottom">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces"
+                                         alt="User"
+                                         width="48"
+                                         height="48"
+                                         class="rounded-circle">
+                                    <div class="ms-3">
+                                        <div class="fw-semibold">Sarah Johnson</div>
+                                        <div class="text-muted small">sarah.johnson@kiaalap.edu</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-bell me-2"></i> Preferences</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sign Out</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
+        </nav>
+
+        <!-- Dashboard Content -->
+        <main class="dashboard-content" id="main-content" role="main">
+            <!-- Page Header -->
+            <div class="mb-3">
+                <h1 class="h3 font-bold">Peity Charts</h1>
+                <p class="text-muted text-sm">Lightweight inline SVG charts for simple and elegant data visualization</p>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="dashboard-grid">
+                <!-- Line Charts Row -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-title-wrapper">
+                            <h3 class="card-title">Line Charts</h3>
+                            <p class="card-subtitle">Inline trend visualizations</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="peity-chart-item">
+                                    <div class="peity-chart-title">Enrollment Trend</div>
+                                    <div class="peity-chart-value">1,234</div>
+                                    <div class="peity-chart-container">
+                                        <span class="line-chart">5,3,9,6,5,9,7,3,5,2</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="peity-chart-item">
+                                    <div class="peity-chart-title">Course Completion</div>
+                                    <div class="peity-chart-value">892</div>
+                                    <div class="peity-chart-container">
+                                        <span class="line-chart">3,4,3,5,4,5,6,3,3,4</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="peity-chart-item">
+                                    <div class="peity-chart-title">Active Students</div>
+                                    <div class="peity-chart-value">567</div>
+                                    <div class="peity-chart-container">
+                                        <span class="line-chart">2,7,4,8,2,8,6,4,6,2</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="peity-chart-item">
+                                    <div class="peity-chart-title">Graduate Rate</div>
+                                    <div class="peity-chart-value">345</div>
+                                    <div class="peity-chart-container">
+                                        <span class="line-chart">6,3,8,4,7,3,8,5,4,7</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bar Charts Row -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-title-wrapper">
+                            <h3 class="card-title">Bar Charts</h3>
+                            <p class="card-subtitle">Performance comparisons</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="peity-chart-item">
+                                    <div class="peity-chart-title">Department Performance</div>
+                                    <div class="peity-chart-value">78%</div>
+                                    <div class="peity-chart-container">
+                                        <span class="bar-chart">5,3,9,6,5,9,7,3,5,2</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="peity-chart-item">
+                                    <div class="peity-chart-title">Faculty Satisfaction</div>
+                                    <div class="peity-chart-value">85%</div>
+                                    <div class="peity-chart-container">
+                                        <span class="bar-chart">3,4,3,5,4,5,6,3,3,4</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="peity-chart-item">
+                                    <div class="peity-chart-title">Resource Usage</div>
+                                    <div class="peity-chart-value">92%</div>
+                                    <div class="peity-chart-container">
+                                        <span class="bar-chart">2,7,4,8,2,8,6,4,6,2</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="peity-chart-item">
+                                    <div class="peity-chart-title">Technology Adoption</div>
+                                    <div class="peity-chart-value">67%</div>
+                                    <div class="peity-chart-container">
+                                        <span class="bar-chart">6,3,8,4,7,3,8,5,4,7</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pie Charts Row -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-title-wrapper">
+                            <h3 class="card-title">Pie Charts</h3>
+                            <p class="card-subtitle">Distribution analysis</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="peity-chart-item">
+                                    <div class="peity-chart-title">Student Distribution</div>
+                                    <div class="peity-chart-value">Total: 1,500</div>
+                                    <div class="peity-chart-container">
+                                        <span class="pie-chart">226/134/101/85</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="peity-chart-item">
+                                    <div class="peity-chart-title">Course Categories</div>
+                                    <div class="peity-chart-value">Total: 450</div>
+                                    <div class="peity-chart-container">
+                                        <span class="pie-chart">120/180/150</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Donut Charts Row -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-title-wrapper">
+                            <h3 class="card-title">Donut Charts</h3>
+                            <p class="card-subtitle">Proportional data visualization</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="peity-chart-item">
+                                    <div class="peity-chart-title">Budget Allocation</div>
+                                    <div class="peity-chart-value">$2.5M</div>
+                                    <div class="peity-chart-container">
+                                        <span class="donut-chart">35/25/20/20</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="peity-chart-item">
+                                    <div class="peity-chart-title">Grade Distribution</div>
+                                    <div class="peity-chart-value">Total: 850</div>
+                                    <div class="peity-chart-container">
+                                        <span class="donut-chart">200/180/150/120</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
 
-    <!-- jQuery -->
+    <!-- Scripts -->
+    <!-- Load jQuery first -->
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap 5.3.8 Bundle -->
+    <!-- Bootstrap Bundle JS -->
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Modern Scripts -->
-    
-</body>
+    <!-- Dashboard JavaScript -->
+    <script src="src/js/dashboard.js"></script>
 
+    <!-- Peity.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/peity/3.3.0/jquery.peity.min.js"></script>
+
+    <!-- Peity Charts Initialization -->
+    <script>
+        $(document).ready(function() {
+            try {
+                // Initialize line charts
+                $('.line-chart').peity('line', {
+                    width: 120,
+                    height: 40,
+                    fill: 'rgba(54, 162, 235, 0.2)',
+                    stroke: '#36a2eb'
+                });
+
+                // Initialize bar charts
+                $('.bar-chart').peity('bar', {
+                    width: 120,
+                    height: 40,
+                    fill: ['#007bff', '#28a745', '#ffc107', '#dc3545']
+                });
+
+                // Initialize pie charts
+                $('.pie-chart').peity('pie', {
+                    width: 80,
+                    height: 80,
+                    fill: ['#007bff', '#28a745', '#ffc107', '#dc3545']
+                });
+
+                // Initialize donut charts
+                $('.donut-chart').peity('donut', {
+                    width: 80,
+                    height: 80,
+                    innerRadius: 20,
+                    fill: ['#007bff', '#28a745', '#ffc107', '#dc3545']
+                });
+
+                console.log('All Peity charts initialized successfully');
+
+                // Auto-refresh charts with new data every 5 seconds for demonstration
+                setInterval(function() {
+                    $('.line-chart').each(function() {
+                        const $this = $(this);
+                        const newData = [];
+                        for (let i = 0; i < 10; i++) {
+                            newData.push(Math.floor(Math.random() * 10) + 1);
+                        }
+                        $this.text(newData.join(',')).change();
+                    });
+                }, 5000);
+
+            } catch (error) {
+                console.error('Error initializing Peity charts:', error);
+            }
+        });
+    </script>
+</body>
 </html>

@@ -1,60 +1,60 @@
 // Dropdown Component Styles
 
 .dropdown-menu {
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border-color);
-    padding: 0.5rem;
-    min-width: 280px;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem;
+  min-width: 280px;
 }
 
 .dropdown-item {
-    border-radius: var(--border-radius);
-    padding: 0.5rem 0.75rem;
-    font-size: 0.875rem;
-    transition: background 0.2s ease;
+  border-radius: var(--border-radius);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  transition: background 0.2s ease;
 
-    &:hover {
-        background: #f3f4f6;
-    }
+  &:hover {
+    background: #f3f4f6;
+  }
 
-    &:active {
-        background: #e5e7eb;
-    }
+  &:active {
+    background: #e5e7eb;
+  }
 }
 
 // Notification styles
 .notification-item {
-    display: flex;
-    gap: 0.625rem;
-    padding: 0.625rem;
-    border-radius: var(--border-radius);
-    transition: background 0.2s ease;
-    text-decoration: none;
-    color: inherit;
+  display: flex;
+  gap: 0.625rem;
+  padding: 0.625rem;
+  border-radius: var(--border-radius);
+  transition: background 0.2s ease;
+  text-decoration: none;
+  color: inherit;
 
-    &:hover {
-        background: #f8f9fa;
-    }
+  &:hover {
+    background: #f8f9fa;
+  }
 }
 
 .notification-icon {
-    width: 36px;
-    aspect-ratio: 1;
-    border-radius: var(--border-radius);
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
-    font-size: 0.875rem;
+  width: 36px;
+  aspect-ratio: 1;
+  border-radius: var(--border-radius);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-size: 0.875rem;
 }
 
 // Badge styles
 .notification-dot {
-    width: 6px;
-    aspect-ratio: 1;
-    background: var(--danger);
-    border-radius: 50%;
-    position: absolute;
-    inset: 6px 6px auto auto;
-    border: 2px solid var(--white);
+  width: 6px;
+  aspect-ratio: 1;
+  background: var(--danger);
+  border-radius: 50%;
+  position: absolute;
+  inset: 6px 6px auto auto;
+  border: 2px solid var(--white);
 }

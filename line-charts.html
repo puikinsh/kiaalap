@@ -1,248 +1,818 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
-
+<html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Line Charts - Interactive line chart components for Kiaalap Dashboard">
+    <meta name="keywords" content="line charts, data visualization, charts, dashboard, analytics">
+    <meta name="author" content="Kiaalap">
 
-    <title>Line Charts | Kiaalap - Kiaalap Admin Template</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- favicon
-		============================================ -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-    <!-- Google Fonts
-		============================================ -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
-    <!-- Bootstrap CSS
-		============================================ -->
-        <!-- Bootstrap 5.3.8 CSS -->
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="preconnect" href="https://ui-avatars.com" crossorigin>
+    <link rel="dns-prefetch" href="https://flagcdn.com">
+
+    <title>Line Charts - Kiaalap Dashboard</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Critical CSS for above-the-fold content -->
+    <style>
+        /* Critical CSS for immediate render */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
+        .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .top-navbar { background: white; height: 64px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .dashboard-content { padding: 24px; }
+
+        /* Loading animation */
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+    </style>
+
+    <!-- Load stylesheets -->
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
-    <!-- Modern Styles -->
-    <link rel="stylesheet" href="src/scss/main.scss">
-    <!-- responsive CSS
-		============================================ -->
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="src/css/dashboard.css">
+    <link rel="stylesheet" href="src/css/charts-layout.css">
 
 </head>
-
 <body>
-    <div class="wrapper">
-        <aside class="sidebar" id="sidebar">
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <!-- Required DOM elements for dashboard.js -->
+    <div class="search-backdrop" id="searchBackdrop"></div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <a href="#" class="sidebar-logo">
-                <i class="fas fa-graduation-cap" style="font-size: 1.5rem; color: var(--primary-color);"></i>
-                <span class="sidebar-logo-text">Kiaalap</span>
-            </a>
+            <div class="sidebar-brand">
+                <h5>
+                    <i class="bi bi-mortarboard-fill"></i>
+                    Kiaalap
+                </h5>
+                <button class="sidebar-close" id="sidebarClose">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
         </div>
 
-        <div class="sidebar-menu">
-            <!-- Dashboard Section -->
+        <nav class="sidebar-nav">
             <div class="menu-section">
                 <div class="menu-section-title">Main</div>
-                <ul class="nav-menu">
+                <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a href="#dashboard" class="nav-link active" data-bs-toggle="collapse" aria-expanded="true">
-                            <i class="nav-icon fas fa-home"></i>
-                            <span class="nav-text">Dashboard</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        <a class="nav-link has-submenu" href="#dashboard" data-bs-target="#dashboardSubmenu" aria-expanded="false">
+                            <i class="bi bi-speedometer2"></i>
+                            <span>Dashboard</span>
                         </a>
-                        <ul class="submenu collapse show" id="dashboard">
-                            <li><a href="#" class="nav-link">Analytics</a></li>
-                            <li><a href="#" class="nav-link">Reports</a></li>
-                            <li><a href="#" class="nav-link">Widgets</a></li>
+                        <ul id="dashboardSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="index.html">Dashboard v.1</a></li>
+                            <li><a class="nav-link" href="index-1.html">Dashboard v.2</a></li>
+                            <li><a class="nav-link" href="index-2.html">Dashboard v.3</a></li>
+                            <li><a class="nav-link" href="analytics.html">Analytics</a></li>
+                            <li><a class="nav-link" href="widgets.html">Widgets</a></li>
                         </ul>
                     </li>
-
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-calendar"></i>
-                            <span class="nav-text">Events</span>
+                        <a class="nav-link" href="events.html">
+                            <i class="bi bi-calendar-event"></i>
+                            <span>Events</span>
                         </a>
                     </li>
                 </ul>
             </div>
 
-            <!-- Academic Section -->
             <div class="menu-section">
                 <div class="menu-section-title">Academic</div>
-                <ul class="nav-menu">
+                <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a href="#professors" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                            <span class="nav-text">Professors</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        <a class="nav-link has-submenu" href="#professors" data-bs-target="#professorsSubmenu" aria-expanded="false">
+                            <i class="bi bi-person-badge"></i>
+                            <span>Professors</span>
                         </a>
-                        <ul class="submenu collapse" id="professors">
-                            <li><a href="#" class="nav-link">All Professors</a></li>
-                            <li><a href="#" class="nav-link">Add Professor</a></li>
-                            <li><a href="#" class="nav-link">Edit Professor</a></li>
+                        <ul id="professorsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-professors.html">All Professors</a></li>
+                            <li><a class="nav-link" href="add-professor.html">Add Professor</a></li>
+                            <li><a class="nav-link" href="edit-professor.html">Edit Professor</a></li>
+                            <li><a class="nav-link" href="professor-profile.html">Professor Profile</a></li>
                         </ul>
                     </li>
 
                     <li class="nav-item">
-                        <a href="#students" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-user-graduate"></i>
-                            <span class="nav-text">Students</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        <a class="nav-link has-submenu" href="#students" data-bs-target="#studentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-people"></i>
+                            <span>Students</span>
                         </a>
-                        <ul class="submenu collapse" id="students">
-                            <li><a href="#" class="nav-link">All Students</a></li>
-                            <li><a href="#" class="nav-link">Add Student</a></li>
-                            <li><a href="#" class="nav-link">Student Profile</a></li>
+                        <ul id="studentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-students.html">All Students</a></li>
+                            <li><a class="nav-link" href="add-student.html">Add Student</a></li>
+                            <li><a class="nav-link" href="edit-student.html">Edit Student</a></li>
+                            <li><a class="nav-link" href="student-profile.html">Student Profile</a></li>
                         </ul>
                     </li>
 
                     <li class="nav-item">
-                        <a href="#courses" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book"></i>
-                            <span class="nav-text">Courses</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        <a class="nav-link has-submenu" href="#courses" data-bs-target="#coursesSubmenu" aria-expanded="false">
+                            <i class="bi bi-book"></i>
+                            <span>Courses</span>
                         </a>
-                        <ul class="submenu collapse" id="courses">
-                            <li><a href="#" class="nav-link">All Courses</a></li>
-                            <li><a href="#" class="nav-link">Add Course</a></li>
-                            <li><a href="#" class="nav-link">Course Info</a></li>
+                        <ul id="coursesSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="all-courses.html">All Courses</a></li>
+                            <li><a class="nav-link" href="add-course.html">Add Course</a></li>
+                            <li><a class="nav-link" href="edit-course.html">Edit Course</a></li>
+                            <li><a class="nav-link" href="course-info.html">Course Info</a></li>
+                            <li><a class="nav-link" href="course-payment.html">Course Payment</a></li>
                         </ul>
                     </li>
 
                     <li class="nav-item">
-                        <a href="#library" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book-open"></i>
-                            <span class="nav-text">Library</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        <a class="nav-link has-submenu" href="#library" data-bs-target="#librarySubmenu" aria-expanded="false">
+                            <i class="bi bi-journal-bookmark"></i>
+                            <span>Library</span>
                         </a>
-                        <ul class="submenu collapse" id="library">
-                            <li><a href="#" class="nav-link">Library Assets</a></li>
-                            <li><a href="#" class="nav-link">Add Asset</a></li>
+                        <ul id="librarySubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="library-assets.html">Library Assets</a></li>
+                            <li><a class="nav-link" href="add-library-assets.html">Add Asset</a></li>
+                            <li><a class="nav-link" href="edit-library-assets.html">Edit Asset</a></li>
                         </ul>
                     </li>
 
                     <li class="nav-item">
-                        <a href="#departments" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-building"></i>
-                            <span class="nav-text">Departments</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        <a class="nav-link has-submenu" href="#departments" data-bs-target="#departmentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-building"></i>
+                            <span>Departments</span>
                         </a>
-                        <ul class="submenu collapse" id="departments">
-                            <li><a href="#" class="nav-link">All Departments</a></li>
-                            <li><a href="#" class="nav-link">Add Department</a></li>
+                        <ul id="departmentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="departments.html">All Departments</a></li>
+                            <li><a class="nav-link" href="add-department.html">Add Department</a></li>
+                            <li><a class="nav-link" href="edit-department.html">Edit Department</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
 
-            <!-- Tools Section -->
             <div class="menu-section">
-                <div class="menu-section-title">Tools</div>
-                <ul class="nav-menu">
+                <div class="menu-section-title">Interface</div>
+                <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a href="#mailbox" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-envelope"></i>
-                            <span class="nav-text">Mailbox</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        <a class="nav-link has-submenu" href="#components" data-bs-target="#componentsSubmenu" aria-expanded="false">
+                            <i class="bi bi-palette"></i>
+                            <span>Components</span>
                         </a>
-                        <ul class="submenu collapse" id="mailbox">
-                            <li><a href="#" class="nav-link">Inbox</a></li>
-                            <li><a href="#" class="nav-link">Compose</a></li>
+                        <ul id="componentsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="buttons.html">Buttons</a></li>
+                            <li><a class="nav-link" href="alerts.html">Alerts</a></li>
+                            <li><a class="nav-link" href="modals.html">Modals</a></li>
+                            <li><a class="nav-link" href="tabs.html">Tabs</a></li>
+                            <li><a class="nav-link" href="accordion.html">Accordion</a></li>
                         </ul>
                     </li>
-
                     <li class="nav-item">
-                        <a href="#charts" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chart-line"></i>
-                            <span class="nav-text">Charts</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        <a class="nav-link has-submenu" href="#forms" data-bs-target="#formsSubmenu" aria-expanded="false">
+                            <i class="bi bi-file-text"></i>
+                            <span>Forms</span>
                         </a>
-                        <ul class="submenu collapse" id="charts">
-                            <li><a href="#" class="nav-link">Line Charts</a></li>
-                            <li><a href="#" class="nav-link">Bar Charts</a></li>
-                            <li><a href="#" class="nav-link">Area Charts</a></li>
+                        <ul id="formsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="basic-form-element.html">Basic Form Elements</a></li>
+                            <li><a class="nav-link" href="advance-form-element.html">Advanced Form Elements</a></li>
+                            <li><a class="nav-link" href="x-editable.html">X-Editable</a></li>
+                            <li><a class="nav-link" href="dual-list-box.html">Dual List Box</a></li>
+                            <li><a class="nav-link" href="images-cropper.html">Image Cropper</a></li>
+                            <li><a class="nav-link" href="password-meter.html">Password Meter</a></li>
+                            <li><a class="nav-link" href="multi-upload.html">Multi Upload</a></li>
                         </ul>
                     </li>
-
                     <li class="nav-item">
-                        <a href="#tables" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-table"></i>
-                            <span class="nav-text">Tables</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        <a class="nav-link has-submenu active" href="#charts" data-bs-target="#chartsSubmenu" aria-expanded="true">
+                            <i class="bi bi-bar-chart"></i>
+                            <span>Charts</span>
                         </a>
-                        <ul class="submenu collapse" id="tables">
-                            <li><a href="#" class="nav-link">Basic Tables</a></li>
-                            <li><a href="#" class="nav-link">Data Tables</a></li>
+                        <ul id="chartsSubmenu" class="submenu collapse show list-unstyled">
+                            <li><a class="nav-link" href="bar-charts.html">Bar Charts</a></li>
+                            <li><a class="nav-link active" href="line-charts.html">Line Charts</a></li>
+                            <li><a class="nav-link" href="area-charts.html">Area Charts</a></li>
+                            <li><a class="nav-link" href="c3.html">C3 Charts</a></li>
+                            <li><a class="nav-link" href="peity.html">Peity Charts</a></li>
+                            <li><a class="nav-link" href="sparkline.html">Sparkline Charts</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#tables" data-bs-target="#tablesSubmenu" aria-expanded="false">
+                            <i class="bi bi-table"></i>
+                            <span>Tables</span>
+                        </a>
+                        <ul id="tablesSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="static-table.html">Static Tables</a></li>
+                            <li><a class="nav-link" href="data-table.html">Data Tables</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
-        </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Pages</div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#authentication" data-bs-target="#authSubmenu" aria-expanded="false">
+                            <i class="bi bi-shield-lock"></i>
+                            <span>Authentication</span>
+                        </a>
+                        <ul id="authSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="login.html">Login</a></li>
+                            <li><a class="nav-link" href="register.html">Register</a></li>
+                            <li><a class="nav-link" href="lock.html">Lock Screen</a></li>
+                            <li><a class="nav-link" href="password-recovery.html">Forgot Password</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link has-submenu" href="#errors" data-bs-target="#errorsSubmenu" aria-expanded="false">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            <span>Error Pages</span>
+                        </a>
+                        <ul id="errorsSubmenu" class="submenu collapse list-unstyled">
+                            <li><a class="nav-link" href="404.html">404 Error</a></li>
+                            <li><a class="nav-link" href="500.html">500 Error</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </aside>
 
-        <div class="main-content">
-            <header class="header">
-            <div class="header-left">
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-bars"></i>
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper" id="mainWrapper">
+        <!-- Header -->
+        <nav class="navbar top-navbar">
+            <div class="container-fluid d-flex align-items-center h-100">
+                <!-- Hamburger Menu -->
+                <button class="hamburger-menu" id="sidebarToggle">
+                    <i class="bi bi-list"></i>
                 </button>
 
-                <form class="search-form">
-                    <i class="search-icon fas fa-search"></i>
-                    <input type="text" class="search-input" placeholder="Search...">
-                </form>
-            </div>
+                <!-- Breadcrumb for desktop -->
+                <nav aria-label="breadcrumb" class="d-none d-lg-block ms-3">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Charts</a></li>
+                        <li class="breadcrumb-item active">Line Charts</li>
+                    </ol>
+                </nav>
 
-            <div class="header-right">
-                <button class="header-btn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge"></span>
-                </button>
+                <!-- Logo for mobile -->
+                <div class="navbar-brand d-lg-none fw-bold me-auto">Kiaalap</div>
 
-                <button class="header-btn">
-                    <i class="fas fa-envelope"></i>
-                </button>
+                <!-- Spacer for desktop -->
+                <div class="flex-grow-1 d-none d-lg-block"></div>
 
-                <button class="header-btn">
-                    <i class="fas fa-cog"></i>
-                </button>
+                <!-- Right Actions -->
+                <div class="d-flex align-items-center gap-2">
+                    <!-- Search -->
+                    <div class="search-container">
+                        <button class="btn btn-light btn-icon" id="searchToggle">
+                            <i class="bi bi-search"></i>
+                        </button>
 
-                <div class="dropdown">
-                    <div class="user-menu" data-bs-toggle="dropdown">
-                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=4361ee&color=fff" alt="User" class="user-avatar">
-                        <div class="user-info">
-                            <span class="user-name">John Doe</span>
-                            <span class="user-role">Administrator</span>
-                        </div>
-                        <i class="fas fa-chevron-down ms-2" style="font-size: 0.75rem; color: #6b7280;"></i>
+                        <form class="search-form" id="searchForm">
+                            <i class="bi bi-search search-icon"></i>
+                            <input type="text"
+                                   class="form-control"
+                                   id="searchInput"
+                                   placeholder="Search..."
+                                   data-bs-toggle="dropdown">
+                            <button type="button" class="close-search" id="closeSearch">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+
+                            <ul class="dropdown-menu w-100 mt-2">
+                                <li><a class="dropdown-item" href="#">Student Registration</a></li>
+                                <li><a class="dropdown-item" href="#">Course Schedule</a></li>
+                                <li><a class="dropdown-item" href="#">Grade Reports</a></li>
+                            </ul>
+                        </form>
                     </div>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
-                    </ul>
+
+                    <!-- Quick Actions -->
+                    <button class="btn btn-primary btn-sm hide-mobile">
+                        <i class="bi bi-plus-circle me-1"></i> New
+                    </button>
+
+                    <!-- Messages -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-icon position-relative"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-chat-dots"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"
+                                  style="font-size: 0.625rem;">5</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <h6 class="mb-0">Messages</h6>
+                            </div>
+                            <div class="p-2" style="max-height: 300px; overflow-y: auto;">
+                                <a href="#" class="notification-item">
+                                    <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&background=10b981&color=fff"
+                                         class="rounded-circle"
+                                         width="36"
+                                         height="36"
+                                         alt="Sarah">
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Sarah Johnson</div>
+                                        <div class="text-muted small">Can you review my thesis?</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">2 min ago</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="notification-item">
+                                    <img src="https://ui-avatars.com/api/?name=Mike+Chen&background=6366f1&color=fff"
+                                         class="rounded-circle"
+                                         width="36"
+                                         height="36"
+                                         alt="Mike">
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">Mike Chen</div>
+                                        <div class="text-muted small">Meeting at 3 PM today</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">1 hour ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="border-top p-2 text-center">
+                                <a href="#" class="small text-decoration-none">View all messages</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-icon position-relative"
+                                data-bs-toggle="dropdown">
+                            <i class="bi bi-bell"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                  style="font-size: 0.625rem;">12</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="px-3 py-2 border-bottom">
+                                <h6 class="mb-0">Notifications</h6>
+                            </div>
+                            <div class="p-2" style="max-height: 300px; overflow-y: auto;">
+                                <a href="#" class="notification-item">
+                                    <div class="notification-icon bg-primary">
+                                        <i class="bi bi-person-plus"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold small">New student registered</div>
+                                        <div class="text-muted small">John Smith joined Computer Science</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">5 min ago</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="border-top p-2 text-center">
+                                <a href="#" class="small text-decoration-none">View all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="dropdown">
+                        <button class="btn btn-light d-flex align-items-center px-2 btn-icon"
+                                data-bs-toggle="dropdown">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces"
+                                 alt="User"
+                                 class="user-avatar"
+                                 loading="lazy"
+                                 width="32"
+                                 height="32">
+                            <span class="hide-mobile ms-2" style="font-size: 0.875rem;">Sarah Johnson</span>
+                            <i class="bi bi-chevron-down hide-mobile ms-1" style="font-size: 0.75rem;"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li class="px-3 py-2 border-bottom">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces"
+                                         alt="User"
+                                         width="48"
+                                         height="48"
+                                         class="rounded-circle">
+                                    <div class="ms-3">
+                                        <div class="fw-semibold">Sarah Johnson</div>
+                                        <div class="text-muted small">sarah.johnson@kiaalap.edu</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-bell me-2"></i> Preferences</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i> Sign Out</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </header>
+        </nav>
 
-            <div class="content-wrapper">
-                <div class="container-fluid p-4">
-                    
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="logo-pro">
-                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                    
+        <!-- Dashboard Content -->
+        <main class="dashboard-content" id="main-content" role="main">
+            <!-- Page Header -->
+            <div class="mb-3">
+                <h1 class="h3 font-bold">Line Charts</h1>
+                <p class="text-muted text-sm">Interactive line chart visualizations showing trends and patterns over time.</p>
+            </div>
+
+            <!-- Line Charts Content Row -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-2">
+                    <!-- Student Enrollment Trends -->
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Student Enrollment Trends</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="enrollmentTrendChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Academic Performance Over Time -->
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Academic Performance Trends</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="performanceTrendChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Revenue and Costs Trends Row -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-2">
+                    <!-- Revenue Trends -->
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Revenue Trends</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="revenueTrendChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Operating Costs Trends -->
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Operating Costs Analysis</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="costsTrendChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Width Comparison Chart -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-1">
+                    <div class="chart-wrapper">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title">Multi-Year Department Performance Comparison</h5>
+                        </div>
+                        <div class="chart-container-main">
+                            <canvas id="departmentComparisonChart"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        </main>
     </div>
 
-    <!-- jQuery -->
+    <!-- Scripts -->
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap 5.3.8 Bundle -->
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Modern Scripts -->
-    
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="src/js/dashboard.js"></script>
+    <script>
+        // Sample data for line charts
+        const enrollmentTrendData = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'New Enrollments',
+                data: [150, 180, 220, 195, 280, 310, 340, 380, 320, 290, 260, 240],
+                borderColor: '#007bff',
+                backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                tension: 0.4,
+                fill: true
+            }, {
+                label: 'Active Students',
+                data: [2200, 2350, 2520, 2680, 2890, 3100, 3200, 3150, 3050, 2980, 2900, 2847],
+                borderColor: '#28a745',
+                backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                tension: 0.4,
+                fill: false
+            }, {
+                label: 'Graduations',
+                data: [45, 38, 42, 55, 48, 52, 65, 180, 220, 98, 45, 38],
+                borderColor: '#dc3545',
+                backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                tension: 0.4,
+                fill: false
+            }]
+        };
 
+        const performanceTrendData = {
+            labels: ['Q1 2023', 'Q2 2023', 'Q3 2023', 'Q4 2023', 'Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024'],
+            datasets: [{
+                label: 'Average GPA',
+                data: [3.15, 3.22, 3.28, 3.31, 3.35, 3.38, 3.41, 3.42],
+                borderColor: '#007bff',
+                backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                tension: 0.4,
+                fill: false,
+                yAxisID: 'y'
+            }, {
+                label: 'Pass Rate (%)',
+                data: [87.5, 88.2, 89.1, 89.8, 90.2, 90.8, 91.0, 91.2],
+                borderColor: '#28a745',
+                backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                tension: 0.4,
+                fill: false,
+                yAxisID: 'y1'
+            }, {
+                label: 'Course Satisfaction',
+                data: [4.1, 4.2, 4.15, 4.25, 4.3, 4.35, 4.4, 4.3],
+                borderColor: '#ffc107',
+                backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                tension: 0.4,
+                fill: false,
+                yAxisID: 'y2'
+            }]
+        };
+
+        const revenueTrendData = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'Total Revenue',
+                data: [220000, 210000, 235000, 245000, 250000, 240000, 265000, 275000, 268000, 285000, 290000, 295000],
+                borderColor: '#007bff',
+                backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                tension: 0.4,
+                fill: true
+            }, {
+                label: 'Tuition Income',
+                data: [180000, 175000, 192000, 200000, 205000, 195000, 215000, 225000, 218000, 235000, 240000, 245000],
+                borderColor: '#28a745',
+                backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                tension: 0.4,
+                fill: false
+            }, {
+                label: 'Other Income',
+                data: [40000, 35000, 43000, 45000, 45000, 45000, 50000, 50000, 50000, 50000, 50000, 50000],
+                borderColor: '#6610f2',
+                backgroundColor: 'rgba(102, 16, 242, 0.1)',
+                tension: 0.4,
+                fill: false
+            }]
+        };
+
+        const costsTrendData = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'Total Costs',
+                data: [165000, 170000, 172000, 175000, 178000, 180000, 182000, 185000, 187000, 190000, 192000, 195000],
+                borderColor: '#dc3545',
+                backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                tension: 0.4,
+                fill: true
+            }, {
+                label: 'Staff Salaries',
+                data: [120000, 122000, 124000, 125000, 127000, 128000, 130000, 132000, 134000, 135000, 137000, 139000],
+                borderColor: '#ffc107',
+                backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                tension: 0.4,
+                fill: false
+            }, {
+                label: 'Infrastructure',
+                data: [45000, 48000, 48000, 50000, 51000, 52000, 52000, 53000, 53000, 55000, 55000, 56000],
+                borderColor: '#17a2b8',
+                backgroundColor: 'rgba(23, 162, 184, 0.1)',
+                tension: 0.4,
+                fill: false
+            }]
+        };
+
+        const departmentComparisonData = {
+            labels: ['2020', '2021', '2022', '2023', '2024'],
+            datasets: [{
+                label: 'Computer Science',
+                data: [78.5, 82.1, 85.3, 88.7, 91.2],
+                borderColor: '#007bff',
+                backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                tension: 0.4,
+                fill: false
+            }, {
+                label: 'Engineering',
+                data: [75.2, 78.8, 82.4, 86.1, 89.7],
+                borderColor: '#28a745',
+                backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                tension: 0.4,
+                fill: false
+            }, {
+                label: 'Business',
+                data: [71.8, 74.5, 77.9, 81.6, 86.1],
+                borderColor: '#ffc107',
+                backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                tension: 0.4,
+                fill: false
+            }, {
+                label: 'Arts & Sciences',
+                data: [73.4, 76.2, 79.8, 83.5, 88.9],
+                borderColor: '#dc3545',
+                backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                tension: 0.4,
+                fill: false
+            }, {
+                label: 'Medicine',
+                data: [85.2, 88.6, 91.3, 93.8, 95.3],
+                borderColor: '#6f42c1',
+                backgroundColor: 'rgba(111, 66, 193, 0.1)',
+                tension: 0.4,
+                fill: false
+            }, {
+                label: 'Law',
+                data: [80.1, 82.7, 85.4, 87.9, 90.2],
+                borderColor: '#17a2b8',
+                backgroundColor: 'rgba(23, 162, 184, 0.1)',
+                tension: 0.4,
+                fill: false
+            }]
+        };
+
+        // Chart configuration options
+        const lineChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0,0,0,0.8)',
+                    titleColor: 'white',
+                    bodyColor: 'white',
+                    borderColor: '#dee2e6',
+                    borderWidth: 1,
+                    mode: 'index',
+                    intersect: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(0,0,0,0.1)'
+                    },
+                    ticks: {
+                        color: '#6c757d'
+                    }
+                },
+                x: {
+                    grid: {
+                        color: 'rgba(0,0,0,0.1)'
+                    },
+                    ticks: {
+                        color: '#6c757d'
+                    }
+                }
+            },
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            elements: {
+                line: {
+                    borderWidth: 2
+                },
+                point: {
+                    radius: 4,
+                    hoverRadius: 6
+                }
+            }
+        };
+
+        // Initialize charts when DOM is loaded
+        $(document).ready(function() {
+            // Student Enrollment Trend Chart
+            const enrollmentTrendCtx = document.getElementById('enrollmentTrendChart').getContext('2d');
+            const enrollmentTrendChart = new Chart(enrollmentTrendCtx, {
+                type: 'line',
+                data: enrollmentTrendData,
+                options: lineChartOptions
+            });
+
+            // Academic Performance Trend Chart
+            const performanceTrendCtx = document.getElementById('performanceTrendChart').getContext('2d');
+            const performanceTrendChart = new Chart(performanceTrendCtx, {
+                type: 'line',
+                data: performanceTrendData,
+                options: {
+                    ...lineChartOptions,
+                    scales: {
+                        ...lineChartOptions.scales,
+                        y: {
+                            ...lineChartOptions.scales.y,
+                            type: 'linear',
+                            position: 'left',
+                            min: 3,
+                            max: 3.5
+                        },
+                        y1: {
+                            type: 'linear',
+                            position: 'right',
+                            min: 85,
+                            max: 95,
+                            grid: {
+                                drawOnChartArea: false,
+                            },
+                            ticks: {
+                                color: '#6c757d'
+                            }
+                        },
+                        y2: {
+                            type: 'linear',
+                            position: 'right',
+                            min: 4,
+                            max: 4.5,
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // Revenue Trend Chart
+            const revenueTrendCtx = document.getElementById('revenueTrendChart').getContext('2d');
+            const revenueTrendChart = new Chart(revenueTrendCtx, {
+                type: 'line',
+                data: revenueTrendData,
+                options: {
+                    ...lineChartOptions,
+                    scales: {
+                        ...lineChartOptions.scales,
+                        y: {
+                            ...lineChartOptions.scales.y,
+                            ticks: {
+                                ...lineChartOptions.scales.y.ticks,
+                                callback: function(value) {
+                                    return '$' + (value / 1000) + 'K';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Costs Trend Chart
+            const costsTrendCtx = document.getElementById('costsTrendChart').getContext('2d');
+            const costsTrendChart = new Chart(costsTrendCtx, {
+                type: 'line',
+                data: costsTrendData,
+                options: {
+                    ...lineChartOptions,
+                    scales: {
+                        ...lineChartOptions.scales,
+                        y: {
+                            ...lineChartOptions.scales.y,
+                            ticks: {
+                                ...lineChartOptions.scales.y.ticks,
+                                callback: function(value) {
+                                    return '$' + (value / 1000) + 'K';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Department Comparison Chart
+            const departmentComparisonCtx = document.getElementById('departmentComparisonChart').getContext('2d');
+            const departmentComparisonChart = new Chart(departmentComparisonCtx, {
+                type: 'line',
+                data: departmentComparisonData,
+                options: {
+                    ...lineChartOptions,
+                    scales: {
+                        ...lineChartOptions.scales,
+                        y: {
+                            ...lineChartOptions.scales.y,
+                            min: 70,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
 </html>

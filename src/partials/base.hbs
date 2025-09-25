@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{description}}">
+    <meta name="keywords" content="{{keywords}}">
+    <meta name="author" content="{{author}}">
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="preconnect" href="https://ui-avatars.com" crossorigin>
+    <link rel="dns-prefetch" href="https://flagcdn.com">
+
+    <title>{{#if pageTitle}}{{pageTitle}} - Kiaalap Dashboard{{else}}{{title}}{{/if}}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    {{#if criticalCSS}}
+    <!-- Critical CSS for above-the-fold content -->
+    <style>
+        {{{criticalCSS}}}
+    </style>
+    {{/if}}
+
+    <!-- Load stylesheets -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="src/css/dashboard.css">
+    {{#if additionalCSS}}
+        {{#each additionalCSS}}
+        <link rel="stylesheet" href="{{this}}">
+        {{/each}}
+    {{/if}}
+
+    {{#if pageSpecificStyles}}
+    <!-- Page-specific styles -->
+    <style>
+        {{{pageSpecificStyles}}}
+    </style>
+    {{/if}}
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <!-- Required DOM elements for dashboard.js -->
+    <div class="search-backdrop" id="searchBackdrop"></div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    {{> sidebar}}
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper" id="mainWrapper">
+        {{> header}}
+
+        <!-- Main Content -->
+        <main class="dashboard-content" id="main-content">
+            <div class="container-fluid">
+                {{#if showPageHeader}}
+                <!-- Page Header -->
+                <div class="page-header mb-4">
+                    <h1 class="h3 mb-2">{{pageTitle}}</h1>
+                    {{#if pageDescription}}
+                    <p class="text-muted">{{pageDescription}}</p>
+                    {{/if}}
+                </div>
+                {{/if}}
+
+                {{{content}}}
+            </div>
+        </main>
+    </div>
+
+    {{#if additionalModals}}
+    <!-- Additional Modals -->
+    {{{additionalModals}}}
+    {{/if}}
+
+    <!-- Load JavaScript -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="src/js/dashboard.js"></script>
+    {{#if additionalJS}}
+        {{#each additionalJS}}
+        <script src="{{this}}"></script>
+        {{/each}}
+    {{/if}}
+
+    {{#if pageSpecificJS}}
+    <script>
+        {{{pageSpecificJS}}}
+    </script>
+    {{/if}}
+</body>
+</html>

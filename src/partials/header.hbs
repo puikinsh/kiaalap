@@ -1,0 +1,103 @@
+<!-- Header -->
+<nav class="navbar top-navbar">
+    <div class="container-fluid d-flex align-items-center h-100">
+        <!-- Hamburger Menu -->
+        <button class="hamburger-menu" id="sidebarToggle">
+            <i class="bi bi-list"></i>
+        </button>
+
+        <!-- Breadcrumb for desktop -->
+        <nav aria-label="breadcrumb" class="d-none d-lg-block ms-3">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                {{#if breadcrumb}}
+                    {{#each breadcrumb}}
+                        {{#unless @last}}
+                            <li class="breadcrumb-item"><a href="{{this.url}}">{{this.title}}</a></li>
+                        {{else}}
+                            <li class="breadcrumb-item active">{{this.title}}</li>
+                        {{/unless}}
+                    {{/each}}
+                {{else}}
+                    <li class="breadcrumb-item active">{{pageTitle}}</li>
+                {{/if}}
+            </ol>
+        </nav>
+
+        <!-- Logo for mobile -->
+        <div class="navbar-brand d-lg-none fw-bold me-auto">Kiaalap</div>
+
+        <!-- Spacer for desktop -->
+        <div class="flex-grow-1 d-none d-lg-block"></div>
+
+        <!-- Right Actions -->
+        <div class="d-flex align-items-center gap-2">
+            <!-- Search -->
+            <div class="search-container">
+                <button class="btn btn-light btn-icon" id="searchToggle">
+                    <i class="bi bi-search"></i>
+                </button>
+
+                <form class="search-form" id="searchForm">
+                    <i class="bi bi-search search-icon"></i>
+                    <input type="text"
+                           class="form-control"
+                           id="searchInput"
+                           placeholder="Search..."
+                           data-bs-toggle="dropdown">
+                    <button type="button" class="close-search" id="closeSearch">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+
+                    <ul class="dropdown-menu w-100 mt-2">
+                        <li><a class="dropdown-item" href="#">Student Registration</a></li>
+                        <li><a class="dropdown-item" href="#">Course Management</a></li>
+                        <li><a class="dropdown-item" href="#">Grade Submission</a></li>
+                        <li><a class="dropdown-item" href="#">Faculty Directory</a></li>
+                        <li><a class="dropdown-item" href="#">Library Resources</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Advanced Search</a></li>
+                    </ul>
+                </form>
+            </div>
+
+            <!-- Notifications -->
+            <button class="btn btn-light btn-icon position-relative" id="notificationsToggle">
+                <i class="bi bi-bell"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">3</span>
+            </button>
+
+            <!-- Quick Actions -->
+            <div class="dropdown">
+                <button class="btn btn-light btn-icon" data-bs-toggle="dropdown">
+                    <i class="bi bi-plus-lg"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="add-student.html"><i class="bi bi-person-plus me-2"></i>Add Student</a></li>
+                    <li><a class="dropdown-item" href="add-course.html"><i class="bi bi-book me-2"></i>Add Course</a></li>
+                    <li><a class="dropdown-item" href="add-professor.html"><i class="bi bi-person-badge me-2"></i>Add Professor</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#"><i class="bi bi-calendar-plus me-2"></i>Schedule Event</a></li>
+                </ul>
+            </div>
+
+            <!-- User Menu -->
+            <div class="dropdown">
+                <button class="btn btn-light d-flex align-items-center" data-bs-toggle="dropdown">
+                    <div class="user-avatar me-2">
+                        <i class="bi bi-person-circle"></i>
+                    </div>
+                    <span class="d-none d-md-inline">{{#if userName}}{{userName}}{{else}}Admin{{/if}}</span>
+                    <i class="bi bi-chevron-down ms-1"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="bi bi-question-circle me-2"></i>Help Center</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

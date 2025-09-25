@@ -1,0 +1,205 @@
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-brand">
+            <h5>
+                <i class="bi bi-mortarboard-fill"></i>
+                Kiaalap
+            </h5>
+            <button class="sidebar-close" id="sidebarClose">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <div class="menu-section">
+            <div class="menu-section-title">Main</div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link has-submenu {{#if dashboard}}active{{/if}}" href="#dashboard" data-bs-target="#dashboardSubmenu" aria-expanded="{{#if dashboard}}true{{else}}false{{/if}}">
+                        <i class="bi bi-speedometer2"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <ul id="dashboardSubmenu" class="submenu collapse {{#if dashboard}}show{{/if}} list-unstyled">
+                        <li><a class="nav-link {{#if (eq page 'index')}}active{{/if}}" href="index.html">Dashboard v.1</a></li>
+                        <li><a class="nav-link {{#if (eq page 'index-1')}}active{{/if}}" href="index-1.html">Dashboard v.2</a></li>
+                        <li><a class="nav-link {{#if (eq page 'index-2')}}active{{/if}}" href="index-2.html">Dashboard v.3</a></li>
+                        <li><a class="nav-link {{#if (eq page 'analytics')}}active{{/if}}" href="analytics.html">Analytics</a></li>
+                        <li><a class="nav-link {{#if (eq page 'widgets')}}active{{/if}}" href="widgets.html">Widgets</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{#if (eq page 'events')}}active{{/if}}" href="events.html">
+                        <i class="bi bi-calendar-event"></i>
+                        <span>Events</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="menu-section">
+            <div class="menu-section-title">Academic</div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link has-submenu {{#if academic.professors}}active{{/if}}" href="#professors" data-bs-target="#professorsSubmenu" aria-expanded="{{#if academic.professors}}true{{else}}false{{/if}}">
+                        <i class="bi bi-person-badge"></i>
+                        <span>Professors</span>
+                    </a>
+                    <ul id="professorsSubmenu" class="submenu collapse {{#if academic.professors}}show{{/if}} list-unstyled">
+                        <li><a class="nav-link {{#if (eq page 'all-professors')}}active{{/if}}" href="all-professors.html">All Professors</a></li>
+                        <li><a class="nav-link {{#if (eq page 'add-professor')}}active{{/if}}" href="add-professor.html">Add Professor</a></li>
+                        <li><a class="nav-link {{#if (eq page 'edit-professor')}}active{{/if}}" href="edit-professor.html">Edit Professor</a></li>
+                        <li><a class="nav-link {{#if (eq page 'professor-profile')}}active{{/if}}" href="professor-profile.html">Professor Profile</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link has-submenu {{#if academic.students}}active{{/if}}" href="#students" data-bs-target="#studentsSubmenu" aria-expanded="{{#if academic.students}}true{{else}}false{{/if}}">
+                        <i class="bi bi-people"></i>
+                        <span>Students</span>
+                    </a>
+                    <ul id="studentsSubmenu" class="submenu collapse {{#if academic.students}}show{{/if}} list-unstyled">
+                        <li><a class="nav-link {{#if (eq page 'all-students')}}active{{/if}}" href="all-students.html">All Students</a></li>
+                        <li><a class="nav-link {{#if (eq page 'add-student')}}active{{/if}}" href="add-student.html">Add Student</a></li>
+                        <li><a class="nav-link {{#if (eq page 'edit-student')}}active{{/if}}" href="edit-student.html">Edit Student</a></li>
+                        <li><a class="nav-link {{#if (eq page 'student-profile')}}active{{/if}}" href="student-profile.html">Student Profile</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link has-submenu {{#if academic.courses}}active{{/if}}" href="#courses" data-bs-target="#coursesSubmenu" aria-expanded="{{#if academic.courses}}true{{else}}false{{/if}}">
+                        <i class="bi bi-book"></i>
+                        <span>Courses</span>
+                    </a>
+                    <ul id="coursesSubmenu" class="submenu collapse {{#if academic.courses}}show{{/if}} list-unstyled">
+                        <li><a class="nav-link {{#if (eq page 'all-courses')}}active{{/if}}" href="all-courses.html">All Courses</a></li>
+                        <li><a class="nav-link {{#if (eq page 'add-course')}}active{{/if}}" href="add-course.html">Add Course</a></li>
+                        <li><a class="nav-link {{#if (eq page 'edit-course')}}active{{/if}}" href="edit-course.html">Edit Course</a></li>
+                        <li><a class="nav-link {{#if (eq page 'course-info')}}active{{/if}}" href="course-info.html">Course Info</a></li>
+                        <li><a class="nav-link {{#if (eq page 'course-payment')}}active{{/if}}" href="course-payment.html">Course Payment</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link has-submenu {{#if academic.library}}active{{/if}}" href="#library" data-bs-target="#librarySubmenu" aria-expanded="{{#if academic.library}}true{{else}}false{{/if}}">
+                        <i class="bi bi-journal-bookmark"></i>
+                        <span>Library</span>
+                    </a>
+                    <ul id="librarySubmenu" class="submenu collapse {{#if academic.library}}show{{/if}} list-unstyled">
+                        <li><a class="nav-link {{#if (eq page 'library-assets')}}active{{/if}}" href="library-assets.html">Library Assets</a></li>
+                        <li><a class="nav-link {{#if (eq page 'add-library-assets')}}active{{/if}}" href="add-library-assets.html">Add Library Asset</a></li>
+                        <li><a class="nav-link {{#if (eq page 'edit-library-assets')}}active{{/if}}" href="edit-library-assets.html">Edit Library Asset</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link has-submenu {{#if academic.departments}}active{{/if}}" href="#departments" data-bs-target="#departmentsSubmenu" aria-expanded="{{#if academic.departments}}true{{else}}false{{/if}}">
+                        <i class="bi bi-building"></i>
+                        <span>Departments</span>
+                    </a>
+                    <ul id="departmentsSubmenu" class="submenu collapse {{#if academic.departments}}show{{/if}} list-unstyled">
+                        <li><a class="nav-link {{#if (eq page 'departments')}}active{{/if}}" href="departments.html">Departments List</a></li>
+                        <li><a class="nav-link {{#if (eq page 'add-department')}}active{{/if}}" href="add-department.html">Add Department</a></li>
+                        <li><a class="nav-link {{#if (eq page 'edit-department')}}active{{/if}}" href="edit-department.html">Edit Department</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="menu-section">
+            <div class="menu-section-title">Communication</div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link has-submenu {{#if communication.mailbox}}active{{/if}}" href="#mailbox" data-bs-target="#mailboxSubmenu" aria-expanded="{{#if communication.mailbox}}true{{else}}false{{/if}}">
+                        <i class="bi bi-envelope"></i>
+                        <span>Mailbox</span>
+                    </a>
+                    <ul id="mailboxSubmenu" class="submenu collapse {{#if communication.mailbox}}show{{/if}} list-unstyled">
+                        <li><a class="nav-link {{#if (eq page 'mailbox')}}active{{/if}}" href="mailbox.html">Inbox</a></li>
+                        <li><a class="nav-link {{#if (eq page 'mailbox-compose')}}active{{/if}}" href="mailbox-compose.html">Compose</a></li>
+                        <li><a class="nav-link {{#if (eq page 'mailbox-view')}}active{{/if}}" href="mailbox-view.html">View Message</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="menu-section">
+            <div class="menu-section-title">Interface</div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link has-submenu {{#if interface.components}}active{{/if}}" href="#components" data-bs-target="#componentsSubmenu" aria-expanded="{{#if interface.components}}true{{else}}false{{/if}}">
+                        <i class="bi bi-layout-wtf"></i>
+                        <span>Components</span>
+                    </a>
+                    <ul id="componentsSubmenu" class="submenu collapse {{#if interface.components}}show{{/if}} list-unstyled">
+                        <li><a class="nav-link {{#if (eq page 'buttons')}}active{{/if}}" href="buttons.html">Buttons</a></li>
+                        <li><a class="nav-link {{#if (eq page 'alerts')}}active{{/if}}" href="alerts.html">Alerts</a></li>
+                        <li><a class="nav-link {{#if (eq page 'modals')}}active{{/if}}" href="modals.html">Modals</a></li>
+                        <li><a class="nav-link {{#if (eq page 'tabs')}}active{{/if}}" href="tabs.html">Tabs</a></li>
+                        <li><a class="nav-link {{#if (eq page 'accordion')}}active{{/if}}" href="accordion.html">Accordion</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link has-submenu {{#if interface.forms}}active{{/if}}" href="#forms" data-bs-target="#formsSubmenu" aria-expanded="{{#if interface.forms}}true{{else}}false{{/if}}">
+                        <i class="bi bi-card-list"></i>
+                        <span>Forms</span>
+                    </a>
+                    <ul id="formsSubmenu" class="submenu collapse {{#if interface.forms}}show{{/if}} list-unstyled">
+                        <li><a class="nav-link {{#if (eq page 'basic-form-element')}}active{{/if}}" href="basic-form-element.html">Basic Forms</a></li>
+                        <li><a class="nav-link {{#if (eq page 'advance-form-element')}}active{{/if}}" href="advance-form-element.html">Advanced Forms</a></li>
+                        <li><a class="nav-link {{#if (eq page 'password-meter')}}active{{/if}}" href="password-meter.html">Password Meter</a></li>
+                        <li><a class="nav-link {{#if (eq page 'multi-upload')}}active{{/if}}" href="multi-upload.html">File Upload</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link has-submenu {{#if interface.charts}}active{{/if}}" href="#charts" data-bs-target="#chartsSubmenu" aria-expanded="{{#if interface.charts}}true{{else}}false{{/if}}">
+                        <i class="bi bi-bar-chart"></i>
+                        <span>Charts</span>
+                    </a>
+                    <ul id="chartsSubmenu" class="submenu collapse {{#if interface.charts}}show{{/if}} list-unstyled">
+                        <li><a class="nav-link {{#if (eq page 'line-charts')}}active{{/if}}" href="line-charts.html">Line Charts</a></li>
+                        <li><a class="nav-link {{#if (eq page 'area-charts')}}active{{/if}}" href="area-charts.html">Area Charts</a></li>
+                        <li><a class="nav-link {{#if (eq page 'bar-charts')}}active{{/if}}" href="bar-charts.html">Bar Charts</a></li>
+                        <li><a class="nav-link {{#if (eq page 'c3')}}active{{/if}}" href="c3.html">C3 Charts</a></li>
+                        <li><a class="nav-link {{#if (eq page 'peity')}}active{{/if}}" href="peity.html">Peity Charts</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link has-submenu {{#if interface.tables}}active{{/if}}" href="#tables" data-bs-target="#tablesSubmenu" aria-expanded="{{#if interface.tables}}true{{else}}false{{/if}}">
+                        <i class="bi bi-table"></i>
+                        <span>Tables</span>
+                    </a>
+                    <ul id="tablesSubmenu" class="submenu collapse {{#if interface.tables}}show{{/if}} list-unstyled">
+                        <li><a class="nav-link {{#if (eq page 'static-table')}}active{{/if}}" href="static-table.html">Static Tables</a></li>
+                        <li><a class="nav-link {{#if (eq page 'data-table')}}active{{/if}}" href="data-table.html">Data Tables</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="menu-section">
+            <div class="menu-section-title">Pages</div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link has-submenu {{#if pages.auth}}active{{/if}}" href="#authentication" data-bs-target="#authSubmenu" aria-expanded="{{#if pages.auth}}true{{else}}false{{/if}}">
+                        <i class="bi bi-shield-lock"></i>
+                        <span>Authentication</span>
+                    </a>
+                    <ul id="authSubmenu" class="submenu collapse {{#if pages.auth}}show{{/if}} list-unstyled">
+                        <li><a class="nav-link {{#if (eq page 'login')}}active{{/if}}" href="login.html">Login</a></li>
+                        <li><a class="nav-link {{#if (eq page 'register')}}active{{/if}}" href="register.html">Register</a></li>
+                        <li><a class="nav-link {{#if (eq page 'lock')}}active{{/if}}" href="lock.html">Lock Screen</a></li>
+                        <li><a class="nav-link {{#if (eq page 'password-recovery')}}active{{/if}}" href="password-recovery.html">Forgot Password</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link has-submenu {{#if pages.errors}}active{{/if}}" href="#errors" data-bs-target="#errorsSubmenu" aria-expanded="{{#if pages.errors}}true{{else}}false{{/if}}">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        <span>Error Pages</span>
+                    </a>
+                    <ul id="errorsSubmenu" class="submenu collapse {{#if pages.errors}}show{{/if}} list-unstyled">
+                        <li><a class="nav-link {{#if (eq page '404')}}active{{/if}}" href="404.html">404 Error</a></li>
+                        <li><a class="nav-link {{#if (eq page '500')}}active{{/if}}" href="500.html">500 Error</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</aside>

@@ -1,42 +1,7 @@
-<!DOCTYPE html>
-<html class="no-js" lang="en">
+#!/bin/bash
 
-<head>
-    <meta charset="utf-8">
-
-    <title>Rounded Charts | Kiaalap - Kiaalap Admin Template</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- favicon
-		============================================ -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-    <!-- Google Fonts
-		============================================ -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
-    <!-- Bootstrap CSS
-		============================================ -->
-        <!-- Bootstrap 5.3.8 CSS -->
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
-    <!-- Modern Styles -->
-    <link rel="stylesheet" href="src/scss/main.scss">
-    <!-- responsive CSS
-		============================================ -->
-
-</head>
-
-<body>
-    <div class="wrapper">
-        <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <a href="#" class="sidebar-logo">
-                <i class="fas fa-graduation-cap" style="font-size: 1.5rem; color: var(--primary-color);"></i>
-                <span class="sidebar-logo-text">Kiaalap</span>
-            </a>
-        </div>
-
-        <nav class="sidebar-nav">
+# Standard navigation template
+STANDARD_NAV='        <nav class="sidebar-nav">
             <div class="menu-section">
                 <div class="menu-section-title">Main</div>
                 <ul class="nav flex-column">
@@ -237,75 +202,48 @@
                     </li>
                 </ul>
             </div>
-        </nav>
-    </aside>
+        </nav>'
 
-        <div class="main-content">
-            <header class="header">
-            <div class="header-left">
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
+# Files to process
+FILES=(
+    "c3.html"
+    "peity.html"
+    "sparkline.html"
+    "rounded-chart.html"
+    "buttons.html"
+    "alerts.html"
+    "modals.html"
+    "tabs.html"
+    "accordion.html"
+    "basic-form-element.html"
+    "advance-form-element.html"
+)
 
-                <form class="search-form">
-                    <i class="search-icon fas fa-search"></i>
-                    <input type="text" class="search-input" placeholder="Search...">
-                </form>
-            </div>
+for file in "${FILES[@]}"; do
+    if [ -f "$file" ]; then
+        echo "Processing $file..."
 
-            <div class="header-right">
-                <button class="header-btn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge"></span>
-                </button>
+        # Extract the content before and after the sidebar-menu section
+        BEFORE=$(sed -n '1,/sidebar-menu/p' "$file" | sed '$d')
+        AFTER=$(sed -n '/main-content/,$p' "$file")
 
-                <button class="header-btn">
-                    <i class="fas fa-envelope"></i>
-                </button>
+        # Create a backup
+        cp "$file" "$file.nav-backup"
 
-                <button class="header-btn">
-                    <i class="fas fa-cog"></i>
-                </button>
+        # Write the new content
+        {
+            echo "$BEFORE"
+            echo "$STANDARD_NAV"
+            echo "    </aside>"
+            echo ""
+            echo "        <div class=\"main-content\">"
+            echo "$AFTER" | tail -n +2
+        } > "$file"
 
-                <div class="dropdown">
-                    <div class="user-menu" data-bs-toggle="dropdown">
-                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=4361ee&color=fff" alt="User" class="user-avatar">
-                        <div class="user-info">
-                            <span class="user-name">John Doe</span>
-                            <span class="user-role">Administrator</span>
-                        </div>
-                        <i class="fas fa-chevron-down ms-2" style="font-size: 0.75rem; color: #6b7280;"></i>
-                    </div>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-        </header>
+        echo "  - Updated $file successfully"
+    else
+        echo "File $file not found"
+    fi
+done
 
-            <div class="content-wrapper">
-                <div class="container-fluid p-4">
-                    
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="logo-pro">
-                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- jQuery -->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap 5.3.8 Bundle -->
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Modern Scripts -->
-    
-</body>
-
-</html>
+echo "Navigation update complete!"

@@ -2,27 +2,27 @@
 
 // Base button icon style
 .btn-icon {
-    padding: 0.375rem 0.625rem;
-    font-size: 1.125rem;
-    border-radius: 6px;
-    background: none;
-    border: none;
-    color: #495057;
-    cursor: pointer;
-    transition: background 0.2s ease;
+  padding: 0.375rem 0.625rem;
+  font-size: 1.125rem;
+  border-radius: 6px;
+  background: none;
+  border: none;
+  color: #495057;
+  cursor: pointer;
+  transition: background 0.2s ease;
 
-    &:hover {
-        background: #f8f9fa;
-    }
+  &:hover {
+    background: #f8f9fa;
+  }
 
-    &:focus {
-        outline: none;
-        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    }
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
 }
 
 // Quick action button
 .btn-new {
-    padding: 0.375rem 0.75rem;
-    font-size: 0.875rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
 }

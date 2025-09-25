@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import { glob } from 'glob';
+// import handlebars from 'vite-plugin-handlebars';
+// import { helpers } from './src/helpers/handlebars-helpers.js';
 
 // Find all HTML files
 const htmlFiles = glob.sync('*.html').reduce((acc, file) => {
@@ -12,6 +14,14 @@ const htmlFiles = glob.sync('*.html').reduce((acc, file) => {
 export default defineConfig({
   root: './',
   base: './',
+  plugins: [
+    // Handlebars plugin disabled - using JavaScript templating system instead
+    // handlebars({
+    //   partialDirectory: resolve(__dirname, 'src/partials'),
+    //   helpers: helpers,
+    //   context: (pagePath) => { ... }
+    // })
+  ],
   build: {
     outDir: 'dist',
     rollupOptions: {

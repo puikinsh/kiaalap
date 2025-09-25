@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Inbox | Kiaalap - Kiaalap Admin Template</title>
+    <title>Buttons | Kiaalap - Kiaalap Admin Template</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -30,7 +30,7 @@
     <div class="wrapper">
         <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <a href="index.html" class="sidebar-logo">
+            <a href="#" class="sidebar-logo">
                 <i class="fas fa-graduation-cap" style="font-size: 1.5rem; color: var(--primary-color);"></i>
                 <span class="sidebar-logo-text">Kiaalap</span>
             </a>
@@ -48,8 +48,10 @@
                             <i class="nav-arrow fas fa-chevron-right"></i>
                         </a>
                         <ul class="submenu collapse show" id="dashboard">
+                            <li><a href="index.html" class="nav-link">Dashboard</a></li>
+                            <li><a href="index-1.html" class="nav-link">Dashboard v1</a></li>
+                            <li><a href="index-2.html" class="nav-link">Dashboard v2</a></li>
                             <li><a href="analytics.html" class="nav-link">Analytics</a></li>
-                            <li><a href="index-1.html" class="nav-link">Reports</a></li>
                             <li><a href="widgets.html" class="nav-link">Widgets</a></li>
                         </ul>
                     </li>
@@ -77,6 +79,7 @@
                             <li><a href="all-professors.html" class="nav-link">All Professors</a></li>
                             <li><a href="add-professor.html" class="nav-link">Add Professor</a></li>
                             <li><a href="edit-professor.html" class="nav-link">Edit Professor</a></li>
+                            <li><a href="professor-profile.html" class="nav-link">Professor Profile</a></li>
                         </ul>
                     </li>
 
@@ -89,6 +92,7 @@
                         <ul class="submenu collapse" id="students">
                             <li><a href="all-students.html" class="nav-link">All Students</a></li>
                             <li><a href="add-student.html" class="nav-link">Add Student</a></li>
+                            <li><a href="edit-student.html" class="nav-link">Edit Student</a></li>
                             <li><a href="student-profile.html" class="nav-link">Student Profile</a></li>
                         </ul>
                     </li>
@@ -102,7 +106,9 @@
                         <ul class="submenu collapse" id="courses">
                             <li><a href="all-courses.html" class="nav-link">All Courses</a></li>
                             <li><a href="add-course.html" class="nav-link">Add Course</a></li>
+                            <li><a href="edit-course.html" class="nav-link">Edit Course</a></li>
                             <li><a href="course-info.html" class="nav-link">Course Info</a></li>
+                            <li><a href="course-payment.html" class="nav-link">Course Payment</a></li>
                         </ul>
                     </li>
 
@@ -115,6 +121,7 @@
                         <ul class="submenu collapse" id="library">
                             <li><a href="library-assets.html" class="nav-link">Library Assets</a></li>
                             <li><a href="add-library-assets.html" class="nav-link">Add Asset</a></li>
+                            <li><a href="edit-library-assets.html" class="nav-link">Edit Asset</a></li>
                         </ul>
                     </li>
 
@@ -127,6 +134,7 @@
                         <ul class="submenu collapse" id="departments">
                             <li><a href="departments.html" class="nav-link">All Departments</a></li>
                             <li><a href="add-department.html" class="nav-link">Add Department</a></li>
+                            <li><a href="edit-department.html" class="nav-link">Edit Department</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -145,6 +153,7 @@
                         <ul class="submenu collapse" id="mailbox">
                             <li><a href="mailbox.html" class="nav-link">Inbox</a></li>
                             <li><a href="mailbox-compose.html" class="nav-link">Compose</a></li>
+                            <li><a href="mailbox-view.html" class="nav-link">View Mail</a></li>
                         </ul>
                     </li>
 
@@ -158,6 +167,10 @@
                             <li><a href="line-charts.html" class="nav-link">Line Charts</a></li>
                             <li><a href="bar-charts.html" class="nav-link">Bar Charts</a></li>
                             <li><a href="area-charts.html" class="nav-link">Area Charts</a></li>
+                            <li><a href="c3.html" class="nav-link">C3 Charts</a></li>
+                            <li><a href="peity.html" class="nav-link">Peity Charts</a></li>
+                            <li><a href="sparkline.html" class="nav-link">Sparkline</a></li>
+                            <li><a href="rounded-chart.html" class="nav-link">Rounded Charts</a></li>
                         </ul>
                     </li>
 
@@ -170,6 +183,98 @@
                         <ul class="submenu collapse" id="tables">
                             <li><a href="static-table.html" class="nav-link">Basic Tables</a></li>
                             <li><a href="data-table.html" class="nav-link">Data Tables</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Interface Section -->
+            <div class="menu-section">
+                <div class="menu-section-title">Interface</div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#elements" class="nav-link" data-bs-toggle="collapse">
+                            <i class="nav-icon fas fa-cube"></i>
+                            <span class="nav-text">Elements</span>
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </a>
+                        <ul class="submenu collapse" id="elements">
+                            <li><a href="buttons.html" class="nav-link">Buttons</a></li>
+                            <li><a href="alerts.html" class="nav-link">Alerts</a></li>
+                            <li><a href="modals.html" class="nav-link">Modals</a></li>
+                            <li><a href="tabs.html" class="nav-link">Tabs</a></li>
+                            <li><a href="accordion.html" class="nav-link">Accordion</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#forms" class="nav-link" data-bs-toggle="collapse">
+                            <i class="nav-icon fas fa-edit"></i>
+                            <span class="nav-text">Forms</span>
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </a>
+                        <ul class="submenu collapse" id="forms">
+                            <li><a href="basic-form-element.html" class="nav-link">Basic Forms</a></li>
+                            <li><a href="advance-form-element.html" class="nav-link">Advanced Forms</a></li>
+                            <li><a href="x-editable.html" class="nav-link">X-Editable</a></li>
+                            <li><a href="dual-list-box.html" class="nav-link">Dual List Box</a></li>
+                            <li><a href="images-cropper.html" class="nav-link">Image Cropper</a></li>
+                            <li><a href="password-meter.html" class="nav-link">Password Meter</a></li>
+                            <li><a href="multi-upload.html" class="nav-link">Multi Upload</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Visualization Section -->
+            <div class="menu-section">
+                <div class="menu-section-title">Visualization</div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#maps" class="nav-link" data-bs-toggle="collapse">
+                            <i class="nav-icon fas fa-map"></i>
+                            <span class="nav-text">Maps</span>
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </a>
+                        <ul class="submenu collapse" id="maps">
+                            <li><a href="google-map.html" class="nav-link">Google Maps</a></li>
+                            <li><a href="data-maps.html" class="nav-link">Data Maps</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Utilities Section -->
+            <div class="menu-section">
+                <div class="menu-section-title">Utilities</div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#apps" class="nav-link" data-bs-toggle="collapse">
+                            <i class="nav-icon fas fa-th"></i>
+                            <span class="nav-text">Apps</span>
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </a>
+                        <ul class="submenu collapse" id="apps">
+                            <li><a href="pdf-viewer.html" class="nav-link">PDF Viewer</a></li>
+                            <li><a href="code-editor.html" class="nav-link">Code Editor</a></li>
+                            <li><a href="tinymc.html" class="nav-link">TinyMCE</a></li>
+                            <li><a href="tree-view.html" class="nav-link">Tree View</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#pages" class="nav-link" data-bs-toggle="collapse">
+                            <i class="nav-icon fas fa-file"></i>
+                            <span class="nav-text">Pages</span>
+                            <i class="nav-arrow fas fa-chevron-right"></i>
+                        </a>
+                        <ul class="submenu collapse" id="pages">
+                            <li><a href="login.html" class="nav-link">Login</a></li>
+                            <li><a href="register.html" class="nav-link">Register</a></li>
+                            <li><a href="lock.html" class="nav-link">Lock Screen</a></li>
+                            <li><a href="password-recovery.html" class="nav-link">Password Recovery</a></li>
+                            <li><a href="404.html" class="nav-link">404 Error</a></li>
+                            <li><a href="500.html" class="nav-link">500 Error</a></li>
                         </ul>
                     </li>
                 </ul>

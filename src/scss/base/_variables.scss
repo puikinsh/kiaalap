@@ -48,35 +48,35 @@ $breakpoint-desktop: 1200px;
 
 // Export as CSS variables for runtime access
 :root {
-    --sidebar-width: #{$sidebar-width};
-    --header-height: #{$header-height};
+  --sidebar-width: #{$sidebar-width};
+  --header-height: #{$header-height};
 
-    --primary: #{$primary};
-    --secondary: #{$secondary};
-    --success: #{$success};
-    --info: #{$info};
-    --warning: #{$warning};
-    --danger: #{$danger};
+  --primary: #{$primary};
+  --secondary: #{$secondary};
+  --success: #{$success};
+  --info: #{$info};
+  --warning: #{$warning};
+  --danger: #{$danger};
 
-    --body-bg: #{$body-bg};
-    --sidebar-bg: #{$sidebar-bg};
-    --white: #{$white};
+  --body-bg: #{$body-bg};
+  --sidebar-bg: #{$sidebar-bg};
+  --white: #{$white};
 
-    --border-color: #{$border-color};
-    --border-radius: #{$border-radius};
-    --border-radius-lg: #{$border-radius-lg};
+  --border-color: #{$border-color};
+  --border-radius: #{$border-radius};
+  --border-radius-lg: #{$border-radius-lg};
 
-    --text-muted: #{$text-muted};
-    --text-dark: #{$text-dark};
+  --text-muted: #{$text-muted};
+  --text-dark: #{$text-dark};
 
-    --shadow-sm: #{$shadow-sm};
-    --shadow-md: #{$shadow-md};
-    --shadow-lg: #{$shadow-lg};
+  --shadow-sm: #{$shadow-sm};
+  --shadow-md: #{$shadow-md};
+  --shadow-lg: #{$shadow-lg};
 
-    --transition-speed: #{$transition-speed};
+  --transition-speed: #{$transition-speed};
 
-    --z-sidebar: #{$z-sidebar};
-    --z-header: #{$z-header};
-    --z-backdrop: #{$z-backdrop};
-    --z-dropdown: #{$z-dropdown};
+  --z-sidebar: #{$z-sidebar};
+  --z-header: #{$z-header};
+  --z-backdrop: #{$z-backdrop};
+  --z-dropdown: #{$z-dropdown};
 }
