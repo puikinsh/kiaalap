@@ -48,28 +48,29 @@
             </div>
 
             <!-- Edit Form Row -->
-            <div class="row">
-                <!-- Main Form Column -->
-                <div class="col-lg-8 mb-4">
-                    <div class="dashboard-card">
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-12">
+                    <!-- Main Form Column -->
+                    <div class="col-span-8">
+                        <div class="dashboard-card">
                         <div class="dashboard-card-header">
                             <h5 class="dashboard-card-title mb-0">Department Information</h5>
                         </div>
                         <div class="dashboard-card-body">
                             <form id="editDepartmentForm">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
+                                <div class="dashboard-grid grid-cols-2 gap-3">
+                                    <div>
                                         <label for="deptName" class="form-label">Department Name</label>
                                         <input type="text" class="form-control" id="deptName" value="Computer Science" required>
                                     </div>
-                                    <div class="col-md-6 mb-3">
+                                    <div>
                                         <label for="deptCode" class="form-label">Department Code</label>
                                         <input type="text" class="form-control" id="deptCode" value="CS" required>
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
+                                <div class="dashboard-grid grid-cols-2 gap-3">
+                                    <div>
                                         <label for="deptHead" class="form-label">Department Head</label>
                                         <select class="form-select" id="deptHead" required>
                                             <option value="">Select Department Head</option>
@@ -79,7 +80,7 @@
                                             <option value="4">Dr. Amanda Rodriguez</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-6 mb-3">
+                                    <div>
                                         <label for="deptStatus" class="form-label">Status</label>
                                         <select class="form-select" id="deptStatus" required>
                                             <option value="active" selected>Active</option>
@@ -89,12 +90,12 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
+                                <div class="dashboard-grid grid-cols-2 gap-3">
+                                    <div>
                                         <label for="deptEmail" class="form-label">Department Email</label>
                                         <input type="email" class="form-control" id="deptEmail" value="cs@kiaalap.edu" required>
                                     </div>
-                                    <div class="col-md-6 mb-3">
+                                    <div>
                                         <label for="deptPhone" class="form-label">Phone Number</label>
                                         <input type="tel" class="form-control" id="deptPhone" value="+1-555-0123">
                                     </div>
@@ -125,19 +126,19 @@
                                 </div>
                             </form>
                         </div>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Statistics Column -->
-                <div class="col-lg-4 mb-4">
-                    <div class="dashboard-card">
+                    <!-- Statistics Column -->
+                    <div class="col-span-4">
+                        <div class="dashboard-card">
                         <div class="dashboard-card-header">
                             <h5 class="dashboard-card-title mb-0">Department Statistics</h5>
                         </div>
                         <div class="dashboard-card-body">
                             <!-- Statistics Grid -->
-                            <div class="row text-center mb-4">
-                                <div class="col-6 mb-3">
+                            <div class="dashboard-grid grid-cols-2 gap-3 text-center mb-4">
+                                <div>
                                     <div class="p-3 bg-light border rounded shadow-sm">
                                         <h4 class="text-primary mb-1">1,542</h4>
                                         <small class="text-muted">Students</small>
@@ -146,7 +147,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6 mb-3">
+                                <div>
                                     <div class="p-3 bg-light border rounded shadow-sm">
                                         <h4 class="text-success mb-1">28</h4>
                                         <small class="text-muted">Faculty</small>
@@ -155,14 +156,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6 mb-3">
+                                <div>
                                     <div class="p-3 bg-light border rounded shadow-sm">
                                         <h4 class="text-info mb-1">15</h4>
                                         <small class="text-muted">Programs</small>
                                         <div class="text-muted small mt-1">3 Graduate</div>
                                     </div>
                                 </div>
-                                <div class="col-6 mb-3">
+                                <div>
                                     <div class="p-3 bg-light border rounded shadow-sm">
                                         <h4 class="text-warning mb-1">89%</h4>
                                         <small class="text-muted">Capacity</small>
@@ -177,7 +178,7 @@
                                     <div class="text-muted small">Founded</div>
                                     <div class="fw-semibold">1995</div>
                                 </div>
-                                <div class="col-6">
+                                <div>
                                     <div class="text-muted small">Ranking</div>
                                     <div class="fw-semibold">#12 National</div>
                                 </div>
@@ -202,9 +203,11 @@
                                 </div>
                             </div>
                         </div>
+                        </div>
                     </div>
                 </div>
-            </div>        </div>
+            </div>
+        </div>
     </main>
 
     {{> footer}}
@@ -257,3 +260,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 </script>
+
+</body>
+</html>

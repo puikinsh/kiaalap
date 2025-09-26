@@ -1,7 +1,27 @@
 {{> head}}
 
 <style>
-/* Accordion Customizations */
+/* Dashboard Grid System */
+        .dashboard-row { margin-bottom: 24px; }
+        .dashboard-grid { display: grid; gap: 24px; }
+        .grid-cols-1 { grid-template-columns: 1fr; }
+        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+        .grid-cols-2-1 { grid-template-columns: 2fr 1fr; }
+        .grid-cols-3-1 { grid-template-columns: 3fr 1fr; }
+
+        @media (max-width: 1200px) {
+            .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
+            .grid-cols-3 { grid-template-columns: repeat(2, 1fr); }
+            .grid-cols-2-1, .grid-cols-3-1 { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .dashboard-grid { gap: 16px; }
+            .grid-cols-4, .grid-cols-3, .grid-cols-2, .grid-cols-2-1, .grid-cols-3-1 { grid-template-columns: 1fr; }
+        }
+
+        /* Accordion Customizations */
         .accordion {
             border-radius: var(--border-radius);
             overflow: hidden;
@@ -495,8 +515,8 @@
                                     </h2>
                                     <div id="collapseStudentInfo" class="accordion-collapse collapse show" aria-labelledby="studentInfo" data-bs-parent="#basicAccordion">
                                         <div class="accordion-body">
-                                            <div class="row">
-                                                <div class="col-md-8">
+                                            <div class="dashboard-grid grid-cols-3-1">
+                                                <div>
                                                     <p><strong>Overview:</strong> Comprehensive student information management system that allows you to maintain detailed records of all enrolled students.</p>
                                                     <h6>Key Features:</h6>
                                                     <ul>
@@ -507,7 +527,7 @@
                                                         <li>Academic performance monitoring</li>
                                                     </ul>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div>
                                                     <div class="stat-item">
                                                         <div class="stat-value">1,245</div>
                                                         <div class="stat-label">Total Students</div>
@@ -533,8 +553,8 @@
                                         <div class="accordion-body">
                                             <p><strong>Description:</strong> Advanced course management system for creating, scheduling, and maintaining academic courses.</p>
 
-                                            <div class="row mt-3">
-                                                <div class="col-md-6">
+                                            <div class="dashboard-grid grid-cols-2 mt-3">
+                                                <div>
                                                     <h6>Course Creation & Setup</h6>
                                                     <ul>
                                                         <li>Course curriculum design</li>
@@ -543,7 +563,7 @@
                                                         <li>Credit hour allocation</li>
                                                     </ul>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div>
                                                     <h6>Enrollment & Progress</h6>
                                                     <div class="progress-indicator">
                                                         <div class="progress-bar" style="width: 85%"></div>
@@ -566,8 +586,8 @@
                                         <div class="accordion-body">
                                             <p><strong>Analytics Dashboard:</strong> Comprehensive grade management with real-time analytics and performance tracking.</p>
 
-                                            <div class="row">
-                                                <div class="col-md-3">
+                                            <div class="dashboard-grid grid-cols-4">
+                                                <div>
                                                     <div class="card text-center">
                                                         <div class="card-body">
                                                             <h5 class="text-success">A</h5>
@@ -575,7 +595,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div>
                                                     <div class="card text-center">
                                                         <div class="card-body">
                                                             <h5 class="text-primary">3.85</h5>
@@ -583,7 +603,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div>
                                                     <div class="card text-center">
                                                         <div class="card-body">
                                                             <h5 class="text-warning">92%</h5>
@@ -591,7 +611,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div>
                                                     <div class="card text-center">
                                                         <div class="card-body">
                                                             <h5 class="text-info">156</h5>
@@ -620,8 +640,8 @@
                                                 <strong>Latest Update:</strong> New parent portal has been launched with real-time grade access.
                                             </div>
 
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                            <div class="dashboard-grid grid-cols-2">
+                                                <div>
                                                     <h6>Available Reports</h6>
                                                     <div class="list-group">
                                                         <div class="list-group-item d-flex justify-content-between align-items-center">
@@ -638,7 +658,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div>
                                                     <h6>Quick Actions</h6>
                                                     <div class="d-grid gap-2">
                                                         <button class="btn btn-primary">Send Parent Notification</button>
@@ -700,8 +720,8 @@
                                     <div id="collapseFaq2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
                                         <div class="accordion-body">
                                             <p>Our academic support team is available during the following hours:</p>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                            <div class="dashboard-grid grid-cols-2">
+                                                <div>
                                                     <h6>Regular Hours</h6>
                                                     <ul>
                                                         <li><strong>Monday - Friday:</strong> 8:00 AM - 6:00 PM</li>
@@ -709,7 +729,7 @@
                                                         <li><strong>Sunday:</strong> Closed</li>
                                                     </ul>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div>
                                                     <h6>Extended Hours (During Exams)</h6>
                                                     <ul>
                                                         <li><strong>Monday - Friday:</strong> 8:00 AM - 8:00 PM</li>
@@ -733,8 +753,8 @@
                                     <div id="collapseFaq3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
                                         <div class="accordion-body">
                                             <p>You can track your academic progress through multiple channels:</p>
-                                            <div class="row">
-                                                <div class="col-md-8">
+                                            <div class="dashboard-grid grid-cols-3-1">
+                                                <div>
                                                     <h6>Available Tools:</h6>
                                                     <ul>
                                                         <li><strong>Student Portal:</strong> Real-time grade updates and GPA calculation</li>
@@ -744,7 +764,7 @@
                                                         <li><strong>Academic Advisor:</strong> Personal consultations for progress review</li>
                                                     </ul>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div>
                                                     <div class="card">
                                                         <div class="card-header">
                                                             <small>Current Progress</small>
@@ -776,8 +796,8 @@
                                     <div id="collapseFaq4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
                                         <div class="accordion-body">
                                             <p>We accept various payment methods for your convenience:</p>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                            <div class="dashboard-grid grid-cols-2">
+                                                <div>
                                                     <h6>Online Payments</h6>
                                                     <ul>
                                                         <li>Credit/Debit Cards (Visa, MasterCard, American Express)</li>
@@ -786,7 +806,7 @@
                                                         <li>Student Financial Aid</li>
                                                     </ul>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div>
                                                     <h6>Traditional Methods</h6>
                                                     <ul>
                                                         <li>Cash (at cashier office)</li>
@@ -822,8 +842,8 @@
                                     <i class="fas fa-chevron-down"></i>
                                 </div>
                                 <div class="course-accordion-body">
-                                    <div class="row">
-                                        <div class="col-md-8">
+                                    <div class="dashboard-grid grid-cols-3-1">
+                                        <div>
                                             <h6>Course Description</h6>
                                             <p>This advanced course covers machine learning fundamentals, artificial intelligence concepts, and distributed systems architecture. Students will work on practical projects and research assignments.</p>
 
@@ -834,7 +854,7 @@
                                                 <li>Design and implement distributed systems</li>
                                             </ul>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div>
                                             <h6>Course Details</h6>
                                             <p><strong>Credits:</strong> 3</p>
                                             <p><strong>Prerequisites:</strong> Data Structures, Algorithms</p>
@@ -857,8 +877,8 @@
                                     <h6>Course Overview</h6>
                                     <p>Comprehensive study of fundamental data structures and algorithmic techniques essential for computer science.</p>
 
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                    <div class="dashboard-grid grid-cols-2">
+                                        <div>
                                             <h6>Topics Covered</h6>
                                             <ul>
                                                 <li>Arrays and Linked Lists</li>
@@ -867,7 +887,7 @@
                                                 <li>Sorting and Searching</li>
                                             </ul>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div>
                                             <h6>Assessment</h6>
                                             <ul>
                                                 <li>Programming Assignments: 40%</li>
@@ -898,15 +918,15 @@
                                     </div>
 
                                     <h6>Key Concepts</h6>
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                    <div class="dashboard-grid grid-cols-2">
+                                        <div>
                                             <ul>
                                                 <li>Vector Spaces</li>
                                                 <li>Matrix Operations</li>
                                                 <li>Eigenvalues & Eigenvectors</li>
                                             </ul>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div>
                                             <ul>
                                                 <li>Linear Transformations</li>
                                                 <li>Orthogonality</li>
@@ -928,11 +948,11 @@
                             <div class="accordion-builder">
                                 <h6>Create Custom Accordion</h6>
                                 <p class="text-muted mb-4">Build your own accordion with custom sections and content</p>
-                                <div class="row g-3 mb-3">
-                                    <div class="col-md-4">
+                                <div class="dashboard-grid grid-cols-3 mb-3">
+                                    <div>
                                         <input type="text" class="form-control" id="accordionTitle" placeholder="Section Title">
                                     </div>
-                                    <div class="col-md-4">
+                                    <div>
                                         <select class="form-select" id="accordionIcon">
                                             <option value="fas fa-info-circle">Info</option>
                                             <option value="fas fa-user">User</option>
@@ -942,7 +962,7 @@
                                             <option value="fas fa-graduation-cap">Academic</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div>
                                         <button class="btn btn-primary w-100" onclick="addAccordionSection()">
                                             <i class="fas fa-plus me-2"></i>Add Section
                                         </button>

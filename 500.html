@@ -1,87 +1,366 @@
-{{> head}}
+<!doctype html>
+<html class="no-js" lang="en">
 
-{{> sidebar}}
+<head>
+    <meta charset="utf-8">
+    <title>500 - Internal Server Error | Kiaalap Admin Dashboard</title>
+    <meta name="description" content="Internal server error - Kiaalap Admin Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Main Content Wrapper -->
-<div class="main-wrapper" id="mainWrapper">
-    {{> header}}
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
 
-    <!-- Main Content -->
-    <main class="dashboard-content" id="main-content">
-        <div class="container-fluid">
-            <!-- Page Header -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <div>
-                    <h1 class="h3 mb-0 text-gray-800">Internal Server Error</h1>
-                    <p class="mb-0 text-muted">Something went wrong on our end</p>
-                </div>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <!-- Custom Error Page Styles -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .error-container {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .error-code {
+            font-size: 120px;
+            font-weight: 700;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            line-height: 1;
+            margin-bottom: 10px;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .error-title {
+            font-size: 32px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .error-message {
+            font-size: 18px;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .error-icon {
+            font-size: 80px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 30px;
+            animation: rotate 2s linear infinite;
+        }
+
+        .btn-group-error {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .btn-error {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 30px;
+            background: white;
+            color: #f5576c;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-error:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            color: #f093fb;
+        }
+
+        .btn-error-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-error-secondary:hover {
+            background: rgba(255,255,255,0.3);
+            color: white;
+        }
+
+        .error-details {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .error-details h4 {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .error-details ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .error-details li {
+            color: rgba(255,255,255,0.9);
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .error-details li:last-child {
+            border-bottom: none;
+        }
+
+        .error-details li i {
+            color: rgba(255,255,255,0.7);
+            font-size: 16px;
+        }
+
+        .status-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .status-item {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            color: white;
+        }
+
+        .status-item h5 {
+            font-size: 14px;
+            margin-bottom: 5px;
+            opacity: 0.8;
+        }
+
+        .status-item p {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            10%, 30%, 50%, 70%, 90% {
+                transform: translateX(-10px);
+            }
+            20%, 40%, 60%, 80% {
+                transform: translateX(10px);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .error-code {
+                font-size: 80px;
+            }
+            .error-title {
+                font-size: 24px;
+            }
+            .error-message {
+                font-size: 16px;
+            }
+        }
+
+        .refresh-hint {
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="error-container">
+        <div class="error-icon">
+            <i class="bi bi-gear"></i>
+        </div>
+
+        <div class="error-code">500</div>
+        <h1 class="error-title">Internal Server Error</h1>
+        <p class="error-message">
+            We're sorry, but something went wrong on our server. Our team has been notified and is working to fix the issue.
+        </p>
+
+        <div class="btn-group-error">
+            <a href="javascript:location.reload()" class="btn-error">
+                <i class="bi bi-arrow-clockwise"></i>
+                Try Again
+            </a>
+            <a href="index.html" class="btn-error btn-error-secondary">
+                <i class="bi bi-house-door"></i>
+                Go to Dashboard
+            </a>
+        </div>
+
+        <div class="error-details">
+            <h4><i class="bi bi-info-circle"></i> What you can try:</h4>
+            <ul>
+                <li>
+                    <i class="bi bi-arrow-clockwise"></i>
+                    Refresh the page - the issue might be temporary
+                </li>
+                <li>
+                    <i class="bi bi-clock-history"></i>
+                    Wait a few minutes and try again
+                </li>
+                <li>
+                    <i class="bi bi-trash3"></i>
+                    Clear your browser cache and cookies
+                </li>
+                <li>
+                    <i class="bi bi-browser-chrome"></i>
+                    Try using a different browser
+                </li>
+                <li>
+                    <i class="bi bi-headset"></i>
+                    Contact support if the problem persists
+                </li>
+            </ul>
+        </div>
+
+        <div class="status-info">
+            <div class="status-item">
+                <h5>Error Code</h5>
+                <p>500</p>
             </div>
+            <div class="status-item">
+                <h5>Time</h5>
+                <p id="currentTime">--:--</p>
+            </div>
+            <div class="status-item">
+                <h5>Status</h5>
+                <p>Investigating</p>
+            </div>
+        </div>
 
-<div class="error-pagewrap">
-		<div class="error-page-int">
-			<div class="content-error">
-				<h1>Server Error <span class="counter"> 500</span></h1>
-				<p>The server encountered something unexpected that didn't allow it to complete the request. We apologize.</p>
-				<a href="index.html">Dashboard</a>
-				<a href="#">Report Problem</a>
-			</div>
-			<div class="text-center login-footer">
-				<p>Copyright © 2018. All rights reserved. Template by <a href="https://colorlib.com/wp/templates/">Colorlib</a></p>
-			</div>
-		</div>
+        <div class="refresh-hint">
+            <div class="spinner"></div>
+            <span>Auto-refresh in <span id="countdown">30</span> seconds</span>
+        </div>
     </div>
-    <!-- jquery
-		============================================ -->
-    <script src="js/vendor/jquery-3.7.1.min.js"></script>
-    <!-- bootstrap JS
-		============================================ -->
+
+    <!-- Bootstrap JS -->
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Custom Scripts -->
+    <script>
+        // Display current time
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('currentTime').textContent = timeString;
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
 
+        // Auto-refresh countdown
+        let countdown = 30;
+        const countdownElement = document.getElementById('countdown');
 
+        const countdownInterval = setInterval(() => {
+            countdown--;
+            countdownElement.textContent = countdown;
 
+            if (countdown <= 0) {
+                clearInterval(countdownInterval);
+                location.reload();
+            }
+        }, 1000);
 
+        // Allow user to stop auto-refresh by clicking anywhere
+        document.addEventListener('click', () => {
+            clearInterval(countdownInterval);
+            document.querySelector('.refresh-hint').style.display = 'none';
+        });
+    </script>
+</body>
 
-
-
-
-
-
-
-    <!-- mCustomScrollbar JS
-		============================================ -->
-
-
-    <!-- metisMenu JS
-		============================================ -->
-    <script src="js/metisMenu/metisMenu.min.js"></script>
-    <script src="js/metisMenu/metisMenu-active.js"></script>
-
-
-
-
-
-
-
-    <!-- calendar JS
-		============================================ -->
-    <script src="js/calendar/moment.min.js"></script>
-    <script src="js/calendar/fullcalendar.min.js"></script>
-    <script src="js/calendar/fullcalendar-active.js"></script>
-    <!-- tab JS
-		============================================ -->
-    <script src="js/tab.js"></script>
-    <!-- plugins JS
-		============================================ -->
-    <script src="js/plugins.js"></script>
-    <!-- main JS
-		============================================ -->
-    <script src="js/main.js"></script>
-	<!-- tawk chat JS
-		============================================ -->        </div>
-    </main>
-
-    {{> footer}}
-</div>
-
-{{> scripts}}
+</html>

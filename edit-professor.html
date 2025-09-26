@@ -52,16 +52,16 @@
                     <div class="dashboard-card-body">
                         <form class="needs-validation" novalidate>
                             <!-- Personal Information Section -->
-                            <div class="row mb-4">
-                                <div class="col-12">
+                            <div class="dashboard-grid grid-cols-1 mb-4">
+                                <div>
                                     <h6 class="text-primary fw-semibold mb-3">
                                         <i class="bi bi-person-circle me-2"></i>Personal Information
                                     </h6>
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="col-md-2">
+                            <div class="dashboard-grid grid-cols-12 gap-3 mb-3">
+                                <div class="col-span-2">
                                     <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
                                     <select class="form-select" id="title" required>
                                         <option value="Dr." selected>Dr.</option>
@@ -72,37 +72,37 @@
                                     </select>
                                     <div class="invalid-feedback">Please select a title.</div>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-span-5">
                                     <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="firstName" value="Sarah" required>
                                     <div class="invalid-feedback">Please provide a valid first name.</div>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-span-5">
                                     <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="lastName" value="Johnson" required>
                                     <div class="invalid-feedback">Please provide a valid last name.</div>
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="col-md-6">
+                            <div class="dashboard-grid grid-cols-2 gap-3 mb-3">
+                                <div>
                                     <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
                                     <input type="email" class="form-control" id="email" value="s.johnson@kiaalap.edu" required>
                                     <div class="invalid-feedback">Please provide a valid email address.</div>
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
                                     <input type="tel" class="form-control" id="phone" value="+1 (555) 123-4567" required>
                                     <div class="invalid-feedback">Please provide a valid phone number.</div>
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="col-md-6">
+                            <div class="dashboard-grid grid-cols-2 gap-3 mb-3">
+                                <div>
                                     <label for="dateOfBirth" class="form-label">Date of Birth</label>
                                     <input type="date" class="form-control" id="dateOfBirth" value="1982-05-15">
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="gender" class="form-label">Gender</label>
                                     <select class="form-select" id="gender">
                                         <option value="Female" selected>Female</option>
@@ -113,29 +113,29 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-4">
-                                <div class="col-12">
+                            <div class="dashboard-grid grid-cols-1 mb-4">
+                                <div>
                                     <label for="address" class="form-label">Address</label>
                                     <textarea class="form-control" id="address" rows="2">123 University Ave, College Town, CT 06037</textarea>
                                 </div>
                             </div>
 
                             <!-- Academic Information Section -->
-                            <div class="row mb-4">
-                                <div class="col-12">
+                            <div class="dashboard-grid grid-cols-1 mb-4">
+                                <div>
                                     <h6 class="text-primary fw-semibold mb-3">
                                         <i class="bi bi-mortarboard me-2"></i>Academic Information
                                     </h6>
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="col-md-6">
+                            <div class="dashboard-grid grid-cols-2 gap-3 mb-3">
+                                <div>
                                     <label for="employeeId" class="form-label">Employee ID <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="employeeId" value="EMP001" required readonly>
                                     <div class="form-text">Employee ID cannot be changed</div>
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="department" class="form-label">Department <span class="text-danger">*</span></label>
                                     <select class="form-select" id="department" required>
                                         <option value="Computer Science" selected>Computer Science</option>
@@ -153,8 +153,8 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="col-md-6">
+                            <div class="dashboard-grid grid-cols-2 gap-3 mb-3">
+                                <div>
                                     <label for="position" class="form-label">Position <span class="text-danger">*</span></label>
                                     <select class="form-select" id="position" required>
                                         <option value="Professor" selected>Professor</option>
@@ -166,7 +166,7 @@
                                     </select>
                                     <div class="invalid-feedback">Please select a position.</div>
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="employmentType" class="form-label">Employment Type <span class="text-danger">*</span></label>
                                     <select class="form-select" id="employmentType" required>
                                         <option value="Full-Time" selected>Full-Time</option>
@@ -178,13 +178,13 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="col-md-6">
+                            <div class="dashboard-grid grid-cols-2 gap-3 mb-3">
+                                <div>
                                     <label for="joiningDate" class="form-label">Joining Date <span class="text-danger">*</span></label>
                                     <input type="date" class="form-control" id="joiningDate" value="2018-08-15" required>
                                     <div class="invalid-feedback">Please provide joining date.</div>
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="salary" class="form-label">Monthly Salary</label>
                                     <div class="input-group">
                                         <span class="input-group-text">$</span>
@@ -194,8 +194,8 @@
                             </div>
 
                             <!-- Employment Status -->
-                            <div class="row mb-4">
-                                <div class="col-md-6">
+                            <div class="dashboard-grid grid-cols-2 gap-3 mb-4">
+                                <div>
                                     <label for="status" class="form-label">Employment Status</label>
                                     <select class="form-select" id="status">
                                         <option value="Active" selected>Active</option>
@@ -204,23 +204,23 @@
                                         <option value="Inactive">Inactive</option>
                                     </select>
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="officeHours" class="form-label">Office Hours</label>
                                     <input type="text" class="form-control" id="officeHours" value="Mon-Wed 2-4 PM, Fri 10-12 PM">
                                 </div>
                             </div>
 
                             <!-- Educational Background -->
-                            <div class="row mb-4">
-                                <div class="col-12">
+                            <div class="dashboard-grid grid-cols-1 mb-4">
+                                <div>
                                     <h6 class="text-primary fw-semibold mb-3">
                                         <i class="bi bi-book me-2"></i>Educational Background
                                     </h6>
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="col-md-6">
+                            <div class="dashboard-grid grid-cols-2 gap-3 mb-3">
+                                <div>
                                     <label for="highestDegree" class="form-label">Highest Degree <span class="text-danger">*</span></label>
                                     <select class="form-select" id="highestDegree" required>
                                         <option value="PhD" selected>PhD</option>
@@ -230,44 +230,44 @@
                                     </select>
                                     <div class="invalid-feedback">Please select highest degree.</div>
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="specialization" class="form-label">Specialization/Field</label>
                                     <input type="text" class="form-control" id="specialization" value="Artificial Intelligence & Machine Learning">
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="col-md-6">
+                            <div class="dashboard-grid grid-cols-2 gap-3 mb-3">
+                                <div>
                                     <label for="university" class="form-label">University/Institution</label>
                                     <input type="text" class="form-control" id="university" value="Stanford University">
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="graduationYear" class="form-label">Graduation Year</label>
                                     <input type="number" class="form-control" id="graduationYear" value="2015" min="1950" max="2024">
                                 </div>
                             </div>
 
                             <!-- Additional Information -->
-                            <div class="row mb-4">
-                                <div class="col-12">
+                            <div class="dashboard-grid grid-cols-1 mb-4">
+                                <div>
                                     <h6 class="text-primary fw-semibold mb-3">
                                         <i class="bi bi-info-circle me-2"></i>Additional Information
                                     </h6>
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="col-md-6">
+                            <div class="dashboard-grid grid-cols-2 gap-3 mb-3">
+                                <div>
                                     <label for="experience" class="form-label">Years of Experience</label>
                                     <input type="number" class="form-control" id="experience" value="12" min="0">
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="office" class="form-label">Office Location</label>
                                     <input type="text" class="form-control" id="office" value="Room 301, CS Building">
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
+                            <div class="dashboard-grid grid-cols-2 gap-3 mb-3">
                                 <div class="col-12">
                                     <label for="subjects" class="form-label">Subjects to Teach</label>
                                     <input type="text" class="form-control" id="subjects" value="Machine Learning, Data Structures, Algorithms, AI Ethics">
@@ -275,7 +275,7 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
+                            <div class="dashboard-grid grid-cols-2 gap-3 mb-3">
                                 <div class="col-12">
                                     <label for="bio" class="form-label">Biography/About</label>
                                     <textarea class="form-control" id="bio" rows="3">Dr. Sarah Johnson is a leading researcher in artificial intelligence and machine learning. She has published over 50 peer-reviewed papers and holds 8 patents in AI technologies. Her current research focuses on ethical AI and explainable machine learning systems.</textarea>
@@ -283,33 +283,33 @@
                             </div>
 
                             <!-- Research & Publications -->
-                            <div class="row mb-4">
-                                <div class="col-12">
+                            <div class="dashboard-grid grid-cols-1 mb-4">
+                                <div>
                                     <h6 class="text-primary fw-semibold mb-3">
                                         <i class="bi bi-journal-text me-2"></i>Research & Publications
                                     </h6>
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="col-md-6">
+                            <div class="dashboard-grid grid-cols-2 gap-3 mb-3">
+                                <div>
                                     <label for="researchInterests" class="form-label">Research Interests</label>
                                     <textarea class="form-control" id="researchInterests" rows="2">Artificial Intelligence, Machine Learning, Natural Language Processing, Computer Vision, Ethical AI</textarea>
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="publications" class="form-label">Notable Publications</label>
                                     <textarea class="form-control" id="publications" rows="2">"Ethical Considerations in AI Systems" (Nature AI, 2023), "Advanced ML Algorithms" (ACM Computing, 2022)</textarea>
                                 </div>
                             </div>
 
                             <!-- Profile Photo -->
-                            <div class="row mb-4">
-                                <div class="col-md-6">
+                            <div class="dashboard-grid grid-cols-2 gap-3 mb-4">
+                                <div>
                                     <label for="profilePhoto" class="form-label">Update Profile Photo</label>
                                     <input type="file" class="form-control" id="profilePhoto" accept="image/*">
                                     <div class="form-text">Upload a new professional headshot (JPG, PNG, max 2MB)</div>
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label class="form-label">Current Photo</label>
                                     <div class="d-flex align-items-center">
                                         <img src="https://ui-avatars.com/api/?name=Dr.+Sarah+Johnson&background=0d6efd&color=fff" alt="Current Photo" class="rounded" style="width: 80px; height: 80px;" loading="lazy">
@@ -321,8 +321,8 @@
                             </div>
 
                             <!-- Activity Log -->
-                            <div class="row mb-4">
-                                <div class="col-12">
+                            <div class="dashboard-grid grid-cols-1 mb-4">
+                                <div>
                                     <h6 class="text-secondary fw-semibold mb-3">
                                         <i class="bi bi-clock-history me-2"></i>Recent Activity
                                     </h6>

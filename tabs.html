@@ -1,7 +1,29 @@
 {{> head}}
 
 <style>
-/* Tab Customizations */
+/* Dashboard Grid System */
+        .dashboard-row { margin-bottom: 24px; }
+        .dashboard-grid { display: grid; gap: 24px; }
+        .grid-cols-1 { grid-template-columns: 1fr; }
+        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+        .grid-cols-1-3 { grid-template-columns: 1fr 3fr; }
+        .grid-cols-2-1 { grid-template-columns: 2fr 1fr; }
+        .grid-cols-3-1 { grid-template-columns: 3fr 1fr; }
+
+        @media (max-width: 1200px) {
+            .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
+            .grid-cols-3 { grid-template-columns: repeat(2, 1fr); }
+            .grid-cols-1-3, .grid-cols-2-1, .grid-cols-3-1 { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .dashboard-grid { gap: 16px; }
+            .grid-cols-4, .grid-cols-3, .grid-cols-2 { grid-template-columns: 1fr; }
+            .grid-cols-1-3, .grid-cols-2-1, .grid-cols-3-1 { grid-template-columns: 1fr; }
+        }
+
+        /* Tab Customizations */
         .nav-tabs {
             border-bottom: 2px solid #e5e7eb;
         }
@@ -535,26 +557,26 @@
                             </ul>
                             <div class="tab-content" id="basicTabContent">
                                 <div class="tab-pane fade show active" id="overview" role="tabpanel">
-                                    <div class="row mt-3">
-                                        <div class="col-md-3">
+                                    <div class="dashboard-grid grid-cols-4 mt-3">
+                                        <div>
                                             <div class="stat-card">
                                                 <div class="stat-number">1,245</div>
                                                 <div class="stat-label">Total Students</div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div>
                                             <div class="stat-card" style="background: linear-gradient(135deg, #198754, #10b981);">
                                                 <div class="stat-number">98</div>
                                                 <div class="stat-label">Active Courses</div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div>
                                             <div class="stat-card" style="background: linear-gradient(135deg, #ffc107, #f59e0b);">
                                                 <div class="stat-number">67</div>
                                                 <div class="stat-label">Professors</div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div>
                                             <div class="stat-card" style="background: linear-gradient(135deg, #0dcaf0, #06b6d4);">
                                                 <div class="stat-number">12</div>
                                                 <div class="stat-label">Departments</div>
@@ -570,8 +592,8 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="students" role="tabpanel">
-                                    <div class="row mt-3">
-                                        <div class="col-md-6">
+                                    <div class="dashboard-grid grid-cols-2 mt-3">
+                                        <div>
                                             <div class="course-card">
                                                 <div class="d-flex justify-content-between align-items-start">
                                                     <div>
@@ -587,7 +609,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div>
                                             <div class="course-card">
                                                 <div class="d-flex justify-content-between align-items-start">
                                                     <div>
@@ -611,8 +633,8 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="courses" role="tabpanel">
-                                    <div class="row mt-3">
-                                        <div class="col-md-12">
+                                    <div class="dashboard-grid grid-cols-1 mt-3">
+                                        <div>
                                             <div class="course-card">
                                                 <div class="course-header d-flex justify-content-between align-items-start">
                                                     <div>
@@ -639,15 +661,15 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="reports" role="tabpanel">
-                                    <div class="row mt-3">
-                                        <div class="col-md-8">
+                                    <div class="dashboard-grid grid-cols-3-1 mt-3">
+                                        <div>
                                             <h6>Academic Performance Trends</h6>
                                             <div class="alert alert-info">
                                                 <i class="fas fa-chart-line me-2"></i>
                                                 Student performance has improved by 12% this semester compared to last year.
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div>
                                             <div class="d-grid gap-2">
                                                 <button class="btn btn-primary">
                                                     <i class="fas fa-download me-2"></i>Export PDF
@@ -725,7 +747,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div>
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h6 class="card-title">Final Examination</h6>
@@ -739,20 +761,20 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="attendance" role="tabpanel">
-                                    <div class="row">
-                                        <div class="col-md-4">
+                                    <div class="dashboard-grid grid-cols-3">
+                                        <div>
                                             <div class="text-center">
                                                 <div class="stat-number text-success">92%</div>
                                                 <div class="stat-label text-muted">Attendance Rate</div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div>
                                             <div class="text-center">
                                                 <div class="stat-number text-primary">23</div>
                                                 <div class="stat-label text-muted">Classes Attended</div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div>
                                             <div class="text-center">
                                                 <div class="stat-number text-warning">2</div>
                                                 <div class="stat-label text-muted">Classes Missed</div>
@@ -814,8 +836,8 @@
                             <h5 class="dashboard-card-title">Vertical Tabs Layout</h5>
                         </div>
                         <div class="dashboard-card-body">
-                            <div class="row">
-                                <div class="col-md-3">
+                            <div class="dashboard-grid grid-cols-1-3">
+                                <div>
                                     <div class="nav flex-column nav-tabs nav-tabs-vertical" id="verticalTab" role="tablist">
                                         <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab">
                                             <i class="fas fa-user me-2"></i>Profile
@@ -831,7 +853,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="col-md-9">
+                                <div>
                                     <div class="tab-content" id="verticalTabContent">
                                         <div class="tab-pane fade show active" id="profile" role="tabpanel">
                                             <div class="text-center mb-4">
@@ -839,13 +861,13 @@
                                                 <h5>Sarah Johnson</h5>
                                                 <p class="text-muted">Student ID: 2024001</p>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                            <div class="dashboard-grid grid-cols-2">
+                                                <div>
                                                     <p><strong>Email:</strong> sarah.johnson@university.edu</p>
                                                     <p><strong>Phone:</strong> +1 (555) 123-4567</p>
                                                     <p><strong>Date of Birth:</strong> March 15, 2002</p>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div>
                                                     <p><strong>Address:</strong> 123 Campus Drive</p>
                                                     <p><strong>City:</strong> University City, UC 12345</p>
                                                     <p><strong>Emergency Contact:</strong> +1 (555) 987-6543</p>
@@ -853,15 +875,15 @@
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="academic" role="tabpanel">
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                            <div class="dashboard-grid grid-cols-2">
+                                                <div>
                                                     <h6>Academic Standing</h6>
                                                     <p><strong>Major:</strong> Computer Science</p>
                                                     <p><strong>Minor:</strong> Mathematics</p>
                                                     <p><strong>GPA:</strong> 3.85</p>
                                                     <p><strong>Class Rank:</strong> 15/120</p>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div>
                                                     <h6>Academic Progress</h6>
                                                     <p><strong>Credits Completed:</strong> 45/120</p>
                                                     <p><strong>Current Year:</strong> Sophomore</p>
@@ -967,7 +989,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div>
                                             <div class="card mb-3">
                                                 <div class="card-body">
                                                     <h6 class="card-title">Current GPA</h6>
@@ -1023,11 +1045,11 @@
                             <div class="tab-builder">
                                 <h6>Create Custom Tab Navigation</h6>
                                 <p class="text-muted mb-4">Build your own tabs with custom titles and content</p>
-                                <div class="row g-3 mb-3">
-                                    <div class="col-md-3">
+                                <div class="dashboard-grid grid-cols-4 mb-3">
+                                    <div>
                                         <input type="text" class="form-control" id="tabTitle" placeholder="Tab Title">
                                     </div>
-                                    <div class="col-md-3">
+                                    <div>
                                         <select class="form-select" id="tabIcon">
                                             <option value="fas fa-info-circle">Info</option>
                                             <option value="fas fa-user">User</option>
@@ -1036,13 +1058,13 @@
                                             <option value="fas fa-cog">Settings</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div>
                                         <select class="form-select" id="tabStyle">
                                             <option value="tabs">Tabs</option>
                                             <option value="pills">Pills</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div>
                                         <button class="btn btn-primary w-100" onclick="addTab()">
                                             <i class="fas fa-plus me-2"></i>Add Tab
                                         </button>

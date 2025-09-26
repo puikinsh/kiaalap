@@ -12,6 +12,25 @@
         .dashboard-card-header { padding: 16px 20px; border-bottom: 1px solid #e5e7eb; }
         .dashboard-card-body { padding: 20px; }
         .dashboard-card-title { margin: 0; font-size: 1.125rem; font-weight: 600; color: #1f2937; }
+
+        /* Dashboard Grid System */
+        .dashboard-row { margin-bottom: 24px; }
+        .dashboard-grid { display: grid; gap: 24px; }
+        .grid-cols-1 { grid-template-columns: 1fr; }
+        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+        .grid-cols-3-1 { grid-template-columns: 3fr 1fr; }
+
+        @media (max-width: 1200px) {
+            .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
+            .grid-cols-3 { grid-template-columns: repeat(2, 1fr); }
+            .grid-cols-3-1 { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .dashboard-grid { gap: 16px; }
+            .grid-cols-4, .grid-cols-3, .grid-cols-2, .grid-cols-3-1 { grid-template-columns: 1fr; }
+        }
 </style>
 
 {{> sidebar}}

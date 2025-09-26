@@ -75,8 +75,8 @@
                             </div>
                         </div>
                         <div class="dashboard-card-body">
-                            <div class="row g-4">
-                                <div class="col-md-6">
+                            <div class="dashboard-grid grid-cols-2 gap-3">
+                                <div>
                                     <label for="departmentName" class="form-label">Department Name *</label>
                                     <input type="text"
                                            class="form-control"
@@ -88,7 +88,7 @@
                                         Please provide a valid department name.
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="departmentCode" class="form-label">Department Code *</label>
                                     <input type="text"
                                            class="form-control"
@@ -104,7 +104,7 @@
                                         Please provide a valid department code (2-5 uppercase letters).
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="establishedYear" class="form-label">Established Year</label>
                                     <input type="number"
                                            class="form-control"
@@ -117,7 +117,7 @@
                                         Please provide a valid year between 1900 and 2025.
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="departmentStatus" class="form-label">Status *</label>
                                     <select class="form-select" id="departmentStatus" name="departmentStatus" required>
                                         <option value="">Choose status...</option>
@@ -159,8 +159,8 @@
                             </div>
                         </div>
                         <div class="dashboard-card-body">
-                            <div class="row g-4">
-                                <div class="col-md-6">
+                            <div class="dashboard-grid grid-cols-2 gap-3">
+                                <div>
                                     <label for="headName" class="form-label">Department Head Name *</label>
                                     <input type="text"
                                            class="form-control"
@@ -172,7 +172,7 @@
                                         Please provide the department head's name.
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="headTitle" class="form-label">Title/Position</label>
                                     <input type="text"
                                            class="form-control"
@@ -181,7 +181,7 @@
                                            placeholder="e.g., Professor, Associate Professor"
                                            value="Professor">
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="headEmail" class="form-label">Email Address *</label>
                                     <input type="email"
                                            class="form-control"
@@ -193,7 +193,7 @@
                                         Please provide a valid email address.
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="headPhone" class="form-label">Phone Number</label>
                                     <input type="tel"
                                            class="form-control"
@@ -206,7 +206,7 @@
                                         Please provide a valid phone number.
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="officeLocation" class="form-label">Office Location</label>
                                     <input type="text"
                                            class="form-control"
@@ -214,7 +214,7 @@
                                            name="officeLocation"
                                            placeholder="e.g., Building A, Room 301">
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="appointmentDate" class="form-label">Appointment Date</label>
                                     <input type="date"
                                            class="form-control"
@@ -241,8 +241,8 @@
                             </div>
                         </div>
                         <div class="dashboard-card-body">
-                            <div class="row g-4">
-                                <div class="col-md-4">
+                            <div class="dashboard-grid grid-cols-3 gap-3">
+                                <div>
                                     <label for="currentStudents" class="form-label">Current Students</label>
                                     <input type="number"
                                            class="form-control"
@@ -252,7 +252,7 @@
                                            placeholder="0"
                                            value="0">
                                 </div>
-                                <div class="col-md-4">
+                                <div>
                                     <label for="maxCapacity" class="form-label">Maximum Capacity</label>
                                     <input type="number"
                                            class="form-control"
@@ -261,7 +261,7 @@
                                            min="1"
                                            placeholder="e.g., 2000">
                                 </div>
-                                <div class="col-md-4">
+                                <div>
                                     <label for="facultyCount" class="form-label">Faculty Members</label>
                                     <input type="number"
                                            class="form-control"
@@ -271,7 +271,7 @@
                                            placeholder="0"
                                            value="0">
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="annualBudget" class="form-label">Annual Budget (USD)</label>
                                     <div class="input-group">
                                         <span class="input-group-text">$</span>
@@ -285,7 +285,7 @@
                                         <span class="input-group-text">.00</span>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="budgetYear" class="form-label">Budget Year</label>
                                     <select class="form-select" id="budgetYear" name="budgetYear">
                                         <option value="">Select year...</option>
@@ -314,8 +314,8 @@
                             </div>
                         </div>
                         <div class="dashboard-card-body">
-                            <div class="row g-4">
-                                <div class="col-md-12">
+                            <div class="dashboard-grid grid-cols-2 gap-3">
+                                <div>
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="allowOnlineApplication" name="allowOnlineApplication" checked>
                                         <label class="form-check-label" for="allowOnlineApplication">
@@ -324,7 +324,7 @@
                                         <div class="form-text">Students can apply to this department through the online portal</div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div>
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="enableNotifications" name="enableNotifications" checked>
                                         <label class="form-check-label" for="enableNotifications">
@@ -333,7 +333,7 @@
                                         <div class="form-text">Department head will receive email notifications for important updates</div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div>
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="publiclyVisible" name="publiclyVisible" checked>
                                         <label class="form-check-label" for="publiclyVisible">
@@ -342,7 +342,7 @@
                                         <div class="form-text">Department information will be visible on the public website</div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="departmentWebsite" class="form-label">Department Website</label>
                                     <input type="url"
                                            class="form-control"
@@ -351,7 +351,7 @@
                                            placeholder="https://cs.kiaalap.edu">
                                     <div class="form-text">Optional: Department's dedicated website URL</div>
                                 </div>
-                                <div class="col-md-6">
+                                <div>
                                     <label for="socialMedia" class="form-label">Social Media</label>
                                     <input type="url"
                                            class="form-control"
@@ -491,7 +491,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 previewContent.innerHTML = `
                     <div class="row">
-                        <div class="col-md-6">
+                        <div>
                             <h6>Department Information</h6>
                             <table class="table table-sm">
                                 <tr><th>Name:</th><td>${formData.get('departmentName') || 'Not specified'}</td></tr>
@@ -500,7 +500,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <tr><th>Established:</th><td>${formData.get('establishedYear') || 'Not specified'}</td></tr>
                             </table>
                         </div>
-                        <div class="col-md-6">
+                        <div>
                             <h6>Department Head</h6>
                             <table class="table table-sm">
                                 <tr><th>Name:</th><td>${formData.get('headName') || 'Not specified'}</td></tr>
@@ -628,3 +628,6 @@ document.addEventListener('DOMContentLoaded', function() {
             updateProgress();
         });
 </script>
+
+</body>
+</html>

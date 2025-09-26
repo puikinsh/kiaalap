@@ -8,6 +8,19 @@
         .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
         .top-navbar { background: white; height: 60px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 0 1rem; }
         .dashboard-content { padding: 24px; }
+
+        /* Professor Card Styles */
+        .professor-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.25rem;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+        .professor-card:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
 </style>
 
 {{> sidebar}}
@@ -70,6 +83,123 @@
                         <span class="stats-card-change neutral">No change</span>
                         <div class="progress-custom">
                             <div class="progress-bar-custom bg-info" style="width: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Professors Cards -->
+            <div class="dashboard-row">
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title mb-0">Featured Professors</h5>
+                        <a href="#" class="text-primary text-sm">View All</a>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <div class="dashboard-grid grid-cols-4 gap-4">
+                            <!-- Professor Card 1 -->
+                            <div class="professor-card">
+                                <div class="text-center mb-3">
+                                    <img src="https://ui-avatars.com/api/?name=Dr.+Sarah+Johnson&background=0d6efd&color=fff" alt="Dr. Sarah Johnson" class="rounded-circle" style="width: 80px; height: 80px;">
+                                </div>
+                                <div class="text-center">
+                                    <h6 class="mb-1">Dr. Sarah Johnson</h6>
+                                    <p class="text-muted text-sm mb-2">Computer Science</p>
+                                    <div class="mb-2">
+                                        <span class="badge bg-success">Full-Time</span>
+                                    </div>
+                                    <div class="text-warning mb-2">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                        <span class="text-muted text-sm">(4.7)</span>
+                                    </div>
+                                    <div class="d-flex gap-2 justify-content-center">
+                                        <a href="professor-profile.html" class="btn btn-sm btn-outline-primary">View</a>
+                                        <a href="edit-professor.html" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Professor Card 2 -->
+                            <div class="professor-card">
+                                <div class="text-center mb-3">
+                                    <img src="https://ui-avatars.com/api/?name=Dr.+Emily+Rodriguez&background=dc3545&color=fff" alt="Dr. Emily Rodriguez" class="rounded-circle" style="width: 80px; height: 80px;">
+                                </div>
+                                <div class="text-center">
+                                    <h6 class="mb-1">Dr. Emily Rodriguez</h6>
+                                    <p class="text-muted text-sm mb-2">English Literature</p>
+                                    <div class="mb-2">
+                                        <span class="badge bg-warning">Part-Time</span>
+                                    </div>
+                                    <div class="text-warning mb-2">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <span class="text-muted text-sm">(4.9)</span>
+                                    </div>
+                                    <div class="d-flex gap-2 justify-content-center">
+                                        <a href="professor-profile.html" class="btn btn-sm btn-outline-primary">View</a>
+                                        <a href="edit-professor.html" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Professor Card 3 -->
+                            <div class="professor-card">
+                                <div class="text-center mb-3">
+                                    <img src="https://ui-avatars.com/api/?name=Dr.+James+Wilson&background=6f42c1&color=fff" alt="Dr. James Wilson" class="rounded-circle" style="width: 80px; height: 80px;">
+                                </div>
+                                <div class="text-center">
+                                    <h6 class="mb-1">Dr. James Wilson</h6>
+                                    <p class="text-muted text-sm mb-2">Physics</p>
+                                    <div class="mb-2">
+                                        <span class="badge bg-success">Full-Time</span>
+                                    </div>
+                                    <div class="text-warning mb-2">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star"></i>
+                                        <span class="text-muted text-sm">(4.4)</span>
+                                    </div>
+                                    <div class="d-flex gap-2 justify-content-center">
+                                        <a href="professor-profile.html" class="btn btn-sm btn-outline-primary">View</a>
+                                        <a href="edit-professor.html" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Professor Card 4 -->
+                            <div class="professor-card">
+                                <div class="text-center mb-3">
+                                    <img src="https://ui-avatars.com/api/?name=Dr.+Maria+Chen&background=28a745&color=fff" alt="Dr. Maria Chen" class="rounded-circle" style="width: 80px; height: 80px;">
+                                </div>
+                                <div class="text-center">
+                                    <h6 class="mb-1">Dr. Maria Chen</h6>
+                                    <p class="text-muted text-sm mb-2">Mathematics</p>
+                                    <div class="mb-2">
+                                        <span class="badge bg-success">Full-Time</span>
+                                    </div>
+                                    <div class="text-warning mb-2">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <span class="text-muted text-sm">(4.8)</span>
+                                    </div>
+                                    <div class="d-flex gap-2 justify-content-center">
+                                        <a href="professor-profile.html" class="btn btn-sm btn-outline-primary">View</a>
+                                        <a href="edit-professor.html" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

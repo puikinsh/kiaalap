@@ -12,6 +12,40 @@
         .dashboard-card-header { padding: 16px 20px; border-bottom: 1px solid #e5e7eb; }
         .dashboard-card-body { padding: 20px; }
         .dashboard-card-title { margin: 0; font-size: 1.125rem; font-weight: 600; color: #1f2937; }
+
+        /* Chart Containers */
+        .chart-wrapper { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .chart-container-main { position: relative; height: 300px; margin-top: 10px; }
+        .chart-container-small { position: relative; height: 200px; margin-top: 10px; }
+
+        /* Stats Cards */
+        .stats-card { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .stats-card-label { font-size: 0.875rem; color: #6b7280; margin-bottom: 8px; }
+        .stats-card-value { font-size: 2rem; font-weight: 700; color: #1f2937; }
+        .stats-card-change { display: inline-block; margin-top: 8px; font-size: 0.75rem; padding: 2px 8px; border-radius: 12px; }
+        .stats-card-change.positive { background: #d1fae5; color: #059669; }
+        .stats-card-change.negative { background: #fee2e2; color: #dc2626; }
+
+        /* Dashboard Grid System */
+        .dashboard-row { margin-bottom: 24px; }
+        .dashboard-grid { display: grid; gap: 24px; }
+        .grid-cols-1 { grid-template-columns: 1fr; }
+        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+        .grid-cols-3-1 { grid-template-columns: 3fr 1fr; }
+        .dashboard-col-8 { grid-column: span 8 / span 8; }
+        .dashboard-col-4 { grid-column: span 4 / span 4; }
+
+        @media (max-width: 1200px) {
+            .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
+            .grid-cols-3 { grid-template-columns: repeat(2, 1fr); }
+            .grid-cols-3-1 { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .dashboard-grid { gap: 16px; }
+            .grid-cols-4, .grid-cols-3, .grid-cols-2, .grid-cols-3-1 { grid-template-columns: 1fr; }
+        }
 </style>
 
 {{> sidebar}}
@@ -27,16 +61,14 @@
             <div class="mb-3">
                 <div class="dashboard-card">
                     <div class="dashboard-card-body">
-                        <div class="row align-items-center">
-                            <div class="col-md-auto mb-3 mb-md-0">
-                                <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=200&h=120&fit=crop"
-                                     alt="Course Image"
-                                     class="rounded"
-                                     width="200"
-                                     height="120"
-                                     loading="lazy">
-                            </div>
-                            <div class="col-md">
+                        <div class="d-flex align-items-start gap-3">
+                            <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=200&h=120&fit=crop"
+                                 alt="Course Image"
+                                 class="rounded flex-shrink-0"
+                                 width="200"
+                                 height="120"
+                                 loading="lazy">
+                            <div class="flex-grow-1">
                                 <div class="d-flex justify-content-between align-items-start">
                                     <div>
                                         <h1 class="h3 fw-bold mb-1">CS101 - Introduction to Computer Science</h1>
@@ -111,8 +143,8 @@
                     <div class="tab-content" id="courseInfoTabsContent">
                         <!-- Overview Tab -->
                         <div class="tab-pane fade show active" id="overview" role="tabpanel">
-                            <div class="row gx-4 gy-3">
-                                <div class="col-lg-8">
+                            <div class="dashboard-grid grid-cols-3-1">
+                                <div>
                                     <h5 class="mb-3">Course Description</h5>
                                     <p class="mb-3">This course provides a comprehensive introduction to computer science principles, programming fundamentals, and computational thinking. Students will learn basic programming concepts, data structures, and problem-solving techniques using modern programming languages.</p>
 
@@ -130,7 +162,7 @@
                                         <strong>Required:</strong> MATH101 - College Algebra
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div>
                                     <div class="dashboard-card">
                                         <div class="dashboard-card-header">
                                             <h5 class="dashboard-card-title">Quick Stats</h5>
@@ -324,8 +356,8 @@
 
                         <!-- Schedule Tab -->
                         <div class="tab-pane fade" id="schedule" role="tabpanel">
-                            <div class="row gx-4 gy-3">
-                                <div class="col-lg-8">
+                            <div class="dashboard-grid grid-cols-3-1">
+                                <div>
                                     <h5 class="mb-3">Class Schedule</h5>
                                     <div class="table-responsive">
                                         <table class="table table-bordered">
@@ -364,7 +396,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div>
                                     <div class="dashboard-card">
                                         <div class="dashboard-card-header">
                                             <h5 class="dashboard-card-title">Upcoming Events</h5>
@@ -547,6 +579,34 @@
                                 </div>
                             </div>
 
+                            <!-- Additional Charts Row -->
+                            <div class="dashboard-grid grid-cols-3 mt-4">
+                                <div class="chart-wrapper">
+                                    <div class="dashboard-card-header">
+                                        <h5 class="dashboard-card-title">Weekly Activity</h5>
+                                    </div>
+                                    <div class="chart-container-small">
+                                        <canvas id="weeklyActivityChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="chart-wrapper">
+                                    <div class="dashboard-card-header">
+                                        <h5 class="dashboard-card-title">Assignment Scores</h5>
+                                    </div>
+                                    <div class="chart-container-small">
+                                        <canvas id="assignmentScoresChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="chart-wrapper">
+                                    <div class="dashboard-card-header">
+                                        <h5 class="dashboard-card-title">Participation Rate</h5>
+                                    </div>
+                                    <div class="chart-container-small">
+                                        <canvas id="participationChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- Performance Metrics -->
                             <div class="dashboard-grid grid-cols-3 mt-4">
                                 <div class="dashboard-card">
@@ -647,6 +707,9 @@
 
 {{> scripts}}
 
+<!-- Chart.js for Analytics -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
 <script>
 // Initialize charts when Analytics tab is shown
         document.addEventListener('DOMContentLoaded', function() {
@@ -727,6 +790,120 @@
                             scales: {
                                 y: {
                                     beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // Weekly Activity Chart (Radar)
+                const weeklyCtx = document.getElementById('weeklyActivityChart');
+                if (weeklyCtx) {
+                    new Chart(weeklyCtx, {
+                        type: 'radar',
+                        data: {
+                            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+                            datasets: [{
+                                label: 'This Week',
+                                data: [85, 92, 78, 88, 95],
+                                borderColor: 'rgb(99, 102, 241)',
+                                backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                                pointBackgroundColor: 'rgb(99, 102, 241)',
+                                pointBorderColor: '#fff',
+                                pointHoverBackgroundColor: '#fff',
+                                pointHoverBorderColor: 'rgb(99, 102, 241)'
+                            }, {
+                                label: 'Last Week',
+                                data: [78, 85, 82, 80, 87],
+                                borderColor: 'rgb(156, 163, 175)',
+                                backgroundColor: 'rgba(156, 163, 175, 0.1)',
+                                pointBackgroundColor: 'rgb(156, 163, 175)',
+                                pointBorderColor: '#fff',
+                                pointHoverBackgroundColor: '#fff',
+                                pointHoverBorderColor: 'rgb(156, 163, 175)'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                r: {
+                                    beginAtZero: true,
+                                    max: 100
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // Assignment Scores Chart (Line)
+                const assignmentCtx = document.getElementById('assignmentScoresChart');
+                if (assignmentCtx) {
+                    new Chart(assignmentCtx, {
+                        type: 'line',
+                        data: {
+                            labels: ['HW1', 'HW2', 'Quiz1', 'HW3', 'Quiz2', 'Midterm'],
+                            datasets: [{
+                                label: 'Class Average',
+                                data: [85, 88, 82, 90, 85, 78],
+                                borderColor: 'rgb(34, 197, 94)',
+                                backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                                tension: 0.4
+                            }, {
+                                label: 'Top 10%',
+                                data: [98, 96, 95, 98, 94, 92],
+                                borderColor: 'rgb(251, 146, 60)',
+                                backgroundColor: 'rgba(251, 146, 60, 0.1)',
+                                borderDash: [5, 5],
+                                tension: 0.4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'bottom'
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: false,
+                                    min: 60,
+                                    max: 100
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // Participation Chart (Doughnut)
+                const participationCtx = document.getElementById('participationChart');
+                if (participationCtx) {
+                    new Chart(participationCtx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Very Active', 'Active', 'Moderate', 'Low'],
+                            datasets: [{
+                                data: [12, 18, 8, 4],
+                                backgroundColor: [
+                                    'rgba(34, 197, 94, 0.8)',
+                                    'rgba(59, 130, 246, 0.8)',
+                                    'rgba(251, 191, 36, 0.8)',
+                                    'rgba(239, 68, 68, 0.8)'
+                                ],
+                                borderWidth: 2,
+                                borderColor: '#fff'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'bottom'
                                 }
                             }
                         }

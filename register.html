@@ -2,6 +2,18 @@
 
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* Dashboard Grid System */
+        .dashboard-row { margin-bottom: 24px; }
+        .dashboard-grid { display: grid; gap: 16px; }
+        .grid-cols-1 { grid-template-columns: 1fr; }
+        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+
+        @media (max-width: 768px) {
+            .dashboard-grid { gap: 12px; }
+            .grid-cols-2 { grid-template-columns: 1fr; }
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -60,8 +72,8 @@
             </div>
 
             <form id="registerForm" novalidate>
-                <div class="row g-3">
-                    <div class="col-md-6">
+                <div class="dashboard-grid grid-cols-2">
+                    <div>
                         <label for="firstName" class="form-label">First Name</label>
                         <input type="text"
                                class="form-control"
@@ -75,7 +87,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div>
                         <label for="lastName" class="form-label">Last Name</label>
                         <input type="text"
                                class="form-control"
@@ -135,8 +147,8 @@
                     </small>
                 </div>
 
-                <div class="row g-3">
-                    <div class="col-md-6">
+                <div class="dashboard-grid grid-cols-2">
+                    <div>
                         <label for="password" class="form-label">Password</label>
                         <div class="input-group">
                             <span class="input-group-text">
@@ -166,7 +178,7 @@
                         </small>
                     </div>
 
-                    <div class="col-md-6">
+                    <div>
                         <label for="confirmPassword" class="form-label">Confirm Password</label>
                         <div class="input-group">
                             <span class="input-group-text">
@@ -243,14 +255,14 @@
                         <span class="text-muted">or sign up with</span>
                     </div>
 
-                    <div class="row g-2">
-                        <div class="col">
+                    <div class="dashboard-grid grid-cols-2">
+                        <div>
                             <button class="btn btn-outline-secondary w-100" type="button">
                                 <i class="bi bi-google"></i>
                                 Google
                             </button>
                         </div>
-                        <div class="col">
+                        <div>
                             <button class="btn btn-outline-secondary w-100" type="button">
                                 <i class="bi bi-microsoft"></i>
                                 Microsoft

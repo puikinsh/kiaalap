@@ -8,6 +8,69 @@
         .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
         .top-navbar { background: white; height: 60px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 0 1rem; }
         .dashboard-content { padding: 24px; }
+
+        /* Performance Metrics Styles */
+        .performance-metric {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        .performance-metric .progress {
+            height: 8px;
+            background: #f1f3f5;
+        }
+        .performance-score {
+            text-align: center;
+            padding: 1.5rem;
+        }
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+        }
+        .score-circle h3 {
+            font-size: 2.5rem;
+            margin: 0;
+            font-weight: bold;
+        }
+        .score-circle small {
+            font-size: 0.75rem;
+            opacity: 0.9;
+        }
+        .award-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .publication-item, .research-project-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        .grant-item {
+            padding: 0.5rem 0;
+        }
+        .activity-timeline {
+            position: relative;
+        }
+        .activity-item {
+            position: relative;
+        }
+        .chart-container {
+            position: relative;
+        }
+        .chart-container canvas {
+            max-height: 100%;
+        }
 </style>
 
 {{> sidebar}}
@@ -41,8 +104,8 @@
             <div class="dashboard-row">
                 <div class="dashboard-card">
                     <div class="dashboard-card-body">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 text-center">
+                        <div class="dashboard-grid grid-cols-12 gap-4">
+                            <div class="col-span-3 text-center">
                                 <img src="https://ui-avatars.com/api/?name=Dr.+Sarah+Johnson&background=0d6efd&color=fff&size=200" alt="Dr. Sarah Johnson" class="rounded-circle mb-3" style="width: 150px; height: 150px;" loading="lazy">
                                 <div class="mb-3">
                                     <span class="badge bg-success mb-1">Active</span>
@@ -50,17 +113,17 @@
                                     <small class="text-muted">Last seen: Today at 9:30 AM</small>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-8">
+                            <div class="col-span-6">
                                 <h2 class="h3 mb-1">Dr. Sarah Johnson</h2>
                                 <p class="text-muted mb-2">Professor of Computer Science</p>
-                                <div class="row mb-3">
-                                    <div class="col-sm-6">
+                                <div class="dashboard-grid grid-cols-2 gap-3 mb-3">
+                                    <div>
                                         <strong>Employee ID:</strong> EMP001<br>
                                         <strong>Department:</strong> Computer Science<br>
                                         <strong>Email:</strong> s.johnson@kiaalap.edu<br>
                                         <strong>Phone:</strong> +1 (555) 123-4567
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div>
                                         <strong>Office:</strong> Room 301, CS Building<br>
                                         <strong>Joining Date:</strong> August 15, 2018<br>
                                         <strong>Experience:</strong> 12 years<br>
@@ -82,7 +145,7 @@
                                     <span class="text-muted">4.8/5.0 (124 reviews)</span>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-span-3">
                                 <div class="text-center">
                                     <div class="d-flex justify-content-center gap-2 mb-3">
                                         <button class="btn btn-outline-primary btn-sm">
@@ -95,7 +158,7 @@
                                             <i class="bi bi-calendar"></i>
                                         </button>
                                     </div>
-                                    <div class="row text-center mt-3">
+                                    <div class="dashboard-grid grid-cols-3 gap-2 text-center mt-3">
                                         <div class="col-4">
                                             <div class="border-end">
                                                 <h4 class="mb-1 text-primary fw-bold">5</h4>
@@ -158,8 +221,8 @@
                         <div class="tab-content" id="professorTabContent">
                             <!-- Overview Tab -->
                             <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
-                                <div class="row">
-                                    <div class="col-lg-8">
+                                <div class="dashboard-grid grid-cols-12 gap-4">
+                                    <div class="col-span-8">
                                         <h6 class="fw-semibold mb-3">Biography</h6>
                                         <p class="mb-3">Dr. Sarah Johnson is a distinguished professor and leading researcher in artificial intelligence and machine learning. With over 12 years of academic experience, she has authored 52 peer-reviewed publications and holds 8 patents in AI technologies.</p>
                                         <p class="mb-3">Her current research focuses on <strong>ethical AI systems</strong> and <strong>explainable machine learning</strong>, addressing critical challenges in AI transparency and responsible development.</p>
@@ -203,63 +266,69 @@
                                             <span class="badge bg-primary bg-opacity-10 text-primary">Deep Learning</span>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <div class="dashboard-card mb-4">
-                                            <div class="dashboard-card-header">
-                                                <h6 class="dashboard-card-title mb-0">Quick Stats</h6>
-                                            </div>
-                                            <div class="dashboard-card-body">
-                                                <div class="d-flex justify-content-between mb-2">
-                                                    <span>Teaching Experience</span>
-                                                    <strong>12 years</strong>
+                                </div>
+
+                                <!-- Stats Cards Row -->
+                                <div class="dashboard-grid grid-cols-2 gap-4 mt-4">
+                                    <div class="dashboard-card">
+                                        <div class="dashboard-card-header">
+                                            <h6 class="dashboard-card-title mb-0">Quick Stats</h6>
+                                        </div>
+                                        <div class="dashboard-card-body">
+                                            <div class="dashboard-grid grid-cols-2 gap-3">
+                                                <div>
+                                                    <div class="text-muted small">Experience</div>
+                                                    <div class="fw-bold">12 years</div>
                                                 </div>
-                                                <div class="d-flex justify-content-between mb-2">
-                                                    <span>Total Publications</span>
-                                                    <strong>52 papers</strong>
+                                                <div>
+                                                    <div class="text-muted small">Publications</div>
+                                                    <div class="fw-bold">52 papers</div>
                                                 </div>
-                                                <div class="d-flex justify-content-between mb-2">
-                                                    <span>Citations</span>
-                                                    <strong>2,847</strong>
+                                                <div>
+                                                    <div class="text-muted small">Citations</div>
+                                                    <div class="fw-bold">2,847</div>
                                                 </div>
-                                                <div class="d-flex justify-content-between mb-2">
-                                                    <span>H-Index</span>
-                                                    <strong>28</strong>
+                                                <div>
+                                                    <div class="text-muted small">H-Index</div>
+                                                    <div class="fw-bold">28</div>
                                                 </div>
-                                                <div class="d-flex justify-content-between mb-2">
-                                                    <span>Grant Funding</span>
-                                                    <strong>$2.3M</strong>
+                                                <div>
+                                                    <div class="text-muted small">Grant Funding</div>
+                                                    <div class="fw-bold">$2.3M</div>
                                                 </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <span>Awards</span>
-                                                    <strong>5</strong>
+                                                <div>
+                                                    <div class="text-muted small">Awards</div>
+                                                    <div class="fw-bold">5</div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div class="dashboard-card">
-                                            <div class="dashboard-card-header">
-                                                <h6 class="dashboard-card-title mb-0">Contact Information</h6>
-                                            </div>
-                                            <div class="dashboard-card-body">
-                                                <div class="mb-2">
+                                    <div class="dashboard-card">
+                                        <div class="dashboard-card-header">
+                                            <h6 class="dashboard-card-title mb-0">Contact Information</h6>
+                                        </div>
+                                        <div class="dashboard-card-body">
+                                            <div class="dashboard-grid grid-cols-1 gap-2">
+                                                <div class="d-flex align-items-center">
                                                     <i class="bi bi-envelope me-2 text-primary"></i>
-                                                    <a href="mailto:s.johnson@kiaalap.edu">s.johnson@kiaalap.edu</a>
+                                                    <a href="mailto:s.johnson@kiaalap.edu" class="text-sm">s.johnson@kiaalap.edu</a>
                                                 </div>
-                                                <div class="mb-2">
+                                                <div class="d-flex align-items-center">
                                                     <i class="bi bi-telephone me-2 text-primary"></i>
-                                                    <a href="tel:+15551234567">+1 (555) 123-4567</a>
+                                                    <a href="tel:+15551234567" class="text-sm">+1 (555) 123-4567</a>
                                                 </div>
-                                                <div class="mb-2">
+                                                <div class="d-flex align-items-center">
                                                     <i class="bi bi-geo-alt me-2 text-primary"></i>
-                                                    Room 301, CS Building
+                                                    <span class="text-sm">Room 301, CS Building</span>
                                                 </div>
-                                                <div class="mb-2">
+                                                <div class="d-flex align-items-center">
                                                     <i class="bi bi-clock me-2 text-primary"></i>
-                                                    Mon-Wed 2-4 PM, Fri 10-12 PM
+                                                    <span class="text-sm">Mon-Wed 2-4 PM, Fri 10-12 PM</span>
                                                 </div>
-                                                <div>
+                                                <div class="d-flex align-items-center">
                                                     <i class="bi bi-globe me-2 text-primary"></i>
-                                                    <a href="#">Personal Website</a>
+                                                    <a href="#" class="text-sm">Personal Website</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -269,13 +338,71 @@
 
                             <!-- Courses Tab -->
                             <div class="tab-pane fade" id="courses" role="tabpanel" aria-labelledby="courses-tab">
-                                <div class="mb-4">
-                                    <h5 class="mb-2">Current Teaching Load - Fall 2024</h5>
-                                    <p class="text-muted mb-0">Dr. Johnson is currently teaching 4 courses with a total enrollment of 156 students across undergraduate and graduate levels.</p>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>
+                                        <h5 class="mb-1">Current Teaching Load</h5>
+                                        <p class="text-muted mb-0 text-sm">Fall 2024 Semester • 156 Total Students</p>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-download me-1"></i>Export Schedule
+                                    </button>
                                 </div>
+
+                                <!-- Summary Cards Row -->
+                                <div class="dashboard-grid grid-cols-3 gap-3 mb-4">
+                                    <div class="dashboard-card">
+                                        <div class="dashboard-card-body">
+                                            <div class="text-center">
+                                                <canvas id="courseDistributionChart" style="max-height: 150px;"></canvas>
+                                                <h6 class="mt-2 mb-0">Course Distribution</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-card">
+                                        <div class="dashboard-card-body">
+                                            <h6 class="mb-3">Teaching Summary</h6>
+                                            <div class="dashboard-grid grid-cols-2 gap-2">
+                                                <div>
+                                                    <div class="text-muted small">Active Courses</div>
+                                                    <div class="fw-bold">4</div>
+                                                </div>
+                                                <div>
+                                                    <div class="text-muted small">Office Hours</div>
+                                                    <div class="fw-bold">12/week</div>
+                                                </div>
+                                                <div>
+                                                    <div class="text-muted small">Undergraduate</div>
+                                                    <div class="fw-bold">86</div>
+                                                </div>
+                                                <div>
+                                                    <div class="text-muted small">Graduate</div>
+                                                    <div class="fw-bold">70</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-card">
+                                        <div class="dashboard-card-body">
+                                            <h6 class="mb-3">Quick Actions</h6>
+                                            <div class="d-grid gap-2">
+                                                <button class="btn btn-sm btn-outline-primary text-start">
+                                                    <i class="bi bi-calendar-plus me-2"></i>Office Hours
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-secondary text-start">
+                                                    <i class="bi bi-file-earmark-text me-2"></i>Syllabi
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-info text-start">
+                                                    <i class="bi bi-people me-2"></i>Roster
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Course Cards -->
                                 <h6 class="fw-semibold mb-3">Active Courses</h6>
-                                <div class="row">
-                                    <div class="col-lg-6 mb-3">
+                                <div class="dashboard-grid grid-cols-2 gap-3">
+                                    <div class="mb-3">
                                         <div class="dashboard-card">
                                             <div class="dashboard-card-body">
                                                 <div class="d-flex justify-content-between align-items-start mb-3">
@@ -286,7 +413,7 @@
                                                     </div>
                                                     <span class="badge bg-success">Graduate Level</span>
                                                 </div>
-                                                <div class="row text-center">
+                                                <div class="dashboard-grid grid-cols-3 gap-2 text-center">
                                                     <div class="col-4">
                                                         <div class="fw-bold text-primary">45/50</div>
                                                         <small class="text-muted">Enrolled</small>
@@ -303,7 +430,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="mb-3">
                                         <div class="dashboard-card">
                                             <div class="dashboard-card-body">
                                                 <div class="d-flex justify-content-between align-items-start mb-3">
@@ -314,7 +441,7 @@
                                                     </div>
                                                     <span class="badge bg-primary">Undergraduate</span>
                                                 </div>
-                                                <div class="row text-center">
+                                                <div class="dashboard-grid grid-cols-3 gap-2 text-center">
                                                     <div class="col-4">
                                                         <div class="fw-bold text-primary">38/40</div>
                                                         <small class="text-muted">Enrolled</small>
@@ -331,7 +458,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="mb-3">
                                         <div class="dashboard-card">
                                             <div class="dashboard-card-body">
                                                 <div class="d-flex justify-content-between align-items-start mb-3">
@@ -342,7 +469,7 @@
                                                     </div>
                                                     <span class="badge bg-warning text-dark">Graduate Seminar</span>
                                                 </div>
-                                                <div class="row text-center">
+                                                <div class="dashboard-grid grid-cols-3 gap-2 text-center">
                                                     <div class="col-4">
                                                         <div class="fw-bold text-primary">25/30</div>
                                                         <small class="text-muted">Enrolled</small>
@@ -359,7 +486,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="mb-3">
                                         <div class="dashboard-card">
                                             <div class="dashboard-card-body">
                                                 <div class="d-flex justify-content-between align-items-start mb-3">
@@ -370,7 +497,7 @@
                                                     </div>
                                                     <span class="badge bg-info">Introductory</span>
                                                 </div>
-                                                <div class="row text-center">
+                                                <div class="dashboard-grid grid-cols-3 gap-2 text-center">
                                                     <div class="col-4">
                                                         <div class="fw-bold text-primary">48/50</div>
                                                         <small class="text-muted">Enrolled</small>
@@ -387,12 +514,12 @@
                                             </div>
                                         </div>
                                     </div>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="mt-5">
-                                    <h6 class="fw-semibold mb-3">Teaching Performance History</h6>
-                                    <p class="text-muted mb-3">Historical overview of courses taught and student feedback over the past 4 semesters.</p>
-                                </div>
+                                <div class="mt-4">
+                                    <h6 class="fw-semibold mb-3">Teaching History</h6>
                                 <div class="table-responsive">
                                     <table class="table table-sm">
                                         <thead>
@@ -436,118 +563,193 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                </div>
                             </div>
 
                             <!-- Research Tab -->
                             <div class="tab-pane fade" id="research" role="tabpanel" aria-labelledby="research-tab">
-                                <div class="mb-4">
-                                    <h5 class="mb-2">Research Portfolio</h5>
-                                    <p class="text-muted mb-0">Dr. Johnson's research spans artificial intelligence, machine learning, and ethical AI systems, with a focus on practical applications and societal impact.</p>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>
+                                        <h5 class="mb-1">Research Portfolio</h5>
+                                        <p class="text-muted mb-0 text-sm">AI, Machine Learning & Ethics • 52 Publications • 2,847 Citations</p>
+                                    </div>
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <button type="button" class="btn btn-outline-primary active">Publications</button>
+                                        <button type="button" class="btn btn-outline-primary">Projects</button>
+                                        <button type="button" class="btn btn-outline-primary">Grants</button>
+                                    </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-8">
-                                        <h6 class="fw-semibold mb-3">Featured Publications (2022-2024)</h6>
-                                        <div class="publication-item">
-                                            <h6 class="mb-1">"Ethical Considerations in AI Systems"</h6>
-                                            <p class="text-muted mb-1">Nature AI, 2023</p>
-                                            <p class="text-sm">This paper explores the fundamental ethical challenges in modern AI systems and proposes a framework for responsible AI development.</p>
-                                            <div class="d-flex gap-2 mb-3">
-                                                <span class="badge bg-info bg-opacity-10 text-info">AI Ethics</span>
-                                                <span class="badge bg-info bg-opacity-10 text-info">Machine Learning</span>
-                                                <small class="text-muted">Citations: 47</small>
-                                            </div>
-                                        </div>
 
-                                        <div class="publication-item">
-                                            <h6 class="mb-1">"Advanced ML Algorithms for Natural Language Processing"</h6>
-                                            <p class="text-muted mb-1">ACM Computing Surveys, 2022</p>
-                                            <p class="text-sm">A comprehensive survey of state-of-the-art machine learning algorithms applied to natural language processing tasks.</p>
-                                            <div class="d-flex gap-2 mb-3">
-                                                <span class="badge bg-info bg-opacity-10 text-info">NLP</span>
-                                                <span class="badge bg-info bg-opacity-10 text-info">Deep Learning</span>
-                                                <small class="text-muted">Citations: 89</small>
+                                <!-- Research Metrics Row -->
+                                <div class="dashboard-grid grid-cols-3 gap-3 mb-4">
+                                    <div class="dashboard-card">
+                                        <div class="dashboard-card-body text-center">
+                                            <h4 class="text-primary mb-0">2,847</h4>
+                                            <small class="text-muted">Total Citations</small>
+                                            <div class="dashboard-grid grid-cols-2 gap-2 mt-2">
+                                                <div>
+                                                    <div class="fw-bold">28</div>
+                                                    <small class="text-muted">H-Index</small>
+                                                </div>
+                                                <div>
+                                                    <div class="fw-bold">52</div>
+                                                    <small class="text-muted">Papers</small>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <div class="publication-item">
-                                            <h6 class="mb-1">"Explainable AI: Methods and Applications"</h6>
-                                            <p class="text-muted mb-1">AAAI Conference, 2022</p>
-                                            <p class="text-sm">This work presents novel approaches to making AI decisions more interpretable and transparent.</p>
-                                            <div class="d-flex gap-2 mb-3">
-                                                <span class="badge bg-info bg-opacity-10 text-info">Explainable AI</span>
-                                                <span class="badge bg-info bg-opacity-10 text-info">Interpretability</span>
-                                                <small class="text-muted">Citations: 156</small>
-                                            </div>
-                                        </div>
-
-                                        <div class="mt-5">
-                                            <h6 class="fw-semibold mb-3">Active Research Projects</h6>
-                                            <p class="text-muted mb-3">Current funded research initiatives focusing on ethical AI development and explainable machine learning systems.</p>
-                                        </div>
-                                        <div class="research-project-item">
-                                            <div class="d-flex justify-content-between align-items-start mb-2">
-                                                <h6 class="mb-0">Ethical AI Framework Development</h6>
-                                                <span class="badge bg-success">Active</span>
-                                            </div>
-                                            <p class="text-sm text-muted mb-2">NSF Grant #12345 • $850,000 • 2023-2026</p>
-                                            <p class="text-sm">Developing comprehensive frameworks for ethical AI development and deployment in healthcare applications.</p>
-                                        </div>
-
-                                        <div class="research-project-item">
-                                            <div class="d-flex justify-content-between align-items-start mb-2">
-                                                <h6 class="mb-0">Explainable Machine Learning Systems</h6>
-                                                <span class="badge bg-warning">Pending Review</span>
-                                            </div>
-                                            <p class="text-sm text-muted mb-2">NIH Grant Application • $1,200,000 • 2024-2027</p>
-                                            <p class="text-sm">Creating interpretable ML models for medical diagnosis with human-readable explanations.</p>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <div class="dashboard-card mb-4">
-                                            <div class="dashboard-card-header">
-                                                <h6 class="dashboard-card-title mb-0">Research Metrics</h6>
-                                            </div>
-                                            <div class="dashboard-card-body">
-                                                <div class="text-center mb-3">
-                                                    <h4 class="text-primary mb-0">2,847</h4>
-                                                    <small class="text-muted">Total Citations</small>
+                                    <div class="dashboard-card">
+                                        <div class="dashboard-card-body">
+                                            <h6 class="mb-2">Active Grants</h6>
+                                            <div class="small">
+                                                <div class="d-flex justify-content-between mb-1">
+                                                    <span>NSF</span>
+                                                    <strong>$850K</strong>
                                                 </div>
-                                                <div class="row text-center">
-                                                    <div class="col-6">
-                                                        <div class="fw-semibold">28</div>
-                                                        <small class="text-muted">H-Index</small>
+                                                <div class="d-flex justify-content-between mb-1">
+                                                    <span>DARPA</span>
+                                                    <strong>$650K</strong>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <span>Industry</span>
+                                                    <strong>$450K</strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-card">
+                                        <div class="dashboard-card-body">
+                                            <h6 class="mb-2">Research Areas</h6>
+                                            <div class="d-flex flex-wrap gap-1">
+                                                <span class="badge bg-primary bg-opacity-10 text-primary small">AI Ethics</span>
+                                                <span class="badge bg-info bg-opacity-10 text-info small">Machine Learning</span>
+                                                <span class="badge bg-success bg-opacity-10 text-success small">NLP</span>
+                                                <span class="badge bg-warning bg-opacity-10 text-warning small">XAI</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Publications Grid -->
+                                <h6 class="fw-semibold mb-3">Recent Publications (2022-2024)</h6>
+                                <div class="dashboard-grid grid-cols-3 gap-3 mb-4">
+                                            <div class="publication-item">
+                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                    <h6 class="mb-0 text-primary">"Ethical AI Systems"</h6>
+                                                    <span class="badge bg-success">2023</span>
+                                                </div>
+                                                <p class="text-muted mb-1 small">Nature AI</p>
+                                                <p class="text-sm mb-2">Framework for responsible AI development addressing ethical challenges.</p>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="d-flex gap-1">
+                                                        <span class="badge bg-info bg-opacity-10 text-info small">AI Ethics</span>
                                                     </div>
-                                                    <div class="col-6">
-                                                        <div class="fw-semibold">52</div>
-                                                        <small class="text-muted">Publications</small>
+                                                    <small class="text-muted"><i class="bi bi-quote"></i> 47</small>
+                                                </div>
+                                            </div>
+
+                                            <div class="publication-item">
+                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                    <h6 class="mb-0 text-primary">"ML Algorithms for NLP"</h6>
+                                                    <span class="badge bg-primary">2022</span>
+                                                </div>
+                                                <p class="text-muted mb-1 small">ACM Computing Surveys</p>
+                                                <p class="text-sm mb-2">Survey of state-of-the-art ML algorithms for language processing.</p>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="d-flex gap-1">
+                                                        <span class="badge bg-info bg-opacity-10 text-info small">NLP</span>
                                                     </div>
+                                                    <small class="text-muted"><i class="bi bi-quote"></i> 89</small>
+                                                </div>
+                                            </div>
+
+                                            <div class="publication-item">
+                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                    <h6 class="mb-0 text-primary">"Explainable AI"</h6>
+                                                    <span class="badge bg-primary">2022</span>
+                                                </div>
+                                                <p class="text-muted mb-1 small">AAAI Conference</p>
+                                                <p class="text-sm mb-2">Novel approaches for interpretable and transparent AI decisions.</p>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="d-flex gap-1">
+                                                        <span class="badge bg-info bg-opacity-10 text-info small">XAI</span>
+                                                    </div>
+                                                    <small class="text-muted"><i class="bi bi-quote"></i> 156</small>
+                                                </div>
+                                            </div>
+
+                                            <div class="publication-item">
+                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                    <h6 class="mb-0 text-primary">"Deep Learning Security"</h6>
+                                                    <span class="badge bg-warning text-dark">2024</span>
+                                                </div>
+                                                <p class="text-muted mb-1 small">IEEE Security & Privacy</p>
+                                                <p class="text-sm mb-2">Adversarial attacks and defense mechanisms in deep neural networks.</p>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="d-flex gap-1">
+                                                        <span class="badge bg-info bg-opacity-10 text-info small">Security</span>
+                                                    </div>
+                                                    <small class="text-muted"><i class="bi bi-quote"></i> 23</small>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="dashboard-card">
-                                            <div class="dashboard-card-header">
-                                                <h6 class="dashboard-card-title mb-0">Active Grants</h6>
+                                <!-- Active Research Projects -->
+                                <h6 class="fw-semibold mb-3">Active Research Projects</h6>
+                                <div class="dashboard-grid grid-cols-2 gap-3">
+                                    <div class="research-project-item">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <div>
+                                                <h6 class="mb-1">Ethical AI Framework Development</h6>
+                                                <p class="text-sm text-muted mb-0">NSF Grant #12345 • $850,000 • 2023-2026</p>
                                             </div>
-                                            <div class="dashboard-card-body">
-                                                <div class="grant-item">
-                                                    <div class="fw-semibold">NSF Grant</div>
-                                                    <div class="text-muted small">$850,000</div>
-                                                    <div class="text-sm">Ethical AI Framework</div>
-                                                </div>
-                                                <hr class="my-2">
-                                                <div class="grant-item">
-                                                    <div class="fw-semibold">DARPA Grant</div>
-                                                    <div class="text-muted small">$650,000</div>
-                                                    <div class="text-sm">ML Security Research</div>
-                                                </div>
-                                                <hr class="my-2">
-                                                <div class="grant-item">
-                                                    <div class="fw-semibold">Industry Partnership</div>
-                                                    <div class="text-muted small">$450,000</div>
-                                                    <div class="text-sm">Applied AI Solutions</div>
-                                                </div>
+                                            <span class="badge bg-success">Active</span>
+                                        </div>
+                                        <p class="text-sm">Developing comprehensive frameworks for ethical AI development in healthcare.</p>
+                                        <div class="progress mt-2" style="height: 6px;">
+                                            <div class="progress-bar bg-success" style="width: 35%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="research-project-item">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <div>
+                                                <h6 class="mb-1">Explainable ML Systems</h6>
+                                                <p class="text-sm text-muted mb-0">NIH Grant • $1,200,000 • 2024-2027</p>
                                             </div>
+                                            <span class="badge bg-warning">Pending</span>
+                                        </div>
+                                        <p class="text-sm">Creating interpretable ML models for medical diagnosis with human-readable explanations.</p>
+                                        <div class="progress mt-2" style="height: 6px;">
+                                            <div class="progress-bar bg-warning" style="width: 15%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="research-project-item">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <div>
+                                                <h6 class="mb-1">ML Security Research</h6>
+                                                <p class="text-sm text-muted mb-0">DARPA Grant • $650,000 • 2023-2025</p>
+                                            </div>
+                                            <span class="badge bg-success">Active</span>
+                                        </div>
+                                        <p class="text-sm">Developing robust defenses against adversarial attacks in deep learning systems.</p>
+                                        <div class="progress mt-2" style="height: 6px;">
+                                            <div class="progress-bar bg-success" style="width: 60%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="research-project-item">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <div>
+                                                <h6 class="mb-1">Applied AI Solutions</h6>
+                                                <p class="text-sm text-muted mb-0">Industry Partnership • $450,000 • 2024-2026</p>
+                                            </div>
+                                            <span class="badge bg-info">Planning</span>
+                                        </div>
+                                        <p class="text-sm">Collaborative research on practical AI applications for enterprise automation.</p>
+                                        <div class="progress mt-2" style="height: 6px;">
+                                            <div class="progress-bar bg-info" style="width: 10%"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -555,21 +757,34 @@
 
                             <!-- Performance Tab -->
                             <div class="tab-pane fade" id="performance" role="tabpanel" aria-labelledby="performance-tab">
-                                <div class="mb-4">
-                                    <h5 class="mb-2">Teaching Performance Analytics</h5>
-                                    <p class="text-muted mb-0">Comprehensive overview of teaching effectiveness, student feedback, and professional recognition based on 8 years of data.</p>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>
+                                        <h5 class="mb-1">Teaching Performance Analytics</h5>
+                                        <p class="text-muted mb-0 text-sm">8 Years of Data • 124 Student Reviews • 4.8/5.0 Overall Rating</p>
+                                    </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-8">
+
+                                <!-- Performance Charts Row -->
+                                <div class="dashboard-grid grid-cols-2 gap-4 mb-4">
+                                    <div>
                                         <h6 class="fw-semibold mb-3">Teaching Performance Trends</h6>
-                                        <div class="chart-container mb-4" style="height: 400px; position: relative; background: #f8f9fa; border-radius: 8px; padding: 20px;">
+                                        <div class="chart-container" style="height: 350px; position: relative; background: #f8f9fa; border-radius: 8px; padding: 20px;">
                                             <canvas id="performanceChart"></canvas>
                                         </div>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-semibold mb-3">Course Rating Distribution</h6>
+                                        <div class="chart-container" style="height: 350px; position: relative; background: #f8f9fa; border-radius: 8px; padding: 20px;">
+                                            <canvas id="ratingDistributionChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                        <h6 class="fw-semibold mb-3">Student Evaluation Metrics</h6>
-                                        <p class="text-muted mb-3">Based on 124 student reviews from the past 2 academic years across all courses taught.</p>
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
+                                <!-- Student Evaluation Metrics -->
+                                <h6 class="fw-semibold mb-3">Student Evaluation Metrics</h6>
+                                <p class="text-muted mb-3 text-sm">Based on 124 student reviews from the past 2 academic years</p>
+                                <div class="dashboard-grid grid-cols-4 gap-3 mb-4">
+                                            <div>
                                                 <div class="performance-metric">
                                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                                         <span>Course Organization</span>
@@ -580,7 +795,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 mb-3">
+                                            <div>
                                                 <div class="performance-metric">
                                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                                         <span>Teaching Clarity</span>
@@ -591,7 +806,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 mb-3">
+                                            <div>
                                                 <div class="performance-metric">
                                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                                         <span>Accessibility</span>
@@ -602,7 +817,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 mb-3">
+                                            <div>
                                                 <div class="performance-metric">
                                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                                         <span>Assignment Quality</span>
@@ -615,54 +830,54 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <div class="dashboard-card mb-4">
-                                            <div class="dashboard-card-header">
-                                                <h6 class="dashboard-card-title mb-0">Performance Summary</h6>
-                                            </div>
-                                            <div class="dashboard-card-body">
-                                                <div class="performance-score">
-                                                    <div class="score-circle">
-                                                        <h3 class="text-success">4.8</h3>
-                                                        <small>Overall Rating</small>
-                                                    </div>
-                                                    <div class="score-details">
-                                                        <div class="score-item">
-                                                            <span>Excellent</span>
-                                                            <strong>124 reviews</strong>
-                                                        </div>
+                                </div>
+
+                                <!-- Performance Sidebar Cards -->
+                                <div class="dashboard-grid grid-cols-2 gap-4 mt-4">
+                                    <div class="dashboard-card">
+                                        <div class="dashboard-card-header">
+                                            <h6 class="dashboard-card-title mb-0">Performance Summary</h6>
+                                        </div>
+                                        <div class="dashboard-card-body">
+                                            <div class="performance-score">
+                                                <div class="score-circle">
+                                                    <h3 class="text-success">4.8</h3>
+                                                    <small>Overall Rating</small>
+                                                </div>
+                                                <div class="score-details text-center">
+                                                    <div class="score-item">
+                                                        <span>Excellent</span>
+                                                        <strong class="d-block">124 reviews</strong>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div class="dashboard-card">
-                                            <div class="dashboard-card-header">
-                                                <h6 class="dashboard-card-title mb-0">Recognition</h6>
+                                    <div class="dashboard-card">
+                                        <div class="dashboard-card-header">
+                                            <h6 class="dashboard-card-title mb-0">Recent Recognition</h6>
+                                        </div>
+                                        <div class="dashboard-card-body">
+                                            <div class="award-item mb-2">
+                                                <i class="bi bi-trophy text-warning me-2"></i>
+                                                <div>
+                                                    <div class="fw-semibold small">Teacher of the Year</div>
+                                                    <small class="text-muted">2023</small>
+                                                </div>
                                             </div>
-                                            <div class="dashboard-card-body">
-                                                <div class="award-item">
-                                                    <i class="bi bi-trophy text-warning me-2"></i>
-                                                    <div>
-                                                        <div class="fw-semibold">Teacher of the Year</div>
-                                                        <small class="text-muted">2023</small>
-                                                    </div>
+                                            <div class="award-item mb-2">
+                                                <i class="bi bi-award text-primary me-2"></i>
+                                                <div>
+                                                    <div class="fw-semibold small">Research Excellence</div>
+                                                    <small class="text-muted">2022</small>
                                                 </div>
-                                                <hr class="my-2">
-                                                <div class="award-item">
-                                                    <i class="bi bi-award text-primary me-2"></i>
-                                                    <div>
-                                                        <div class="fw-semibold">Excellence in Research</div>
-                                                        <small class="text-muted">2022</small>
-                                                    </div>
-                                                </div>
-                                                <hr class="my-2">
-                                                <div class="award-item">
-                                                    <i class="bi bi-star text-info me-2"></i>
-                                                    <div>
-                                                        <div class="fw-semibold">Innovation Award</div>
-                                                        <small class="text-muted">2021</small>
-                                                    </div>
+                                            </div>
+                                            <div class="award-item">
+                                                <i class="bi bi-star text-info me-2"></i>
+                                                <div>
+                                                    <div class="fw-semibold small">Innovation Award</div>
+                                                    <small class="text-muted">2021</small>
                                                 </div>
                                             </div>
                                         </div>
@@ -672,13 +887,60 @@
 
                             <!-- Activity Tab -->
                             <div class="tab-pane fade" id="activity" role="tabpanel" aria-labelledby="activity-tab">
-                                <div class="mb-4">
-                                    <h5 class="mb-2">Faculty Activity Timeline</h5>
-                                    <p class="text-muted mb-0">Recent academic and professional activities including publications, grants, presentations, and administrative responsibilities.</p>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>
+                                        <h5 class="mb-1">Faculty Activity Timeline</h5>
+                                        <p class="text-muted mb-0 text-sm">Recent achievements, publications, and academic activities</p>
+                                    </div>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                            <i class="bi bi-filter me-1"></i>Filter
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item active" href="#">All Activities</a></li>
+                                            <li><a class="dropdown-item" href="#">Publications</a></li>
+                                            <li><a class="dropdown-item" href="#">Teaching</a></li>
+                                            <li><a class="dropdown-item" href="#">Conferences</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <h6 class="fw-semibold mb-3">Recent Achievements & Activities</h6>
-                                <div class="row">
-                                    <div class="col-lg-8">
+
+                                <!-- Activity Summary Cards -->
+                                <div class="dashboard-grid grid-cols-4 gap-3 mb-4">
+                                    <div class="dashboard-card">
+                                        <div class="dashboard-card-body text-center">
+                                            <i class="bi bi-journal-plus text-success mb-2" style="font-size: 1.5rem;"></i>
+                                            <div class="fw-bold">3</div>
+                                            <small class="text-muted">Publications This Year</small>
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-card">
+                                        <div class="dashboard-card-body text-center">
+                                            <i class="bi bi-calendar-event text-warning mb-2" style="font-size: 1.5rem;"></i>
+                                            <div class="fw-bold">5</div>
+                                            <small class="text-muted">Keynote Speeches</small>
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-card">
+                                        <div class="dashboard-card-body text-center">
+                                            <i class="bi bi-cash-coin text-info mb-2" style="font-size: 1.5rem;"></i>
+                                            <div class="fw-bold">$2.1M</div>
+                                            <small class="text-muted">Grants Received</small>
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-card">
+                                        <div class="dashboard-card-body text-center">
+                                            <i class="bi bi-people text-primary mb-2" style="font-size: 1.5rem;"></i>
+                                            <div class="fw-bold">6</div>
+                                            <small class="text-muted">PhD Students</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Activity Timeline -->
+                                <h6 class="fw-semibold mb-3">Recent Activities</h6>
+                                <div class="dashboard-grid grid-cols-2 gap-4">
+                                    <div>
                                         <div class="activity-timeline">
                                             <div class="activity-item border-start border-3 border-success ps-4 pb-4 mb-4">
                                                 <div class="d-flex align-items-start">
@@ -793,46 +1055,43 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <div class="dashboard-card">
-                                            <div class="dashboard-card-header">
-                                                <h6 class="dashboard-card-title mb-0">Activity Summary</h6>
+                                    <div>
+                                        <div class="activity-timeline">
+                                            <!-- Additional timeline items would go here in the second column -->
+                                            <div class="activity-item border-start border-3 border-info ps-4 pb-4 mb-4">
+                                                <div class="d-flex align-items-start">
+                                                    <div class="activity-icon bg-info bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; margin-top: 2px; border: 2px solid #0dcaf0;">
+                                                        <i class="bi bi-graph-up" style="color: #0dcaf0; font-size: 16px; font-weight: bold;"></i>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                                            <h6 class="mb-0 fw-semibold">Research Milestone</h6>
+                                                            <small class="text-muted">Dec 15, 2024</small>
+                                                        </div>
+                                                        <p class="mb-1 text-muted">Reached 2,847 total citations across all publications</p>
+                                                        <div class="d-flex gap-2">
+                                                            <span class="badge bg-info bg-opacity-10 text-info">Achievement</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="dashboard-card-body">
-                                                <div class="activity-summary-item d-flex justify-content-between mb-3">
-                                                    <div>
-                                                        <i class="bi bi-journal-plus text-success me-2"></i>
-                                                        <span>Publications</span>
+
+                                            <div class="activity-item border-start border-3 border-primary ps-4 pb-4 mb-4">
+                                                <div class="d-flex align-items-start">
+                                                    <div class="activity-icon bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; margin-top: 2px; border: 2px solid #0d6efd;">
+                                                        <i class="bi bi-award" style="color: #0d6efd; font-size: 16px; font-weight: bold;"></i>
                                                     </div>
-                                                    <strong>3 this year</strong>
-                                                </div>
-                                                <div class="activity-summary-item d-flex justify-content-between mb-3">
-                                                    <div>
-                                                        <i class="bi bi-calendar-event text-warning me-2"></i>
-                                                        <span>Conferences</span>
+                                                    <div class="flex-grow-1">
+                                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                                            <h6 class="mb-0 fw-semibold">Grant Approved</h6>
+                                                            <small class="text-muted">Dec 10, 2024</small>
+                                                        </div>
+                                                        <p class="mb-1 text-muted">NSF Grant for Ethical AI Framework research approved</p>
+                                                        <div class="d-flex gap-2">
+                                                            <span class="badge bg-primary bg-opacity-10 text-primary">Funding</span>
+                                                            <span class="badge bg-success bg-opacity-10 text-success">$850K</span>
+                                                        </div>
                                                     </div>
-                                                    <strong>5 keynotes</strong>
-                                                </div>
-                                                <div class="activity-summary-item d-flex justify-content-between mb-3">
-                                                    <div>
-                                                        <i class="bi bi-cash-coin text-info me-2"></i>
-                                                        <span>Grants Received</span>
-                                                    </div>
-                                                    <strong>$2.1M total</strong>
-                                                </div>
-                                                <div class="activity-summary-item d-flex justify-content-between mb-3">
-                                                    <div>
-                                                        <i class="bi bi-people text-primary me-2"></i>
-                                                        <span>PhD Students</span>
-                                                    </div>
-                                                    <strong>6 mentored</strong>
-                                                </div>
-                                                <div class="activity-summary-item d-flex justify-content-between">
-                                                    <div>
-                                                        <i class="bi bi-file-earmark-text text-secondary me-2"></i>
-                                                        <span>Course Updates</span>
-                                                    </div>
-                                                    <strong>4 courses</strong>
                                                 </div>
                                             </div>
                                         </div>
@@ -952,6 +1211,150 @@
                         }
                     }
                 });
+
+                // Rating Distribution Chart
+                const ctx2 = document.getElementById('ratingDistributionChart');
+                if (ctx2) {
+                    new Chart(ctx2, {
+                        type: 'bar',
+                        data: {
+                            labels: ['5 Stars', '4 Stars', '3 Stars', '2 Stars', '1 Star'],
+                            datasets: [{
+                                label: 'Number of Ratings',
+                                data: [89, 28, 5, 2, 0],
+                                backgroundColor: [
+                                    'rgba(40, 167, 69, 0.8)',
+                                    'rgba(32, 201, 151, 0.8)',
+                                    'rgba(255, 193, 7, 0.8)',
+                                    'rgba(253, 126, 20, 0.8)',
+                                    'rgba(220, 53, 69, 0.8)'
+                                ],
+                                borderColor: [
+                                    'rgba(40, 167, 69, 1)',
+                                    'rgba(32, 201, 151, 1)',
+                                    'rgba(255, 193, 7, 1)',
+                                    'rgba(253, 126, 20, 1)',
+                                    'rgba(220, 53, 69, 1)'
+                                ],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        stepSize: 20,
+                                        font: {
+                                            size: 11
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Number of Students',
+                                        font: {
+                                            size: 13,
+                                            weight: 'bold'
+                                        }
+                                    },
+                                    grid: {
+                                        color: 'rgba(0,0,0,0.1)'
+                                    }
+                                },
+                                x: {
+                                    ticks: {
+                                        font: {
+                                            size: 11
+                                        }
+                                    },
+                                    grid: {
+                                        display: false
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Student Rating Distribution (Last 2 Years)',
+                                    font: {
+                                        size: 16,
+                                        weight: 'bold'
+                                    },
+                                    padding: {
+                                        top: 0,
+                                        bottom: 20
+                                    }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const total = 124;
+                                            const percentage = ((context.raw / total) * 100).toFixed(1);
+                                            return context.raw + ' students (' + percentage + '%)';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // Course Distribution Chart (Doughnut)
+                const ctx3 = document.getElementById('courseDistributionChart');
+                if (ctx3) {
+                    new Chart(ctx3, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Undergraduate', 'Graduate', 'PhD Seminar'],
+                            datasets: [{
+                                data: [86, 45, 25],
+                                backgroundColor: [
+                                    'rgba(54, 162, 235, 0.8)',
+                                    'rgba(75, 192, 192, 0.8)',
+                                    'rgba(153, 102, 255, 0.8)'
+                                ],
+                                borderColor: [
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)'
+                                ],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: {
+                                        padding: 15,
+                                        font: {
+                                            size: 11
+                                        }
+                                    }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const total = 156;
+                                            const percentage = ((context.raw / total) * 100).toFixed(1);
+                                            return context.label + ': ' + context.raw + ' students (' + percentage + '%)';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
             }
         });
 </script>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>

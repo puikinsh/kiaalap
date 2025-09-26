@@ -90,10 +90,9 @@
                     <form id="editAssetForm" novalidate>
                         <!-- First Row: Basic Info and Cover/Actions -->
                         <div class="dashboard-row">
-                            <div class="dashboard-grid grid-cols-1">
-                                <div class="row g-4">
-                                    <!-- Basic Information -->
-                                    <div class="col-lg-8">
+                            <div class="dashboard-grid grid-cols-3 gap-3">
+                                <!-- Basic Information -->
+                                <div style="grid-column: span 2;">
                                         <div class="dashboard-card">
                                             <div class="dashboard-card-header">
                                                 <h5 class="dashboard-card-title">
@@ -102,8 +101,9 @@
                                                 </h5>
                                             </div>
                                             <div class="dashboard-card-body">
-                                                <div class="row g-3">
-                                                    <div class="col-md-8">
+                                                <!-- First row: Title (2/3) and Category (1/3) -->
+                                                <div class="dashboard-grid grid-cols-3 gap-3 mb-3">
+                                                    <div style="grid-column: span 2;">
                                                         <label for="assetTitle" class="form-label required-field">Title</label>
                                                         <input type="text"
                                                                class="form-control"
@@ -121,7 +121,7 @@
                                                         </small>
                                                     </div>
 
-                                                    <div class="col-md-4">
+                                                    <div>
                                                         <label for="assetCategory" class="form-label required-field">Category</label>
                                                         <select class="form-select" id="assetCategory" name="category" required>
                                                             <option value="">Select category</option>
@@ -137,8 +137,11 @@
                                                             Please select a category.
                                                         </div>
                                                     </div>
+                                                </div>
 
-                                                    <div class="col-md-6">
+                                                <!-- Second row: Author and Publisher (2 columns) -->
+                                                <div class="dashboard-grid grid-cols-2 gap-3 mb-3">
+                                                    <div>
                                                         <label for="assetAuthor" class="form-label">Author(s)</label>
                                                         <input type="text"
                                                                class="form-control"
@@ -152,7 +155,7 @@
                                                         </small>
                                                     </div>
 
-                                                    <div class="col-md-6">
+                                                    <div>
                                                         <label for="assetPublisher" class="form-label">Publisher</label>
                                                         <input type="text"
                                                                class="form-control"
@@ -161,8 +164,11 @@
                                                                value="MIT Press"
                                                                placeholder="Enter publisher name">
                                                     </div>
+                                                </div>
 
-                                                    <div class="col-md-4">
+                                                <!-- Third row: ISBN, Call Number, Edition (3 columns) -->
+                                                <div class="dashboard-grid grid-cols-3 gap-3">
+                                                    <div>
                                                         <label for="assetISBN" class="form-label">ISBN/ISSN</label>
                                                         <input type="text"
                                                                class="form-control"
@@ -176,7 +182,7 @@
                                                         </small>
                                                     </div>
 
-                                                    <div class="col-md-4">
+                                                    <div>
                                                         <label for="assetEdition" class="form-label">Edition</label>
                                                         <input type="text"
                                                                class="form-control"
@@ -186,7 +192,7 @@
                                                                placeholder="1st, 2nd, etc.">
                                                     </div>
 
-                                                    <div class="col-md-4">
+                                                    <div>
                                                         <label for="assetYear" class="form-label">Publication Year</label>
                                                         <input type="number"
                                                                class="form-control"
@@ -213,10 +219,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                </div>
 
-                                    <!-- Cover Image and Actions -->
-                                    <div class="col-lg-4">
+                                <!-- Cover Image and Actions -->
+                                <div>
                                         <div class="dashboard-card">
                                             <div class="dashboard-card-header">
                                                 <h5 class="dashboard-card-title">
@@ -290,7 +296,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
                         <!-- Second Row: Library Details -->
                         <div class="dashboard-row">
@@ -302,8 +307,8 @@
                                     </h5>
                                 </div>
                                 <div class="dashboard-card-body">
-                                    <div class="row gx-4 gy-3">
-                                        <div class="col-md-6">
+                                    <div class="dashboard-grid grid-cols-2 gap-3">
+                                        <div>
                                             <label for="assetLocation" class="form-label required-field">Location</label>
                                             <select class="form-select" id="assetLocation" name="location" required>
                                                 <option value="">Select location</option>
@@ -319,7 +324,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div>
                                             <label for="assetStatus" class="form-label required-field">Status</label>
                                             <select class="form-select" id="assetStatus" name="status" required>
                                                 <option value="">Select status</option>
@@ -335,7 +340,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4">
+                                        <div>
                                             <label for="assetCopies" class="form-label">Number of Copies</label>
                                             <input type="number"
                                                    class="form-control"
@@ -346,7 +351,7 @@
                                                    value="3">
                                         </div>
 
-                                        <div class="col-md-4">
+                                        <div>
                                             <label for="assetPrice" class="form-label">Purchase Price</label>
                                             <div class="input-group">
                                                 <span class="input-group-text">$</span>
@@ -361,7 +366,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4">
+                                        <div>
                                             <label for="assetAcquisition" class="form-label">Acquisition Date</label>
                                             <input type="date"
                                                    class="form-control"
@@ -370,7 +375,7 @@
                                                    name="acquisitionDate">
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div>
                                             <label for="assetCallNumber" class="form-label">Call Number</label>
                                             <input type="text"
                                                    class="form-control"
@@ -384,7 +389,7 @@
                                             </small>
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div>
                                             <label for="assetBarcode" class="form-label">Barcode</label>
                                             <input type="text"
                                                    class="form-control"
@@ -408,8 +413,8 @@
                                     </h5>
                                 </div>
                                 <div class="dashboard-card-body">
-                                    <div class="row gx-4 gy-3">
-                                        <div class="col-md-6">
+                                    <div class="dashboard-grid grid-cols-2 gap-3">
+                                        <div>
                                             <label for="assetLanguage" class="form-label">Language</label>
                                             <select class="form-select" id="assetLanguage" name="language">
                                                 <option value="">Select language</option>
@@ -424,7 +429,7 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div>
                                             <label for="assetPages" class="form-label">Number of Pages</label>
                                             <input type="number"
                                                    class="form-control"
