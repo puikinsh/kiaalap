@@ -1,0 +1,256 @@
+{{> head}}
+
+{{> sidebar}}
+
+<!-- Main Content Wrapper -->
+<div class="main-wrapper" id="mainWrapper">
+    {{> header}}
+
+    <!-- Main Content -->
+    <main class="dashboard-content" id="main-content">
+        <div class="container-fluid">
+            <!-- Page Header -->
+            <div class="mb-3">
+                <h1 class="h3 font-bold">Alert Components</h1>
+                <p class="text-muted text-sm">Contextual feedback messages for typical user actions</p>
+            </div>
+
+            <!-- Basic Alerts Row -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-1">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title mb-0">Basic Alerts</h5>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="alert alert-primary" role="alert">
+                                <strong>Primary Alert!</strong> This is a primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+                            </div>
+                            <div class="alert alert-secondary" role="alert">
+                                <strong>Secondary Alert!</strong> This is a secondary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+                            </div>
+                            <div class="alert alert-success" role="alert">
+                                <strong>Success Alert!</strong> This is a success alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+                            </div>
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Danger Alert!</strong> This is a danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+                            </div>
+                            <div class="alert alert-warning" role="alert">
+                                <strong>Warning Alert!</strong> This is a warning alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+                            </div>
+                            <div class="alert alert-info" role="alert">
+                                <strong>Info Alert!</strong> This is an info alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+                            </div>
+                            <div class="alert alert-light" role="alert">
+                                <strong>Light Alert!</strong> This is a light alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+                            </div>
+                            <div class="alert alert-dark" role="alert">
+                                <strong>Dark Alert!</strong> This is a dark alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alerts with Icons and Dismissible -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-2">
+                    <!-- Alerts with Icons -->
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title mb-0">Alerts with Icons</h5>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="alert alert-success d-flex align-items-center" role="alert">
+                                <i class="bi bi-check-circle-fill flex-shrink-0 me-2"></i>
+                                <div>
+                                    <strong>Success!</strong> Your changes have been saved successfully.
+                                </div>
+                            </div>
+                            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2"></i>
+                                <div>
+                                    <strong>Error!</strong> There was a problem processing your request.
+                                </div>
+                            </div>
+                            <div class="alert alert-warning d-flex align-items-center" role="alert">
+                                <i class="bi bi-exclamation-circle-fill flex-shrink-0 me-2"></i>
+                                <div>
+                                    <strong>Warning!</strong> Please review your input before continuing.
+                                </div>
+                            </div>
+                            <div class="alert alert-info d-flex align-items-center" role="alert">
+                                <i class="bi bi-info-circle-fill flex-shrink-0 me-2"></i>
+                                <div>
+                                    <strong>Info!</strong> New updates are available for your system.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dismissible Alerts -->
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title mb-0">Dismissible Alerts</h5>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>Success!</strong> You can dismiss this alert.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Danger!</strong> Something went wrong.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong>Warning!</strong> Please be careful.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <strong>Info!</strong> Here's some information.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Alert Content -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-2">
+                    <!-- Alerts with Additional Content -->
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title mb-0">Alerts with Additional Content</h5>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="alert alert-success" role="alert">
+                                <h4 class="alert-heading">Well done!</h4>
+                                <p>You successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+                                <hr>
+                                <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+                            </div>
+                            <div class="alert alert-primary" role="alert">
+                                <h4 class="alert-heading">System Update</h4>
+                                <p>A new version of the system is available. Please review the changes before updating:</p>
+                                <ul class="mb-0">
+                                    <li>Bug fixes and performance improvements</li>
+                                    <li>New dashboard features</li>
+                                    <li>Enhanced security measures</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom Styled Alerts -->
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title mb-0">Custom Styled Alerts</h5>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <!-- Border Left Alert -->
+                            <div class="alert alert-primary border-start border-primary border-5" role="alert">
+                                <strong>Primary!</strong> This alert has a colored left border.
+                            </div>
+                            <!-- Border Left Alert with Icon -->
+                            <div class="alert alert-success border-start border-success border-5 d-flex align-items-center" role="alert">
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                <div>
+                                    <strong>Success!</strong> Operation completed successfully.
+                                </div>
+                            </div>
+                            <!-- Outlined Alert -->
+                            <div class="alert alert-danger bg-transparent border border-danger text-danger" role="alert">
+                                <strong>Danger!</strong> This is an outlined alert style.
+                            </div>
+                            <!-- Gradient Background Alert -->
+                            <div class="alert text-white" role="alert" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                <strong>Gradient Alert!</strong> This alert has a gradient background.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Alert Example -->
+            <div class="dashboard-grid grid-cols-2">
+                <!-- Live Alert Demo -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title mb-0">Live Alert Example</h5>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <div id="liveAlertPlaceholder"></div>
+                        <button type="button" class="btn btn-primary" id="liveAlertBtn">Show live alert</button>
+                    </div>
+                </div>
+
+                <!-- Toast Notifications -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title mb-0">Toast Notifications</h5>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <button type="button" class="btn btn-primary" id="toastBtn">Show toast</button>
+
+                        <!-- Toast Container -->
+                        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header">
+                                    <i class="bi bi-bell-fill text-primary me-2"></i>
+                                    <strong class="me-auto">Notification</strong>
+                                    <small>Just now</small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body">
+                                    Hello! This is a toast message.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {{> footer}}
+</div>
+
+{{> scripts}}
+
+<script>
+    // Live Alert Example
+    document.addEventListener('DOMContentLoaded', function() {
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+        const alertTrigger = document.getElementById('liveAlertBtn');
+
+        function alert(message, type) {
+            const wrapper = document.createElement('div');
+            wrapper.innerHTML = [
+                `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+                `   <div>${message}</div>`,
+                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+            ].join('');
+
+            alertPlaceholder.append(wrapper);
+        }
+
+        if (alertTrigger) {
+            alertTrigger.addEventListener('click', () => {
+                alert('Nice, you triggered this alert message!', 'success');
+            });
+        }
+
+        // Toast Example
+        const toastTrigger = document.getElementById('toastBtn');
+        const toastLiveExample = document.getElementById('liveToast');
+
+        if (toastTrigger) {
+            toastTrigger.addEventListener('click', () => {
+                const toast = new bootstrap.Toast(toastLiveExample);
+                toast.show();
+            });
+        }
+    });
+</script>

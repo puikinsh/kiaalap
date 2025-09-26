@@ -58,7 +58,7 @@ function getPageContext(filename) {
       showPageHeader: true,
       breadcrumb: [{ title: 'Dashboard', url: 'index.html' }],
       additionalCSS: ['src/css/charts-layout.css'],
-      additionalJS: ['https://cdn.jsdelivr.net/npm/chart.js', 'src/js/charts-responsive.js']
+      additionalJS: ['node_modules/chart.js/dist/chart.umd.js', 'src/js/charts-responsive.js']
     },
     'index-1': {
       title: 'Dashboard Variant 1',
@@ -67,7 +67,7 @@ function getPageContext(filename) {
       showPageHeader: true,
       breadcrumb: [{ title: 'Dashboard', url: 'index-1.html' }],
       additionalCSS: ['src/css/charts-layout.css'],
-      additionalJS: ['https://cdn.jsdelivr.net/npm/chart.js', 'src/js/charts-responsive.js']
+      additionalJS: ['node_modules/chart.js/dist/chart.umd.js', 'src/js/charts-responsive.js']
     },
     'index-2': {
       title: 'Dashboard Variant 2',
@@ -76,7 +76,7 @@ function getPageContext(filename) {
       showPageHeader: true,
       breadcrumb: [{ title: 'Dashboard', url: 'index-2.html' }],
       additionalCSS: ['src/css/charts-layout.css'],
-      additionalJS: ['https://cdn.jsdelivr.net/npm/chart.js', 'src/js/charts-responsive.js']
+      additionalJS: ['node_modules/chart.js/dist/chart.umd.js', 'src/js/charts-responsive.js']
     },
     'analytics': {
       title: 'Analytics Dashboard',
@@ -85,7 +85,7 @@ function getPageContext(filename) {
       showPageHeader: true,
       breadcrumb: [{ title: 'Analytics', url: 'analytics.html' }],
       additionalCSS: ['src/css/charts-layout.css'],
-      additionalJS: ['https://cdn.jsdelivr.net/npm/chart.js', 'src/js/charts-responsive.js']
+      additionalJS: ['node_modules/chart.js/dist/chart.umd.js', 'src/js/charts-responsive.js']
     },
     'modals': {
       title: 'Modal Components',
@@ -127,7 +127,7 @@ function getPageContext(filename) {
         { title: 'Bar Charts', url: 'bar-charts.html' }
       ],
       additionalCSS: ['src/css/charts-layout.css'],
-      additionalJS: ['https://cdn.jsdelivr.net/npm/chart.js', 'src/js/charts-responsive.js']
+      additionalJS: ['node_modules/chart.js/dist/chart.umd.js', 'src/js/charts-responsive.js']
     },
     'line-charts': {
       title: 'Line Charts',
@@ -139,7 +139,7 @@ function getPageContext(filename) {
         { title: 'Line Charts', url: 'line-charts.html' }
       ],
       additionalCSS: ['src/css/charts-layout.css'],
-      additionalJS: ['https://cdn.jsdelivr.net/npm/chart.js', 'src/js/charts-responsive.js']
+      additionalJS: ['node_modules/chart.js/dist/chart.umd.js', 'src/js/charts-responsive.js']
     },
     'area-charts': {
       title: 'Area Charts',
@@ -151,7 +151,39 @@ function getPageContext(filename) {
         { title: 'Area Charts', url: 'area-charts.html' }
       ],
       additionalCSS: ['src/css/charts-layout.css'],
-      additionalJS: ['https://cdn.jsdelivr.net/npm/chart.js', 'src/js/charts-responsive.js']
+      additionalJS: ['node_modules/chart.js/dist/chart.umd.js', 'src/js/charts-responsive.js']
+    },
+    'library-assets': {
+      title: 'Library Assets',
+      pageTitle: 'Library Assets Management',
+      pageDescription: 'Manage library books, journals, and digital resources',
+      showPageHeader: true,
+      breadcrumb: [
+        { title: 'Academic', url: '#' },
+        { title: 'Library Assets', url: 'library-assets.html' }
+      ]
+    },
+    'add-library-assets': {
+      title: 'Add Library Asset',
+      pageTitle: 'Add New Library Asset',
+      pageDescription: 'Register a new book, journal, or digital resource',
+      showPageHeader: true,
+      breadcrumb: [
+        { title: 'Academic', url: '#' },
+        { title: 'Library Assets', url: 'library-assets.html' },
+        { title: 'Add Asset', url: 'add-library-assets.html' }
+      ]
+    },
+    'edit-library-assets': {
+      title: 'Edit Library Asset',
+      pageTitle: 'Edit Library Asset',
+      pageDescription: 'Update library asset information and details',
+      showPageHeader: true,
+      breadcrumb: [
+        { title: 'Academic', url: '#' },
+        { title: 'Library Assets', url: 'library-assets.html' },
+        { title: 'Edit Asset', url: 'edit-library-assets.html' }
+      ]
     }
   };
 
@@ -256,7 +288,10 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         modals: resolve(__dirname, 'modals.html'),
         buttons: resolve(__dirname, 'buttons.html'),
-        alerts: resolve(__dirname, 'alerts.html')
+        alerts: resolve(__dirname, 'alerts.html'),
+        'library-assets': resolve(__dirname, 'library-assets.html'),
+        'add-library-assets': resolve(__dirname, 'add-library-assets.html'),
+        'edit-library-assets': resolve(__dirname, 'edit-library-assets.html')
       }
     }
   },

@@ -1,0 +1,218 @@
+{{> head}}
+
+{{> sidebar}}
+
+<!-- Main Content Wrapper -->
+<div class="main-wrapper" id="mainWrapper">
+    {{> header}}
+
+    <!-- Main Content -->
+    <main class="dashboard-content" id="main-content">
+        <div class="container-fluid">
+            <!-- Page Header -->
+            <div class="mb-3">
+                <h1 class="h3 font-bold">Button Components</h1>
+                <p class="text-muted text-sm">Various button styles and interactive states for your application</p>
+            </div>
+
+            <!-- Basic Buttons Row -->
+            <div class="dashboard-row">
+                <!-- Standard Buttons -->
+                <div class="dashboard-grid grid-cols-2">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title mb-0">Basic Buttons</h5>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <button type="button" class="btn btn-primary mb-2 me-2">Primary</button>
+                            <button type="button" class="btn btn-secondary mb-2 me-2">Secondary</button>
+                            <button type="button" class="btn btn-success mb-2 me-2">Success</button>
+                            <button type="button" class="btn btn-danger mb-2 me-2">Danger</button>
+                            <button type="button" class="btn btn-warning mb-2 me-2">Warning</button>
+                            <button type="button" class="btn btn-info mb-2 me-2">Info</button>
+                            <button type="button" class="btn btn-light mb-2 me-2">Light</button>
+                            <button type="button" class="btn btn-dark mb-2 me-2">Dark</button>
+                            <button type="button" class="btn btn-link mb-2">Link</button>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title mb-0">Outline Buttons</h5>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <button type="button" class="btn btn-outline-primary mb-2 me-2">Primary</button>
+                            <button type="button" class="btn btn-outline-secondary mb-2 me-2">Secondary</button>
+                            <button type="button" class="btn btn-outline-success mb-2 me-2">Success</button>
+                            <button type="button" class="btn btn-outline-danger mb-2 me-2">Danger</button>
+                            <button type="button" class="btn btn-outline-warning mb-2 me-2">Warning</button>
+                            <button type="button" class="btn btn-outline-info mb-2 me-2">Info</button>
+                            <button type="button" class="btn btn-outline-dark mb-2">Dark</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button Sizes Row -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-3" style="grid-template-columns: 1fr 1fr 1fr;">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title mb-0">Button Sizes</h5>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <button type="button" class="btn btn-primary btn-lg mb-2 d-block w-100">Large button</button>
+                            <button type="button" class="btn btn-primary mb-2 d-block w-100">Default button</button>
+                            <button type="button" class="btn btn-primary btn-sm mb-2 d-block w-100">Small button</button>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title mb-0">Button States</h5>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <button type="button" class="btn btn-primary active mb-2 me-2">Active</button>
+                            <button type="button" class="btn btn-secondary mb-2" disabled>Disabled</button>
+                            <br>
+                            <button type="button" class="btn btn-success mb-2 me-2">
+                                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                Loading...
+                            </button>
+                            <button type="button" class="btn btn-info mb-2">
+                                <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                                Processing
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title mb-0">Block Buttons</h5>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" type="button">Block button</button>
+                                <button class="btn btn-secondary" type="button">Block button</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Icon Buttons -->
+            <div class="dashboard-row">
+                <div class="dashboard-grid grid-cols-1">
+                    <div class="dashboard-card">
+                        <div class="dashboard-card-header">
+                            <h5 class="dashboard-card-title mb-0">Buttons with Icons</h5>
+                        </div>
+                        <div class="dashboard-card-body">
+                            <button type="button" class="btn btn-primary mb-2 me-2">
+                                <i class="bi bi-download me-2"></i>Download
+                            </button>
+                            <button type="button" class="btn btn-success mb-2 me-2">
+                                <i class="bi bi-check-circle me-2"></i>Save
+                            </button>
+                            <button type="button" class="btn btn-danger mb-2 me-2">
+                                <i class="bi bi-trash me-2"></i>Delete
+                            </button>
+                            <button type="button" class="btn btn-info mb-2 me-2">
+                                <i class="bi bi-pencil-square me-2"></i>Edit
+                            </button>
+                            <button type="button" class="btn btn-warning mb-2 me-2">
+                                <i class="bi bi-exclamation-triangle me-2"></i>Warning
+                            </button>
+                            <button type="button" class="btn btn-secondary mb-2 me-2">
+                                <i class="bi bi-gear me-2"></i>Settings
+                            </button>
+                            <button type="button" class="btn btn-outline-primary mb-2 me-2">
+                                <i class="bi bi-upload me-2"></i>Upload
+                            </button>
+                            <button type="button" class="btn btn-outline-dark mb-2">
+                                <i class="bi bi-printer me-2"></i>Print
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button Groups and Toggles -->
+            <div class="dashboard-grid grid-cols-2">
+                <!-- Button Groups -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title mb-0">Button Groups</h5>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <div class="btn-group mb-3" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-primary">Left</button>
+                            <button type="button" class="btn btn-primary">Middle</button>
+                            <button type="button" class="btn btn-primary">Right</button>
+                        </div>
+                        <br>
+                        <div class="btn-group mb-3" role="group" aria-label="Outline example">
+                            <button type="button" class="btn btn-outline-secondary">Day</button>
+                            <button type="button" class="btn btn-outline-secondary">Week</button>
+                            <button type="button" class="btn btn-outline-secondary">Month</button>
+                            <button type="button" class="btn btn-outline-secondary">Year</button>
+                        </div>
+                        <br>
+                        <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                            <button type="button" class="btn btn-success">Top</button>
+                            <button type="button" class="btn btn-success">Middle</button>
+                            <button type="button" class="btn btn-success">Bottom</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Toggle and Dropdown -->
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <h5 class="dashboard-card-title mb-0">Toggle & Dropdown</h5>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <!-- Toggle Buttons -->
+                        <h6 class="mb-3">Toggle Buttons</h6>
+                        <button type="button" class="btn btn-primary mb-3 me-2" data-bs-toggle="button">Toggle button</button>
+                        <button type="button" class="btn btn-primary active mb-3" data-bs-toggle="button" aria-pressed="true">Active toggle</button>
+
+                        <br>
+
+                        <!-- Dropdown Buttons -->
+                        <h6 class="mb-3">Dropdown Buttons</h6>
+                        <div class="dropdown d-inline-block me-2">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Something else</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Split Dropdown -->
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger">Action</button>
+                            <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="visually-hidden">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Something else</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {{> footer}}
+</div>
+
+{{> scripts}}
