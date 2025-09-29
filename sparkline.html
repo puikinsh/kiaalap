@@ -12,6 +12,99 @@
         /* Loading animation */
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         .loading { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background: #e5e7eb; }
+
+        /* Sparkline specific styles */
+        .sparkline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .sparkline-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.25rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .sparkline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .sparkline-info {
+            flex: 1;
+        }
+
+        .sparkline-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .sparkline-value {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #1f2937;
+            line-height: 1;
+        }
+
+        .sparkline-trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+        }
+
+        .trend-up {
+            color: #10b981;
+            background: #d1fae5;
+        }
+
+        .trend-down {
+            color: #ef4444;
+            background: #fee2e2;
+        }
+
+        .sparkline-chart-wrapper {
+            position: relative;
+            height: 60px;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .sparkline-chart-wrapper canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .section-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
 </style>
 
 {{> sidebar}}
@@ -23,7 +116,7 @@
     <!-- Main Content -->
     <main class="dashboard-content" id="main-content">
         <div class="container-fluid">
-<!-- Breadcrumb -->
+            <!-- Breadcrumb -->
             <nav aria-label="breadcrumb" class="breadcrumb-nav">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
@@ -40,134 +133,227 @@
             </nav>
 
             <!-- Page Header -->
-            
+            <div class="page-header mb-4">
+                <h1 class="h3 font-bold mb-2">Sparkline Charts</h1>
+                <p class="text-muted">Compact inline charts for displaying trends and metrics at a glance</p>
             </div>
 
-            <!-- Dashboard Grid -->
-            <div class="dashboard-row">
-                <!-- Key Metrics with Sparklines -->
-                <div class="dashboard-grid dashboard-grid-md-12">
-                    <div class="chart-wrapper">
-                        <div class="dashboard-card-header">
-                            <h5 class="dashboard-card-title">Key Performance Metrics</h5>
-                            <p class="dashboard-card-subtitle">Real-time metrics with trend indicators</p>
+            <!-- Key Performance Metrics Section -->
+            <div class="section-header">
+                <h2 class="section-title">Key Performance Metrics</h2>
+                <p class="section-subtitle">Real-time metrics with trend indicators</p>
+            </div>
+
+            <div class="sparkline-grid">
+                <!-- Total Students -->
+                <div class="sparkline-card">
+                    <div class="sparkline-header">
+                        <div class="sparkline-info">
+                            <div class="sparkline-label">Total Students</div>
+                            <div class="sparkline-value">1,234</div>
                         </div>
-                        <div class="chart-container-main">
-                            <div class="sparkline-metrics-grid">
-                                <div class="metric-card">
-                                    <div class="metric-header">
-                                        <span class="metric-label">Total Students</span>
-                                        <span class="trend-indicator trend-up">
-                                            <i class="bi bi-arrow-up"></i> +12%
-                                        </span>
-                                    </div>
-                                    <div class="metric-value">1,234</div>
-                                    <div class="sparkline-chart" id="studentsSparkline"></div>
-                                </div>
-
-                                <div class="metric-card">
-                                    <div class="metric-header">
-                                        <span class="metric-label">Course Completion</span>
-                                        <span class="trend-indicator trend-up">
-                                            <i class="bi bi-arrow-up"></i> +8%
-                                        </span>
-                                    </div>
-                                    <div class="metric-value">87%</div>
-                                    <div class="sparkline-chart" id="completionSparkline"></div>
-                                </div>
-
-                                <div class="metric-card">
-                                    <div class="metric-header">
-                                        <span class="metric-label">Revenue</span>
-                                        <span class="trend-indicator trend-up">
-                                            <i class="bi bi-arrow-up"></i> +15%
-                                        </span>
-                                    </div>
-                                    <div class="metric-value">$45.2K</div>
-                                    <div class="sparkline-chart" id="revenueSparkline"></div>
-                                </div>
-
-                                <div class="metric-card">
-                                    <div class="metric-header">
-                                        <span class="metric-label">Active Professors</span>
-                                        <span class="trend-indicator trend-down">
-                                            <i class="bi bi-arrow-down"></i> -3%
-                                        </span>
-                                    </div>
-                                    <div class="metric-value">89</div>
-                                    <div class="sparkline-chart" id="professorsSparkline"></div>
-                                </div>
-                            </div>
-                        </div>
+                        <span class="sparkline-trend trend-up">
+                            <i class="bi bi-arrow-up"></i> +12%
+                        </span>
+                    </div>
+                    <div class="sparkline-chart-wrapper">
+                        <canvas id="studentsSparkline"></canvas>
                     </div>
                 </div>
 
-                <!-- Academic Performance -->
-                <div class="dashboard-grid dashboard-grid-md-6">
-                    <div class="chart-wrapper">
-                        <div class="dashboard-card-header">
-                            <h5 class="dashboard-card-title">Academic Performance</h5>
-                            <p class="dashboard-card-subtitle">Student achievement trends</p>
+                <!-- Course Completion -->
+                <div class="sparkline-card">
+                    <div class="sparkline-header">
+                        <div class="sparkline-info">
+                            <div class="sparkline-label">Course Completion</div>
+                            <div class="sparkline-value">87%</div>
                         </div>
-                        <div class="chart-container-main">
-                            <div class="metric-card">
-                                <div class="metric-header">
-                                    <span class="metric-label">Average GPA</span>
-                                    <span class="trend-indicator trend-up">
-                                        <i class="bi bi-arrow-up"></i> +0.2
-                                    </span>
-                                </div>
-                                <div class="metric-value">3.45</div>
-                                <div class="sparkline-chart" id="gpaSparkline"></div>
-                            </div>
-
-                            <div class="metric-card">
-                                <div class="metric-header">
-                                    <span class="metric-label">Attendance Rate</span>
-                                    <span class="trend-indicator trend-up">
-                                        <i class="bi bi-arrow-up"></i> +5%
-                                    </span>
-                                </div>
-                                <div class="metric-value">92%</div>
-                                <div class="sparkline-chart" id="attendanceSparkline"></div>
-                            </div>
-                        </div>
+                        <span class="sparkline-trend trend-up">
+                            <i class="bi bi-arrow-up"></i> +8%
+                        </span>
+                    </div>
+                    <div class="sparkline-chart-wrapper">
+                        <canvas id="completionSparkline"></canvas>
                     </div>
                 </div>
 
-                <!-- Financial Overview -->
-                <div class="dashboard-grid dashboard-grid-md-6">
-                    <div class="chart-wrapper">
-                        <div class="dashboard-card-header">
-                            <h5 class="dashboard-card-title">Financial Overview</h5>
-                            <p class="dashboard-card-subtitle">Revenue and cost analysis</p>
+                <!-- Revenue -->
+                <div class="sparkline-card">
+                    <div class="sparkline-header">
+                        <div class="sparkline-info">
+                            <div class="sparkline-label">Revenue</div>
+                            <div class="sparkline-value">$45.2K</div>
                         </div>
-                        <div class="chart-container-main">
-                            <div class="metric-card">
-                                <div class="metric-header">
-                                    <span class="metric-label">Monthly Tuition</span>
-                                    <span class="trend-indicator trend-up">
-                                        <i class="bi bi-arrow-up"></i> +18%
-                                    </span>
-                                </div>
-                                <div class="metric-value">$125K</div>
-                                <div class="sparkline-chart" id="tuitionSparkline"></div>
-                            </div>
-
-                            <div class="metric-card">
-                                <div class="metric-header">
-                                    <span class="metric-label">Operational Costs</span>
-                                    <span class="trend-indicator trend-down">
-                                        <i class="bi bi-arrow-down"></i> -7%
-                                    </span>
-                                </div>
-                                <div class="metric-value">$78K</div>
-                                <div class="sparkline-chart" id="costsSparkline"></div>
-                            </div>
-                        </div>
+                        <span class="sparkline-trend trend-up">
+                            <i class="bi bi-arrow-up"></i> +15%
+                        </span>
+                    </div>
+                    <div class="sparkline-chart-wrapper">
+                        <canvas id="revenueSparkline"></canvas>
                     </div>
                 </div>
-            </div>        </div>
+
+                <!-- Active Professors -->
+                <div class="sparkline-card">
+                    <div class="sparkline-header">
+                        <div class="sparkline-info">
+                            <div class="sparkline-label">Active Professors</div>
+                            <div class="sparkline-value">89</div>
+                        </div>
+                        <span class="sparkline-trend trend-down">
+                            <i class="bi bi-arrow-down"></i> -3%
+                        </span>
+                    </div>
+                    <div class="sparkline-chart-wrapper">
+                        <canvas id="professorsSparkline"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Academic Performance Section -->
+            <div class="section-header">
+                <h2 class="section-title">Academic Performance</h2>
+                <p class="section-subtitle">Student achievement trends</p>
+            </div>
+
+            <div class="sparkline-grid">
+                <!-- Average GPA -->
+                <div class="sparkline-card">
+                    <div class="sparkline-header">
+                        <div class="sparkline-info">
+                            <div class="sparkline-label">Average GPA</div>
+                            <div class="sparkline-value">3.45</div>
+                        </div>
+                        <span class="sparkline-trend trend-up">
+                            <i class="bi bi-arrow-up"></i> +0.2
+                        </span>
+                    </div>
+                    <div class="sparkline-chart-wrapper">
+                        <canvas id="gpaSparkline"></canvas>
+                    </div>
+                </div>
+
+                <!-- Attendance Rate -->
+                <div class="sparkline-card">
+                    <div class="sparkline-header">
+                        <div class="sparkline-info">
+                            <div class="sparkline-label">Attendance Rate</div>
+                            <div class="sparkline-value">92%</div>
+                        </div>
+                        <span class="sparkline-trend trend-up">
+                            <i class="bi bi-arrow-up"></i> +5%
+                        </span>
+                    </div>
+                    <div class="sparkline-chart-wrapper">
+                        <canvas id="attendanceSparkline"></canvas>
+                    </div>
+                </div>
+
+                <!-- Assignment Completion -->
+                <div class="sparkline-card">
+                    <div class="sparkline-header">
+                        <div class="sparkline-info">
+                            <div class="sparkline-label">Assignment Completion</div>
+                            <div class="sparkline-value">94%</div>
+                        </div>
+                        <span class="sparkline-trend trend-up">
+                            <i class="bi bi-arrow-up"></i> +3%
+                        </span>
+                    </div>
+                    <div class="sparkline-chart-wrapper">
+                        <canvas id="assignmentSparkline"></canvas>
+                    </div>
+                </div>
+
+                <!-- Test Scores -->
+                <div class="sparkline-card">
+                    <div class="sparkline-header">
+                        <div class="sparkline-info">
+                            <div class="sparkline-label">Avg Test Score</div>
+                            <div class="sparkline-value">78.5</div>
+                        </div>
+                        <span class="sparkline-trend trend-up">
+                            <i class="bi bi-arrow-up"></i> +4.2
+                        </span>
+                    </div>
+                    <div class="sparkline-chart-wrapper">
+                        <canvas id="testScoresSparkline"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Overview Section -->
+            <div class="section-header">
+                <h2 class="section-title">Financial Overview</h2>
+                <p class="section-subtitle">Revenue and cost analysis</p>
+            </div>
+
+            <div class="sparkline-grid">
+                <!-- Monthly Tuition -->
+                <div class="sparkline-card">
+                    <div class="sparkline-header">
+                        <div class="sparkline-info">
+                            <div class="sparkline-label">Monthly Tuition</div>
+                            <div class="sparkline-value">$125K</div>
+                        </div>
+                        <span class="sparkline-trend trend-up">
+                            <i class="bi bi-arrow-up"></i> +18%
+                        </span>
+                    </div>
+                    <div class="sparkline-chart-wrapper">
+                        <canvas id="tuitionSparkline"></canvas>
+                    </div>
+                </div>
+
+                <!-- Operational Costs -->
+                <div class="sparkline-card">
+                    <div class="sparkline-header">
+                        <div class="sparkline-info">
+                            <div class="sparkline-label">Operational Costs</div>
+                            <div class="sparkline-value">$78K</div>
+                        </div>
+                        <span class="sparkline-trend trend-down">
+                            <i class="bi bi-arrow-down"></i> -7%
+                        </span>
+                    </div>
+                    <div class="sparkline-chart-wrapper">
+                        <canvas id="costsSparkline"></canvas>
+                    </div>
+                </div>
+
+                <!-- Net Profit -->
+                <div class="sparkline-card">
+                    <div class="sparkline-header">
+                        <div class="sparkline-info">
+                            <div class="sparkline-label">Net Profit</div>
+                            <div class="sparkline-value">$47K</div>
+                        </div>
+                        <span class="sparkline-trend trend-up">
+                            <i class="bi bi-arrow-up"></i> +25%
+                        </span>
+                    </div>
+                    <div class="sparkline-chart-wrapper">
+                        <canvas id="profitSparkline"></canvas>
+                    </div>
+                </div>
+
+                <!-- Scholarships -->
+                <div class="sparkline-card">
+                    <div class="sparkline-header">
+                        <div class="sparkline-info">
+                            <div class="sparkline-label">Scholarships</div>
+                            <div class="sparkline-value">$15.3K</div>
+                        </div>
+                        <span class="sparkline-trend trend-up">
+                            <i class="bi bi-arrow-up"></i> +10%
+                        </span>
+                    </div>
+                    <div class="sparkline-chart-wrapper">
+                        <canvas id="scholarshipsSparkline"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     {{> footer}}
@@ -177,122 +363,155 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-            // Sparkline configuration
-            const sparklineOptions = {
-                type: 'line',
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    animation: {
-                        duration: 1000,
-                        easing: 'easeInOutQuart'
-                    },
-                    scales: {
-                        x: { display: false },
-                        y: { display: false }
-                    },
-                    plugins: { legend: { display: false } },
-                    elements: {
-                        point: { radius: 0, hitRadius: 10 },
-                        line: { borderWidth: 2, tension: 0.3 }
-                    },
-                    interaction: { intersect: false }
-                }
-            };
-
-            // Generate sample sparkline data
-            function generateSparklineData(trend = 'up', points = 20, volatility = 0.3) {
-                const data = [];
-                let value = Math.random() * 50 + 25;
-
-                for (let i = 0; i < points; i++) {
-                    const change = (Math.random() - 0.5) * volatility * 10;
-                    const trendChange = trend === 'up' ? 0.5 : -0.5;
-                    value = Math.max(5, Math.min(95, value + change + trendChange));
-                    data.push(Math.round(value));
-                }
-
-                return data;
+    // Sparkline configuration - fully responsive
+    const sparklineOptions = {
+        responsive: true,
+        maintainAspectRatio: false, // Allow chart to fill container
+        animation: {
+            duration: 1000,
+            easing: 'easeInOutQuart'
+        },
+        layout: {
+            padding: {
+                top: 5,
+                right: 5,
+                bottom: 5,
+                left: 5
             }
-
-            // Initialize sparkline charts
-            const sparklines = [
-                {
-                    id: 'studentsSparkline',
-                    color: '#4361ee',
-                    trend: 'up'
-                },
-                {
-                    id: 'completionSparkline',
-                    color: '#06d6a0',
-                    trend: 'up'
-                },
-                {
-                    id: 'revenueSparkline',
-                    color: '#f72585',
-                    trend: 'up'
-                },
-                {
-                    id: 'professorsSparkline',
-                    color: '#ffa726',
-                    trend: 'down'
-                },
-                {
-                    id: 'gpaSparkline',
-                    color: '#4cc9f0',
-                    trend: 'up'
-                },
-                {
-                    id: 'attendanceSparkline',
-                    color: '#06d6a0',
-                    trend: 'up'
-                },
-                {
-                    id: 'tuitionSparkline',
-                    color: '#4361ee',
-                    trend: 'up'
-                },
-                {
-                    id: 'costsSparkline',
-                    color: '#f72585',
-                    trend: 'down'
+        },
+        scales: {
+            x: {
+                display: false,
+                grid: { display: false }
+            },
+            y: {
+                display: false,
+                grid: { display: false },
+                beginAtZero: false
+            }
+        },
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                enabled: true,
+                backgroundColor: 'rgba(0,0,0,0.8)',
+                padding: 8,
+                cornerRadius: 6,
+                displayColors: false,
+                callbacks: {
+                    title: () => '',
+                    label: (context) => {
+                        return context.parsed.y.toFixed(1);
+                    }
                 }
-            ];
+            }
+        },
+        elements: {
+            point: {
+                radius: 0,
+                hitRadius: 10,
+                hoverRadius: 3
+            },
+            line: {
+                borderWidth: 2.5,
+                tension: 0.4
+            }
+        },
+        interaction: {
+            intersect: false,
+            mode: 'index'
+        }
+    };
 
+    // Generate sample sparkline data
+    function generateSparklineData(trend = 'up', points = 30, volatility = 0.3) {
+        const data = [];
+        let value = Math.random() * 50 + 25;
+
+        for (let i = 0; i < points; i++) {
+            const change = (Math.random() - 0.5) * volatility * 10;
+            const trendChange = trend === 'up' ? 0.3 : -0.3;
+            value = Math.max(5, Math.min(95, value + change + trendChange));
+            data.push(Math.round(value));
+        }
+
+        return data;
+    }
+
+    // Initialize sparkline charts
+    const sparklines = [
+        { id: 'studentsSparkline', color: '#4361ee', trend: 'up' },
+        { id: 'completionSparkline', color: '#06d6a0', trend: 'up' },
+        { id: 'revenueSparkline', color: '#f72585', trend: 'up' },
+        { id: 'professorsSparkline', color: '#ffa726', trend: 'down' },
+        { id: 'gpaSparkline', color: '#4cc9f0', trend: 'up' },
+        { id: 'attendanceSparkline', color: '#06d6a0', trend: 'up' },
+        { id: 'assignmentSparkline', color: '#7209b7', trend: 'up' },
+        { id: 'testScoresSparkline', color: '#3a0ca3', trend: 'up' },
+        { id: 'tuitionSparkline', color: '#4361ee', trend: 'up' },
+        { id: 'costsSparkline', color: '#f72585', trend: 'down' },
+        { id: 'profitSparkline', color: '#06d6a0', trend: 'up' },
+        { id: 'scholarshipsSparkline', color: '#ffa726', trend: 'up' }
+    ];
+
+    sparklines.forEach(sparkline => {
+        const canvas = document.getElementById(sparkline.id);
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            const gradient = ctx.createLinearGradient(0, 0, 0, 60);
+            gradient.addColorStop(0, sparkline.color + '40');
+            gradient.addColorStop(1, sparkline.color + '00');
+
+            new Chart(canvas, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 30}, (_, i) => i),
+                    datasets: [{
+                        data: generateSparklineData(sparkline.trend),
+                        borderColor: sparkline.color,
+                        backgroundColor: gradient,
+                        fill: true
+                    }]
+                },
+                options: sparklineOptions
+            });
+        }
+    });
+
+    // Auto-refresh sparklines every 15 seconds
+    setInterval(() => {
+        sparklines.forEach(sparkline => {
+            const canvas = document.getElementById(sparkline.id);
+            if (canvas) {
+                const chart = Chart.getChart(canvas);
+                if (chart) {
+                    const lastValue = chart.data.datasets[0].data[29];
+                    const trendDirection = sparkline.trend === 'up' ? 0.2 : -0.2;
+                    const newValue = Math.max(5, Math.min(95, lastValue + (Math.random() - 0.5) * 8 + trendDirection));
+
+                    chart.data.datasets[0].data.push(Math.round(newValue));
+                    chart.data.datasets[0].data.shift();
+                    chart.update('none');
+                }
+            }
+        });
+    }, 15000);
+
+    // Handle window resize to ensure charts fill their containers
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
             sparklines.forEach(sparkline => {
                 const canvas = document.getElementById(sparkline.id);
                 if (canvas) {
-                    new Chart(canvas, {
-                        ...sparklineOptions,
-                        data: {
-                            labels: Array.from({length: 20}, (_, i) => i),
-                            datasets: [{
-                                data: generateSparklineData(sparkline.trend),
-                                borderColor: sparkline.color,
-                                backgroundColor: sparkline.color + '20',
-                                fill: true
-                            }]
-                        }
-                    });
+                    const chart = Chart.getChart(canvas);
+                    if (chart) {
+                        chart.resize();
+                    }
                 }
             });
-
-            // Auto-refresh sparklines every 15 seconds
-            setInterval(() => {
-                sparklines.forEach(sparkline => {
-                    const canvas = document.getElementById(sparkline.id);
-                    if (canvas) {
-                        const chart = Chart.getChart(canvas);
-                        if (chart) {
-                            const lastValue = chart.data.datasets[0].data[19];
-                            const newValue = Math.max(5, Math.min(95, lastValue + (Math.random() - 0.5) * 8));
-
-                            chart.data.datasets[0].data.push(Math.round(newValue));
-                            chart.data.datasets[0].data.shift();
-                            chart.update('none');
-                        }
-                    }
-                });
-            }, 15000);
-        });
+        }, 250);
+    });
+});
 </script>

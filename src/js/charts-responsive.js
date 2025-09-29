@@ -364,9 +364,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // ========================================
   window.addEventListener('resize', function () {
     // All charts will automatically resize due to responsive: true
-    Chart.helpers.each(Chart.instances, function (instance) {
-      instance.resize();
-    });
+    // Chart.js 4.x handles resize automatically when responsive: true
   });
 
   // ========================================

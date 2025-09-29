@@ -1,5 +1,157 @@
 {{> head}}
 
+<style>
+/* Dashboard Grid System */
+        .dashboard-row { margin-bottom: 24px; }
+        .dashboard-grid { display: grid; gap: 24px; }
+        .grid-cols-1 { grid-template-columns: 1fr; }
+        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+
+        @media (max-width: 768px) {
+            .dashboard-grid { gap: 16px; }
+            .grid-cols-2 { grid-template-columns: 1fr; }
+        }
+
+        /* Card Spacing */
+        .dashboard-card {
+            margin-bottom: 24px;
+        }
+
+        .dashboard-card:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Table Customizations */
+        .table-custom {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .table-custom thead {
+            background: linear-gradient(135deg, #4361ee, #6366f1);
+            color: white;
+        }
+
+        .table-custom thead th {
+            border: none;
+            padding: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.5px;
+        }
+
+        .table-custom tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        .table-custom tbody tr:hover {
+            background-color: #f8f9fa;
+            transform: scale(1.01);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .table-custom tbody td {
+            padding: 14px 16px;
+            vertical-align: middle;
+        }
+
+        /* Student Table Styles */
+        .student-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #e5e7eb;
+        }
+
+        .student-name {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 2px;
+        }
+
+        .student-email {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        /* Grade Table Styles */
+        .grade-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .grade-a { background: #10b981; color: white; }
+        .grade-b { background: #3b82f6; color: white; }
+        .grade-c { background: #f59e0b; color: white; }
+        .grade-d { background: #ef4444; color: white; }
+        .grade-f { background: #6b7280; color: white; }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-active { background: #d1fae5; color: #065f46; }
+        .status-pending { background: #fed7aa; color: #92400e; }
+        .status-inactive { background: #e5e7eb; color: #374151; }
+        .status-completed { background: #ddd6fe; color: #5b21b6; }
+
+        /* Action Buttons */
+        .btn-action {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: none;
+            margin: 0 2px;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-view { background: #e0e7ff; color: #4338ca; }
+        .btn-view:hover { background: #4338ca; color: white; }
+
+        .btn-edit { background: #fef3c7; color: #d97706; }
+        .btn-edit:hover { background: #d97706; color: white; }
+
+        .btn-delete { background: #fee2e2; color: #dc2626; }
+        .btn-delete:hover { background: #dc2626; color: white; }
+
+        /* Responsive Tables */
+        @media (max-width: 768px) {
+            .table-responsive {
+                border: none;
+            }
+
+            .table-custom {
+                font-size: 0.875rem;
+            }
+
+            .table-custom thead th,
+            .table-custom tbody td {
+                padding: 10px;
+            }
+        }
+</style>
+
 {{> sidebar}}
 
 <!-- Main Content Wrapper -->
@@ -10,243 +162,574 @@
     <main class="dashboard-content" id="main-content">
         <div class="container-fluid">
             <!-- Page Header -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <div>
-                    <h1 class="h3 mb-0 text-gray-800">Static table</h1>
-                </div>
-            </div>
-
-<div class="wrapper">
-        <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <a href="#" class="sidebar-logo">
-                <i class="fas fa-graduation-cap" style="font-size: 1.5rem; color: var(--primary-color);"></i>
-                <span class="sidebar-logo-text">Kiaalap</span>
-            </a>
-        </div>
-
-        <div class="sidebar-menu">
-            <!-- Dashboard Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Main</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#dashboard" class="nav-link active" data-bs-toggle="collapse" aria-expanded="true">
-                            <i class="nav-icon fas fa-home"></i>
-                            <span class="nav-text">Dashboard</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse show" id="dashboard">
-                            <li><a href="index.html" class="nav-link">Dashboard</a></li>
-                            <li><a href="index-1.html" class="nav-link">Dashboard v1</a></li>
-                            <li><a href="index-2.html" class="nav-link">Dashboard v2</a></li>
-                            <li><a href="analytics.html" class="nav-link">Analytics</a></li>
-                            <li><a href="widgets.html" class="nav-link">Widgets</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="events.html" class="nav-link">
-                            <i class="nav-icon fas fa-calendar"></i>
-                            <span class="nav-text">Events</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Academic Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Academic</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#professors" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                            <span class="nav-text">Professors</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="professors">
-                            <li><a href="all-professors.html" class="nav-link">All Professors</a></li>
-                            <li><a href="add-professor.html" class="nav-link">Add Professor</a></li>
-                            <li><a href="edit-professor.html" class="nav-link">Edit Professor</a></li>
-                            <li><a href="professor-profile.html" class="nav-link">Professor Profile</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#students" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-user-graduate"></i>
-                            <span class="nav-text">Students</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="students">
-                            <li><a href="all-students.html" class="nav-link">All Students</a></li>
-                            <li><a href="add-student.html" class="nav-link">Add Student</a></li>
-                            <li><a href="edit-student.html" class="nav-link">Edit Student</a></li>
-                            <li><a href="student-profile.html" class="nav-link">Student Profile</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#courses" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book"></i>
-                            <span class="nav-text">Courses</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="courses">
-                            <li><a href="all-courses.html" class="nav-link">All Courses</a></li>
-                            <li><a href="add-course.html" class="nav-link">Add Course</a></li>
-                            <li><a href="edit-course.html" class="nav-link">Edit Course</a></li>
-                            <li><a href="course-info.html" class="nav-link">Course Info</a></li>
-                            <li><a href="course-payment.html" class="nav-link">Course Payment</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#library" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book-open"></i>
-                            <span class="nav-text">Library</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="library">
-                            <li><a href="library-assets.html" class="nav-link">Library Assets</a></li>
-                            <li><a href="add-library-assets.html" class="nav-link">Add Asset</a></li>
-                            <li><a href="edit-library-assets.html" class="nav-link">Edit Asset</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#departments" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-building"></i>
-                            <span class="nav-text">Departments</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="departments">
-                            <li><a href="departments.html" class="nav-link">All Departments</a></li>
-                            <li><a href="add-department.html" class="nav-link">Add Department</a></li>
-                            <li><a href="edit-department.html" class="nav-link">Edit Department</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Tools Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Tools</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#mailbox" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-envelope"></i>
-                            <span class="nav-text">Mailbox</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="mailbox">
-                            <li><a href="mailbox.html" class="nav-link">Inbox</a></li>
-                            <li><a href="mailbox-compose.html" class="nav-link">Compose</a></li>
-                            <li><a href="mailbox-view.html" class="nav-link">View Mail</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#charts" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chart-line"></i>
-                            <span class="nav-text">Charts</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="charts">
-                            <li><a href="line-charts.html" class="nav-link">Line Charts</a></li>
-                            <li><a href="bar-charts.html" class="nav-link">Bar Charts</a></li>
-                            <li><a href="area-charts.html" class="nav-link">Area Charts</a></li>
-                            <li><a href="c3.html" class="nav-link">C3 Charts</a></li>
-                            <li><a href="peity.html" class="nav-link">Peity Charts</a></li>
-                            <li><a href="sparkline.html" class="nav-link">Sparkline</a></li>
-                            <li><a href="rounded-chart.html" class="nav-link">Rounded Chart</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#tables" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-table"></i>
-                            <span class="nav-text">Tables</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="tables">
-                            <li><a href="static-table.html" class="nav-link">Basic Tables</a></li>
-                            <li><a href="data-table.html" class="nav-link">Data Tables</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </aside>
-
-        <div class="main-content">
-            <header class="header">
-            <div class="header-left">
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-
-                <form class="search-form">
-                    <i class="search-icon fas fa-search"></i>
-                    <input type="text" class="search-input" placeholder="Search...">
-                </form>
-            </div>
-
-            <div class="header-right">
-                <button class="header-btn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge"></span>
-                </button>
-
-                <button class="header-btn">
-                    <i class="fas fa-envelope"></i>
-                </button>
-
-                <button class="header-btn">
-                    <i class="fas fa-cog"></i>
-                </button>
-
-                <div class="dropdown">
-                    <div class="user-menu" data-bs-toggle="dropdown">
-                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=4361ee&color=fff" alt="User" class="user-avatar">
-                        <div class="user-info">
-                            <span class="user-name">John Doe</span>
-                            <span class="user-role">Administrator</span>
-                        </div>
-                        <i class="fas fa-chevron-down ms-2" style="font-size: 0.75rem; color: #6b7280;"></i>
+            <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h3 mb-0 text-gray-800">Static Tables</h1>
+                        <p class="text-muted mb-0">Comprehensive data tables for academic management</p>
                     </div>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
-                    </ul>
+                    <div>
+                        <button class="btn btn-primary">
+                            <i class="bi bi-download me-2"></i>Export Data
+                        </button>
+                    </div>
                 </div>
             </div>
-        </header>
 
-            <div class="content-wrapper">
-                <div class="container-fluid p-4">
-                    
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="logo-pro">
-                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                    
+            <!-- Student Information Table -->
+            <div class="dashboard-card">
+                <div class="dashboard-card-header py-4 px-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Student Information</h5>
+                        <div class="d-flex gap-2">
+                            <input type="text" class="form-control form-control-sm" placeholder="Search students..." style="width: 200px;">
+                            <button class="btn btn-sm btn-primary">
+                                <i class="bi bi-plus me-1"></i>Add Student
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-custom mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>ID Number</th>
+                                    <th>Department</th>
+                                    <th>Year</th>
+                                    <th>GPA</th>
+                                    <th>Status</th>
+                                    <th>Enrolled</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&background=6366f1&color=fff" alt="Sarah Johnson" class="student-avatar me-3">
+                                            <div>
+                                                <div class="student-name">Sarah Johnson</div>
+                                                <div class="student-email">sarah.j@university.edu</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="fw-semibold">2025001</td>
+                                    <td>Computer Science</td>
+                                    <td>3rd Year</td>
+                                    <td><span class="badge bg-success">3.85</span></td>
+                                    <td><span class="status-badge status-active">Active</span></td>
+                                    <td>Sep 2022</td>
+                                    <td>
+                                        <button class="btn-action btn-view" title="View">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <button class="btn-action btn-edit" title="Edit">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                        <button class="btn-action btn-delete" title="Delete">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://ui-avatars.com/api/?name=Michael+Chen&background=10b981&color=fff" alt="Michael Chen" class="student-avatar me-3">
+                                            <div>
+                                                <div class="student-name">Michael Chen</div>
+                                                <div class="student-email">m.chen@university.edu</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="fw-semibold">2025002</td>
+                                    <td>Mathematics</td>
+                                    <td>2nd Year</td>
+                                    <td><span class="badge bg-success">3.92</span></td>
+                                    <td><span class="status-badge status-active">Active</span></td>
+                                    <td>Sep 2023</td>
+                                    <td>
+                                        <button class="btn-action btn-view" title="View">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <button class="btn-action btn-edit" title="Edit">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                        <button class="btn-action btn-delete" title="Delete">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://ui-avatars.com/api/?name=Emma+Davis&background=f59e0b&color=fff" alt="Emma Davis" class="student-avatar me-3">
+                                            <div>
+                                                <div class="student-name">Emma Davis</div>
+                                                <div class="student-email">emma.d@university.edu</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="fw-semibold">2025003</td>
+                                    <td>Physics</td>
+                                    <td>4th Year</td>
+                                    <td><span class="badge bg-warning">3.45</span></td>
+                                    <td><span class="status-badge status-active">Active</span></td>
+                                    <td>Sep 2021</td>
+                                    <td>
+                                        <button class="btn-action btn-view" title="View">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <button class="btn-action btn-edit" title="Edit">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                        <button class="btn-action btn-delete" title="Delete">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://ui-avatars.com/api/?name=James+Wilson&background=ef4444&color=fff" alt="James Wilson" class="student-avatar me-3">
+                                            <div>
+                                                <div class="student-name">James Wilson</div>
+                                                <div class="student-email">james.w@university.edu</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="fw-semibold">2025004</td>
+                                    <td>Engineering</td>
+                                    <td>1st Year</td>
+                                    <td><span class="badge bg-info">3.65</span></td>
+                                    <td><span class="status-badge status-pending">Pending</span></td>
+                                    <td>Sep 2024</td>
+                                    <td>
+                                        <button class="btn-action btn-view" title="View">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <button class="btn-action btn-edit" title="Edit">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                        <button class="btn-action btn-delete" title="Delete">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://ui-avatars.com/api/?name=Olivia+Brown&background=8b5cf6&color=fff" alt="Olivia Brown" class="student-avatar me-3">
+                                            <div>
+                                                <div class="student-name">Olivia Brown</div>
+                                                <div class="student-email">olivia.b@university.edu</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="fw-semibold">2025005</td>
+                                    <td>Biology</td>
+                                    <td>3rd Year</td>
+                                    <td><span class="badge bg-success">3.78</span></td>
+                                    <td><span class="status-badge status-active">Active</span></td>
+                                    <td>Sep 2022</td>
+                                    <td>
+                                        <button class="btn-action btn-view" title="View">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <button class="btn-action btn-edit" title="Edit">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                        <button class="btn-action btn-delete" title="Delete">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Schedule Table -->
+            <div class="dashboard-card">
+                <div class="dashboard-card-header py-4 px-4">
+                    <h5 class="mb-0">Spring 2025 Course Schedule</h5>
+                </div>
+                <div class="dashboard-card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Course Code</th>
+                                    <th>Course Name</th>
+                                    <th>Instructor</th>
+                                    <th>Time</th>
+                                    <th>Room</th>
+                                    <th>Credits</th>
+                                    <th>Students</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fw-bold text-primary">CS-401</td>
+                                    <td>Advanced Computer Science</td>
+                                    <td>Dr. Jane Smith</td>
+                                    <td>MWF 10:00-11:30</td>
+                                    <td>Room 301</td>
+                                    <td><span class="badge bg-secondary">3</span></td>
+                                    <td>28/30</td>
+                                    <td><span class="status-badge status-active">Open</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold text-primary">MATH-301</td>
+                                    <td>Linear Algebra</td>
+                                    <td>Dr. Emily Davis</td>
+                                    <td>MWF 1:00-2:00</td>
+                                    <td>Room 205</td>
+                                    <td><span class="badge bg-secondary">3</span></td>
+                                    <td>35/35</td>
+                                    <td><span class="status-badge status-inactive">Full</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold text-primary">PHY-201L</td>
+                                    <td>Physics Laboratory</td>
+                                    <td>Prof. Michael Brown</td>
+                                    <td>M 3:00-5:00</td>
+                                    <td>Lab 102</td>
+                                    <td><span class="badge bg-secondary">2</span></td>
+                                    <td>18/20</td>
+                                    <td><span class="status-badge status-active">Open</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold text-primary">CS-302</td>
+                                    <td>Data Structures</td>
+                                    <td>Dr. Robert Brown</td>
+                                    <td>TTH 2:00-3:30</td>
+                                    <td>Room 401</td>
+                                    <td><span class="badge bg-secondary">4</span></td>
+                                    <td>32/40</td>
+                                    <td><span class="status-badge status-active">Open</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold text-primary">BIO-310</td>
+                                    <td>Molecular Biology</td>
+                                    <td>Dr. Lisa Anderson</td>
+                                    <td>TTH 10:00-11:30</td>
+                                    <td>Room 215</td>
+                                    <td><span class="badge bg-secondary">3</span></td>
+                                    <td>22/25</td>
+                                    <td><span class="status-badge status-active">Open</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grade Report Table -->
+            <div class="dashboard-card">
+                <div class="dashboard-card-header py-4 px-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Grade Report - Fall 2024</h5>
+                        <select class="form-select form-select-sm" style="width: auto;">
+                            <option>All Courses</option>
+                            <option>CS-401</option>
+                            <option>MATH-301</option>
+                            <option>PHY-201L</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="dashboard-card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>Course</th>
+                                    <th class="text-center">Midterm</th>
+                                    <th class="text-center">Final</th>
+                                    <th class="text-center">Project</th>
+                                    <th class="text-center">Attendance</th>
+                                    <th class="text-center">Final Grade</th>
+                                    <th class="text-center">Letter</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Sarah Johnson</td>
+                                    <td>CS-401</td>
+                                    <td class="text-center">92</td>
+                                    <td class="text-center">88</td>
+                                    <td class="text-center">95</td>
+                                    <td class="text-center">98%</td>
+                                    <td class="text-center fw-bold">91.5</td>
+                                    <td class="text-center"><span class="grade-badge grade-a">A</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Michael Chen</td>
+                                    <td>MATH-301</td>
+                                    <td class="text-center">95</td>
+                                    <td class="text-center">93</td>
+                                    <td class="text-center">90</td>
+                                    <td class="text-center">100%</td>
+                                    <td class="text-center fw-bold">93.2</td>
+                                    <td class="text-center"><span class="grade-badge grade-a">A</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Emma Davis</td>
+                                    <td>PHY-201L</td>
+                                    <td class="text-center">78</td>
+                                    <td class="text-center">82</td>
+                                    <td class="text-center">85</td>
+                                    <td class="text-center">92%</td>
+                                    <td class="text-center fw-bold">81.8</td>
+                                    <td class="text-center"><span class="grade-badge grade-b">B</span></td>
+                                </tr>
+                                <tr>
+                                    <td>James Wilson</td>
+                                    <td>CS-401</td>
+                                    <td class="text-center">85</td>
+                                    <td class="text-center">87</td>
+                                    <td class="text-center">82</td>
+                                    <td class="text-center">95%</td>
+                                    <td class="text-center fw-bold">85.2</td>
+                                    <td class="text-center"><span class="grade-badge grade-b">B+</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Olivia Brown</td>
+                                    <td>BIO-310</td>
+                                    <td class="text-center">88</td>
+                                    <td class="text-center">90</td>
+                                    <td class="text-center">86</td>
+                                    <td class="text-center">96%</td>
+                                    <td class="text-center fw-bold">88.4</td>
+                                    <td class="text-center"><span class="grade-badge grade-b">B+</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Faculty Directory Table -->
+            <div class="dashboard-card">
+                <div class="dashboard-card-header py-4 px-4">
+                    <h5 class="mb-0">Faculty Directory</h5>
+                </div>
+                <div class="dashboard-card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-bordered mb-0">
+                            <thead>
+                                <tr class="table-primary">
+                                    <th>Faculty Member</th>
+                                    <th>Department</th>
+                                    <th>Position</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Office Hours</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://ui-avatars.com/api/?name=Jane+Smith&background=4361ee&color=fff" alt="Dr. Jane Smith" class="student-avatar me-3">
+                                            <span class="fw-semibold">Dr. Jane Smith</span>
+                                        </div>
+                                    </td>
+                                    <td>Computer Science</td>
+                                    <td>Professor</td>
+                                    <td><a href="mailto:j.smith@university.edu">j.smith@university.edu</a></td>
+                                    <td>+1 (555) 123-4567</td>
+                                    <td>MWF 2:00-4:00 PM</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://ui-avatars.com/api/?name=Emily+Davis&background=10b981&color=fff" alt="Dr. Emily Davis" class="student-avatar me-3">
+                                            <span class="fw-semibold">Dr. Emily Davis</span>
+                                        </div>
+                                    </td>
+                                    <td>Mathematics</td>
+                                    <td>Associate Professor</td>
+                                    <td><a href="mailto:e.davis@university.edu">e.davis@university.edu</a></td>
+                                    <td>+1 (555) 123-4568</td>
+                                    <td>TTH 1:00-3:00 PM</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://ui-avatars.com/api/?name=Michael+Brown&background=f59e0b&color=fff" alt="Prof. Michael Brown" class="student-avatar me-3">
+                                            <span class="fw-semibold">Prof. Michael Brown</span>
+                                        </div>
+                                    </td>
+                                    <td>Physics</td>
+                                    <td>Assistant Professor</td>
+                                    <td><a href="mailto:m.brown@university.edu">m.brown@university.edu</a></td>
+                                    <td>+1 (555) 123-4569</td>
+                                    <td>MW 10:00-12:00 PM</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://ui-avatars.com/api/?name=Lisa+Anderson&background=8b5cf6&color=fff" alt="Dr. Lisa Anderson" class="student-avatar me-3">
+                                            <span class="fw-semibold">Dr. Lisa Anderson</span>
+                                        </div>
+                                    </td>
+                                    <td>Biology</td>
+                                    <td>Department Head</td>
+                                    <td><a href="mailto:l.anderson@university.edu">l.anderson@university.edu</a></td>
+                                    <td>+1 (555) 123-4570</td>
+                                    <td>By appointment</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Attendance Summary Table -->
+            <div class="dashboard-card">
+                <div class="dashboard-card-header py-4 px-4">
+                    <h5 class="mb-0">Attendance Summary - March 2025</h5>
+                </div>
+                <div class="dashboard-card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-sm mb-0">
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th>Student</th>
+                                    <th class="text-center">Week 1</th>
+                                    <th class="text-center">Week 2</th>
+                                    <th class="text-center">Week 3</th>
+                                    <th class="text-center">Week 4</th>
+                                    <th class="text-center">Total Classes</th>
+                                    <th class="text-center">Present</th>
+                                    <th class="text-center">Absent</th>
+                                    <th class="text-center">Percentage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Sarah Johnson</td>
+                                    <td class="text-center text-success">✓ ✓ ✓</td>
+                                    <td class="text-center text-success">✓ ✓ ✓</td>
+                                    <td class="text-center">✓ ✓ <span class="text-danger">✗</span></td>
+                                    <td class="text-center text-success">✓ ✓ ✓</td>
+                                    <td class="text-center">12</td>
+                                    <td class="text-center text-success">11</td>
+                                    <td class="text-center text-danger">1</td>
+                                    <td class="text-center"><span class="badge bg-success">92%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Michael Chen</td>
+                                    <td class="text-center text-success">✓ ✓ ✓</td>
+                                    <td class="text-center text-success">✓ ✓ ✓</td>
+                                    <td class="text-center text-success">✓ ✓ ✓</td>
+                                    <td class="text-center text-success">✓ ✓ ✓</td>
+                                    <td class="text-center">12</td>
+                                    <td class="text-center text-success">12</td>
+                                    <td class="text-center text-success">0</td>
+                                    <td class="text-center"><span class="badge bg-success">100%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Emma Davis</td>
+                                    <td class="text-center">✓ <span class="text-danger">✗</span> ✓</td>
+                                    <td class="text-center text-success">✓ ✓ ✓</td>
+                                    <td class="text-center">✓ <span class="text-danger">✗</span> ✓</td>
+                                    <td class="text-center text-success">✓ ✓ ✓</td>
+                                    <td class="text-center">12</td>
+                                    <td class="text-center text-success">10</td>
+                                    <td class="text-center text-warning">2</td>
+                                    <td class="text-center"><span class="badge bg-warning">83%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>James Wilson</td>
+                                    <td class="text-center text-success">✓ ✓ ✓</td>
+                                    <td class="text-center">✓ ✓ <span class="text-danger">✗</span></td>
+                                    <td class="text-center text-success">✓ ✓ ✓</td>
+                                    <td class="text-center text-success">✓ ✓ ✓</td>
+                                    <td class="text-center">12</td>
+                                    <td class="text-center text-success">11</td>
+                                    <td class="text-center text-danger">1</td>
+                                    <td class="text-center"><span class="badge bg-success">92%</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- jQuery -->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap 5.3.8 Bundle -->
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Modern Scripts -->        </div>
     </main>
 
     {{> footer}}
 </div>
 
 {{> scripts}}
+
+<script>
+// Table interactions
+document.addEventListener('DOMContentLoaded', function() {
+    // Add click handlers for action buttons
+    const viewButtons = document.querySelectorAll('.btn-view');
+    const editButtons = document.querySelectorAll('.btn-edit');
+    const deleteButtons = document.querySelectorAll('.btn-delete');
+
+    viewButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            alert('View functionality would open student/course details');
+        });
+    });
+
+    editButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            alert('Edit functionality would open edit form');
+        });
+    });
+
+    deleteButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            if (confirm('Are you sure you want to delete this record?')) {
+                alert('Delete functionality would remove the record');
+            }
+        });
+    });
+
+    // Table row selection
+    const tableRows = document.querySelectorAll('tbody tr');
+    tableRows.forEach(row => {
+        row.style.cursor = 'pointer';
+        row.addEventListener('click', function(e) {
+            // Don't select if clicking on action buttons
+            if (!e.target.closest('.btn-action')) {
+                // Remove previous selection
+                tableRows.forEach(r => r.classList.remove('table-active'));
+                // Add selection to clicked row
+                this.classList.add('table-active');
+            }
+        });
+    });
+
+    // Search functionality
+    const searchInput = document.querySelector('input[placeholder="Search students..."]');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const studentRows = document.querySelectorAll('.table-custom tbody tr');
+
+            studentRows.forEach(row => {
+                const studentName = row.querySelector('.student-name')?.textContent.toLowerCase();
+                const studentEmail = row.querySelector('.student-email')?.textContent.toLowerCase();
+
+                if (studentName?.includes(searchTerm) || studentEmail?.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    }
+});
+</script>

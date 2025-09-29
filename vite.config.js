@@ -208,6 +208,30 @@ function getPageContext(filename) {
       ],
       additionalCSS: ['src/css/charts-layout.css'],
       additionalJS: ['node_modules/chart.js/dist/chart.umd.js', 'src/js/charts-responsive.js']
+    },
+    'sparkline': {
+      title: 'Sparkline Charts',
+      pageTitle: 'Sparkline Mini Charts',
+      pageDescription: 'Inline mini charts for metrics',
+      showPageHeader: true,
+      breadcrumb: [
+        { title: 'Charts', url: '#' },
+        { title: 'Sparkline Charts', url: 'sparkline.html' }
+      ],
+      additionalCSS: ['src/css/charts-layout.css'],
+      additionalJS: ['node_modules/chart.js/dist/chart.umd.js', 'src/js/charts-responsive.js']
+    },
+    'rounded-chart': {
+      title: 'Rounded Charts',
+      pageTitle: 'Rounded Chart Examples',
+      pageDescription: 'Circular progress and rounded charts',
+      showPageHeader: true,
+      breadcrumb: [
+        { title: 'Charts', url: '#' },
+        { title: 'Rounded Charts', url: 'rounded-chart.html' }
+      ],
+      additionalCSS: ['src/css/charts-layout.css'],
+      additionalJS: ['node_modules/chart.js/dist/chart.umd.js', 'src/js/charts-responsive.js']
     }
   };
 
