@@ -1,71 +1,23 @@
-<!doctype html>
-<html class="no-js" lang="en">
+{{> head}}
 
-<head>
-    <meta charset="utf-8">
-    <title>500 - Internal Server Error | Kiaalap Admin Dashboard</title>
-    <meta name="description" content="Internal server error - Kiaalap Admin Dashboard">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-
-    <!-- Custom Error Page Styles -->
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+<style>
+/* Error Page Styles */
+        .error-page {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            position: relative;
+            overflow: hidden;
         }
 
         .error-container {
-            max-width: 600px;
-            width: 100%;
             text-align: center;
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        .error-code {
-            font-size: 120px;
-            font-weight: 700;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            line-height: 1;
-            margin-bottom: 10px;
-            animation: shake 0.5s ease-in-out;
-        }
-
-        .error-title {
-            font-size: 32px;
-            font-weight: 600;
-            color: white;
-            margin-bottom: 20px;
-        }
-
-        .error-message {
-            font-size: 18px;
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 30px;
-            line-height: 1.6;
+            z-index: 10;
+            padding: 2rem;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         .error-icon {
@@ -75,45 +27,89 @@
             animation: rotate 2s linear infinite;
         }
 
-        .btn-group-error {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 40px;
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
-        .btn-error {
+        .error-code {
+            font-size: 10rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 3px 3px 20px rgba(0,0,0,0.2);
+            margin-bottom: 0;
+            line-height: 1;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+
+        .error-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: white;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .error-message {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .error-btn {
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 12px 30px;
+        }
+
+        .btn-primary-error {
             background: white;
             color: #f5576c;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 2px solid white;
         }
 
-        .btn-error:hover {
+        .btn-primary-error:hover {
+            background: transparent;
+            color: white;
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-            color: #f093fb;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
-        .btn-error-secondary {
-            background: rgba(255,255,255,0.2);
+        .btn-secondary-error {
+            background: transparent;
             color: white;
-            border: 2px solid rgba(255,255,255,0.3);
+            border: 2px solid white;
         }
 
-        .btn-error-secondary:hover {
-            background: rgba(255,255,255,0.3);
-            color: white;
+        .btn-secondary-error:hover {
+            background: white;
+            color: #f5576c;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
+        /* Error Details Box */
         .error-details {
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
@@ -156,6 +152,7 @@
             font-size: 16px;
         }
 
+        /* Status Info Grid */
         .status-info {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -182,50 +179,7 @@
             margin: 0;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes shake {
-            0%, 100% {
-                transform: translateX(0);
-            }
-            10%, 30%, 50%, 70%, 90% {
-                transform: translateX(-10px);
-            }
-            20%, 40%, 60%, 80% {
-                transform: translateX(10px);
-            }
-        }
-
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        @media (max-width: 576px) {
-            .error-code {
-                font-size: 80px;
-            }
-            .error-title {
-                font-size: 24px;
-            }
-            .error-message {
-                font-size: 16px;
-            }
-        }
-
+        /* Auto-refresh hint */
         .refresh-hint {
             color: rgba(255,255,255,0.8);
             font-size: 14px;
@@ -247,36 +201,103 @@
         }
 
         @keyframes spin {
-            to {
-                transform: rotate(360deg);
+            to { transform: rotate(360deg); }
+        }
+
+        /* Animated Background Elements */
+        .bg-shape {
+            position: absolute;
+            opacity: 0.1;
+        }
+
+        .shape-1 {
+            width: 500px;
+            height: 500px;
+            background: white;
+            border-radius: 50%;
+            top: -250px;
+            left: -250px;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            background: white;
+            border-radius: 50%;
+            bottom: -150px;
+            right: -150px;
+            animation: float 15s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 6rem;
+            }
+
+            .error-title {
+                font-size: 1.8rem;
+            }
+
+            .error-message {
+                font-size: 1rem;
+            }
+
+            .error-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .error-btn {
+                width: 200px;
+                justify-content: center;
             }
         }
-    </style>
-</head>
 
-<body>
+        /* Hide default body styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+</style>
+
+<div class="error-page">
+    <!-- Animated Background Shapes -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+
+    <!-- Error Content -->
     <div class="error-container">
         <div class="error-icon">
             <i class="bi bi-gear"></i>
         </div>
 
-        <div class="error-code">500</div>
-        <h1 class="error-title">Internal Server Error</h1>
+        <h1 class="error-code">500</h1>
+        <h2 class="error-title">Internal Server Error</h2>
         <p class="error-message">
             We're sorry, but something went wrong on our server. Our team has been notified and is working to fix the issue.
         </p>
 
-        <div class="btn-group-error">
-            <a href="javascript:location.reload()" class="btn-error">
+        <!-- Action Buttons -->
+        <div class="error-actions">
+            <a href="javascript:location.reload()" class="error-btn btn-primary-error">
                 <i class="bi bi-arrow-clockwise"></i>
                 Try Again
             </a>
-            <a href="index.html" class="btn-error btn-error-secondary">
+            <a href="index.html" class="error-btn btn-secondary-error">
                 <i class="bi bi-house-door"></i>
                 Go to Dashboard
             </a>
         </div>
 
+        <!-- Error Details -->
         <div class="error-details">
             <h4><i class="bi bi-info-circle"></i> What you can try:</h4>
             <ul>
@@ -303,6 +324,7 @@
             </ul>
         </div>
 
+        <!-- Status Information -->
         <div class="status-info">
             <div class="status-item">
                 <h5>Error Code</h5>
@@ -318,49 +340,47 @@
             </div>
         </div>
 
+        <!-- Auto-refresh hint -->
         <div class="refresh-hint">
             <div class="spinner"></div>
             <span>Auto-refresh in <span id="countdown">30</span> seconds</span>
         </div>
     </div>
+</div>
 
-    <!-- Bootstrap JS -->
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Display current time
+function updateTime() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+    document.getElementById('currentTime').textContent = timeString;
+}
+updateTime();
+setInterval(updateTime, 1000);
 
-    <!-- Custom Scripts -->
-    <script>
-        // Display current time
-        function updateTime() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('en-US', {
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-            document.getElementById('currentTime').textContent = timeString;
-        }
-        updateTime();
-        setInterval(updateTime, 1000);
+// Auto-refresh countdown
+let countdown = 30;
+const countdownElement = document.getElementById('countdown');
 
-        // Auto-refresh countdown
-        let countdown = 30;
-        const countdownElement = document.getElementById('countdown');
+const countdownInterval = setInterval(() => {
+    countdown--;
+    countdownElement.textContent = countdown;
 
-        const countdownInterval = setInterval(() => {
-            countdown--;
-            countdownElement.textContent = countdown;
+    if (countdown <= 0) {
+        clearInterval(countdownInterval);
+        location.reload();
+    }
+}, 1000);
 
-            if (countdown <= 0) {
-                clearInterval(countdownInterval);
-                location.reload();
-            }
-        }, 1000);
+// Allow user to stop auto-refresh by clicking anywhere
+document.addEventListener('click', () => {
+    clearInterval(countdownInterval);
+    document.querySelector('.refresh-hint').style.display = 'none';
+});
 
-        // Allow user to stop auto-refresh by clicking anywhere
-        document.addEventListener('click', () => {
-            clearInterval(countdownInterval);
-            document.querySelector('.refresh-hint').style.display = 'none';
-        });
-    </script>
-</body>
-
-</html>
+// Log 500 error for analytics (in production)
+console.log('500 Error - Internal Server Error:', window.location.pathname);
+</script>
