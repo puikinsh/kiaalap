@@ -4,61 +4,139 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Kiaalap is a Bootstrap 4-based admin dashboard template with 50+ HTML pages. It's a static HTML/CSS/JS template without a backend framework or build system.
+Kiaalap is a modern education management dashboard that has been fully modernized from a legacy Bootstrap 4 template to a Bootstrap 5 + Vite build system. It contains 65 HTML pages using Handlebars templating with a consistent, modular architecture.
+
+## Build System & Commands
+
+```bash
+# Development server (port 3000, auto-opens browser)
+npm run dev
+
+# Production build (outputs to dist/)
+npm run build
+
+# Preview production build
+npm run preview
+
+# Linting
+npm run lint:html    # HTML validation
+npm run lint:css     # SCSS linting with Stylelint
+npm run lint:js      # JavaScript linting with ESLint
+
+# Code formatting
+npm run format       # Prettier formatting for src/**/*.{js,scss,html}
+
+# Clean build directory
+npm run clean
+```
 
 ## Architecture
 
-This is a static admin dashboard template with:
-- **HTML Pages**: 60+ standalone HTML files in the root directory (index.html, analytics.html, etc.)
-- **Assets Structure**:
-  - `css/`: Contains Bootstrap, custom styles, and plugin-specific CSS
-  - `js/`: JavaScript libraries including jQuery, Bootstrap, and various chart/widget libraries
-  - `img/`: Image assets
-  - `fonts/`: Font files
-  - `pdf/`: PDF documentation
+### Core Technologies
+- **Framework**: Bootstrap 5.3.8 (no jQuery dependency except where required)
+- **Build Tool**: Vite 7.1.7 with Handlebars templating
+- **Charts**: Chart.js 4.5.0 (replaced legacy Morris.js/C3/D3)
+- **Icons**: Bootstrap Icons 1.13.1 (replaced FontAwesome CDN)
+- **CSS**: Sass preprocessor with PostCSS
 
-## Key Components
-
-The template uses these major libraries:
-- Bootstrap 4 for layout and UI components
-- jQuery for DOM manipulation
-- Morris.js, C3/D3, Peity, Sparkline for charts
-- MetisMenu for navigation menus
-- Various form enhancement plugins (Chosen, DatePicker, ColorPicker, etc.)
-
-## Common Tasks
-
-### Serving the Template
-Since this is a static template, use any local web server:
-```bash
-# Python 3
-python3 -m http.server 8000
-
-# Python 2
-python -m SimpleHTTPServer 8000
-
-# Node.js (if http-server is installed)
-npx http-server
+### File Structure
+```
+kiaalap/
+├── src/
+│   ├── css/              # Custom stylesheets
+│   ├── js/               # JavaScript modules
+│   ├── partials/         # Handlebars partials (head, sidebar, header, footer, scripts)
+│   ├── helpers/          # Handlebars helpers for templating
+│   └── scss/             # Sass source files
+├── node_modules/         # NPM packages (all assets load from here)
+├── *.html               # 65 HTML pages using {{> partials}}
+├── vite.config.js       # Vite configuration with page contexts
+└── package.json         # Dependencies and scripts
 ```
 
-### File Naming Convention
-- Main dashboard variants: `index.html`, `index-1.html`, `index-2.html`
-- Form pages: `add-*.html`, `edit-*.html`
-- List/table pages: `all-*.html`
-- Chart pages: `*-charts.html`
+### Handlebars Template System
 
-### CSS/JS Loading Pattern
-All pages follow a consistent pattern for loading assets:
-1. Bootstrap and Font Awesome
-2. Plugin-specific CSS
-3. Custom theme CSS (`main.css`, `style.css`, `responsive.css`)
-4. jQuery, then Bootstrap JS
-5. Plugin-specific JS
-6. Custom initialization scripts
+All HTML pages use consistent Handlebars partials:
+- `{{> head}}` - Meta tags, CSS imports from node_modules
+- `{{> sidebar}}` - Navigation sidebar with active state management
+- `{{> header}}` - Top header with user menu
+- `{{> footer}}` - Footer content
+- `{{> scripts}}` - JavaScript imports from node_modules
 
-## Important Notes
+Page-specific context is managed in `vite.config.js` through the `getPageContext()` function, which handles:
+- Navigation active states
+- Page titles and breadcrumbs
+- Additional CSS/JS requirements per page
 
-- No build process or package manager - edit files directly
-- All dependencies are included locally or via CDN
-- Pages are self-contained - each HTML file includes all necessary CSS/JS references
-- The template uses responsive design with mobile menu support via MeanMenu
+### Key Modernization Changes
+
+1. **Bootstrap 5 Migration**: All pages converted from Bootstrap 4 to Bootstrap 5
+2. **jQuery Removal**: Vanilla JavaScript everywhere except DataTables (which requires jQuery)
+3. **Local Dependencies**: All CDN references replaced with node_modules imports
+4. **Consistent Grid System**: Custom dashboard-grid classes with responsive breakpoints
+5. **Year Updates**: All dates updated to 2025/current year
+6. **Spacing Standards**: 24px margin-bottom for dashboard cards
+
+## Page Categories & Navigation States
+
+Navigation states are automatically set based on filename patterns in `vite.config.js`:
+
+- **Dashboard** (`dashboard.*`): index, index-1, index-2, analytics, widgets
+- **Academic** (`academic.*`):
+  - Professors: professor-profile, all-professors, add-professor
+  - Students: all-students, student-profile, add-student
+  - Courses: all-courses, course-info, add-course
+  - Library: library-assets, add-library-assets
+  - Departments: all-departments, add-department
+- **Interface** (`interface.*`):
+  - Components: buttons, alerts, modals, tabs, accordion
+  - Forms: basic-form-element, advance-form-element, password-meter
+  - Charts: bar-charts, line-charts, area-charts, c3, peity, sparkline
+  - Tables: static-table, data-table
+- **Communication**: mailbox-compose, mailbox-inbox
+- **Authentication**: login, register, lock, password-recovery
+- **Error Pages**: 404, 500
+
+## Important Libraries & Their Usage
+
+### DataTables (data-table.html)
+- Uses jQuery version (datatables.net-bs5) as it provides full functionality
+- Initialized with: `$('#tableId').DataTable({...})`
+
+### Quill Editor (tinymc.html)
+- Rich text editor loaded from node_modules/quill
+- Multiple editor instances with different themes (snow, bubble)
+
+### Chart.js (multiple pages)
+- Replaces all legacy charting libraries
+- Loaded from node_modules/chart.js/dist/chart.umd.min.js
+- Used in: analytics, index variants, course-info, professor-profile, all chart pages
+
+## Development Notes
+
+- **Vite Dev Server**: Automatically handles Handlebars compilation and hot reload
+- **Build Process**: Terser minification with console/debugger stripping in production
+- **CSS Optimization**: PostCSS with autoprefixer and cssnano
+- **Port**: Development server runs on port 3000
+- **Auto-open**: Browser opens automatically on `npm run dev`
+
+## Common Patterns
+
+### Adding a New Page
+1. Create the HTML file using Handlebars partials structure
+2. Add page context in `vite.config.js` if needed (title, breadcrumbs, navigation state)
+3. Include in build.rollupOptions.input if it needs separate bundling
+
+### Dashboard Card Spacing
+```css
+.dashboard-card {
+    margin-bottom: 24px;
+}
+```
+
+### Grid System
+```html
+<div class="dashboard-grid grid-cols-2 gap-4">
+    <!-- Responsive grid that becomes single column on mobile -->
+</div>
+```
