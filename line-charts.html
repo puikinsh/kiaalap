@@ -312,7 +312,7 @@
         };
 
         // Initialize charts when DOM is loaded
-        $(document).ready(function() {
+        document.addEventListener('DOMContentLoaded', function() {
             // Student Enrollment Trend Chart
             const enrollmentTrendCtx = document.getElementById('enrollmentTrendChart').getContext('2d');
             const enrollmentTrendChart = new Chart(enrollmentTrendCtx, {

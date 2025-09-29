@@ -309,7 +309,7 @@
         };
 
         // Initialize area charts when DOM is loaded
-        $(document).ready(function() {
+        document.addEventListener('DOMContentLoaded', function() {
             // Student Registration Chart
             const registrationCtx = document.getElementById('registrationChart').getContext('2d');
             const registrationChart = new Chart(registrationCtx, {

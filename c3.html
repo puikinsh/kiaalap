@@ -41,7 +41,7 @@
                     </div>
                     <div class="card-body">
                         <div class="chart-container" style="height: 300px;">
-                            <div id="lineChart"></div>
+                            <canvas id="lineChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="card-body">
                         <div class="chart-container" style="height: 300px;">
-                            <div id="areaChart"></div>
+                            <canvas id="areaChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                     </div>
                     <div class="card-body">
                         <div class="chart-container" style="height: 300px;">
-                            <div id="barChart"></div>
+                            <canvas id="barChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                     </div>
                     <div class="card-body">
                         <div class="chart-container" style="height: 300px;">
-                            <div id="pieChart"></div>
+                            <canvas id="pieChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                     </div>
                     <div class="card-body">
                         <div class="chart-container" style="height: 300px;">
-                            <div id="donutChart"></div>
+                            <canvas id="donutChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                     </div>
                     <div class="card-body">
                         <div class="chart-container" style="height: 300px;">
-                            <div id="splineChart"></div>
+                            <canvas id="splineChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -132,151 +132,213 @@
 document.addEventListener('DOMContentLoaded', function() {
             try {
                 // Line Chart
-                var lineChart = c3.generate({
-                    bindto: '#lineChart',
+                const lineCtx = document.getElementById('lineChart').getContext('2d');
+                new Chart(lineCtx, {
+                    type: 'line',
                     data: {
-                        columns: [
-                            ['Students', 30, 200, 100, 400, 150, 250, 300],
-                            ['Professors', 50, 20, 10, 40, 15, 25, 50],
-                            ['Courses', 100, 150, 80, 200, 120, 180, 220]
-                        ],
-                        type: 'line'
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                        datasets: [{
+                            label: 'Students',
+                            data: [30, 200, 100, 400, 150, 250, 300],
+                            borderColor: '#007bff',
+                            backgroundColor: 'rgba(0,123,255,0.1)',
+                            tension: 0.4
+                        }, {
+                            label: 'Professors',
+                            data: [50, 20, 10, 40, 15, 25, 50],
+                            borderColor: '#dc3545',
+                            backgroundColor: 'rgba(220,53,69,0.1)',
+                            tension: 0.4
+                        }, {
+                            label: 'Courses',
+                            data: [100, 150, 80, 200, 120, 180, 220],
+                            borderColor: '#28a745',
+                            backgroundColor: 'rgba(40,167,69,0.1)',
+                            tension: 0.4
+                        }]
                     },
-                    color: {
-                        pattern: ['#007bff', '#dc3545', '#28a745']
-                    },
-                    grid: {
-                        y: {
-                            show: true
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'top' }
+                        },
+                        scales: {
+                            y: {
+                                grid: { display: true },
+                                beginAtZero: true
+                            }
                         }
-                    },
-                    point: {
-                        r: 4
                     }
                 });
 
                 // Area Chart
-                var areaChart = c3.generate({
-                    bindto: '#areaChart',
+                const areaCtx = document.getElementById('areaChart').getContext('2d');
+                new Chart(areaCtx, {
+                    type: 'line',
                     data: {
-                        columns: [
-                            ['Enrollment', 300, 350, 300, 400, 500, 450, 600],
-                            ['Graduates', 130, 100, 140, 200, 150, 180, 250]
-                        ],
-                        types: {
-                            'Enrollment': 'area-spline',
-                            'Graduates': 'area-spline'
-                        }
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                        datasets: [{
+                            label: 'Enrollment',
+                            data: [300, 350, 300, 400, 500, 450, 600],
+                            borderColor: '#007bff',
+                            backgroundColor: 'rgba(0,123,255,0.3)',
+                            fill: true,
+                            tension: 0.4
+                        }, {
+                            label: 'Graduates',
+                            data: [130, 100, 140, 200, 150, 180, 250],
+                            borderColor: '#dc3545',
+                            backgroundColor: 'rgba(220,53,69,0.3)',
+                            fill: true,
+                            tension: 0.4
+                        }]
                     },
-                    color: {
-                        pattern: ['#007bff', '#dc3545']
-                    },
-                    grid: {
-                        y: {
-                            show: true
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'top' }
+                        },
+                        scales: {
+                            y: {
+                                grid: { display: true },
+                                beginAtZero: true
+                            }
                         }
                     }
                 });
 
                 // Bar Chart
-                var barChart = c3.generate({
-                    bindto: '#barChart',
+                const barCtx = document.getElementById('barChart').getContext('2d');
+                new Chart(barCtx, {
+                    type: 'bar',
                     data: {
-                        columns: [
-                            ['Computer Science', 120, 140, 160, 180, 200],
-                            ['Mathematics', 80, 90, 100, 110, 120],
-                            ['Physics', 60, 70, 80, 90, 100]
-                        ],
-                        type: 'bar'
+                        labels: ['2019', '2020', '2021', '2022', '2023'],
+                        datasets: [{
+                            label: 'Computer Science',
+                            data: [120, 140, 160, 180, 200],
+                            backgroundColor: '#007bff'
+                        }, {
+                            label: 'Mathematics',
+                            data: [80, 90, 100, 110, 120],
+                            backgroundColor: '#dc3545'
+                        }, {
+                            label: 'Physics',
+                            data: [60, 70, 80, 90, 100],
+                            backgroundColor: '#28a745'
+                        }]
                     },
-                    color: {
-                        pattern: ['#007bff', '#dc3545', '#28a745']
-                    },
-                    bar: {
-                        width: {
-                            ratio: 0.6
-                        }
-                    },
-                    axis: {
-                        x: {
-                            type: 'category',
-                            categories: ['2019', '2020', '2021', '2022', '2023']
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'top' }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
                         }
                     }
                 });
 
                 // Pie Chart
-                var pieChart = c3.generate({
-                    bindto: '#pieChart',
+                const pieCtx = document.getElementById('pieChart').getContext('2d');
+                new Chart(pieCtx, {
+                    type: 'pie',
                     data: {
-                        columns: [
-                            ['Undergraduate', 45],
-                            ['Graduate', 25],
-                            ['PhD', 15],
-                            ['Research', 15]
-                        ],
-                        type: 'pie'
+                        labels: ['Undergraduate', 'Graduate', 'PhD', 'Research'],
+                        datasets: [{
+                            data: [45, 25, 15, 15],
+                            backgroundColor: ['#007bff', '#dc3545', '#28a745', '#ffc107']
+                        }]
                     },
-                    color: {
-                        pattern: ['#007bff', '#dc3545', '#28a745', '#ffc107']
-                    },
-                    pie: {
-                        label: {
-                            format: function (value, ratio, id) {
-                                return d3.format('.1%')(ratio);
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'right' },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.label || '';
+                                        const value = context.parsed;
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const percentage = ((value / total) * 100).toFixed(1);
+                                        return label + ': ' + percentage + '%';
+                                    }
+                                }
                             }
                         }
                     }
                 });
 
                 // Donut Chart
-                var donutChart = c3.generate({
-                    bindto: '#donutChart',
+                const donutCtx = document.getElementById('donutChart').getContext('2d');
+                new Chart(donutCtx, {
+                    type: 'doughnut',
                     data: {
-                        columns: [
-                            ['Active Students', 350],
-                            ['Inactive', 50],
-                            ['Alumni', 200],
-                            ['Dropouts', 25]
-                        ],
-                        type: 'donut'
+                        labels: ['Active Students', 'Inactive', 'Alumni', 'Dropouts'],
+                        datasets: [{
+                            data: [350, 50, 200, 25],
+                            backgroundColor: ['#007bff', '#dc3545', '#28a745', '#ffc107']
+                        }]
                     },
-                    color: {
-                        pattern: ['#007bff', '#dc3545', '#28a745', '#ffc107']
-                    },
-                    donut: {
-                        title: "Student Status",
-                        label: {
-                            format: function (value, ratio, id) {
-                                return value;
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'right' },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.label + ': ' + context.parsed;
+                                    }
+                                }
                             }
                         }
                     }
                 });
 
-                // Spline Chart
-                var splineChart = c3.generate({
-                    bindto: '#splineChart',
+                // Spline Chart (smooth line)
+                const splineCtx = document.getElementById('splineChart').getContext('2d');
+                new Chart(splineCtx, {
+                    type: 'line',
                     data: {
-                        columns: [
-                            ['Academic Performance', 100, 165, 140, 270, 200, 140, 300, 250, 180, 350],
-                            ['Attendance Rate', 80, 125, 110, 200, 160, 120, 220, 190, 150, 280]
-                        ],
-                        type: 'spline'
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+                        datasets: [{
+                            label: 'Academic Performance',
+                            data: [100, 165, 140, 270, 200, 140, 300, 250, 180, 350],
+                            borderColor: '#007bff',
+                            backgroundColor: 'rgba(0,123,255,0.1)',
+                            tension: 0.4
+                        }, {
+                            label: 'Attendance Rate',
+                            data: [80, 125, 110, 200, 160, 120, 220, 190, 150, 280],
+                            borderColor: '#dc3545',
+                            backgroundColor: 'rgba(220,53,69,0.1)',
+                            tension: 0.4
+                        }]
                     },
-                    color: {
-                        pattern: ['#007bff', '#dc3545']
-                    },
-                    grid: {
-                        y: {
-                            show: true
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'top' }
+                        },
+                        scales: {
+                            y: {
+                                grid: { display: true },
+                                beginAtZero: true
+                            }
                         }
                     }
                 });
 
-                console.log('All C3 charts initialized successfully');
+                console.log('All Chart.js charts initialized successfully');
             } catch (error) {
-                console.error('Error initializing C3 charts:', error);
+                console.error('Error initializing Chart.js charts:', error);
             }
         });
 </script>

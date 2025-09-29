@@ -257,7 +257,7 @@
         };
 
         // Initialize charts when DOM is loaded
-        $(document).ready(function() {
+        document.addEventListener('DOMContentLoaded', function() {
             // Student Enrollment Chart
             const enrollmentCtx = document.getElementById('enrollmentChart').getContext('2d');
             const enrollmentChart = new Chart(enrollmentCtx, {
@@ -346,16 +346,17 @@
             });
 
             // Period selector functionality
-            $('.chart-period-btn').on('click', function() {
-                const $this = $(this);
-                const $container = $this.closest('.chart-wrapper');
+            document.querySelectorAll('.chart-period-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const container = this.closest('.chart-wrapper');
 
-                // Update active state
-                $container.find('.chart-period-btn').removeClass('active');
-                $this.addClass('active');
+                    // Update active state
+                    container.querySelectorAll('.chart-period-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
 
-                // Here you would typically update the chart data based on the selected period
-                console.log('Selected period:', $this.data('period'));
+                    // Here you would typically update the chart data based on the selected period
+                    console.log('Selected period:', this.dataset.period);
+                });
             });
         });
 

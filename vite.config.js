@@ -184,6 +184,30 @@ function getPageContext(filename) {
         { title: 'Library Assets', url: 'library-assets.html' },
         { title: 'Edit Asset', url: 'edit-library-assets.html' }
       ]
+    },
+    'c3': {
+      title: 'C3 Charts',
+      pageTitle: 'C3 Chart Examples',
+      pageDescription: 'Interactive charts with Chart.js',
+      showPageHeader: true,
+      breadcrumb: [
+        { title: 'Charts', url: '#' },
+        { title: 'C3 Charts', url: 'c3.html' }
+      ],
+      additionalCSS: ['src/css/charts-layout.css'],
+      additionalJS: ['node_modules/chart.js/dist/chart.umd.js', 'src/js/charts-responsive.js']
+    },
+    'peity': {
+      title: 'Peity Charts',
+      pageTitle: 'Peity Mini Charts',
+      pageDescription: 'Mini charts for dashboards',
+      showPageHeader: true,
+      breadcrumb: [
+        { title: 'Charts', url: '#' },
+        { title: 'Peity Charts', url: 'peity.html' }
+      ],
+      additionalCSS: ['src/css/charts-layout.css'],
+      additionalJS: ['node_modules/chart.js/dist/chart.umd.js', 'src/js/charts-responsive.js']
     }
   };
 
