@@ -1,7 +1,7 @@
 {{> head}}
 
-<!-- DataTables CSS -->
-<link rel="stylesheet" href="node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
+<!-- Simple DataTables CSS -->
+<link rel="stylesheet" href="node_modules/simple-datatables/dist/style.css">
 
 <style>
 /* Dashboard Grid System */
@@ -24,34 +24,31 @@
             margin-bottom: 0;
         }
 
-        /* DataTable Customizations */
-        .dataTables_wrapper {
-            padding: 0;
+        /* Simple DataTable Customizations */
+        .dataTable-wrapper .dataTable-top,
+        .dataTable-wrapper .dataTable-bottom {
+            padding: 10px 0;
         }
 
-        .dataTables_wrapper .dataTables_length {
+        .dataTable-wrapper .dataTable-search {
             margin-bottom: 20px;
         }
 
-        .dataTables_wrapper .dataTables_filter {
-            margin-bottom: 20px;
-        }
-
-        .dataTables_wrapper .dataTables_filter input {
+        .dataTable-wrapper .dataTable-input {
             border: 1px solid #e5e7eb;
             border-radius: 6px;
             padding: 8px 12px;
             margin-left: 10px;
         }
 
-        .dataTables_wrapper .dataTables_length select {
+        .dataTable-wrapper .dataTable-selector {
             border: 1px solid #e5e7eb;
             border-radius: 6px;
             padding: 8px 12px;
             margin: 0 5px;
         }
 
-        table.dataTable thead th {
+        .dataTable-table thead th {
             background: linear-gradient(135deg, #4361ee, #6366f1);
             color: white;
             font-weight: 600;
@@ -61,46 +58,47 @@
             border: none;
         }
 
-        table.dataTable tbody tr {
+        .dataTable-table tbody tr {
             transition: all 0.3s ease;
         }
 
-        table.dataTable tbody tr:hover {
+        .dataTable-table tbody tr:hover {
             background-color: #f8f9fa !important;
             transform: scale(1.01);
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+        .dataTable-pagination a.active {
             background: #4361ee !important;
             color: white !important;
             border: 1px solid #4361ee !important;
             border-radius: 6px;
         }
 
-        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        .dataTable-pagination a:hover {
             background: #6366f1 !important;
             color: white !important;
             border: 1px solid #6366f1 !important;
         }
 
         /* Export Buttons */
-        .dt-buttons {
+        .export-buttons {
             margin-bottom: 20px;
         }
 
-        .dt-button {
-            background: #4361ee !important;
-            color: white !important;
-            border: none !important;
-            border-radius: 6px !important;
-            padding: 8px 16px !important;
-            margin-right: 8px !important;
-            transition: all 0.3s ease !important;
+        .export-btn {
+            background: #4361ee;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 16px;
+            margin-right: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
-        .dt-button:hover {
-            background: #6366f1 !important;
+        .export-btn:hover {
+            background: #6366f1;
             transform: translateY(-2px);
         }
 
@@ -743,118 +741,68 @@
 
 {{> scripts}}
 
-<!-- DataTables JS (with jQuery for full functionality) -->
-<script src="node_modules/jquery/dist/jquery.min.js"></script>
-<script src="node_modules/datatables.net/js/dataTables.min.js"></script>
-<script src="node_modules/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+<!-- Simple DataTables JS (Vanilla JavaScript - No jQuery!) -->
+<script type="module">
+import { DataTable } from './node_modules/simple-datatables/dist/module.js';
 
-<script>
-// Initialize DataTables with jQuery
-$(document).ready(function() {
+// Initialize DataTables with Vanilla JS
+document.addEventListener('DOMContentLoaded', function() {
     // Student DataTable
-    const studentTable = $('#studentTable').DataTable({
-        responsive: true,
-        pageLength: 10,
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'copy',
-                className: 'dt-button',
-                text: '<i class="bi bi-clipboard me-1"></i> Copy'
-            },
-            {
-                extend: 'csv',
-                className: 'dt-button',
-                text: '<i class="bi bi-filetype-csv me-1"></i> CSV'
-            },
-            {
-                extend: 'excel',
-                className: 'dt-button',
-                text: '<i class="bi bi-file-earmark-excel me-1"></i> Excel'
-            },
-            {
-                extend: 'pdf',
-                className: 'dt-button',
-                text: '<i class="bi bi-file-earmark-pdf me-1"></i> PDF'
-            },
-            {
-                extend: 'print',
-                className: 'dt-button',
-                text: '<i class="bi bi-printer me-1"></i> Print'
-            }
-        ],
-        order: [[1, 'asc']],
-        columnDefs: [
-            { orderable: false, targets: 7 },
-            { searchable: false, targets: 7 }
-        ],
-        language: {
-            search: "Search students:",
-            lengthMenu: "Show _MENU_ students per page",
-            info: "Showing _START_ to _END_ of _TOTAL_ students",
-            paginate: {
-                first: "First",
-                last: "Last",
-                next: "Next",
-                previous: "Previous"
-            }
-        }
+    const studentTable = new DataTable('#studentTable', {
+        searchable: true,
+        fixedHeight: false,
+        perPage: 10,
+        perPageSelect: [5, 10, 15, 20, 25],
+        sortable: true,
+        labels: {
+            placeholder: "Search students...",
+            perPage: "students per page",
+            noRows: "No students found",
+            info: "Showing {start} to {end} of {rows} students"
+        },
+        columns: [
+            { select: 7, sortable: false } // Actions column not sortable
+        ]
     });
+
+    // Add export buttons for student table
+    addExportButtons('studentTable', studentTable, 'Students');
 
     // Course DataTable
-    const courseTable = $('#courseTable').DataTable({
-        responsive: true,
-        pageLength: 10,
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'copy',
-                className: 'dt-button',
-                text: '<i class="bi bi-clipboard me-1"></i> Copy'
-            },
-            {
-                extend: 'excel',
-                className: 'dt-button',
-                text: '<i class="bi bi-file-earmark-excel me-1"></i> Excel'
-            },
-            {
-                extend: 'pdf',
-                className: 'dt-button',
-                text: '<i class="bi bi-file-earmark-pdf me-1"></i> PDF'
-            }
-        ],
-        order: [[0, 'asc']],
-        language: {
-            search: "Search courses:",
-            lengthMenu: "Show _MENU_ courses per page",
-            info: "Showing _START_ to _END_ of _TOTAL_ courses"
+    const courseTable = new DataTable('#courseTable', {
+        searchable: true,
+        fixedHeight: false,
+        perPage: 10,
+        perPageSelect: [5, 10, 15, 20],
+        sortable: true,
+        labels: {
+            placeholder: "Search courses...",
+            perPage: "courses per page",
+            noRows: "No courses found",
+            info: "Showing {start} to {end} of {rows} courses"
         }
     });
 
+    // Add export buttons for course table
+    addExportButtons('courseTable', courseTable, 'Courses');
+
     // Grade DataTable
-    const gradeTable = $('#gradeTable').DataTable({
-        responsive: true,
-        pageLength: 10,
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'excel',
-                className: 'dt-button',
-                text: '<i class="bi bi-file-earmark-excel me-1"></i> Export Grades'
-            },
-            {
-                extend: 'pdf',
-                className: 'dt-button',
-                text: '<i class="bi bi-file-earmark-pdf me-1"></i> Grade Report'
-            }
-        ],
-        order: [[7, 'desc']],
-        language: {
-            search: "Search grades:",
-            lengthMenu: "Show _MENU_ records per page",
-            info: "Showing _START_ to _END_ of _TOTAL_ grade records"
+    const gradeTable = new DataTable('#gradeTable', {
+        searchable: true,
+        fixedHeight: false,
+        perPage: 10,
+        perPageSelect: [5, 10, 15, 20],
+        sortable: true,
+        labels: {
+            placeholder: "Search grades...",
+            perPage: "records per page",
+            noRows: "No grade records found",
+            info: "Showing {start} to {end} of {rows} grade records"
         }
     });
+
+    // Add export buttons for grade table
+    addExportButtons('gradeTable', gradeTable, 'Grades');
 
     // Action button handlers
     document.querySelectorAll('.btn-view').forEach(btn => {
@@ -876,50 +824,90 @@ $(document).ready(function() {
             e.stopPropagation();
             if (confirm('Are you sure you want to delete this record?')) {
                 const row = this.closest('tr');
-                const table = this.closest('table');
-                const dt = $(table).DataTable();
-                dt.row(row).remove().draw();
-            }
-        });
-    });
-
-    // Custom search boxes for specific columns
-    const setupColumnSearch = (tableId, columns) => {
-        const table = $(tableId).DataTable();
-        const searchRow = document.createElement('tr');
-
-        columns.forEach((col, idx) => {
-            const th = document.createElement('th');
-            if (col.searchable) {
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.className = 'form-control form-control-sm';
-                input.placeholder = `Search ${col.name}`;
-                input.addEventListener('keyup', function() {
-                    table.column(idx).search(this.value).draw();
-                });
-                th.appendChild(input);
-            }
-            searchRow.appendChild(th);
-        });
-
-        // Add search row to thead if needed
-        // document.querySelector(`${tableId} thead`).appendChild(searchRow);
-    };
-
-    // Add row highlighting on hover
-    document.querySelectorAll('.dataTable tbody').forEach(tbody => {
-        tbody.addEventListener('mouseover', function(e) {
-            if (e.target.tagName === 'TD') {
-                e.target.parentElement.style.backgroundColor = '#f0f9ff';
-            }
-        });
-
-        tbody.addEventListener('mouseout', function(e) {
-            if (e.target.tagName === 'TD') {
-                e.target.parentElement.style.backgroundColor = '';
+                row.remove();
             }
         });
     });
 });
+
+// Helper function to add export buttons
+function addExportButtons(tableId, dataTable, name) {
+    const table = document.getElementById(tableId);
+    const wrapper = table.closest('.dashboard-card-body');
+
+    // Create export buttons container
+    const exportDiv = document.createElement('div');
+    exportDiv.className = 'export-buttons mb-3';
+    exportDiv.innerHTML = `
+        <button class="export-btn" data-action="csv">
+            <i class="bi bi-filetype-csv me-1"></i> Export CSV
+        </button>
+        <button class="export-btn" data-action="print">
+            <i class="bi bi-printer me-1"></i> Print
+        </button>
+    `;
+
+    // Insert before the table wrapper
+    wrapper.insertBefore(exportDiv, wrapper.firstChild);
+
+    // Add event listeners for export buttons
+    exportDiv.querySelector('[data-action="csv"]').addEventListener('click', function() {
+        exportToCSV(tableId, name);
+    });
+
+    exportDiv.querySelector('[data-action="print"]').addEventListener('click', function() {
+        printTable(tableId, name);
+    });
+}
+
+// Export to CSV function
+function exportToCSV(tableId, filename) {
+    const table = document.getElementById(tableId);
+    const rows = table.querySelectorAll('tr');
+    let csv = [];
+
+    rows.forEach(row => {
+        const cols = row.querySelectorAll('td, th');
+        const rowData = [];
+        cols.forEach((col, idx) => {
+            // Skip the actions column (last column)
+            if (idx < cols.length - 1 || !col.querySelector('.btn-action')) {
+                rowData.push('"' + col.textContent.trim().replace(/"/g, '""') + '"');
+            }
+        });
+        csv.push(rowData.join(','));
+    });
+
+    const csvContent = csv.join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename + '_' + new Date().toISOString().slice(0,10) + '.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+}
+
+// Print table function
+function printTable(tableId, title) {
+    const table = document.getElementById(tableId).cloneNode(true);
+
+    // Remove action buttons from print view
+    table.querySelectorAll('.btn-action').forEach(btn => btn.remove());
+
+    const printWindow = window.open('', '', 'height=600,width=800');
+    printWindow.document.write('<html><head><title>' + title + '</title>');
+    printWindow.document.write('<style>');
+    printWindow.document.write('table { border-collapse: collapse; width: 100%; }');
+    printWindow.document.write('th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }');
+    printWindow.document.write('th { background-color: #4361ee; color: white; }');
+    printWindow.document.write('</style></head><body>');
+    printWindow.document.write('<h1>' + title + '</h1>');
+    printWindow.document.write(table.outerHTML);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+}
 </script>

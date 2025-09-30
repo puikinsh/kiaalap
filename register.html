@@ -1,7 +1,13 @@
-{{> head}}
-
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Kiaalap</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         /* Dashboard Grid System */
         .dashboard-row { margin-bottom: 24px; }
@@ -21,6 +27,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px 0;
         }
         .auth-container {
             width: 100%;
@@ -51,18 +58,11 @@
             font-size: 30px;
             color: white;
         }
-</style>
-
-{{> sidebar}}
-
-<!-- Main Content Wrapper -->
-<div class="main-wrapper" id="mainWrapper">
-    {{> header}}
-
-    <!-- Main Content -->
-    <main class="dashboard-content" id="main-content">
-        <div class="container-fluid">
-<div class="auth-card">
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
             <div class="auth-header">
                 <div class="brand-logo">
                     <i class="bi bi-mortarboard-fill"></i>
@@ -290,92 +290,89 @@
                 <a href="#" class="text-white-50">Privacy</a> ·
                 <a href="#" class="text-white-50">Terms</a>
             </p>
-        </div>        </div>
-    </main>
+        </div>
+    </div>
 
-    {{> footer}}
-</div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Toggle password visibility
+        const togglePassword = document.getElementById('togglePassword');
+        const password = document.getElementById('password');
+        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+        const confirmPassword = document.getElementById('confirmPassword');
 
-{{> scripts}}
+        if (togglePassword) {
+            togglePassword.addEventListener('click', function() {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                this.querySelector('i').classList.toggle('bi-eye');
+                this.querySelector('i').classList.toggle('bi-eye-slash');
+            });
+        }
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-            // Toggle password visibility
-            const togglePassword = document.getElementById('togglePassword');
-            const password = document.getElementById('password');
-            const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
-            const confirmPassword = document.getElementById('confirmPassword');
+        if (toggleConfirmPassword) {
+            toggleConfirmPassword.addEventListener('click', function() {
+                const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+                confirmPassword.setAttribute('type', type);
+                this.querySelector('i').classList.toggle('bi-eye');
+                this.querySelector('i').classList.toggle('bi-eye-slash');
+            });
+        }
 
-            if (togglePassword) {
-                togglePassword.addEventListener('click', function() {
-                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-                    password.setAttribute('type', type);
-                    this.querySelector('i').classList.toggle('bi-eye');
-                    this.querySelector('i').classList.toggle('bi-eye-slash');
-                });
+        // Password match validation
+        confirmPassword.addEventListener('input', function() {
+            if (password.value !== confirmPassword.value) {
+                confirmPassword.setCustomValidity('Passwords do not match');
+            } else {
+                confirmPassword.setCustomValidity('');
             }
+        });
 
-            if (toggleConfirmPassword) {
-                toggleConfirmPassword.addEventListener('click', function() {
-                    const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
-                    confirmPassword.setAttribute('type', type);
-                    this.querySelector('i').classList.toggle('bi-eye');
-                    this.querySelector('i').classList.toggle('bi-eye-slash');
-                });
+        password.addEventListener('input', function() {
+            if (confirmPassword.value && password.value !== confirmPassword.value) {
+                confirmPassword.setCustomValidity('Passwords do not match');
+            } else {
+                confirmPassword.setCustomValidity('');
             }
+        });
 
-            // Password match validation
-            confirmPassword.addEventListener('input', function() {
+        // Form validation
+        const form = document.getElementById('registerForm');
+        if (form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                // Check password match
                 if (password.value !== confirmPassword.value) {
                     confirmPassword.setCustomValidity('Passwords do not match');
                 } else {
                     confirmPassword.setCustomValidity('');
                 }
-            });
 
-            password.addEventListener('input', function() {
-                if (confirmPassword.value && password.value !== confirmPassword.value) {
-                    confirmPassword.setCustomValidity('Passwords do not match');
+                if (form.checkValidity()) {
+                    // Form is valid - would submit here
+                    console.log('Form submitted');
+                    // window.location.href = 'login.html';
+                }
+
+                form.classList.add('was-validated');
+            });
+        }
+
+        // Real-time username validation
+        const username = document.getElementById('username');
+        if (username) {
+            username.addEventListener('input', function() {
+                const pattern = /^[a-zA-Z0-9_]{3,20}$/;
+                if (!pattern.test(this.value)) {
+                    this.setCustomValidity('Username must be 3-20 characters, letters, numbers, and underscores only.');
                 } else {
-                    confirmPassword.setCustomValidity('');
+                    this.setCustomValidity('');
                 }
             });
-
-            // Form validation
-            const form = document.getElementById('registerForm');
-            if (form) {
-                form.addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    event.stopPropagation();
-
-                    // Check password match
-                    if (password.value !== confirmPassword.value) {
-                        confirmPassword.setCustomValidity('Passwords do not match');
-                    } else {
-                        confirmPassword.setCustomValidity('');
-                    }
-
-                    if (form.checkValidity()) {
-                        // Form is valid - would submit here
-                        console.log('Form submitted');
-                        // window.location.href = 'login.html';
-                    }
-
-                    form.classList.add('was-validated');
-                });
-            }
-
-            // Real-time username validation
-            const username = document.getElementById('username');
-            if (username) {
-                username.addEventListener('input', function() {
-                    const pattern = /^[a-zA-Z0-9_]{3,20}$/;
-                    if (!pattern.test(this.value)) {
-                        this.setCustomValidity('Username must be 3-20 characters, letters, numbers, and underscores only.');
-                    } else {
-                        this.setCustomValidity('');
-                    }
-                });
-            }
-        });
-</script>
+        }
+    });
+    </script>
+</body>
+</html>

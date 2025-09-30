@@ -33,9 +33,10 @@ npm run clean
 ## Architecture
 
 ### Core Technologies
-- **Framework**: Bootstrap 5.3.8 (no jQuery dependency except where required)
+- **Framework**: Bootstrap 5.3.8 (100% jQuery-free)
 - **Build Tool**: Vite 7.1.7 with Handlebars templating
 - **Charts**: Chart.js 4.5.0 (replaced legacy Morris.js/C3/D3)
+- **Data Tables**: Simple-DataTables 9.x (vanilla JS, replaced jQuery DataTables)
 - **Icons**: Bootstrap Icons 1.13.1 (replaced FontAwesome CDN)
 - **CSS**: Sass preprocessor with PostCSS
 
@@ -71,7 +72,7 @@ Page-specific context is managed in `vite.config.js` through the `getPageContext
 ### Key Modernization Changes
 
 1. **Bootstrap 5 Migration**: All pages converted from Bootstrap 4 to Bootstrap 5
-2. **jQuery Removal**: Vanilla JavaScript everywhere except DataTables (which requires jQuery)
+2. **jQuery Removal**: 100% jQuery-free! Vanilla JavaScript everywhere
 3. **Local Dependencies**: All CDN references replaced with node_modules imports
 4. **Consistent Grid System**: Custom dashboard-grid classes with responsive breakpoints
 5. **Year Updates**: All dates updated to 2025/current year
@@ -99,9 +100,12 @@ Navigation states are automatically set based on filename patterns in `vite.conf
 
 ## Important Libraries & Their Usage
 
-### DataTables (data-table.html)
-- Uses jQuery version (datatables.net-bs5) as it provides full functionality
-- Initialized with: `$('#tableId').DataTable({...})`
+### Simple-DataTables (data-table.html)
+- Vanilla JavaScript data tables with no jQuery dependency
+- Installed via: `npm install simple-datatables`
+- Initialized with: `new DataTable('#tableId', { options })`
+- Features: sorting, searching, pagination, CSV export, print functionality
+- Fully customizable with Bootstrap 5 styling
 
 ### Quill Editor (tinymc.html)
 - Rich text editor loaded from node_modules/quill

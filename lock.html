@@ -1,7 +1,13 @@
-{{> head}}
-
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lock Screen - Kiaalap</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -49,26 +55,11 @@
             justify-content: center;
             border: 3px solid white;
         }
-</style>
-
-{{> sidebar}}
-
-<!-- Main Content Wrapper -->
-<div class="main-wrapper" id="mainWrapper">
-    {{> header}}
-
-    <!-- Main Content -->
-    <main class="dashboard-content" id="main-content">
-        <div class="container-fluid">
-            <!-- Page Header -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <div>
-                    <h1 class="h3 mb-0 text-gray-800">Lock Screen</h1>
-                    <p class="mb-0 text-muted">Enter your password to unlock</p>
-                </div>
-            </div>
-
-<div class="auth-card">
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
             <div class="lock-header">
                 <div class="position-relative d-inline-block">
                     <img src="https://ui-avatars.com/api/?name=John+Doe&background=6366f1&color=fff&size=100"
@@ -140,7 +131,7 @@
 
                 <div class="text-center">
                     <p class="mb-2">
-                        <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#switchUserModal">
+                        <a href="#" class="text-decoration-none">
                             <i class="bi bi-person-switch me-1"></i>
                             Switch User
                         </a>
@@ -161,83 +152,80 @@
                 <a href="#" class="text-white-50">Privacy</a> ·
                 <a href="#" class="text-white-50">Terms</a>
             </p>
-        </div>        </div>
-    </main>
+        </div>
+    </div>
 
-    {{> footer}}
-</div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Update time and date
+        function updateDateTime() {
+            const now = new Date();
 
-{{> scripts}}
+            // Format time
+            const timeOptions = {
+                hour: 'numeric',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+            };
+            const timeString = now.toLocaleTimeString('en-US', timeOptions);
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-            // Update time and date
-            function updateDateTime() {
-                const now = new Date();
+            // Format date
+            const dateOptions = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            const dateString = now.toLocaleDateString('en-US', dateOptions);
 
-                // Format time
-                const timeOptions = {
-                    hour: 'numeric',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    hour12: true
-                };
-                const timeString = now.toLocaleTimeString('en-US', timeOptions);
+            // Update elements
+            const timeElement = document.getElementById('currentTime');
+            const dateElement = document.getElementById('currentDate');
 
-                // Format date
-                const dateOptions = {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                };
-                const dateString = now.toLocaleDateString('en-US', dateOptions);
+            if (timeElement) timeElement.textContent = timeString;
+            if (dateElement) dateElement.textContent = dateString;
+        }
 
-                // Update elements
-                const timeElement = document.getElementById('currentTime');
-                const dateElement = document.getElementById('currentDate');
+        // Update immediately and then every second
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
 
-                if (timeElement) timeElement.textContent = timeString;
-                if (dateElement) dateElement.textContent = dateString;
-            }
+        // Toggle password visibility
+        const togglePassword = document.getElementById('togglePassword');
+        const password = document.getElementById('password');
 
-            // Update immediately and then every second
-            updateDateTime();
-            setInterval(updateDateTime, 1000);
+        if (togglePassword) {
+            togglePassword.addEventListener('click', function() {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                this.querySelector('i').classList.toggle('bi-eye');
+                this.querySelector('i').classList.toggle('bi-eye-slash');
+            });
+        }
 
-            // Toggle password visibility
-            const togglePassword = document.getElementById('togglePassword');
-            const password = document.getElementById('password');
+        // Form validation
+        const form = document.getElementById('unlockForm');
+        if (form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
 
-            if (togglePassword) {
-                togglePassword.addEventListener('click', function() {
-                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-                    password.setAttribute('type', type);
-                    this.querySelector('i').classList.toggle('bi-eye');
-                    this.querySelector('i').classList.toggle('bi-eye-slash');
-                });
-            }
+                if (form.checkValidity()) {
+                    // Form is valid - would verify password and unlock here
+                    console.log('Unlocking screen...');
+                    // window.location.href = 'index.html';
+                }
 
-            // Form validation
-            const form = document.getElementById('unlockForm');
-            if (form) {
-                form.addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    event.stopPropagation();
+                form.classList.add('was-validated');
+            });
+        }
 
-                    if (form.checkValidity()) {
-                        // Form is valid - would verify password and unlock here
-                        console.log('Unlocking screen...');
-                        // window.location.href = 'index.html';
-                    }
-
-                    form.classList.add('was-validated');
-                });
-            }
-
-            // Auto-focus password field
-            if (password) {
-                password.focus();
-            }
-        });
-</script>
+        // Auto-focus password field
+        if (password) {
+            password.focus();
+        }
+    });
+    </script>
+</body>
+</html>

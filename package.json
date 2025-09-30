@@ -37,9 +37,6 @@
     "chart.js": "^4.5.0",
     "countup.js": "^2.8.0",
     "cropperjs": "^1.6.1",
-    "datatables.net": "^2.0.0",
-    "datatables.net-bs5": "^2.3.4",
-    "datatables.net-dt": "^2.3.4",
     "dayjs": "^1.11.10",
     "filepond": "^4.30.6",
     "fullcalendar": "^6.1.11",
@@ -47,6 +44,7 @@
     "metismenu": "^3.0.6",
     "quill": "^2.0.3",
     "sass": "^1.92.1",
+    "simple-datatables": "^10.0.0",
     "simplebar": "^6.2.5",
     "swiper": "^11.0.7",
     "tom-select": "^2.3.1"

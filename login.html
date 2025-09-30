@@ -1,7 +1,13 @@
-{{> head}}
-
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Kiaalap</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -39,18 +45,11 @@
             font-size: 30px;
             color: white;
         }
-</style>
-
-{{> sidebar}}
-
-<!-- Main Content Wrapper -->
-<div class="main-wrapper" id="mainWrapper">
-    {{> header}}
-
-    <!-- Main Content -->
-    <main class="dashboard-content" id="main-content">
-        <div class="container-fluid">
-<div class="auth-card">
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
             <div class="auth-header">
                 <div class="brand-logo">
                     <i class="bi bi-mortarboard-fill"></i>
@@ -177,76 +176,73 @@
                 <a href="#" class="text-white-50">Privacy</a> ·
                 <a href="#" class="text-white-50">Terms</a>
             </p>
-        </div>        </div>
-    </main>
+        </div>
+    </div>
 
-    {{> footer}}
-</div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Toggle password visibility
+        const togglePassword = document.getElementById('togglePassword');
+        const password = document.getElementById('password');
 
-{{> scripts}}
+        if (togglePassword) {
+            togglePassword.addEventListener('click', function() {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                this.querySelector('i').classList.toggle('bi-eye');
+                this.querySelector('i').classList.toggle('bi-eye-slash');
+            });
+        }
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-            // Toggle password visibility
-            const togglePassword = document.getElementById('togglePassword');
-            const password = document.getElementById('password');
+        // Form validation
+        const form = document.getElementById('loginForm');
+        if (form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
 
-            if (togglePassword) {
-                togglePassword.addEventListener('click', function() {
-                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-                    password.setAttribute('type', type);
-                    this.querySelector('i').classList.toggle('bi-eye');
-                    this.querySelector('i').classList.toggle('bi-eye-slash');
-                });
-            }
+                if (form.checkValidity()) {
+                    // Form is valid - would submit here
+                    console.log('Form submitted');
+                    // window.location.href = 'index.html';
+                }
 
-            // Form validation
-            const form = document.getElementById('loginForm');
-            if (form) {
-                form.addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    event.stopPropagation();
+                form.classList.add('was-validated');
+            });
+        }
 
-                    if (form.checkValidity()) {
-                        // Form is valid - would submit here
-                        console.log('Form submitted');
-                        // window.location.href = 'index.html';
-                    }
+        // Remember me functionality
+        const rememberMe = document.getElementById('rememberMe');
+        const username = document.getElementById('username');
 
-                    form.classList.add('was-validated');
-                });
-            }
+        // Load saved username if remember me was checked
+        if (localStorage.getItem('rememberMe') === 'true') {
+            username.value = localStorage.getItem('username') || '';
+            rememberMe.checked = true;
+        }
 
-            // Remember me functionality
-            const rememberMe = document.getElementById('rememberMe');
-            const username = document.getElementById('username');
+        // Save/clear username based on remember me
+        if (rememberMe) {
+            rememberMe.addEventListener('change', function() {
+                if (this.checked) {
+                    localStorage.setItem('rememberMe', 'true');
+                    localStorage.setItem('username', username.value);
+                } else {
+                    localStorage.removeItem('rememberMe');
+                    localStorage.removeItem('username');
+                }
+            });
+        }
 
-            // Load saved username if remember me was checked
-            if (localStorage.getItem('rememberMe') === 'true') {
-                username.value = localStorage.getItem('username') || '';
-                rememberMe.checked = true;
-            }
-
-            // Save/clear username based on remember me
-            if (rememberMe) {
-                rememberMe.addEventListener('change', function() {
-                    if (this.checked) {
-                        localStorage.setItem('rememberMe', 'true');
-                        localStorage.setItem('username', username.value);
-                    } else {
-                        localStorage.removeItem('rememberMe');
-                        localStorage.removeItem('username');
-                    }
-                });
-            }
-
-            // Update stored username when it changes
-            if (username) {
-                username.addEventListener('input', function() {
-                    if (rememberMe.checked) {
-                        localStorage.setItem('username', this.value);
-                    }
-                });
-            }
-        });
-</script>
+        // Update stored username when it changes
+        if (username) {
+            username.addEventListener('input', function() {
+                if (rememberMe.checked) {
+                    localStorage.setItem('username', this.value);
+                }
+            });
+        }
+    });
+    </script>
+</body>
+</html>
