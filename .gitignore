@@ -55,3 +55,8 @@ Thumbs.db
 # pnpm-lock.yaml
 CLAUDE.md
 CLAUDE.md
+deploy.sh
+.gitignore
+DEPLOYMENT_QUICK_START.md
+RELEASE_NOTES.md
+.gitignore
