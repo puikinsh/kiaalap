@@ -233,10 +233,10 @@ Looking for more templates or web development resources? Check out these curated
 ### Other Popular Admin Templates from Colorlib
 - [Adminator](https://github.com/puikinsh/Adminator-admin-dashboard) - Responsive Admin Dashboard Template
 - [AdminLTE](https://github.com/ColorlibHQ/AdminLTE) - Best open source admin dashboard & control panel theme
-- [Gentelella](https://github.com/ColorlibHQ/gentelella) - Free Bootstrap 4 Admin Dashboard Template
-- [Notika](https://colorlib.com/polygon/notika/) - Bootstrap 4 Admin Template
-- [Nalika](https://colorlib.com/polygon/nalika/) - Bootstrap 4 Admin Template
-- [Concept](https://colorlib.com/polygon/concept/) - Bootstrap 4 Admin Dashboard
+- [Gentelella](https://github.com/ColorlibHQ/gentelella) - Free Bootstrap 5 Admin Dashboard Template
+- [Notika](https://colorlib.com/polygon/notika/) - Bootstrap 5 Admin Template
+- [Nalika](https://colorlib.com/polygon/nalika/) - Bootstrap 5 Admin Template
+- [Concept](https://colorlib.com/polygon/concept/) - Bootstrap 5 Admin Dashboard
 
 ### Colorlib Blog & Tutorials
 - [Web Design Blog](https://colorlib.com/wp/) - Latest trends and tutorials in web design

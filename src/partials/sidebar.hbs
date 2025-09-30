@@ -159,6 +159,7 @@
                         <li><a class="nav-link {{#if (eq page 'bar-charts')}}active{{/if}}" href="bar-charts.html">Bar Charts</a></li>
                         <li><a class="nav-link {{#if (eq page 'c3')}}active{{/if}}" href="c3.html">C3 Charts</a></li>
                         <li><a class="nav-link {{#if (eq page 'peity')}}active{{/if}}" href="peity.html">Peity Charts</a></li>
+                        <li><a class="nav-link {{#if (eq page 'rounded-chart')}}active{{/if}}" href="rounded-chart.html">Rounded Charts</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -169,6 +170,48 @@
                     <ul id="tablesSubmenu" class="submenu collapse {{#if interface.tables}}show{{/if}} list-unstyled">
                         <li><a class="nav-link {{#if (eq page 'static-table')}}active{{/if}}" href="static-table.html">Static Tables</a></li>
                         <li><a class="nav-link {{#if (eq page 'data-table')}}active{{/if}}" href="data-table.html">Data Tables</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="menu-section">
+            <div class="menu-section-title">Developer Tools</div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link {{#if (eq page 'code-editor')}}active{{/if}}" href="code-editor.html">
+                        <i class="bi bi-code-slash"></i>
+                        <span>Code Editor</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link has-submenu {{#if tools.ui}}active{{/if}}" href="#uiTools" data-bs-target="#uiToolsSubmenu" aria-expanded="{{#if tools.ui}}true{{else}}false{{/if}}">
+                        <i class="bi bi-tools"></i>
+                        <span>UI Components</span>
+                    </a>
+                    <ul id="uiToolsSubmenu" class="submenu collapse {{#if tools.ui}}show{{/if}} list-unstyled">
+                        <li><a class="nav-link {{#if (eq page 'preloader')}}active{{/if}}" href="preloader.html">Preloaders</a></li>
+                        <li><a class="nav-link {{#if (eq page 'notifications')}}active{{/if}}" href="notifications.html">Notifications</a></li>
+                        <li><a class="nav-link {{#if (eq page 'tree-view')}}active{{/if}}" href="tree-view.html">Tree View</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link has-submenu {{#if tools.viewers}}active{{/if}}" href="#viewers" data-bs-target="#viewersSubmenu" aria-expanded="{{#if tools.viewers}}true{{else}}false{{/if}}">
+                        <i class="bi bi-eye"></i>
+                        <span>Viewers</span>
+                    </a>
+                    <ul id="viewersSubmenu" class="submenu collapse {{#if tools.viewers}}show{{/if}} list-unstyled">
+                        <li><a class="nav-link {{#if (eq page 'pdf-viewer')}}active{{/if}}" href="pdf-viewer.html">PDF Viewer</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link has-submenu {{#if tools.maps}}active{{/if}}" href="#maps" data-bs-target="#mapsSubmenu" aria-expanded="{{#if tools.maps}}true{{else}}false{{/if}}">
+                        <i class="bi bi-map"></i>
+                        <span>Maps</span>
+                    </a>
+                    <ul id="mapsSubmenu" class="submenu collapse {{#if tools.maps}}show{{/if}} list-unstyled">
+                        <li><a class="nav-link {{#if (eq page 'google-map')}}active{{/if}}" href="google-map.html">Interactive Maps</a></li>
+                        <li><a class="nav-link {{#if (eq page 'data-maps')}}active{{/if}}" href="data-maps.html">Data Maps</a></li>
                     </ul>
                 </li>
             </ul>

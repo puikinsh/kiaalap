@@ -1,5 +1,8 @@
 {{> head}}
 
+<!-- Prism.js for Syntax Highlighting -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+
 <style>
 /* Code Editor Styles */
 .editor-demo-card {
@@ -68,6 +71,12 @@
     color: white;
 }
 
+/* Editor wrapper for overlay highlighting */
+.editor-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
 .code-editor {
     background: #1e1e1e;
     color: #d4d4d4;
@@ -81,6 +90,49 @@
     outline: none;
     resize: vertical;
     tab-size: 4;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    background: transparent;
+}
+
+/* Highlighted code display behind textarea */
+.code-highlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #1e1e1e;
+    color: #d4d4d4;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 20px;
+    overflow: hidden;
+    pointer-events: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.code-highlight code {
+    display: block;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Make textarea transparent to show highlighting */
+.code-editor-container .editor-wrapper .code-editor {
+    color: transparent;
+    caret-color: #d4d4d4;
+}
+
+/* Line numbers */
+.code-highlight pre {
+    margin: 0;
+    padding: 0;
+    background: transparent !important;
 }
 
 .code-output {
@@ -199,7 +251,11 @@
                             </button>
                         </div>
                     </div>
-                    <textarea class="code-editor" id="codeEditor" spellcheck="false">// Welcome to the Code Editor!
+                    <div class="editor-wrapper">
+                        <div class="code-highlight" id="codeHighlight">
+                            <pre><code class="language-javascript" id="highlightedCode">// Welcome to the Code Editor!</code></pre>
+                        </div>
+                        <textarea class="code-editor" id="codeEditor" spellcheck="false">// Welcome to the Code Editor!
 // Type your JavaScript code here
 
 function greet(name) {
@@ -227,6 +283,7 @@ const student = {
 };
 
 student.displayInfo();</textarea>
+                    </div>
                     <div class="output-header">
                         <i class="bi bi-terminal"></i> Console Output
                     </div>
@@ -252,7 +309,11 @@ student.displayInfo();</textarea>
                                     </button>
                                 </div>
                             </div>
-                            <textarea class="code-editor" id="htmlEditor" style="min-height: 250px;" spellcheck="false"><!DOCTYPE html>
+                            <div class="editor-wrapper">
+                                <div class="code-highlight" id="htmlHighlight">
+                                    <pre><code class="language-markup" id="htmlHighlightedCode"><!DOCTYPE html></code></pre>
+                                </div>
+                                <textarea class="code-editor" id="htmlEditor" style="min-height: 250px;" spellcheck="false"><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -265,6 +326,7 @@ student.displayInfo();</textarea>
     <button onclick="alert('Hello!')">Click Me</button>
 </body>
 </html></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -283,7 +345,11 @@ student.displayInfo();</textarea>
                                     </button>
                                 </div>
                             </div>
-                            <textarea class="code-editor" id="cssEditor" style="min-height: 250px;" spellcheck="false">/* Modern CSS Styles */
+                            <div class="editor-wrapper">
+                                <div class="code-highlight" id="cssHighlight">
+                                    <pre><code class="language-css" id="cssHighlightedCode">/* Modern CSS Styles */</code></pre>
+                                </div>
+                                <textarea class="code-editor" id="cssEditor" style="min-height: 250px;" spellcheck="false">/* Modern CSS Styles */
 
 body {
     font-family: 'Arial', sans-serif;
@@ -309,6 +375,7 @@ button {
 button:hover {
     background: #3451d1;
 }</textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -352,16 +419,48 @@ button:hover {
 
 {{> scripts}}
 
+<!-- Prism.js for Syntax Highlighting -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+
 <script>
-// Code Editor functionality (Vanilla JavaScript)
+// Code Editor functionality with Syntax Highlighting (Vanilla JavaScript)
 document.addEventListener('DOMContentLoaded', function() {
     const codeEditor = document.getElementById('codeEditor');
     const codeOutput = document.getElementById('codeOutput');
+    const highlightedCode = document.getElementById('highlightedCode');
+    const codeHighlight = document.getElementById('codeHighlight');
     const runBtn = document.getElementById('runBtn');
     const copyBtn = document.getElementById('copyBtn');
     const formatBtn = document.getElementById('formatBtn');
     const copyHtml = document.getElementById('copyHtml');
     const copyCss = document.getElementById('copyCss');
+    const languageSelect = document.getElementById('languageSelect');
+
+    let currentLanguage = 'javascript';
+
+    // Update syntax highlighting
+    function updateHighlighting() {
+        const code = codeEditor.value;
+        highlightedCode.textContent = code;
+        highlightedCode.className = `language-${currentLanguage}`;
+        Prism.highlightElement(highlightedCode);
+    }
+
+    // Sync scroll between textarea and highlight
+    codeEditor.addEventListener('scroll', function() {
+        codeHighlight.scrollTop = this.scrollTop;
+        codeHighlight.scrollLeft = this.scrollLeft;
+    });
+
+    // Update highlighting on input
+    codeEditor.addEventListener('input', updateHighlighting);
+    codeEditor.addEventListener('keyup', updateHighlighting);
+
+    // Initial highlighting
+    updateHighlighting();
 
     // Run code button
     runBtn.addEventListener('click', function() {
@@ -407,16 +506,54 @@ document.addEventListener('DOMContentLoaded', function() {
         showNotification('Code copied to clipboard!');
     });
 
+    // HTML Editor highlighting
+    const htmlEditor = document.getElementById('htmlEditor');
+    const htmlHighlightedCode = document.getElementById('htmlHighlightedCode');
+    const htmlHighlight = document.getElementById('htmlHighlight');
+
+    function updateHtmlHighlighting() {
+        const code = htmlEditor.value;
+        htmlHighlightedCode.textContent = code;
+        Prism.highlightElement(htmlHighlightedCode);
+    }
+
+    htmlEditor.addEventListener('scroll', function() {
+        htmlHighlight.scrollTop = this.scrollTop;
+        htmlHighlight.scrollLeft = this.scrollLeft;
+    });
+
+    htmlEditor.addEventListener('input', updateHtmlHighlighting);
+    htmlEditor.addEventListener('keyup', updateHtmlHighlighting);
+    updateHtmlHighlighting();
+
+    // CSS Editor highlighting
+    const cssEditor = document.getElementById('cssEditor');
+    const cssHighlightedCode = document.getElementById('cssHighlightedCode');
+    const cssHighlight = document.getElementById('cssHighlight');
+
+    function updateCssHighlighting() {
+        const code = cssEditor.value;
+        cssHighlightedCode.textContent = code;
+        Prism.highlightElement(cssHighlightedCode);
+    }
+
+    cssEditor.addEventListener('scroll', function() {
+        cssHighlight.scrollTop = this.scrollTop;
+        cssHighlight.scrollLeft = this.scrollLeft;
+    });
+
+    cssEditor.addEventListener('input', updateCssHighlighting);
+    cssEditor.addEventListener('keyup', updateCssHighlighting);
+    updateCssHighlighting();
+
     // Copy HTML button
     copyHtml.addEventListener('click', function() {
-        const htmlEditor = document.getElementById('htmlEditor');
         copyToClipboard(htmlEditor.value);
         showNotification('HTML copied to clipboard!');
     });
 
     // Copy CSS button
     copyCss.addEventListener('click', function() {
-        const cssEditor = document.getElementById('cssEditor');
         copyToClipboard(cssEditor.value);
         showNotification('CSS copied to clipboard!');
     });
@@ -686,10 +823,14 @@ footer {
 
             // Update editor content
             currentFile = lang;
+            currentLanguage = lang === 'html' ? 'markup' : lang;
             codeEditor.value = codeFiles[lang];
 
             // Update language selector
             languageSelect.value = lang;
+
+            // Update syntax highlighting
+            updateHighlighting();
 
             // Clear output when switching files
             codeOutput.innerHTML = '<div style="color: #999;">// Click "Run" to execute the code...</div>';
