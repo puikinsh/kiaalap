@@ -10,230 +10,338 @@
     <main class="dashboard-content" id="main-content">
         <div class="container-fluid">
             <!-- Page Header -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <div>
-                    <h1 class="h3 mb-0 text-gray-800">Mailbox</h1>
-                </div>
+            <div class="mb-4">
+                <h1 class="h3 font-bold">Mailbox</h1>
+                <p class="text-muted text-sm">Manage your messages and communications</p>
             </div>
 
-<div class="wrapper">
-        <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <a href="index.html" class="sidebar-logo">
-                <i class="fas fa-graduation-cap" style="font-size: 1.5rem; color: var(--primary-color);"></i>
-                <span class="sidebar-logo-text">Kiaalap</span>
-            </a>
-        </div>
+            <!-- Mailbox Layout -->
+            <div class="row g-3">
+                <!-- Sidebar -->
+                <div class="col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <a href="mailbox-compose.html" class="btn btn-primary w-100 mb-3">
+                                <i class="bi bi-pencil-square me-2"></i>Compose
+                            </a>
 
-        <div class="sidebar-menu">
-            <!-- Dashboard Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Main</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#dashboard" class="nav-link active" data-bs-toggle="collapse" aria-expanded="true">
-                            <i class="nav-icon fas fa-home"></i>
-                            <span class="nav-text">Dashboard</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse show" id="dashboard">
-                            <li><a href="analytics.html" class="nav-link">Analytics</a></li>
-                            <li><a href="index-1.html" class="nav-link">Reports</a></li>
-                            <li><a href="widgets.html" class="nav-link">Widgets</a></li>
-                        </ul>
-                    </li>
+                            <div class="mailbox-sidebar">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <a href="mailbox.html" class="d-flex align-items-center text-decoration-none text-dark active">
+                                            <i class="bi bi-inbox-fill me-2"></i>
+                                            <span>Inbox</span>
+                                            <span class="badge bg-primary ms-auto">12</span>
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#" class="d-flex align-items-center text-decoration-none text-muted">
+                                            <i class="bi bi-send me-2"></i>
+                                            <span>Sent</span>
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#" class="d-flex align-items-center text-decoration-none text-muted">
+                                            <i class="bi bi-file-earmark-text me-2"></i>
+                                            <span>Drafts</span>
+                                            <span class="badge bg-secondary ms-auto">3</span>
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#" class="d-flex align-items-center text-decoration-none text-muted">
+                                            <i class="bi bi-star me-2"></i>
+                                            <span>Important</span>
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#" class="d-flex align-items-center text-decoration-none text-muted">
+                                            <i class="bi bi-trash me-2"></i>
+                                            <span>Trash</span>
+                                        </a>
+                                    </li>
+                                </ul>
 
-                    <li class="nav-item">
-                        <a href="events.html" class="nav-link">
-                            <i class="nav-icon fas fa-calendar"></i>
-                            <span class="nav-text">Events</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+                                <hr>
 
-            <!-- Academic Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Academic</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#professors" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                            <span class="nav-text">Professors</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="professors">
-                            <li><a href="all-professors.html" class="nav-link">All Professors</a></li>
-                            <li><a href="add-professor.html" class="nav-link">Add Professor</a></li>
-                            <li><a href="edit-professor.html" class="nav-link">Edit Professor</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#students" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-user-graduate"></i>
-                            <span class="nav-text">Students</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="students">
-                            <li><a href="all-students.html" class="nav-link">All Students</a></li>
-                            <li><a href="add-student.html" class="nav-link">Add Student</a></li>
-                            <li><a href="student-profile.html" class="nav-link">Student Profile</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#courses" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book"></i>
-                            <span class="nav-text">Courses</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="courses">
-                            <li><a href="all-courses.html" class="nav-link">All Courses</a></li>
-                            <li><a href="add-course.html" class="nav-link">Add Course</a></li>
-                            <li><a href="course-info.html" class="nav-link">Course Info</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#library" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book-open"></i>
-                            <span class="nav-text">Library</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="library">
-                            <li><a href="library-assets.html" class="nav-link">Library Assets</a></li>
-                            <li><a href="add-library-assets.html" class="nav-link">Add Asset</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#departments" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-building"></i>
-                            <span class="nav-text">Departments</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="departments">
-                            <li><a href="departments.html" class="nav-link">All Departments</a></li>
-                            <li><a href="add-department.html" class="nav-link">Add Department</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Tools Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Tools</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#mailbox" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-envelope"></i>
-                            <span class="nav-text">Mailbox</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="mailbox">
-                            <li><a href="mailbox.html" class="nav-link">Inbox</a></li>
-                            <li><a href="mailbox-compose.html" class="nav-link">Compose</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#charts" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chart-line"></i>
-                            <span class="nav-text">Charts</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="charts">
-                            <li><a href="line-charts.html" class="nav-link">Line Charts</a></li>
-                            <li><a href="bar-charts.html" class="nav-link">Bar Charts</a></li>
-                            <li><a href="area-charts.html" class="nav-link">Area Charts</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#tables" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-table"></i>
-                            <span class="nav-text">Tables</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="tables">
-                            <li><a href="static-table.html" class="nav-link">Basic Tables</a></li>
-                            <li><a href="data-table.html" class="nav-link">Data Tables</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </aside>
-
-        <div class="main-content">
-            <header class="header">
-            <div class="header-left">
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-
-                <form class="search-form">
-                    <i class="search-icon fas fa-search"></i>
-                    <input type="text" class="search-input" placeholder="Search...">
-                </form>
-            </div>
-
-            <div class="header-right">
-                <button class="header-btn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge"></span>
-                </button>
-
-                <button class="header-btn">
-                    <i class="fas fa-envelope"></i>
-                </button>
-
-                <button class="header-btn">
-                    <i class="fas fa-cog"></i>
-                </button>
-
-                <div class="dropdown">
-                    <div class="user-menu" data-bs-toggle="dropdown">
-                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=4361ee&color=fff" alt="User" class="user-avatar">
-                        <div class="user-info">
-                            <span class="user-name">John Doe</span>
-                            <span class="user-role">Administrator</span>
+                                <h6 class="text-muted text-uppercase small mb-3">Labels</h6>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <a href="#" class="d-flex align-items-center text-decoration-none text-muted">
+                                            <span class="badge rounded-circle bg-success me-2" style="width: 10px; height: 10px;"></span>
+                                            <span>Academic</span>
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#" class="d-flex align-items-center text-decoration-none text-muted">
+                                            <span class="badge rounded-circle bg-warning me-2" style="width: 10px; height: 10px;"></span>
+                                            <span>Administrative</span>
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#" class="d-flex align-items-center text-decoration-none text-muted">
+                                            <span class="badge rounded-circle bg-info me-2" style="width: 10px; height: 10px;"></span>
+                                            <span>Students</span>
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#" class="d-flex align-items-center text-decoration-none text-muted">
+                                            <span class="badge rounded-circle bg-danger me-2" style="width: 10px; height: 10px;"></span>
+                                            <span>Urgent</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <i class="fas fa-chevron-down ms-2" style="font-size: 0.75rem; color: #6b7280;"></i>
                     </div>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
-                    </ul>
                 </div>
-            </div>
-        </header>
 
-            <div class="content-wrapper">
-                <div class="container-fluid p-4">
-                    
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="logo-pro">
-                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                    
+                <!-- Mail List -->
+                <div class="col-lg-9">
+                    <div class="card">
+                        <div class="card-header bg-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <div class="form-check me-3">
+                                        <input class="form-check-input" type="checkbox" id="selectAll">
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-archive"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-exclamation-octagon"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                    <div class="dropdown ms-2">
+                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                            More
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Mark as read</a></li>
+                                            <li><a class="dropdown-item" href="#">Mark as unread</a></li>
+                                            <li><a class="dropdown-item" href="#">Add star</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-arrow-clockwise"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body p-0">
+                            <!-- Mail Items -->
+                            <div class="list-group list-group-flush">
+                                <!-- Mail Item 1 -->
+                                <a href="mailbox-view.html" class="list-group-item list-group-item-action">
+                                    <div class="d-flex align-items-center">
+                                        <div class="form-check me-3">
+                                            <input class="form-check-input" type="checkbox" onclick="event.preventDefault();">
+                                        </div>
+                                        <div class="flex-shrink-0 me-3">
+                                            <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&background=10b981&color=fff" alt="Avatar" class="rounded-circle" width="40" height="40">
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <div>
+                                                    <h6 class="mb-1">Sarah Johnson <span class="badge bg-success ms-2">Academic</span></h6>
+                                                    <p class="mb-1 text-dark">Course Schedule Update - Fall Semester 2024</p>
+                                                    <p class="mb-0 text-muted small">Dear Faculty, Please note the updated course schedule for the upcoming fall semester...</p>
+                                                </div>
+                                                <div class="text-end">
+                                                    <small class="text-muted">10:30 AM</small>
+                                                    <div class="mt-1">
+                                                        <i class="bi bi-star text-warning"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <!-- Mail Item 2 -->
+                                <a href="mailbox-view.html" class="list-group-item list-group-item-action">
+                                    <div class="d-flex align-items-center">
+                                        <div class="form-check me-3">
+                                            <input class="form-check-input" type="checkbox" onclick="event.preventDefault();">
+                                        </div>
+                                        <div class="flex-shrink-0 me-3">
+                                            <img src="https://ui-avatars.com/api/?name=Mike+Chen&background=6366f1&color=fff" alt="Avatar" class="rounded-circle" width="40" height="40">
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <div>
+                                                    <h6 class="mb-1 fw-bold">Mike Chen <span class="badge bg-danger ms-2">Urgent</span></h6>
+                                                    <p class="mb-1 text-dark fw-bold">Faculty Meeting - Urgent Update</p>
+                                                    <p class="mb-0 text-muted small">All faculty members are requested to attend the emergency meeting scheduled for...</p>
+                                                </div>
+                                                <div class="text-end">
+                                                    <small class="text-muted">9:15 AM</small>
+                                                    <div class="mt-1">
+                                                        <span class="badge bg-primary rounded-circle" style="width: 8px; height: 8px;"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <!-- Mail Item 3 -->
+                                <a href="mailbox-view.html" class="list-group-item list-group-item-action">
+                                    <div class="d-flex align-items-center">
+                                        <div class="form-check me-3">
+                                            <input class="form-check-input" type="checkbox" onclick="event.preventDefault();">
+                                        </div>
+                                        <div class="flex-shrink-0 me-3">
+                                            <img src="https://ui-avatars.com/api/?name=Emily+Davis&background=f59e0b&color=fff" alt="Avatar" class="rounded-circle" width="40" height="40">
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <div>
+                                                    <h6 class="mb-1">Emily Davis <span class="badge bg-warning ms-2">Administrative</span></h6>
+                                                    <p class="mb-1 text-dark">Budget Allocation for Research Department</p>
+                                                    <p class="mb-0 text-muted small">Please review the attached budget proposal for the upcoming fiscal year...</p>
+                                                </div>
+                                                <div class="text-end">
+                                                    <small class="text-muted">Yesterday</small>
+                                                    <div class="mt-1">
+                                                        <i class="bi bi-paperclip"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <!-- Mail Item 4 -->
+                                <a href="mailbox-view.html" class="list-group-item list-group-item-action">
+                                    <div class="d-flex align-items-center">
+                                        <div class="form-check me-3">
+                                            <input class="form-check-input" type="checkbox" onclick="event.preventDefault();">
+                                        </div>
+                                        <div class="flex-shrink-0 me-3">
+                                            <img src="https://ui-avatars.com/api/?name=John+Smith&background=8b5cf6&color=fff" alt="Avatar" class="rounded-circle" width="40" height="40">
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <div>
+                                                    <h6 class="mb-1">John Smith <span class="badge bg-info ms-2">Students</span></h6>
+                                                    <p class="mb-1 text-dark">Student Council Meeting Minutes</p>
+                                                    <p class="mb-0 text-muted small">Attached are the minutes from yesterday's student council meeting...</p>
+                                                </div>
+                                                <div class="text-end">
+                                                    <small class="text-muted">2 days ago</small>
+                                                    <div class="mt-1">
+                                                        <i class="bi bi-paperclip"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <!-- Mail Item 5 -->
+                                <a href="mailbox-view.html" class="list-group-item list-group-item-action">
+                                    <div class="d-flex align-items-center">
+                                        <div class="form-check me-3">
+                                            <input class="form-check-input" type="checkbox" onclick="event.preventDefault();">
+                                        </div>
+                                        <div class="flex-shrink-0 me-3">
+                                            <img src="https://ui-avatars.com/api/?name=Lisa+Anderson&background=ec4899&color=fff" alt="Avatar" class="rounded-circle" width="40" height="40">
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <div>
+                                                    <h6 class="mb-1">Lisa Anderson</h6>
+                                                    <p class="mb-1 text-dark">Library Resources Update</p>
+                                                    <p class="mb-0 text-muted small">New digital resources are now available in the library database...</p>
+                                                </div>
+                                                <div class="text-end">
+                                                    <small class="text-muted">3 days ago</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="card-footer bg-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">Showing 1-5 of 12 messages</span>
+                                <nav>
+                                    <ul class="pagination pagination-sm mb-0">
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a>
+                                        </li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- jQuery -->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap 5.3.8 Bundle -->
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Modern Scripts -->        </div>
     </main>
 
     {{> footer}}
 </div>
 
 {{> scripts}}
+
+<style>
+.mailbox-sidebar a.active {
+    color: var(--bs-primary) !important;
+    font-weight: 500;
+}
+
+.mailbox-sidebar a:hover {
+    color: var(--bs-primary) !important;
+}
+
+.list-group-item-action:hover {
+    background-color: #f8f9fa;
+}
+
+.list-group-item.unread {
+    background-color: #f0f8ff;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Select all checkbox functionality
+    const selectAll = document.getElementById('selectAll');
+    const checkboxes = document.querySelectorAll('.list-group-item .form-check-input');
+
+    if (selectAll) {
+        selectAll.addEventListener('change', function() {
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAll.checked;
+            });
+        });
+    }
+
+    // Individual checkbox click handling
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    });
+});
+</script>
+
+</body>
+</html>

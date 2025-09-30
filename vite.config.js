@@ -232,6 +232,38 @@ function getPageContext(filename) {
       ],
       additionalCSS: ['src/css/charts-layout.css'],
       additionalJS: ['node_modules/chart.js/dist/chart.umd.js', 'src/js/charts-responsive.js']
+    },
+    'mailbox': {
+      title: 'Mailbox',
+      pageTitle: 'Mailbox',
+      pageDescription: 'Manage your messages and communications',
+      showPageHeader: true,
+      breadcrumb: [
+        { title: 'Communication', url: '#' },
+        { title: 'Mailbox', url: 'mailbox.html' }
+      ]
+    },
+    'mailbox-view': {
+      title: 'View Message',
+      pageTitle: 'Message Details',
+      pageDescription: 'View message content and attachments',
+      showPageHeader: true,
+      breadcrumb: [
+        { title: 'Communication', url: '#' },
+        { title: 'Mailbox', url: 'mailbox.html' },
+        { title: 'View Message', url: 'mailbox-view.html' }
+      ]
+    },
+    'mailbox-compose': {
+      title: 'Compose Message',
+      pageTitle: 'Compose New Message',
+      pageDescription: 'Write and send a new message',
+      showPageHeader: true,
+      breadcrumb: [
+        { title: 'Communication', url: '#' },
+        { title: 'Mailbox', url: 'mailbox.html' },
+        { title: 'Compose', url: 'mailbox-compose.html' }
+      ]
     }
   };
 
@@ -339,7 +371,10 @@ export default defineConfig({
         alerts: resolve(__dirname, 'alerts.html'),
         'library-assets': resolve(__dirname, 'library-assets.html'),
         'add-library-assets': resolve(__dirname, 'add-library-assets.html'),
-        'edit-library-assets': resolve(__dirname, 'edit-library-assets.html')
+        'edit-library-assets': resolve(__dirname, 'edit-library-assets.html'),
+        'mailbox': resolve(__dirname, 'mailbox.html'),
+        'mailbox-view': resolve(__dirname, 'mailbox-view.html'),
+        'mailbox-compose': resolve(__dirname, 'mailbox-compose.html')
       }
     }
   },

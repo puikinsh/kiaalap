@@ -9,231 +9,312 @@
     <!-- Main Content -->
     <main class="dashboard-content" id="main-content">
         <div class="container-fluid">
-            <!-- Page Header -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <div>
-                    <h1 class="h3 mb-0 text-gray-800">Mailbox view</h1>
-                </div>
+            <!-- Back Button and Page Header -->
+            <div class="mb-4">
+                <a href="mailbox.html" class="btn btn-outline-secondary btn-sm mb-3">
+                    <i class="bi bi-arrow-left me-2"></i>Back to Inbox
+                </a>
+                <h1 class="h3 font-bold">Message Details</h1>
             </div>
 
-<div class="wrapper">
-        <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <a href="index.html" class="sidebar-logo">
-                <i class="fas fa-graduation-cap" style="font-size: 1.5rem; color: var(--primary-color);"></i>
-                <span class="sidebar-logo-text">Kiaalap</span>
-            </a>
-        </div>
+            <!-- Message View -->
+            <div class="row g-3">
+                <!-- Sidebar -->
+                <div class="col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <a href="mailbox-compose.html" class="btn btn-primary w-100 mb-3">
+                                <i class="bi bi-pencil-square me-2"></i>Compose
+                            </a>
 
-        <div class="sidebar-menu">
-            <!-- Dashboard Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Main</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#dashboard" class="nav-link active" data-bs-toggle="collapse" aria-expanded="true">
-                            <i class="nav-icon fas fa-home"></i>
-                            <span class="nav-text">Dashboard</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse show" id="dashboard">
-                            <li><a href="analytics.html" class="nav-link">Analytics</a></li>
-                            <li><a href="index-1.html" class="nav-link">Reports</a></li>
-                            <li><a href="widgets.html" class="nav-link">Widgets</a></li>
-                        </ul>
-                    </li>
+                            <div class="mailbox-sidebar">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <a href="mailbox.html" class="d-flex align-items-center text-decoration-none text-dark">
+                                            <i class="bi bi-inbox-fill me-2"></i>
+                                            <span>Inbox</span>
+                                            <span class="badge bg-primary ms-auto">12</span>
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#" class="d-flex align-items-center text-decoration-none text-muted">
+                                            <i class="bi bi-send me-2"></i>
+                                            <span>Sent</span>
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#" class="d-flex align-items-center text-decoration-none text-muted">
+                                            <i class="bi bi-file-earmark-text me-2"></i>
+                                            <span>Drafts</span>
+                                            <span class="badge bg-secondary ms-auto">3</span>
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#" class="d-flex align-items-center text-decoration-none text-muted">
+                                            <i class="bi bi-star me-2"></i>
+                                            <span>Important</span>
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#" class="d-flex align-items-center text-decoration-none text-muted">
+                                            <i class="bi bi-trash me-2"></i>
+                                            <span>Trash</span>
+                                        </a>
+                                    </li>
+                                </ul>
 
-                    <li class="nav-item">
-                        <a href="events.html" class="nav-link">
-                            <i class="nav-icon fas fa-calendar"></i>
-                            <span class="nav-text">Events</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+                                <hr>
 
-            <!-- Academic Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Academic</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#professors" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                            <span class="nav-text">Professors</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="professors">
-                            <li><a href="all-professors.html" class="nav-link">All Professors</a></li>
-                            <li><a href="add-professor.html" class="nav-link">Add Professor</a></li>
-                            <li><a href="edit-professor.html" class="nav-link">Edit Professor</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#students" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-user-graduate"></i>
-                            <span class="nav-text">Students</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="students">
-                            <li><a href="all-students.html" class="nav-link">All Students</a></li>
-                            <li><a href="add-student.html" class="nav-link">Add Student</a></li>
-                            <li><a href="student-profile.html" class="nav-link">Student Profile</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#courses" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book"></i>
-                            <span class="nav-text">Courses</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="courses">
-                            <li><a href="all-courses.html" class="nav-link">All Courses</a></li>
-                            <li><a href="add-course.html" class="nav-link">Add Course</a></li>
-                            <li><a href="course-info.html" class="nav-link">Course Info</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#library" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book-open"></i>
-                            <span class="nav-text">Library</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="library">
-                            <li><a href="library-assets.html" class="nav-link">Library Assets</a></li>
-                            <li><a href="add-library-assets.html" class="nav-link">Add Asset</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#departments" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-building"></i>
-                            <span class="nav-text">Departments</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="departments">
-                            <li><a href="departments.html" class="nav-link">All Departments</a></li>
-                            <li><a href="add-department.html" class="nav-link">Add Department</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Tools Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Tools</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#mailbox" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-envelope"></i>
-                            <span class="nav-text">Mailbox</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="mailbox">
-                            <li><a href="mailbox.html" class="nav-link">Inbox</a></li>
-                            <li><a href="mailbox-compose.html" class="nav-link">Compose</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#charts" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chart-line"></i>
-                            <span class="nav-text">Charts</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="charts">
-                            <li><a href="line-charts.html" class="nav-link">Line Charts</a></li>
-                            <li><a href="bar-charts.html" class="nav-link">Bar Charts</a></li>
-                            <li><a href="area-charts.html" class="nav-link">Area Charts</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#tables" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-table"></i>
-                            <span class="nav-text">Tables</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="tables">
-                            <li><a href="static-table.html" class="nav-link">Basic Tables</a></li>
-                            <li><a href="data-table.html" class="nav-link">Data Tables</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </aside>
-
-        <div class="main-content">
-            <header class="header">
-            <div class="header-left">
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-
-                <form class="search-form">
-                    <i class="search-icon fas fa-search"></i>
-                    <input type="text" class="search-input" placeholder="Search...">
-                </form>
-            </div>
-
-            <div class="header-right">
-                <button class="header-btn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge"></span>
-                </button>
-
-                <button class="header-btn">
-                    <i class="fas fa-envelope"></i>
-                </button>
-
-                <button class="header-btn">
-                    <i class="fas fa-cog"></i>
-                </button>
-
-                <div class="dropdown">
-                    <div class="user-menu" data-bs-toggle="dropdown">
-                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=4361ee&color=fff" alt="User" class="user-avatar">
-                        <div class="user-info">
-                            <span class="user-name">John Doe</span>
-                            <span class="user-role">Administrator</span>
+                                <h6 class="text-muted text-uppercase small mb-3">Labels</h6>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <a href="#" class="d-flex align-items-center text-decoration-none text-muted">
+                                            <span class="badge rounded-circle bg-success me-2" style="width: 10px; height: 10px;"></span>
+                                            <span>Academic</span>
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#" class="d-flex align-items-center text-decoration-none text-muted">
+                                            <span class="badge rounded-circle bg-warning me-2" style="width: 10px; height: 10px;"></span>
+                                            <span>Administrative</span>
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#" class="d-flex align-items-center text-decoration-none text-muted">
+                                            <span class="badge rounded-circle bg-info me-2" style="width: 10px; height: 10px;"></span>
+                                            <span>Students</span>
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="#" class="d-flex align-items-center text-decoration-none text-muted">
+                                            <span class="badge rounded-circle bg-danger me-2" style="width: 10px; height: 10px;"></span>
+                                            <span>Urgent</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <i class="fas fa-chevron-down ms-2" style="font-size: 0.75rem; color: #6b7280;"></i>
                     </div>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
-                    </ul>
                 </div>
-            </div>
-        </header>
 
-            <div class="content-wrapper">
-                <div class="container-fluid p-4">
-                    
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="logo-pro">
-                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                    
+                <!-- Mail Content -->
+                <div class="col-lg-9">
+                    <div class="card">
+                        <!-- Message Actions Bar -->
+                        <div class="card-header bg-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location.href='mailbox-compose.html'">
+                                        <i class="bi bi-reply"></i> Reply
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-reply-all"></i> Reply All
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-arrow-right"></i> Forward
+                                    </button>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-star"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-printer"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="#">Mark as unread</a></li>
+                                            <li><a class="dropdown-item" href="#">Add label</a></li>
+                                            <li><a class="dropdown-item" href="#">Block sender</a></li>
+                                            <li><a class="dropdown-item" href="#">Report spam</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Message Content -->
+                        <div class="card-body">
+                            <!-- Message Header -->
+                            <div class="message-header mb-4">
+                                <h4 class="mb-3">Course Schedule Update - Fall Semester 2024</h4>
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&background=10b981&color=fff" alt="Avatar" class="rounded-circle me-3" width="50" height="50">
+                                        <div>
+                                            <h6 class="mb-0">Sarah Johnson <span class="badge bg-success ms-2">Academic</span></h6>
+                                            <div class="text-muted small">
+                                                <span>From: sarah.johnson@kiaalap.edu</span><br>
+                                                <span>To: faculty@kiaalap.edu</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-end text-muted small">
+                                        <div>Oct 15, 2024, 10:30 AM</div>
+                                        <div class="mt-1">
+                                            <i class="bi bi-star text-warning"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <!-- Message Body -->
+                            <div class="message-body">
+                                <p>Dear Faculty Members,</p>
+
+                                <p>I hope this email finds you well. I am writing to inform you about important updates to the course schedule for the upcoming Fall Semester 2024. Please review these changes carefully as they may affect your teaching assignments and classroom allocations.</p>
+
+                                <h5 class="mt-4 mb-3">Schedule Changes</h5>
+                                <p>The following adjustments have been made to accommodate increased enrollment and facility renovations:</p>
+
+                                <ul>
+                                    <li><strong>Computer Science Department:</strong> All morning classes will now start at 8:00 AM instead of 8:30 AM</li>
+                                    <li><strong>Engineering Labs:</strong> Lab sessions have been extended by 30 minutes to provide more hands-on experience</li>
+                                    <li><strong>Business School:</strong> Evening MBA classes will now be held on both Tuesday and Thursday</li>
+                                    <li><strong>Liberal Arts:</strong> Writing workshops have been moved to the new Media Center in Building C</li>
+                                </ul>
+
+                                <h5 class="mt-4 mb-3">Important Dates</h5>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Faculty Orientation:</strong></td>
+                                            <td>August 15-16, 2024</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>First Day of Classes:</strong></td>
+                                            <td>August 26, 2024</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Add/Drop Period:</strong></td>
+                                            <td>August 26 - September 6, 2024</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Midterm Week:</strong></td>
+                                            <td>October 14-18, 2024</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <h5 class="mt-4 mb-3">New Classroom Technology</h5>
+                                <p>We're excited to announce that all classrooms in Buildings A and B have been equipped with new interactive whiteboards and enhanced audio-visual systems. Training sessions for these new technologies will be offered during the faculty orientation week.</p>
+
+                                <h5 class="mt-4 mb-3">Action Required</h5>
+                                <p>Please confirm your availability for the assigned teaching slots by <strong>July 31, 2024</strong>. You can do this through the Faculty Portal or by replying to this email. If you have any conflicts or concerns, please contact the Academic Affairs office immediately.</p>
+
+                                <p>Additionally, please update your course syllabi to reflect the new schedule and submit them to the department head by <strong>August 5, 2024</strong>.</p>
+
+                                <p class="mt-4">Thank you for your cooperation and dedication to our students' success. If you have any questions or need clarification on any of these changes, please don't hesitate to reach out.</p>
+
+                                <p>Best regards,</p>
+                                <p>
+                                    <strong>Dr. Sarah Johnson</strong><br>
+                                    <em>Vice President of Academic Affairs</em><br>
+                                    Kiaalap University<br>
+                                    Phone: (555) 123-4567<br>
+                                    Email: sarah.johnson@kiaalap.edu
+                                </p>
+                            </div>
+
+                            <hr>
+
+                            <!-- Attachments -->
+                            <div class="attachments mt-4">
+                                <h6 class="mb-3">Attachments (2)</h6>
+                                <div class="row g-2">
+                                    <div class="col-md-6">
+                                        <div class="attachment-item border rounded p-3 d-flex align-items-center">
+                                            <i class="bi bi-file-pdf text-danger fs-3 me-3"></i>
+                                            <div class="flex-grow-1">
+                                                <div class="fw-semibold">Fall_2024_Schedule.pdf</div>
+                                                <small class="text-muted">2.4 MB</small>
+                                            </div>
+                                            <button class="btn btn-sm btn-outline-secondary">
+                                                <i class="bi bi-download"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="attachment-item border rounded p-3 d-flex align-items-center">
+                                            <i class="bi bi-file-excel text-success fs-3 me-3"></i>
+                                            <div class="flex-grow-1">
+                                                <div class="fw-semibold">Classroom_Assignments.xlsx</div>
+                                                <small class="text-muted">458 KB</small>
+                                            </div>
+                                            <button class="btn btn-sm btn-outline-secondary">
+                                                <i class="bi bi-download"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Quick Reply -->
+                            <div class="quick-reply mt-5">
+                                <h6 class="mb-3">Quick Reply</h6>
+                                <form>
+                                    <div class="mb-3">
+                                        <textarea class="form-control" rows="5" placeholder="Type your reply here..."></textarea>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary me-2">
+                                                <i class="bi bi-paperclip"></i> Attach
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                                                <i class="bi bi-emoji-smile"></i>
+                                            </button>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-sm btn-secondary me-2">Save Draft</button>
+                                            <button type="submit" class="btn btn-sm btn-primary">Send Reply</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- jQuery -->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap 5.3.8 Bundle -->
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Modern Scripts -->        </div>
     </main>
 
     {{> footer}}
 </div>
 
 {{> scripts}}
+
+<style>
+.mailbox-sidebar a.active {
+    color: var(--bs-primary) !important;
+    font-weight: 500;
+}
+
+.mailbox-sidebar a:hover {
+    color: var(--bs-primary) !important;
+}
+
+.attachment-item:hover {
+    background-color: #f8f9fa;
+}
+
+.message-body {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.quick-reply textarea {
+    resize: vertical;
+}
+</style>
+
+</body>
+</html>
