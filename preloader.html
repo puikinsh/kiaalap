@@ -1,5 +1,195 @@
 {{> head}}
 
+<style>
+/* Preloader Styles */
+.preloader-demo-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.preloader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+/* Bootstrap 5 Spinner Styles */
+.custom-spinner-1 {
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.3em;
+}
+
+.custom-spinner-2 {
+    width: 4rem;
+    height: 4rem;
+}
+
+/* Custom CSS Preloaders */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.custom-preloader-1 {
+    border: 4px solid #f3f4f6;
+    border-top: 4px solid #4361ee;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+.custom-preloader-2 {
+    border: 5px solid #f3f4f6;
+    border-top: 5px solid #10b981;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 0.8s linear infinite;
+}
+
+.custom-preloader-3 {
+    border: 6px solid #f3f4f6;
+    border-top: 6px solid #f59e0b;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    animation: spin 1.2s ease-in-out infinite;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.6;
+    }
+}
+
+.pulse-loader {
+    width: 60px;
+    height: 60px;
+    background: #8b5cf6;
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Dots Loader */
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: scale(0);
+    }
+    40% {
+        transform: scale(1);
+    }
+}
+
+.dots-loader {
+    display: flex;
+    gap: 10px;
+}
+
+.dot {
+    width: 15px;
+    height: 15px;
+    background: #4361ee;
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+/* Bar Loader */
+@keyframes bar-grow {
+    0%, 100% {
+        transform: scaleY(0.4);
+    }
+    50% {
+        transform: scaleY(1);
+    }
+}
+
+.bars-loader {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    height: 50px;
+}
+
+.bar {
+    width: 6px;
+    height: 40px;
+    background: #ef4444;
+    border-radius: 3px;
+    animation: bar-grow 1s ease-in-out infinite;
+}
+
+.bar:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.bar:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.bar:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+.bar:nth-child(5) {
+    animation-delay: 0.4s;
+}
+
+/* Demo Button Styles */
+.demo-btn {
+    margin-top: 15px;
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.loading-overlay.show {
+    display: flex;
+}
+
+.overlay-content {
+    text-align: center;
+}
+
+.overlay-spinner {
+    width: 5rem;
+    height: 5rem;
+    margin-bottom: 20px;
+}
+</style>
+
 {{> sidebar}}
 
 <!-- Main Content Wrapper -->
@@ -10,228 +200,197 @@
     <main class="dashboard-content" id="main-content">
         <div class="container-fluid">
             <!-- Page Header -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <div>
-                    <h1 class="h3 mb-0 text-gray-800">Preloader</h1>
-                </div>
+            <div class="mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Preloaders & Spinners</h1>
+                <p class="text-muted">Modern Bootstrap 5 loading animations and spinners (100% jQuery-free)</p>
             </div>
 
-<div class="wrapper">
-        <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <a href="index.html" class="sidebar-logo">
-                <i class="fas fa-graduation-cap" style="font-size: 1.5rem; color: var(--primary-color);"></i>
-                <span class="sidebar-logo-text">Kiaalap</span>
-            </a>
-        </div>
-
-        <div class="sidebar-menu">
-            <!-- Dashboard Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Main</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#dashboard" class="nav-link active" data-bs-toggle="collapse" aria-expanded="true">
-                            <i class="nav-icon fas fa-home"></i>
-                            <span class="nav-text">Dashboard</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse show" id="dashboard">
-                            <li><a href="analytics.html" class="nav-link">Analytics</a></li>
-                            <li><a href="index-1.html" class="nav-link">Reports</a></li>
-                            <li><a href="widgets.html" class="nav-link">Widgets</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="events.html" class="nav-link">
-                            <i class="nav-icon fas fa-calendar"></i>
-                            <span class="nav-text">Events</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Academic Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Academic</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#professors" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                            <span class="nav-text">Professors</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="professors">
-                            <li><a href="all-professors.html" class="nav-link">All Professors</a></li>
-                            <li><a href="add-professor.html" class="nav-link">Add Professor</a></li>
-                            <li><a href="edit-professor.html" class="nav-link">Edit Professor</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#students" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-user-graduate"></i>
-                            <span class="nav-text">Students</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="students">
-                            <li><a href="all-students.html" class="nav-link">All Students</a></li>
-                            <li><a href="add-student.html" class="nav-link">Add Student</a></li>
-                            <li><a href="student-profile.html" class="nav-link">Student Profile</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#courses" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book"></i>
-                            <span class="nav-text">Courses</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="courses">
-                            <li><a href="all-courses.html" class="nav-link">All Courses</a></li>
-                            <li><a href="add-course.html" class="nav-link">Add Course</a></li>
-                            <li><a href="course-info.html" class="nav-link">Course Info</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#library" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book-open"></i>
-                            <span class="nav-text">Library</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="library">
-                            <li><a href="library-assets.html" class="nav-link">Library Assets</a></li>
-                            <li><a href="add-library-assets.html" class="nav-link">Add Asset</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#departments" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-building"></i>
-                            <span class="nav-text">Departments</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="departments">
-                            <li><a href="departments.html" class="nav-link">All Departments</a></li>
-                            <li><a href="add-department.html" class="nav-link">Add Department</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Tools Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Tools</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#mailbox" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-envelope"></i>
-                            <span class="nav-text">Mailbox</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="mailbox">
-                            <li><a href="mailbox.html" class="nav-link">Inbox</a></li>
-                            <li><a href="mailbox-compose.html" class="nav-link">Compose</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#charts" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chart-line"></i>
-                            <span class="nav-text">Charts</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="charts">
-                            <li><a href="line-charts.html" class="nav-link">Line Charts</a></li>
-                            <li><a href="bar-charts.html" class="nav-link">Bar Charts</a></li>
-                            <li><a href="area-charts.html" class="nav-link">Area Charts</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#tables" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-table"></i>
-                            <span class="nav-text">Tables</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="tables">
-                            <li><a href="static-table.html" class="nav-link">Basic Tables</a></li>
-                            <li><a href="data-table.html" class="nav-link">Data Tables</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </aside>
-
-        <div class="main-content">
-            <header class="header">
-            <div class="header-left">
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-
-                <form class="search-form">
-                    <i class="search-icon fas fa-search"></i>
-                    <input type="text" class="search-input" placeholder="Search...">
-                </form>
-            </div>
-
-            <div class="header-right">
-                <button class="header-btn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge"></span>
-                </button>
-
-                <button class="header-btn">
-                    <i class="fas fa-envelope"></i>
-                </button>
-
-                <button class="header-btn">
-                    <i class="fas fa-cog"></i>
-                </button>
-
-                <div class="dropdown">
-                    <div class="user-menu" data-bs-toggle="dropdown">
-                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=4361ee&color=fff" alt="User" class="user-avatar">
-                        <div class="user-info">
-                            <span class="user-name">John Doe</span>
-                            <span class="user-role">Administrator</span>
+            <!-- Bootstrap 5 Spinners -->
+            <div class="preloader-demo-card">
+                <h5 class="mb-3">Bootstrap 5 Built-in Spinners</h5>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="preloader-container">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                         </div>
-                        <i class="fas fa-chevron-down ms-2" style="font-size: 0.75rem; color: #6b7280;"></i>
+                        <p class="text-center mt-2 text-muted">Border Spinner</p>
                     </div>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
-                    </ul>
+                    <div class="col-md-4">
+                        <div class="preloader-container">
+                            <div class="spinner-border text-success custom-spinner-1" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <p class="text-center mt-2 text-muted">Large Border Spinner</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="preloader-container">
+                            <div class="spinner-grow text-danger" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <p class="text-center mt-2 text-muted">Growing Spinner</p>
+                    </div>
                 </div>
             </div>
-        </header>
 
-            <div class="content-wrapper">
-                <div class="container-fluid p-4">
-                    
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="logo-pro">
-                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                    
+            <!-- Bootstrap 5 Color Variants -->
+            <div class="preloader-demo-card">
+                <h5 class="mb-3">Color Variants</h5>
+                <div class="preloader-container">
+                    <div class="spinner-border text-primary me-3" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="spinner-border text-secondary me-3" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="spinner-border text-success me-3" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="spinner-border text-danger me-3" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="spinner-border text-warning me-3" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="spinner-border text-info me-3" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="spinner-border text-dark me-3" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Custom CSS Preloaders -->
+            <div class="preloader-demo-card">
+                <h5 class="mb-3">Custom CSS Preloaders</h5>
+                <div class="row g-4">
+                    <div class="col-md-3">
+                        <div class="preloader-container">
+                            <div class="custom-preloader-1"></div>
+                        </div>
+                        <p class="text-center mt-2 text-muted">Spin Loader</p>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="preloader-container">
+                            <div class="custom-preloader-2"></div>
+                        </div>
+                        <p class="text-center mt-2 text-muted">Fast Spin</p>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="preloader-container">
+                            <div class="custom-preloader-3"></div>
+                        </div>
+                        <p class="text-center mt-2 text-muted">Large Spin</p>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="preloader-container">
+                            <div class="pulse-loader"></div>
+                        </div>
+                        <p class="text-center mt-2 text-muted">Pulse Loader</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Animated Loaders -->
+            <div class="preloader-demo-card">
+                <h5 class="mb-3">Animated Loaders</h5>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="preloader-container">
+                            <div class="dots-loader">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <p class="text-center mt-2 text-muted">Bouncing Dots</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="preloader-container">
+                            <div class="bars-loader">
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                            </div>
+                        </div>
+                        <p class="text-center mt-2 text-muted">Growing Bars</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button Loading States -->
+            <div class="preloader-demo-card">
+                <h5 class="mb-3">Button Loading States</h5>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <button class="btn btn-primary" type="button" disabled>
+                            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                            Loading...
+                        </button>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-success" type="button" disabled>
+                            <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                            Processing...
+                        </button>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-danger" type="button" disabled>
+                            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                            Please wait...
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Page Overlay Demo -->
+            <div class="preloader-demo-card">
+                <h5 class="mb-3">Full Page Overlay Preloader</h5>
+                <p class="text-muted">Click the button below to see a full-page loading overlay</p>
+                <button class="btn btn-primary demo-btn" id="showOverlayBtn">
+                    <i class="bi bi-play-circle me-2"></i>
+                    Show Full Page Loader
+                </button>
             </div>
         </div>
-    </div>
-
-    <!-- Bootstrap 5.3.8 Bundle (no jQuery needed) -->
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Modern Scripts -->        </div>
     </main>
 
     {{> footer}}
 </div>
 
+<!-- Full Page Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="overlay-content">
+        <div class="spinner-border text-primary overlay-spinner" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <h4 class="mt-3">Loading...</h4>
+        <p class="text-muted">Please wait while we process your request</p>
+    </div>
+</div>
+
 {{> scripts}}
+
+<script>
+// Full page overlay demo (Vanilla JavaScript)
+document.addEventListener('DOMContentLoaded', function() {
+    const showOverlayBtn = document.getElementById('showOverlayBtn');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+
+    showOverlayBtn.addEventListener('click', function() {
+        // Show overlay
+        loadingOverlay.classList.add('show');
+
+        // Hide after 3 seconds
+        setTimeout(function() {
+            loadingOverlay.classList.remove('show');
+        }, 3000);
+    });
+});
+</script>

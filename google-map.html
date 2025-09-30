@@ -1,5 +1,80 @@
 {{> head}}
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<style>
+/* Map Demo Styles */
+.map-demo-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.map-container {
+    height: 450px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.map-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.location-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0 0;
+}
+
+.location-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.location-item:hover {
+    background: #f8f9fa;
+    border-color: #4361ee;
+}
+
+.location-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e0e7ff;
+    color: #4361ee;
+    border-radius: 6px;
+    margin-right: 12px;
+}
+
+.location-info {
+    flex: 1;
+}
+
+.location-name {
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.location-address {
+    font-size: 12px;
+    color: #6b7280;
+}
+</style>
+
 {{> sidebar}}
 
 <!-- Main Content Wrapper -->
@@ -10,241 +85,246 @@
     <main class="dashboard-content" id="main-content">
         <div class="container-fluid">
             <!-- Page Header -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <div>
-                    <h1 class="h3 mb-0 text-gray-800">Google map</h1>
+            <div class="mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Interactive Map</h1>
+                <p class="text-muted">Leaflet map integration with custom markers (100% jQuery-free)</p>
+            </div>
+
+            <!-- Main Map -->
+            <div class="map-demo-card">
+                <h5 class="mb-3">Campus Locations</h5>
+                <div class="map-controls">
+                    <button class="btn btn-primary" id="resetViewBtn">
+                        <i class="bi bi-geo-alt me-2"></i>Reset View
+                    </button>
+                    <button class="btn btn-secondary" id="satelliteBtn">
+                        <i class="bi bi-globe me-2"></i>Toggle View
+                    </button>
+                    <button class="btn btn-success" id="addMarkerBtn">
+                        <i class="bi bi-plus-circle me-2"></i>Add Marker
+                    </button>
                 </div>
-            </div>
+                <div id="mainMap" class="map-container"></div>
 
-<div class="wrapper">
-        <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <a href="#" class="sidebar-logo">
-                <i class="fas fa-graduation-cap" style="font-size: 1.5rem; color: var(--primary-color);"></i>
-                <span class="sidebar-logo-text">Kiaalap</span>
-            </a>
-        </div>
-
-        <div class="sidebar-menu">
-            <!-- Dashboard Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Main</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#dashboard" class="nav-link active" data-bs-toggle="collapse" aria-expanded="true">
-                            <i class="nav-icon fas fa-home"></i>
-                            <span class="nav-text">Dashboard</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse show" id="dashboard">
-                            <li><a href="index.html" class="nav-link">Dashboard</a></li>
-                            <li><a href="index-1.html" class="nav-link">Dashboard v1</a></li>
-                            <li><a href="index-2.html" class="nav-link">Dashboard v2</a></li>
-                            <li><a href="analytics.html" class="nav-link">Analytics</a></li>
-                            <li><a href="widgets.html" class="nav-link">Widgets</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="events.html" class="nav-link">
-                            <i class="nav-icon fas fa-calendar"></i>
-                            <span class="nav-text">Events</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Academic Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Academic</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#professors" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                            <span class="nav-text">Professors</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="professors">
-                            <li><a href="all-professors.html" class="nav-link">All Professors</a></li>
-                            <li><a href="add-professor.html" class="nav-link">Add Professor</a></li>
-                            <li><a href="edit-professor.html" class="nav-link">Edit Professor</a></li>
-                            <li><a href="professor-profile.html" class="nav-link">Professor Profile</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#students" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-user-graduate"></i>
-                            <span class="nav-text">Students</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="students">
-                            <li><a href="all-students.html" class="nav-link">All Students</a></li>
-                            <li><a href="add-student.html" class="nav-link">Add Student</a></li>
-                            <li><a href="edit-student.html" class="nav-link">Edit Student</a></li>
-                            <li><a href="student-profile.html" class="nav-link">Student Profile</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#courses" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book"></i>
-                            <span class="nav-text">Courses</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="courses">
-                            <li><a href="all-courses.html" class="nav-link">All Courses</a></li>
-                            <li><a href="add-course.html" class="nav-link">Add Course</a></li>
-                            <li><a href="edit-course.html" class="nav-link">Edit Course</a></li>
-                            <li><a href="course-info.html" class="nav-link">Course Info</a></li>
-                            <li><a href="course-payment.html" class="nav-link">Course Payment</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#library" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book-open"></i>
-                            <span class="nav-text">Library</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="library">
-                            <li><a href="library-assets.html" class="nav-link">Library Assets</a></li>
-                            <li><a href="add-library-assets.html" class="nav-link">Add Asset</a></li>
-                            <li><a href="edit-library-assets.html" class="nav-link">Edit Asset</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#departments" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-building"></i>
-                            <span class="nav-text">Departments</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="departments">
-                            <li><a href="departments.html" class="nav-link">All Departments</a></li>
-                            <li><a href="add-department.html" class="nav-link">Add Department</a></li>
-                            <li><a href="edit-department.html" class="nav-link">Edit Department</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Tools Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Tools</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#mailbox" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-envelope"></i>
-                            <span class="nav-text">Mailbox</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="mailbox">
-                            <li><a href="mailbox.html" class="nav-link">Inbox</a></li>
-                            <li><a href="mailbox-compose.html" class="nav-link">Compose</a></li>
-                            <li><a href="mailbox-view.html" class="nav-link">View Mail</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#charts" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chart-line"></i>
-                            <span class="nav-text">Charts</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="charts">
-                            <li><a href="line-charts.html" class="nav-link">Line Charts</a></li>
-                            <li><a href="bar-charts.html" class="nav-link">Bar Charts</a></li>
-                            <li><a href="area-charts.html" class="nav-link">Area Charts</a></li>
-                            <li><a href="c3.html" class="nav-link">C3 Charts</a></li>
-                            <li><a href="peity.html" class="nav-link">Peity Charts</a></li>
-                            <li><a href="sparkline.html" class="nav-link">Sparkline</a></li>
-                            <li><a href="rounded-chart.html" class="nav-link">Rounded Chart</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#tables" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-table"></i>
-                            <span class="nav-text">Tables</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="tables">
-                            <li><a href="static-table.html" class="nav-link">Basic Tables</a></li>
-                            <li><a href="data-table.html" class="nav-link">Data Tables</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </aside>
-
-        <div class="main-content">
-            <header class="header">
-            <div class="header-left">
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-
-                <form class="search-form">
-                    <i class="search-icon fas fa-search"></i>
-                    <input type="text" class="search-input" placeholder="Search...">
-                </form>
-            </div>
-
-            <div class="header-right">
-                <button class="header-btn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge"></span>
-                </button>
-
-                <button class="header-btn">
-                    <i class="fas fa-envelope"></i>
-                </button>
-
-                <button class="header-btn">
-                    <i class="fas fa-cog"></i>
-                </button>
-
-                <div class="dropdown">
-                    <div class="user-menu" data-bs-toggle="dropdown">
-                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=4361ee&color=fff" alt="User" class="user-avatar">
-                        <div class="user-info">
-                            <span class="user-name">John Doe</span>
-                            <span class="user-role">Administrator</span>
+                <div class="location-list">
+                    <div class="location-item" data-location="library">
+                        <div class="location-icon">
+                            <i class="bi bi-book"></i>
                         </div>
-                        <i class="fas fa-chevron-down ms-2" style="font-size: 0.75rem; color: #6b7280;"></i>
+                        <div class="location-info">
+                            <div class="location-name">University Library</div>
+                            <div class="location-address">Main Campus, Building A</div>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-geo-alt"></i>
+                        </button>
                     </div>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
-                    </ul>
+                    <div class="location-item" data-location="lab">
+                        <div class="location-icon">
+                            <i class="bi bi-cpu"></i>
+                        </div>
+                        <div class="location-info">
+                            <div class="location-name">Computer Science Lab</div>
+                            <div class="location-address">Technology Center, Floor 3</div>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-geo-alt"></i>
+                        </button>
+                    </div>
+                    <div class="location-item" data-location="cafeteria">
+                        <div class="location-icon">
+                            <i class="bi bi-cup-straw"></i>
+                        </div>
+                        <div class="location-info">
+                            <div class="location-name">Student Cafeteria</div>
+                            <div class="location-address">Student Center, Ground Floor</div>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-geo-alt"></i>
+                        </button>
+                    </div>
+                    <div class="location-item" data-location="admin">
+                        <div class="location-icon">
+                            <i class="bi bi-building"></i>
+                        </div>
+                        <div class="location-info">
+                            <div class="location-name">Administration Office</div>
+                            <div class="location-address">Main Building, Floor 2</div>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-geo-alt"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </header>
 
-            <div class="content-wrapper">
-                <div class="container-fluid p-4">
-                    
-        <div class="container-fluid">
+            <!-- Multiple Maps -->
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="logo-pro">
-                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                    
+                <div class="col-lg-6">
+                    <div class="map-demo-card">
+                        <h5 class="mb-3">Nearby Locations</h5>
+                        <div id="nearbyMap" class="map-container" style="height: 300px;"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="map-demo-card">
+                        <h5 class="mb-3">Campus Overview</h5>
+                        <div id="overviewMap" class="map-container" style="height: 300px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map Info -->
+            <div class="map-demo-card">
+                <h5 class="mb-3">Map Features</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6><i class="bi bi-check-circle text-success me-2"></i>Interactive Controls</h6>
+                        <p class="text-muted small">Zoom, pan, and navigate the map with ease</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h6><i class="bi bi-pin-map text-primary me-2"></i>Custom Markers</h6>
+                        <p class="text-muted small">Add and customize location markers</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h6><i class="bi bi-globe text-info me-2"></i>Multiple Views</h6>
+                        <p class="text-muted small">Switch between different map layers</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Bootstrap 5.3.8 Bundle (no jQuery needed) -->
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Modern Scripts -->        </div>
     </main>
 
     {{> footer}}
 </div>
 
 {{> scripts}}
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+// Leaflet Map Integration (Vanilla JavaScript)
+document.addEventListener('DOMContentLoaded', function() {
+    // Campus center coordinates (example: San Francisco)
+    const campusCenter = [37.7749, -122.4194];
+
+    // Initialize main map
+    const mainMap = L.map('mainMap').setView(campusCenter, 13);
+
+    // Add tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 19
+    }).addTo(mainMap);
+
+    // Campus locations with coordinates
+    const locations = {
+        library: {
+            coords: [37.7749, -122.4194],
+            name: 'University Library',
+            icon: '📚'
+        },
+        lab: {
+            coords: [37.7769, -122.4174],
+            name: 'Computer Science Lab',
+            icon: '💻'
+        },
+        cafeteria: {
+            coords: [37.7729, -122.4214],
+            name: 'Student Cafeteria',
+            icon: '🍽️'
+        },
+        admin: {
+            coords: [37.7759, -122.4184],
+            name: 'Administration Office',
+            icon: '🏛️'
+        }
+    };
+
+    // Add markers to main map
+    const markers = {};
+    Object.keys(locations).forEach(key => {
+        const loc = locations[key];
+        const marker = L.marker(loc.coords).addTo(mainMap);
+        marker.bindPopup(`<b>${loc.icon} ${loc.name}</b>`);
+        markers[key] = marker;
+    });
+
+    // Location item click handlers
+    document.querySelectorAll('.location-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const locationKey = this.dataset.location;
+            const location = locations[locationKey];
+            if (location && markers[locationKey]) {
+                mainMap.setView(location.coords, 16);
+                markers[locationKey].openPopup();
+            }
+        });
+    });
+
+    // Reset view button
+    document.getElementById('resetViewBtn').addEventListener('click', function() {
+        mainMap.setView(campusCenter, 13);
+    });
+
+    // Satellite/Map toggle
+    let currentLayer = 'street';
+    const streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    });
+
+    const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles © Esri'
+    });
+
+    document.getElementById('satelliteBtn').addEventListener('click', function() {
+        if (currentLayer === 'street') {
+            mainMap.removeLayer(streetLayer);
+            satelliteLayer.addTo(mainMap);
+            currentLayer = 'satellite';
+            this.innerHTML = '<i class="bi bi-map me-2"></i>Street View';
+        } else {
+            mainMap.removeLayer(satelliteLayer);
+            streetLayer.addTo(mainMap);
+            currentLayer = 'street';
+            this.innerHTML = '<i class="bi bi-globe me-2"></i>Satellite View';
+        }
+    });
+
+    // Add marker functionality
+    document.getElementById('addMarkerBtn').addEventListener('click', function() {
+        const center = mainMap.getCenter();
+        const newMarker = L.marker([center.lat, center.lng]).addTo(mainMap);
+        newMarker.bindPopup('<b>📍 New Location</b><br>Custom marker added');
+        newMarker.openPopup();
+    });
+
+    // Initialize nearby map
+    const nearbyMap = L.map('nearbyMap').setView([37.7739, -122.4204], 14);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(nearbyMap);
+    L.marker([37.7739, -122.4204]).addTo(nearbyMap)
+        .bindPopup('<b>Nearby Area</b>');
+
+    // Initialize overview map
+    const overviewMap = L.map('overviewMap').setView(campusCenter, 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(overviewMap);
+
+    // Add all markers to overview map
+    Object.values(locations).forEach(loc => {
+        L.marker(loc.coords).addTo(overviewMap)
+            .bindPopup(`<b>${loc.icon} ${loc.name}</b>`);
+    });
+
+    // Draw circle for campus area
+    L.circle(campusCenter, {
+        color: '#4361ee',
+        fillColor: '#4361ee',
+        fillOpacity: 0.2,
+        radius: 1000
+    }).addTo(overviewMap);
+});
+</script>

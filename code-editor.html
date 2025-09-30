@@ -1,5 +1,161 @@
 {{> head}}
 
+<style>
+/* Code Editor Styles */
+.editor-demo-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.code-editor-container {
+    background: #1e1e1e;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.editor-toolbar {
+    background: #2d2d2d;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #3e3e3e;
+}
+
+.editor-tabs {
+    display: flex;
+    gap: 5px;
+}
+
+.editor-tab {
+    padding: 6px 15px;
+    background: #1e1e1e;
+    border: none;
+    border-radius: 6px 6px 0 0;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+}
+
+.editor-tab.active {
+    background: #1e1e1e;
+    color: #4361ee;
+}
+
+.editor-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.editor-btn {
+    padding: 5px 12px;
+    background: #3e3e3e;
+    border: none;
+    border-radius: 4px;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+}
+
+.editor-btn:hover {
+    background: #4e4e4e;
+    color: white;
+}
+
+.code-editor {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 20px;
+    min-height: 400px;
+    overflow: auto;
+    border: none;
+    outline: none;
+    resize: vertical;
+    tab-size: 4;
+}
+
+.code-output {
+    background: #252525;
+    color: #d4d4d4;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    padding: 15px;
+    min-height: 150px;
+    max-height: 300px;
+    overflow: auto;
+    border-top: 1px solid #3e3e3e;
+}
+
+.output-header {
+    background: #2d2d2d;
+    padding: 8px 15px;
+    font-size: 12px;
+    color: #999;
+    border-bottom: 1px solid #3e3e3e;
+}
+
+.line-numbers {
+    background: #252525;
+    color: #858585;
+    padding: 20px 10px;
+    text-align: right;
+    user-select: none;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    border-right: 1px solid #3e3e3e;
+    float: left;
+}
+
+.editor-with-numbers {
+    display: flex;
+}
+
+.language-selector {
+    background: #3e3e3e;
+    color: #ccc;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.feature-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.feature-item {
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #4361ee;
+}
+
+.feature-item h6 {
+    margin-bottom: 8px;
+    color: #4361ee;
+}
+
+.feature-item p {
+    margin: 0;
+    font-size: 14px;
+    color: #6b7280;
+}
+</style>
+
 {{> sidebar}}
 
 <!-- Main Content Wrapper -->
@@ -10,241 +166,551 @@
     <main class="dashboard-content" id="main-content">
         <div class="container-fluid">
             <!-- Page Header -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <div>
-                    <h1 class="h3 mb-0 text-gray-800">Code editor</h1>
-                </div>
+            <div class="mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Code Editor</h1>
+                <p class="text-muted">Interactive code editor with syntax highlighting (100% jQuery-free)</p>
             </div>
 
-<div class="wrapper">
-        <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <a href="#" class="sidebar-logo">
-                <i class="fas fa-graduation-cap" style="font-size: 1.5rem; color: var(--primary-color);"></i>
-                <span class="sidebar-logo-text">Kiaalap</span>
-            </a>
-        </div>
-
-        <div class="sidebar-menu">
-            <!-- Dashboard Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Main</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#dashboard" class="nav-link active" data-bs-toggle="collapse" aria-expanded="true">
-                            <i class="nav-icon fas fa-home"></i>
-                            <span class="nav-text">Dashboard</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse show" id="dashboard">
-                            <li><a href="index.html" class="nav-link">Dashboard</a></li>
-                            <li><a href="index-1.html" class="nav-link">Dashboard v1</a></li>
-                            <li><a href="index-2.html" class="nav-link">Dashboard v2</a></li>
-                            <li><a href="analytics.html" class="nav-link">Analytics</a></li>
-                            <li><a href="widgets.html" class="nav-link">Widgets</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="events.html" class="nav-link">
-                            <i class="nav-icon fas fa-calendar"></i>
-                            <span class="nav-text">Events</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Academic Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Academic</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#professors" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                            <span class="nav-text">Professors</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="professors">
-                            <li><a href="all-professors.html" class="nav-link">All Professors</a></li>
-                            <li><a href="add-professor.html" class="nav-link">Add Professor</a></li>
-                            <li><a href="edit-professor.html" class="nav-link">Edit Professor</a></li>
-                            <li><a href="professor-profile.html" class="nav-link">Professor Profile</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#students" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-user-graduate"></i>
-                            <span class="nav-text">Students</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="students">
-                            <li><a href="all-students.html" class="nav-link">All Students</a></li>
-                            <li><a href="add-student.html" class="nav-link">Add Student</a></li>
-                            <li><a href="edit-student.html" class="nav-link">Edit Student</a></li>
-                            <li><a href="student-profile.html" class="nav-link">Student Profile</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#courses" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book"></i>
-                            <span class="nav-text">Courses</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="courses">
-                            <li><a href="all-courses.html" class="nav-link">All Courses</a></li>
-                            <li><a href="add-course.html" class="nav-link">Add Course</a></li>
-                            <li><a href="edit-course.html" class="nav-link">Edit Course</a></li>
-                            <li><a href="course-info.html" class="nav-link">Course Info</a></li>
-                            <li><a href="course-payment.html" class="nav-link">Course Payment</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#library" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book-open"></i>
-                            <span class="nav-text">Library</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="library">
-                            <li><a href="library-assets.html" class="nav-link">Library Assets</a></li>
-                            <li><a href="add-library-assets.html" class="nav-link">Add Asset</a></li>
-                            <li><a href="edit-library-assets.html" class="nav-link">Edit Asset</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#departments" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-building"></i>
-                            <span class="nav-text">Departments</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="departments">
-                            <li><a href="departments.html" class="nav-link">All Departments</a></li>
-                            <li><a href="add-department.html" class="nav-link">Add Department</a></li>
-                            <li><a href="edit-department.html" class="nav-link">Edit Department</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Tools Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Tools</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#mailbox" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-envelope"></i>
-                            <span class="nav-text">Mailbox</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="mailbox">
-                            <li><a href="mailbox.html" class="nav-link">Inbox</a></li>
-                            <li><a href="mailbox-compose.html" class="nav-link">Compose</a></li>
-                            <li><a href="mailbox-view.html" class="nav-link">View Mail</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#charts" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chart-line"></i>
-                            <span class="nav-text">Charts</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="charts">
-                            <li><a href="line-charts.html" class="nav-link">Line Charts</a></li>
-                            <li><a href="bar-charts.html" class="nav-link">Bar Charts</a></li>
-                            <li><a href="area-charts.html" class="nav-link">Area Charts</a></li>
-                            <li><a href="c3.html" class="nav-link">C3 Charts</a></li>
-                            <li><a href="peity.html" class="nav-link">Peity Charts</a></li>
-                            <li><a href="sparkline.html" class="nav-link">Sparkline</a></li>
-                            <li><a href="rounded-chart.html" class="nav-link">Rounded Chart</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#tables" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-table"></i>
-                            <span class="nav-text">Tables</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="tables">
-                            <li><a href="static-table.html" class="nav-link">Basic Tables</a></li>
-                            <li><a href="data-table.html" class="nav-link">Data Tables</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </aside>
-
-        <div class="main-content">
-            <header class="header">
-            <div class="header-left">
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-
-                <form class="search-form">
-                    <i class="search-icon fas fa-search"></i>
-                    <input type="text" class="search-input" placeholder="Search...">
-                </form>
-            </div>
-
-            <div class="header-right">
-                <button class="header-btn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge"></span>
-                </button>
-
-                <button class="header-btn">
-                    <i class="fas fa-envelope"></i>
-                </button>
-
-                <button class="header-btn">
-                    <i class="fas fa-cog"></i>
-                </button>
-
-                <div class="dropdown">
-                    <div class="user-menu" data-bs-toggle="dropdown">
-                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=4361ee&color=fff" alt="User" class="user-avatar">
-                        <div class="user-info">
-                            <span class="user-name">John Doe</span>
-                            <span class="user-role">Administrator</span>
+            <!-- Main Code Editor -->
+            <div class="editor-demo-card">
+                <h5 class="mb-3">JavaScript Editor</h5>
+                <div class="code-editor-container">
+                    <div class="editor-toolbar">
+                        <div class="editor-tabs">
+                            <button class="editor-tab active" data-lang="javascript">script.js</button>
+                            <button class="editor-tab" data-lang="html">index.html</button>
+                            <button class="editor-tab" data-lang="css">styles.css</button>
                         </div>
-                        <i class="fas fa-chevron-down ms-2" style="font-size: 0.75rem; color: #6b7280;"></i>
+                        <div class="editor-actions">
+                            <select class="language-selector" id="languageSelect">
+                                <option value="javascript">JavaScript</option>
+                                <option value="html">HTML</option>
+                                <option value="css">CSS</option>
+                                <option value="python">Python</option>
+                            </select>
+                            <button class="editor-btn" id="formatBtn">
+                                <i class="bi bi-code-square"></i> Format
+                            </button>
+                            <button class="editor-btn" id="copyBtn">
+                                <i class="bi bi-clipboard"></i> Copy
+                            </button>
+                            <button class="editor-btn" id="runBtn">
+                                <i class="bi bi-play-fill"></i> Run
+                            </button>
+                        </div>
                     </div>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
-                    </ul>
+                    <textarea class="code-editor" id="codeEditor" spellcheck="false">// Welcome to the Code Editor!
+// Type your JavaScript code here
+
+function greet(name) {
+    return `Hello, ${name}! Welcome to Kiaalap Education Platform.`;
+}
+
+// Example usage
+const message = greet('Student');
+console.log(message);
+
+// Array operations
+const courses = ['Computer Science', 'Mathematics', 'Physics'];
+courses.forEach(course => {
+    console.log(`📚 Course: ${course}`);
+});
+
+// Object example
+const student = {
+    name: 'John Doe',
+    id: 12345,
+    grade: 'A',
+    displayInfo() {
+        console.log(`Student: ${this.name}, ID: ${this.id}, Grade: ${this.grade}`);
+    }
+};
+
+student.displayInfo();</textarea>
+                    <div class="output-header">
+                        <i class="bi bi-terminal"></i> Console Output
+                    </div>
+                    <div class="code-output" id="codeOutput">
+                        <div style="color: #999;">// Click "Run" to execute the code...</div>
+                    </div>
                 </div>
             </div>
-        </header>
 
-            <div class="content-wrapper">
-                <div class="container-fluid p-4">
-                    
-        <div class="container-fluid">
+            <!-- HTML Editor -->
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="logo-pro">
-                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                    
+                <div class="col-lg-6">
+                    <div class="editor-demo-card">
+                        <h5 class="mb-3">HTML Editor</h5>
+                        <div class="code-editor-container">
+                            <div class="editor-toolbar">
+                                <div class="editor-tabs">
+                                    <button class="editor-tab active">index.html</button>
+                                </div>
+                                <div class="editor-actions">
+                                    <button class="editor-btn" id="copyHtml">
+                                        <i class="bi bi-clipboard"></i> Copy
+                                    </button>
+                                </div>
+                            </div>
+                            <textarea class="code-editor" id="htmlEditor" style="min-height: 250px;" spellcheck="false"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Webpage</title>
+</head>
+<body>
+    <h1>Welcome to My Website</h1>
+    <p>This is a sample HTML document.</p>
+    <button onclick="alert('Hello!')">Click Me</button>
+</body>
+</html></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="editor-demo-card">
+                        <h5 class="mb-3">CSS Editor</h5>
+                        <div class="code-editor-container">
+                            <div class="editor-toolbar">
+                                <div class="editor-tabs">
+                                    <button class="editor-tab active">styles.css</button>
+                                </div>
+                                <div class="editor-actions">
+                                    <button class="editor-btn" id="copyCss">
+                                        <i class="bi bi-clipboard"></i> Copy
+                                    </button>
+                                </div>
+                            </div>
+                            <textarea class="code-editor" id="cssEditor" style="min-height: 250px;" spellcheck="false">/* Modern CSS Styles */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+button {
+    background: #4361ee;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #3451d1;
+}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Editor Features -->
+            <div class="editor-demo-card">
+                <h5 class="mb-3">Editor Features</h5>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <h6><i class="bi bi-code-slash me-2"></i>Syntax Support</h6>
+                        <p>Support for JavaScript, HTML, CSS, and more</p>
+                    </div>
+                    <div class="feature-item">
+                        <h6><i class="bi bi-play-circle me-2"></i>Code Execution</h6>
+                        <p>Run JavaScript code directly in the browser</p>
+                    </div>
+                    <div class="feature-item">
+                        <h6><i class="bi bi-clipboard-check me-2"></i>Copy to Clipboard</h6>
+                        <p>Easily copy code with one click</p>
+                    </div>
+                    <div class="feature-item">
+                        <h6><i class="bi bi-terminal me-2"></i>Console Output</h6>
+                        <p>View console logs and errors in real-time</p>
+                    </div>
+                    <div class="feature-item">
+                        <h6><i class="bi bi-file-code me-2"></i>Multiple Files</h6>
+                        <p>Work with multiple files using tabs</p>
+                    </div>
+                    <div class="feature-item">
+                        <h6><i class="bi bi-keyboard me-2"></i>Keyboard Shortcuts</h6>
+                        <p>Efficient editing with keyboard support</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Bootstrap 5.3.8 Bundle (no jQuery needed) -->
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Modern Scripts -->        </div>
     </main>
 
     {{> footer}}
 </div>
 
 {{> scripts}}
+
+<script>
+// Code Editor functionality (Vanilla JavaScript)
+document.addEventListener('DOMContentLoaded', function() {
+    const codeEditor = document.getElementById('codeEditor');
+    const codeOutput = document.getElementById('codeOutput');
+    const runBtn = document.getElementById('runBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const formatBtn = document.getElementById('formatBtn');
+    const copyHtml = document.getElementById('copyHtml');
+    const copyCss = document.getElementById('copyCss');
+
+    // Run code button
+    runBtn.addEventListener('click', function() {
+        const code = codeEditor.value;
+        codeOutput.innerHTML = '';
+
+        // Override console.log to capture output
+        const logs = [];
+        const originalLog = console.log;
+        console.log = function(...args) {
+            logs.push(args.map(arg => {
+                if (typeof arg === 'object') {
+                    return JSON.stringify(arg, null, 2);
+                }
+                return String(arg);
+            }).join(' '));
+            originalLog.apply(console, args);
+        };
+
+        try {
+            // Execute the code
+            eval(code);
+
+            // Display output
+            if (logs.length > 0) {
+                codeOutput.innerHTML = logs.map(log =>
+                    `<div style="color: #98c379; margin-bottom: 5px;">${escapeHtml(log)}</div>`
+                ).join('');
+            } else {
+                codeOutput.innerHTML = '<div style="color: #999;">// No output</div>';
+            }
+        } catch (error) {
+            codeOutput.innerHTML = `<div style="color: #e06c75;">❌ Error: ${escapeHtml(error.message)}</div>`;
+        }
+
+        // Restore console.log
+        console.log = originalLog;
+    });
+
+    // Copy button
+    copyBtn.addEventListener('click', function() {
+        copyToClipboard(codeEditor.value);
+        showNotification('Code copied to clipboard!');
+    });
+
+    // Copy HTML button
+    copyHtml.addEventListener('click', function() {
+        const htmlEditor = document.getElementById('htmlEditor');
+        copyToClipboard(htmlEditor.value);
+        showNotification('HTML copied to clipboard!');
+    });
+
+    // Copy CSS button
+    copyCss.addEventListener('click', function() {
+        const cssEditor = document.getElementById('cssEditor');
+        copyToClipboard(cssEditor.value);
+        showNotification('CSS copied to clipboard!');
+    });
+
+    // Format button (basic indentation)
+    formatBtn.addEventListener('click', function() {
+        try {
+            const code = codeEditor.value;
+            // Basic formatting - just add indentation after braces
+            let formatted = code
+                .split('\n')
+                .map(line => line.trim())
+                .join('\n');
+            codeEditor.value = formatted;
+            showNotification('Code formatted!');
+        } catch (error) {
+            showNotification('Could not format code', 'error');
+        }
+    });
+
+    // Tab key support
+    codeEditor.addEventListener('keydown', function(e) {
+        if (e.key === 'Tab') {
+            e.preventDefault();
+            const start = this.selectionStart;
+            const end = this.selectionEnd;
+            const value = this.value;
+
+            // Insert tab character
+            this.value = value.substring(0, start) + '    ' + value.substring(end);
+            this.selectionStart = this.selectionEnd = start + 4;
+        }
+    });
+
+    // Helper functions
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).catch(err => {
+            console.error('Failed to copy:', err);
+        });
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function showNotification(message, type = 'success') {
+        const notification = document.createElement('div');
+        notification.className = 'alert alert-' + type;
+        notification.style.position = 'fixed';
+        notification.style.top = '20px';
+        notification.style.right = '20px';
+        notification.style.zIndex = '9999';
+        notification.style.minWidth = '250px';
+        notification.innerHTML = `
+            <i class="bi bi-${type === 'success' ? 'check-circle' : 'x-circle'} me-2"></i>
+            ${message}
+        `;
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            notification.style.transition = 'opacity 0.3s';
+            setTimeout(() => notification.remove(), 300);
+        }, 2000);
+    }
+
+    // Store code for each file
+    const codeFiles = {
+        javascript: `// Welcome to the Code Editor!
+// Type your JavaScript code here
+
+function greet(name) {
+    return \`Hello, \${name}! Welcome to Kiaalap Education Platform.\`;
+}
+
+// Example usage
+const message = greet('Student');
+console.log(message);
+
+// Array operations
+const courses = ['Computer Science', 'Mathematics', 'Physics'];
+courses.forEach(course => {
+    console.log(\`📚 Course: \${course}\`);
+});
+
+// Object example
+const student = {
+    name: 'John Doe',
+    id: 12345,
+    grade: 'A',
+    displayInfo() {
+        console.log(\`Student: \${this.name}, ID: \${this.id}, Grade: \${this.grade}\`);
+    }
+};
+
+student.displayInfo();`,
+        html: `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal - Kiaalap</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>🎓 Kiaalap Education Platform</h1>
+        <nav>
+            <a href="#courses">Courses</a>
+            <a href="#grades">Grades</a>
+            <a href="#schedule">Schedule</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="welcome">
+            <h2>Welcome Back, Student!</h2>
+            <p>You have 3 assignments due this week.</p>
+            <button onclick="alert('Feature coming soon!')">View Assignments</button>
+        </section>
+
+        <section id="courses">
+            <h2>Your Courses</h2>
+            <div class="course-grid">
+                <div class="course-card">
+                    <h3>Computer Science 101</h3>
+                    <p>Prof. Johnson</p>
+                </div>
+                <div class="course-card">
+                    <h3>Mathematics 201</h3>
+                    <p>Prof. Smith</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Kiaalap Education Platform</p>
+    </footer>
+</body>
+</html>`,
+        css: `/* Modern Education Platform Styles */
+
+:root {
+    --primary-color: #4361ee;
+    --secondary-color: #3a0ca3;
+    --success-color: #06d6a0;
+    --background: #f8f9fa;
+    --text-color: #1f2937;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--background);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: background 0.3s;
+}
+
+nav a:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+section {
+    background: white;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.course-card {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+button {
+    background: var(--success-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #05b589;
+    transform: scale(1.05);
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    background: #1f2937;
+    color: white;
+    margin-top: 3rem;
+}`
+    };
+
+    let currentFile = 'javascript';
+
+    // Tab switching with content update
+    document.querySelectorAll('.editor-tab[data-lang]').forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Save current content before switching
+            codeFiles[currentFile] = codeEditor.value;
+
+            // Get the language from data-lang attribute
+            const lang = this.getAttribute('data-lang');
+
+            // Update active state
+            document.querySelectorAll('.editor-tab[data-lang]').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+
+            // Update editor content
+            currentFile = lang;
+            codeEditor.value = codeFiles[lang];
+
+            // Update language selector
+            languageSelect.value = lang;
+
+            // Clear output when switching files
+            codeOutput.innerHTML = '<div style="color: #999;">// Click "Run" to execute the code...</div>';
+
+            // Show notification
+            const fileNames = {
+                javascript: 'script.js',
+                html: 'index.html',
+                css: 'styles.css'
+            };
+            showNotification(`Switched to ${fileNames[lang]}`, 'success');
+        });
+    });
+
+    // Sync language selector with tabs
+    languageSelect.addEventListener('change', function() {
+        const lang = this.value;
+        const tab = document.querySelector(`.editor-tab[data-lang="${lang}"]`);
+        if (tab) {
+            tab.click();
+        }
+    });
+});
+</script>

@@ -1,5 +1,85 @@
 {{> head}}
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<style>
+/* Data Map Styles */
+.data-map-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.map-container {
+    height: 400px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+
+.map-legend {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 15px;
+}
+
+.legend-title {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.legend-color {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.data-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.stat-card {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #4361ee;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.heatmap-info {
+    background: #e0e7ff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+</style>
+
 {{> sidebar}}
 
 <!-- Main Content Wrapper -->
@@ -10,241 +90,237 @@
     <main class="dashboard-content" id="main-content">
         <div class="container-fluid">
             <!-- Page Header -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <div>
-                    <h1 class="h3 mb-0 text-gray-800">Data maps</h1>
-                </div>
+            <div class="mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Data Visualization Maps</h1>
+                <p class="text-muted">Interactive data maps with visualization layers (100% jQuery-free)</p>
             </div>
 
-<div class="wrapper">
-        <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <a href="#" class="sidebar-logo">
-                <i class="fas fa-graduation-cap" style="font-size: 1.5rem; color: var(--primary-color);"></i>
-                <span class="sidebar-logo-text">Kiaalap</span>
-            </a>
-        </div>
-
-        <div class="sidebar-menu">
-            <!-- Dashboard Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Main</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#dashboard" class="nav-link active" data-bs-toggle="collapse" aria-expanded="true">
-                            <i class="nav-icon fas fa-home"></i>
-                            <span class="nav-text">Dashboard</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse show" id="dashboard">
-                            <li><a href="index.html" class="nav-link">Dashboard</a></li>
-                            <li><a href="index-1.html" class="nav-link">Dashboard v1</a></li>
-                            <li><a href="index-2.html" class="nav-link">Dashboard v2</a></li>
-                            <li><a href="analytics.html" class="nav-link">Analytics</a></li>
-                            <li><a href="widgets.html" class="nav-link">Widgets</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="events.html" class="nav-link">
-                            <i class="nav-icon fas fa-calendar"></i>
-                            <span class="nav-text">Events</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Academic Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Academic</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#professors" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                            <span class="nav-text">Professors</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="professors">
-                            <li><a href="all-professors.html" class="nav-link">All Professors</a></li>
-                            <li><a href="add-professor.html" class="nav-link">Add Professor</a></li>
-                            <li><a href="edit-professor.html" class="nav-link">Edit Professor</a></li>
-                            <li><a href="professor-profile.html" class="nav-link">Professor Profile</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#students" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-user-graduate"></i>
-                            <span class="nav-text">Students</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="students">
-                            <li><a href="all-students.html" class="nav-link">All Students</a></li>
-                            <li><a href="add-student.html" class="nav-link">Add Student</a></li>
-                            <li><a href="edit-student.html" class="nav-link">Edit Student</a></li>
-                            <li><a href="student-profile.html" class="nav-link">Student Profile</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#courses" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book"></i>
-                            <span class="nav-text">Courses</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="courses">
-                            <li><a href="all-courses.html" class="nav-link">All Courses</a></li>
-                            <li><a href="add-course.html" class="nav-link">Add Course</a></li>
-                            <li><a href="edit-course.html" class="nav-link">Edit Course</a></li>
-                            <li><a href="course-info.html" class="nav-link">Course Info</a></li>
-                            <li><a href="course-payment.html" class="nav-link">Course Payment</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#library" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book-open"></i>
-                            <span class="nav-text">Library</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="library">
-                            <li><a href="library-assets.html" class="nav-link">Library Assets</a></li>
-                            <li><a href="add-library-assets.html" class="nav-link">Add Asset</a></li>
-                            <li><a href="edit-library-assets.html" class="nav-link">Edit Asset</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#departments" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-building"></i>
-                            <span class="nav-text">Departments</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="departments">
-                            <li><a href="departments.html" class="nav-link">All Departments</a></li>
-                            <li><a href="add-department.html" class="nav-link">Add Department</a></li>
-                            <li><a href="edit-department.html" class="nav-link">Edit Department</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Tools Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Tools</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#mailbox" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-envelope"></i>
-                            <span class="nav-text">Mailbox</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="mailbox">
-                            <li><a href="mailbox.html" class="nav-link">Inbox</a></li>
-                            <li><a href="mailbox-compose.html" class="nav-link">Compose</a></li>
-                            <li><a href="mailbox-view.html" class="nav-link">View Mail</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#charts" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chart-line"></i>
-                            <span class="nav-text">Charts</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="charts">
-                            <li><a href="line-charts.html" class="nav-link">Line Charts</a></li>
-                            <li><a href="bar-charts.html" class="nav-link">Bar Charts</a></li>
-                            <li><a href="area-charts.html" class="nav-link">Area Charts</a></li>
-                            <li><a href="c3.html" class="nav-link">C3 Charts</a></li>
-                            <li><a href="peity.html" class="nav-link">Peity Charts</a></li>
-                            <li><a href="sparkline.html" class="nav-link">Sparkline</a></li>
-                            <li><a href="rounded-chart.html" class="nav-link">Rounded Chart</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#tables" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-table"></i>
-                            <span class="nav-text">Tables</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="tables">
-                            <li><a href="static-table.html" class="nav-link">Basic Tables</a></li>
-                            <li><a href="data-table.html" class="nav-link">Data Tables</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </aside>
-
-        <div class="main-content">
-            <header class="header">
-            <div class="header-left">
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-
-                <form class="search-form">
-                    <i class="search-icon fas fa-search"></i>
-                    <input type="text" class="search-input" placeholder="Search...">
-                </form>
-            </div>
-
-            <div class="header-right">
-                <button class="header-btn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge"></span>
-                </button>
-
-                <button class="header-btn">
-                    <i class="fas fa-envelope"></i>
-                </button>
-
-                <button class="header-btn">
-                    <i class="fas fa-cog"></i>
-                </button>
-
-                <div class="dropdown">
-                    <div class="user-menu" data-bs-toggle="dropdown">
-                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=4361ee&color=fff" alt="User" class="user-avatar">
-                        <div class="user-info">
-                            <span class="user-name">John Doe</span>
-                            <span class="user-role">Administrator</span>
-                        </div>
-                        <i class="fas fa-chevron-down ms-2" style="font-size: 0.75rem; color: #6b7280;"></i>
+            <!-- Student Distribution Map -->
+            <div class="data-map-card">
+                <h5 class="mb-0">Student Distribution by Location</h5>
+                <p class="text-muted small">Interactive map showing student enrollment across regions</p>
+                <div id="studentMap" class="map-container"></div>
+                <div class="map-legend">
+                    <div class="legend-title">Enrollment Levels</div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #10b981;"></div>
+                        <span>High (500+ students)</span>
                     </div>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
-                    </ul>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #f59e0b;"></div>
+                        <span>Medium (200-500 students)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #ef4444;"></div>
+                        <span>Low (0-200 students)</span>
+                    </div>
+                </div>
+                <div class="data-stats">
+                    <div class="stat-card">
+                        <div class="stat-value">2,450</div>
+                        <div class="stat-label">Total Students</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Locations</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">85%</div>
+                        <div class="stat-label">Urban Coverage</div>
+                    </div>
                 </div>
             </div>
-        </header>
 
-            <div class="content-wrapper">
-                <div class="container-fluid p-4">
-                    
-        <div class="container-fluid">
+            <!-- Campus Activity Heatmap -->
+            <div class="data-map-card">
+                <h5 class="mb-0">Campus Activity Heatmap</h5>
+                <p class="text-muted small">Real-time visualization of campus foot traffic</p>
+                <div id="heatmapMap" class="map-container"></div>
+                <div class="heatmap-info">
+                    <i class="bi bi-info-circle me-2"></i>
+                    <strong>Note:</strong> This heatmap shows simulated activity patterns across campus facilities. Darker areas indicate higher activity levels.
+                </div>
+            </div>
+
+            <!-- Performance Data Map -->
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="logo-pro">
-                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                    
+                <div class="col-lg-6">
+                    <div class="data-map-card">
+                        <h5 class="mb-3">Department Locations</h5>
+                        <div id="departmentMap" class="map-container" style="height: 300px;"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="data-map-card">
+                        <h5 class="mb-3">Research Centers</h5>
+                        <div id="researchMap" class="map-container" style="height: 300px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Insights -->
+            <div class="data-map-card">
+                <h5 class="mb-3">Data Insights</h5>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <i class="bi bi-people-fill text-primary" style="font-size: 48px;"></i>
+                            <h4 class="mt-3">2,450</h4>
+                            <p class="text-muted">Active Students</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <i class="bi bi-geo-alt-fill text-success" style="font-size: 48px;"></i>
+                            <h4 class="mt-3">12</h4>
+                            <p class="text-muted">Campus Locations</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <i class="bi bi-building text-warning" style="font-size: 48px;"></i>
+                            <h4 class="mt-3">8</h4>
+                            <p class="text-muted">Departments</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <i class="bi bi-graph-up text-info" style="font-size: 48px;"></i>
+                            <h4 class="mt-3">92%</h4>
+                            <p class="text-muted">Satisfaction Rate</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Bootstrap 5.3.8 Bundle (no jQuery needed) -->
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Modern Scripts -->        </div>
     </main>
 
     {{> footer}}
 </div>
 
 {{> scripts}}
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+// Data Visualization Maps (Vanilla JavaScript)
+document.addEventListener('DOMContentLoaded', function() {
+    const centerCoords = [37.7749, -122.4194];
+
+    // Student Distribution Map
+    const studentMap = L.map('studentMap').setView(centerCoords, 11);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(studentMap);
+
+    // Sample data points for student distribution
+    const studentData = [
+        { coords: [37.7749, -122.4194], count: 580, name: 'Main Campus' },
+        { coords: [37.7849, -122.4094], count: 420, name: 'North Campus' },
+        { coords: [37.7649, -122.4294], count: 350, name: 'South Campus' },
+        { coords: [37.7949, -122.4394], count: 180, name: 'West Campus' },
+        { coords: [37.7549, -122.3994], count: 520, name: 'East Campus' },
+        { coords: [37.8049, -122.4194], count: 400, name: 'Extension Center' }
+    ];
+
+    studentData.forEach(location => {
+        const color = location.count > 500 ? '#10b981' :
+                     location.count > 200 ? '#f59e0b' : '#ef4444';
+
+        const circle = L.circle(location.coords, {
+            color: color,
+            fillColor: color,
+            fillOpacity: 0.6,
+            radius: location.count * 2
+        }).addTo(studentMap);
+
+        circle.bindPopup(`
+            <b>${location.name}</b><br>
+            Students: ${location.count}<br>
+            <small>Click for more details</small>
+        `);
+
+        // Add marker
+        L.marker(location.coords).addTo(studentMap)
+            .bindPopup(`<b>${location.name}</b><br>${location.count} students`);
+    });
+
+    // Campus Activity Heatmap
+    const heatmapMap = L.map('heatmapMap').setView(centerCoords, 15);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(heatmapMap);
+
+    // Simulate heatmap with circles
+    const heatmapData = [
+        { coords: [37.7749, -122.4194], intensity: 0.9, name: 'Library' },
+        { coords: [37.7759, -122.4184], intensity: 0.7, name: 'Cafeteria' },
+        { coords: [37.7739, -122.4204], intensity: 0.8, name: 'Gym' },
+        { coords: [37.7769, -122.4174], intensity: 0.6, name: 'Lab Building' },
+        { coords: [37.7729, -122.4214], intensity: 0.5, name: 'Student Center' }
+    ];
+
+    heatmapData.forEach(point => {
+        const opacity = point.intensity;
+        const radius = point.intensity * 150;
+
+        L.circle(point.coords, {
+            color: '#ef4444',
+            fillColor: '#ef4444',
+            fillOpacity: opacity * 0.5,
+            radius: radius,
+            weight: 1
+        }).addTo(heatmapMap).bindPopup(`
+            <b>${point.name}</b><br>
+            Activity Level: ${(point.intensity * 100).toFixed(0)}%
+        `);
+    });
+
+    // Department Map
+    const departmentMap = L.map('departmentMap').setView(centerCoords, 14);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(departmentMap);
+
+    const departments = [
+        { coords: [37.7749, -122.4194], name: 'Computer Science', icon: '💻' },
+        { coords: [37.7769, -122.4174], name: 'Engineering', icon: '⚙️' },
+        { coords: [37.7729, -122.4214], name: 'Business', icon: '💼' },
+        { coords: [37.7789, -122.4204], name: 'Arts', icon: '🎨' }
+    ];
+
+    departments.forEach(dept => {
+        L.marker(dept.coords).addTo(departmentMap)
+            .bindPopup(`<b>${dept.icon} ${dept.name}</b>`);
+    });
+
+    // Research Centers Map
+    const researchMap = L.map('researchMap').setView(centerCoords, 14);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(researchMap);
+
+    const researchCenters = [
+        { coords: [37.7759, -122.4184], name: 'AI Research Lab', projects: 12 },
+        { coords: [37.7739, -122.4204], name: 'Biotech Center', projects: 8 },
+        { coords: [37.7779, -122.4164], name: 'Data Science Hub', projects: 15 }
+    ];
+
+    researchCenters.forEach(center => {
+        const marker = L.marker(center.coords).addTo(researchMap);
+        marker.bindPopup(`
+            <b>🔬 ${center.name}</b><br>
+            Active Projects: ${center.projects}<br>
+            <a href="#" class="text-primary">View Details</a>
+        `);
+
+        // Add circle to show research area
+        L.circle(center.coords, {
+            color: '#4361ee',
+            fillColor: '#4361ee',
+            fillOpacity: 0.2,
+            radius: 200
+        }).addTo(researchMap);
+    });
+});
+</script>

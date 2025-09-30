@@ -1,5 +1,35 @@
 {{> head}}
 
+<style>
+/* Notification Demo Styles */
+.notification-demo-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.toast-container-demo {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.demo-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Alert Styles */
+.alert-dismissible {
+    position: relative;
+    padding-right: 3rem;
+}
+</style>
+
 {{> sidebar}}
 
 <!-- Main Content Wrapper -->
@@ -10,228 +40,196 @@
     <main class="dashboard-content" id="main-content">
         <div class="container-fluid">
             <!-- Page Header -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <div>
-                    <h1 class="h3 mb-0 text-gray-800">Notifications</h1>
+            <div class="mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Notifications & Toasts</h1>
+                <p class="text-muted">Bootstrap 5 notification and toast components (100% jQuery-free)</p>
+            </div>
+
+            <!-- Bootstrap 5 Alerts -->
+            <div class="notification-demo-card">
+                <h5 class="mb-3">Bootstrap 5 Alerts</h5>
+                <div class="alert alert-primary" role="alert">
+                    <i class="bi bi-info-circle me-2"></i>
+                    A simple primary alert - check it out!
+                </div>
+                <div class="alert alert-secondary" role="alert">
+                    <i class="bi bi-info-circle me-2"></i>
+                    A simple secondary alert - check it out!
+                </div>
+                <div class="alert alert-success" role="alert">
+                    <i class="bi bi-check-circle me-2"></i>
+                    A simple success alert - check it out!
+                </div>
+                <div class="alert alert-danger" role="alert">
+                    <i class="bi bi-x-circle me-2"></i>
+                    A simple danger alert - check it out!
+                </div>
+                <div class="alert alert-warning" role="alert">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    A simple warning alert - check it out!
+                </div>
+                <div class="alert alert-info" role="alert">
+                    <i class="bi bi-info-circle me-2"></i>
+                    A simple info alert - check it out!
                 </div>
             </div>
 
-<div class="wrapper">
-        <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <a href="index.html" class="sidebar-logo">
-                <i class="fas fa-graduation-cap" style="font-size: 1.5rem; color: var(--primary-color);"></i>
-                <span class="sidebar-logo-text">Kiaalap</span>
-            </a>
-        </div>
-
-        <div class="sidebar-menu">
-            <!-- Dashboard Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Main</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#dashboard" class="nav-link active" data-bs-toggle="collapse" aria-expanded="true">
-                            <i class="nav-icon fas fa-home"></i>
-                            <span class="nav-text">Dashboard</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse show" id="dashboard">
-                            <li><a href="analytics.html" class="nav-link">Analytics</a></li>
-                            <li><a href="index-1.html" class="nav-link">Reports</a></li>
-                            <li><a href="widgets.html" class="nav-link">Widgets</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="events.html" class="nav-link">
-                            <i class="nav-icon fas fa-calendar"></i>
-                            <span class="nav-text">Events</span>
-                        </a>
-                    </li>
-                </ul>
+            <!-- Dismissible Alerts -->
+            <div class="notification-demo-card">
+                <h5 class="mb-3">Dismissible Alerts</h5>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="bi bi-check-circle me-2"></i>
+                    <strong>Well done!</strong> You successfully read this important alert message.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    <strong>Warning!</strong> Better check yourself, you're not looking too good.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="bi bi-x-circle me-2"></i>
+                    <strong>Oh snap!</strong> Change a few things up and try submitting again.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             </div>
 
-            <!-- Academic Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Academic</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#professors" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                            <span class="nav-text">Professors</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="professors">
-                            <li><a href="all-professors.html" class="nav-link">All Professors</a></li>
-                            <li><a href="add-professor.html" class="nav-link">Add Professor</a></li>
-                            <li><a href="edit-professor.html" class="nav-link">Edit Professor</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#students" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-user-graduate"></i>
-                            <span class="nav-text">Students</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="students">
-                            <li><a href="all-students.html" class="nav-link">All Students</a></li>
-                            <li><a href="add-student.html" class="nav-link">Add Student</a></li>
-                            <li><a href="student-profile.html" class="nav-link">Student Profile</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#courses" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book"></i>
-                            <span class="nav-text">Courses</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="courses">
-                            <li><a href="all-courses.html" class="nav-link">All Courses</a></li>
-                            <li><a href="add-course.html" class="nav-link">Add Course</a></li>
-                            <li><a href="course-info.html" class="nav-link">Course Info</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#library" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book-open"></i>
-                            <span class="nav-text">Library</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="library">
-                            <li><a href="library-assets.html" class="nav-link">Library Assets</a></li>
-                            <li><a href="add-library-assets.html" class="nav-link">Add Asset</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#departments" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-building"></i>
-                            <span class="nav-text">Departments</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="departments">
-                            <li><a href="departments.html" class="nav-link">All Departments</a></li>
-                            <li><a href="add-department.html" class="nav-link">Add Department</a></li>
-                        </ul>
-                    </li>
-                </ul>
+            <!-- Alert with Additional Content -->
+            <div class="notification-demo-card">
+                <h5 class="mb-3">Alert with Additional Content</h5>
+                <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">Well done!</h4>
+                    <p>Aww yeah, you successfully completed the course module. This alert has additional content to give you more details about the achievement.</p>
+                    <hr>
+                    <p class="mb-0">You can now proceed to the next module and continue your learning journey.</p>
+                </div>
             </div>
 
-            <!-- Tools Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Tools</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#mailbox" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-envelope"></i>
-                            <span class="nav-text">Mailbox</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="mailbox">
-                            <li><a href="mailbox.html" class="nav-link">Inbox</a></li>
-                            <li><a href="mailbox-compose.html" class="nav-link">Compose</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#charts" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chart-line"></i>
-                            <span class="nav-text">Charts</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="charts">
-                            <li><a href="line-charts.html" class="nav-link">Line Charts</a></li>
-                            <li><a href="bar-charts.html" class="nav-link">Bar Charts</a></li>
-                            <li><a href="area-charts.html" class="nav-link">Area Charts</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#tables" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-table"></i>
-                            <span class="nav-text">Tables</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="tables">
-                            <li><a href="static-table.html" class="nav-link">Basic Tables</a></li>
-                            <li><a href="data-table.html" class="nav-link">Data Tables</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </aside>
-
-        <div class="main-content">
-            <header class="header">
-            <div class="header-left">
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-
-                <form class="search-form">
-                    <i class="search-icon fas fa-search"></i>
-                    <input type="text" class="search-input" placeholder="Search...">
-                </form>
+            <!-- Bootstrap 5 Toasts Demo -->
+            <div class="notification-demo-card">
+                <h5 class="mb-3">Bootstrap 5 Toasts</h5>
+                <p class="text-muted">Click the buttons below to trigger toast notifications:</p>
+                <div class="demo-buttons">
+                    <button type="button" class="btn btn-primary" id="showToast1">
+                        <i class="bi bi-bell me-2"></i>Show Basic Toast
+                    </button>
+                    <button type="button" class="btn btn-success" id="showToast2">
+                        <i class="bi bi-check-circle me-2"></i>Show Success Toast
+                    </button>
+                    <button type="button" class="btn btn-warning" id="showToast3">
+                        <i class="bi bi-exclamation-triangle me-2"></i>Show Warning Toast
+                    </button>
+                    <button type="button" class="btn btn-danger" id="showToast4">
+                        <i class="bi bi-x-circle me-2"></i>Show Error Toast
+                    </button>
+                    <button type="button" class="btn btn-info" id="showToast5">
+                        <i class="bi bi-info-circle me-2"></i>Show Info Toast
+                    </button>
+                </div>
             </div>
 
-            <div class="header-right">
-                <button class="header-btn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge"></span>
-                </button>
-
-                <button class="header-btn">
-                    <i class="fas fa-envelope"></i>
-                </button>
-
-                <button class="header-btn">
-                    <i class="fas fa-cog"></i>
-                </button>
-
-                <div class="dropdown">
-                    <div class="user-menu" data-bs-toggle="dropdown">
-                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=4361ee&color=fff" alt="User" class="user-avatar">
-                        <div class="user-info">
-                            <span class="user-name">John Doe</span>
-                            <span class="user-role">Administrator</span>
+            <!-- Notification Examples -->
+            <div class="notification-demo-card">
+                <h5 class="mb-3">Notification List</h5>
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1"><i class="bi bi-envelope text-primary me-2"></i>New message received</h6>
+                            <small>3 mins ago</small>
                         </div>
-                        <i class="fas fa-chevron-down ms-2" style="font-size: 0.75rem; color: #6b7280;"></i>
-                    </div>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-        </header>
-
-            <div class="content-wrapper">
-                <div class="container-fluid p-4">
-                    
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="logo-pro">
-                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                    
+                        <p class="mb-1 text-muted">You have a new message from John Doe</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1"><i class="bi bi-check-circle text-success me-2"></i>Course completed</h6>
+                            <small class="text-muted">1 hour ago</small>
+                        </div>
+                        <p class="mb-1 text-muted">You have successfully completed the Data Structures course</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1"><i class="bi bi-exclamation-triangle text-warning me-2"></i>Assignment due soon</h6>
+                            <small class="text-muted">2 hours ago</small>
+                        </div>
+                        <p class="mb-1 text-muted">Your assignment is due in 2 days</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1"><i class="bi bi-calendar text-info me-2"></i>Upcoming event</h6>
+                            <small class="text-muted">5 hours ago</small>
+                        </div>
+                        <p class="mb-1 text-muted">Don't forget about tomorrow's lecture at 10:00 AM</p>
+                    </a>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Bootstrap 5.3.8 Bundle (no jQuery needed) -->
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Modern Scripts -->        </div>
     </main>
 
     {{> footer}}
 </div>
 
+<!-- Toast Container -->
+<div class="toast-container-demo" id="toastContainer"></div>
+
 {{> scripts}}
+
+<script>
+// Toast Notifications (Vanilla JavaScript)
+document.addEventListener('DOMContentLoaded', function() {
+    const toastContainer = document.getElementById('toastContainer');
+
+    // Function to create and show toast
+    function showToast(message, type, icon) {
+        const toastId = 'toast_' + Date.now();
+        const bgClass = type === 'success' ? 'bg-success' :
+                       type === 'warning' ? 'bg-warning' :
+                       type === 'danger' ? 'bg-danger' :
+                       type === 'info' ? 'bg-info' : 'bg-primary';
+
+        const toastHTML = `
+            <div id="${toastId}" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header ${bgClass} text-white">
+                    <i class="bi ${icon} me-2"></i>
+                    <strong class="me-auto">Notification</strong>
+                    <small>Just now</small>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    ${message}
+                </div>
+            </div>
+        `;
+
+        toastContainer.insertAdjacentHTML('beforeend', toastHTML);
+        const toastElement = document.getElementById(toastId);
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
+
+        // Remove toast element after it's hidden
+        toastElement.addEventListener('hidden.bs.toast', function() {
+            toastElement.remove();
+        });
+    }
+
+    // Toast button handlers
+    document.getElementById('showToast1').addEventListener('click', function() {
+        showToast('This is a basic toast notification. It will automatically dismiss after a few seconds.', 'primary', 'bi-bell');
+    });
+
+    document.getElementById('showToast2').addEventListener('click', function() {
+        showToast('Success! Your changes have been saved successfully.', 'success', 'bi-check-circle');
+    });
+
+    document.getElementById('showToast3').addEventListener('click', function() {
+        showToast('Warning! Please review your input before submitting.', 'warning', 'bi-exclamation-triangle');
+    });
+
+    document.getElementById('showToast4').addEventListener('click', function() {
+        showToast('Error! Something went wrong. Please try again.', 'danger', 'bi-x-circle');
+    });
+
+    document.getElementById('showToast5').addEventListener('click', function() {
+        showToast('Info: You have 3 new notifications waiting for you.', 'info', 'bi-info-circle');
+    });
+});
+</script>

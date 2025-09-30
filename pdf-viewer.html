@@ -1,5 +1,110 @@
 {{> head}}
 
+<style>
+/* PDF Viewer Styles */
+.pdf-demo-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.pdf-viewer-container {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.pdf-iframe {
+    width: 100%;
+    height: 600px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    background: white;
+}
+
+.pdf-toolbar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.pdf-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 500px;
+    background: #f8f9fa;
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    text-align: center;
+    padding: 40px;
+}
+
+.pdf-placeholder i {
+    font-size: 64px;
+    color: #9ca3af;
+    margin-bottom: 20px;
+}
+
+.file-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.file-item:hover {
+    background: #f8f9fa;
+    border-color: #4361ee;
+}
+
+.file-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e0e7ff;
+    color: #4361ee;
+    border-radius: 8px;
+    margin-right: 15px;
+    font-size: 20px;
+}
+
+.file-info {
+    flex: 1;
+}
+
+.file-name {
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.file-meta {
+    font-size: 12px;
+    color: #6b7280;
+}
+</style>
+
 {{> sidebar}}
 
 <!-- Main Content Wrapper -->
@@ -10,241 +115,274 @@
     <main class="dashboard-content" id="main-content">
         <div class="container-fluid">
             <!-- Page Header -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <div>
-                    <h1 class="h3 mb-0 text-gray-800">Pdf viewer</h1>
+            <div class="mb-4">
+                <h1 class="h3 mb-0 text-gray-800">PDF Viewer</h1>
+                <p class="text-muted">PDF document viewer and file management (100% jQuery-free)</p>
+            </div>
+
+            <!-- PDF Viewer Section -->
+            <div class="pdf-demo-card">
+                <h5 class="mb-3">PDF Document Viewer</h5>
+                <div class="pdf-toolbar">
+                    <button class="btn btn-primary" id="uploadBtn">
+                        <i class="bi bi-cloud-upload me-2"></i>Upload PDF
+                    </button>
+                    <button class="btn btn-secondary" id="downloadBtn" disabled>
+                        <i class="bi bi-download me-2"></i>Download
+                    </button>
+                    <button class="btn btn-secondary" id="printBtn" disabled>
+                        <i class="bi bi-printer me-2"></i>Print
+                    </button>
+                    <button class="btn btn-secondary" id="zoomInBtn" disabled>
+                        <i class="bi bi-zoom-in me-2"></i>Zoom In
+                    </button>
+                    <button class="btn btn-secondary" id="zoomOutBtn" disabled>
+                        <i class="bi bi-zoom-out me-2"></i>Zoom Out
+                    </button>
+                    <input type="file" id="fileInput" accept=".pdf" style="display: none;">
                 </div>
-            </div>
 
-<div class="wrapper">
-        <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <a href="#" class="sidebar-logo">
-                <i class="fas fa-graduation-cap" style="font-size: 1.5rem; color: var(--primary-color);"></i>
-                <span class="sidebar-logo-text">Kiaalap</span>
-            </a>
-        </div>
-
-        <div class="sidebar-menu">
-            <!-- Dashboard Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Main</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#dashboard" class="nav-link active" data-bs-toggle="collapse" aria-expanded="true">
-                            <i class="nav-icon fas fa-home"></i>
-                            <span class="nav-text">Dashboard</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse show" id="dashboard">
-                            <li><a href="index.html" class="nav-link">Dashboard</a></li>
-                            <li><a href="index-1.html" class="nav-link">Dashboard v1</a></li>
-                            <li><a href="index-2.html" class="nav-link">Dashboard v2</a></li>
-                            <li><a href="analytics.html" class="nav-link">Analytics</a></li>
-                            <li><a href="widgets.html" class="nav-link">Widgets</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="events.html" class="nav-link">
-                            <i class="nav-icon fas fa-calendar"></i>
-                            <span class="nav-text">Events</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Academic Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Academic</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#professors" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                            <span class="nav-text">Professors</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="professors">
-                            <li><a href="all-professors.html" class="nav-link">All Professors</a></li>
-                            <li><a href="add-professor.html" class="nav-link">Add Professor</a></li>
-                            <li><a href="edit-professor.html" class="nav-link">Edit Professor</a></li>
-                            <li><a href="professor-profile.html" class="nav-link">Professor Profile</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#students" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-user-graduate"></i>
-                            <span class="nav-text">Students</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="students">
-                            <li><a href="all-students.html" class="nav-link">All Students</a></li>
-                            <li><a href="add-student.html" class="nav-link">Add Student</a></li>
-                            <li><a href="edit-student.html" class="nav-link">Edit Student</a></li>
-                            <li><a href="student-profile.html" class="nav-link">Student Profile</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#courses" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book"></i>
-                            <span class="nav-text">Courses</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="courses">
-                            <li><a href="all-courses.html" class="nav-link">All Courses</a></li>
-                            <li><a href="add-course.html" class="nav-link">Add Course</a></li>
-                            <li><a href="edit-course.html" class="nav-link">Edit Course</a></li>
-                            <li><a href="course-info.html" class="nav-link">Course Info</a></li>
-                            <li><a href="course-payment.html" class="nav-link">Course Payment</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#library" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-book-open"></i>
-                            <span class="nav-text">Library</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="library">
-                            <li><a href="library-assets.html" class="nav-link">Library Assets</a></li>
-                            <li><a href="add-library-assets.html" class="nav-link">Add Asset</a></li>
-                            <li><a href="edit-library-assets.html" class="nav-link">Edit Asset</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#departments" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-building"></i>
-                            <span class="nav-text">Departments</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="departments">
-                            <li><a href="departments.html" class="nav-link">All Departments</a></li>
-                            <li><a href="add-department.html" class="nav-link">Add Department</a></li>
-                            <li><a href="edit-department.html" class="nav-link">Edit Department</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Tools Section -->
-            <div class="menu-section">
-                <div class="menu-section-title">Tools</div>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#mailbox" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-envelope"></i>
-                            <span class="nav-text">Mailbox</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="mailbox">
-                            <li><a href="mailbox.html" class="nav-link">Inbox</a></li>
-                            <li><a href="mailbox-compose.html" class="nav-link">Compose</a></li>
-                            <li><a href="mailbox-view.html" class="nav-link">View Mail</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#charts" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-chart-line"></i>
-                            <span class="nav-text">Charts</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="charts">
-                            <li><a href="line-charts.html" class="nav-link">Line Charts</a></li>
-                            <li><a href="bar-charts.html" class="nav-link">Bar Charts</a></li>
-                            <li><a href="area-charts.html" class="nav-link">Area Charts</a></li>
-                            <li><a href="c3.html" class="nav-link">C3 Charts</a></li>
-                            <li><a href="peity.html" class="nav-link">Peity Charts</a></li>
-                            <li><a href="sparkline.html" class="nav-link">Sparkline</a></li>
-                            <li><a href="rounded-chart.html" class="nav-link">Rounded Chart</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#tables" class="nav-link" data-bs-toggle="collapse">
-                            <i class="nav-icon fas fa-table"></i>
-                            <span class="nav-text">Tables</span>
-                            <i class="nav-arrow fas fa-chevron-right"></i>
-                        </a>
-                        <ul class="submenu collapse" id="tables">
-                            <li><a href="static-table.html" class="nav-link">Basic Tables</a></li>
-                            <li><a href="data-table.html" class="nav-link">Data Tables</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </aside>
-
-        <div class="main-content">
-            <header class="header">
-            <div class="header-left">
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-
-                <form class="search-form">
-                    <i class="search-icon fas fa-search"></i>
-                    <input type="text" class="search-input" placeholder="Search...">
-                </form>
-            </div>
-
-            <div class="header-right">
-                <button class="header-btn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge"></span>
-                </button>
-
-                <button class="header-btn">
-                    <i class="fas fa-envelope"></i>
-                </button>
-
-                <button class="header-btn">
-                    <i class="fas fa-cog"></i>
-                </button>
-
-                <div class="dropdown">
-                    <div class="user-menu" data-bs-toggle="dropdown">
-                        <img src="https://ui-avatars.com/api/?name=John+Doe&background=4361ee&color=fff" alt="User" class="user-avatar">
-                        <div class="user-info">
-                            <span class="user-name">John Doe</span>
-                            <span class="user-role">Administrator</span>
-                        </div>
-                        <i class="fas fa-chevron-down ms-2" style="font-size: 0.75rem; color: #6b7280;"></i>
+                <div class="pdf-viewer-container">
+                    <div class="pdf-placeholder" id="pdfPlaceholder">
+                        <i class="bi bi-file-pdf"></i>
+                        <h5>No PDF Loaded</h5>
+                        <p class="text-muted">Click "Upload PDF" to load a document or select from the examples below</p>
                     </div>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
-                    </ul>
+                    <iframe id="pdfViewer" class="pdf-iframe" style="display: none;"></iframe>
                 </div>
             </div>
-        </header>
 
-            <div class="content-wrapper">
-                <div class="container-fluid p-4">
-                    
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="logo-pro">
-                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                    
+            <!-- Sample PDF Files -->
+            <div class="pdf-demo-card">
+                <h5 class="mb-3">Sample PDF Documents</h5>
+                <p class="text-muted">Click on any document below to view it</p>
+                <ul class="file-list">
+                    <li class="file-item" data-pdf="sample1">
+                        <div class="file-icon">
+                            <i class="bi bi-file-pdf-fill"></i>
+                        </div>
+                        <div class="file-info">
+                            <div class="file-name">Course Syllabus - Computer Science 101</div>
+                            <div class="file-meta">PDF Document • 2.3 MB • Last modified: Jan 15, 2025</div>
+                        </div>
+                        <button class="btn btn-sm btn-primary">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </li>
+                    <li class="file-item" data-pdf="sample2">
+                        <div class="file-icon">
+                            <i class="bi bi-file-pdf-fill"></i>
+                        </div>
+                        <div class="file-info">
+                            <div class="file-name">Student Handbook 2025</div>
+                            <div class="file-meta">PDF Document • 5.7 MB • Last modified: Jan 10, 2025</div>
+                        </div>
+                        <button class="btn btn-sm btn-primary">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </li>
+                    <li class="file-item" data-pdf="sample3">
+                        <div class="file-icon">
+                            <i class="bi bi-file-pdf-fill"></i>
+                        </div>
+                        <div class="file-info">
+                            <div class="file-name">Research Paper - Machine Learning Applications</div>
+                            <div class="file-meta">PDF Document • 1.8 MB • Last modified: Jan 8, 2025</div>
+                        </div>
+                        <button class="btn btn-sm btn-primary">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </li>
+                    <li class="file-item" data-pdf="sample4">
+                        <div class="file-icon">
+                            <i class="bi bi-file-pdf-fill"></i>
+                        </div>
+                        <div class="file-info">
+                            <div class="file-name">Library Resource Guide</div>
+                            <div class="file-meta">PDF Document • 3.2 MB • Last modified: Jan 5, 2025</div>
+                        </div>
+                        <button class="btn btn-sm btn-primary">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- PDF Viewer Info -->
+            <div class="pdf-demo-card">
+                <h5 class="mb-3">About PDF Viewing</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6><i class="bi bi-info-circle text-primary me-2"></i>Features</h6>
+                        <ul class="text-muted">
+                            <li>Upload and view PDF documents</li>
+                            <li>Native browser PDF rendering</li>
+                            <li>Zoom controls</li>
+                            <li>Download and print capabilities</li>
+                            <li>Responsive design</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6><i class="bi bi-code-square text-primary me-2"></i>Implementation</h6>
+                        <ul class="text-muted">
+                            <li>100% Vanilla JavaScript</li>
+                            <li>No jQuery dependencies</li>
+                            <li>Bootstrap 5 styling</li>
+                            <li>File API for uploads</li>
+                            <li>Object URL for rendering</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Bootstrap 5.3.8 Bundle (no jQuery needed) -->
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Modern Scripts -->        </div>
     </main>
 
     {{> footer}}
 </div>
 
 {{> scripts}}
+
+<script>
+// PDF Viewer functionality (Vanilla JavaScript)
+document.addEventListener('DOMContentLoaded', function() {
+    const uploadBtn = document.getElementById('uploadBtn');
+    const fileInput = document.getElementById('fileInput');
+    const pdfViewer = document.getElementById('pdfViewer');
+    const pdfPlaceholder = document.getElementById('pdfPlaceholder');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const printBtn = document.getElementById('printBtn');
+    const zoomInBtn = document.getElementById('zoomInBtn');
+    const zoomOutBtn = document.getElementById('zoomOutBtn');
+    const fileItems = document.querySelectorAll('.file-item');
+
+    let currentPdfUrl = null;
+    let currentZoom = 100;
+
+    // Upload button click
+    uploadBtn.addEventListener('click', function() {
+        fileInput.click();
+    });
+
+    // File input change
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file && file.type === 'application/pdf') {
+            loadPDF(file);
+        } else {
+            alert('Please select a valid PDF file');
+        }
+    });
+
+    // Function to load PDF
+    function loadPDF(file) {
+        // Revoke previous object URL if exists
+        if (currentPdfUrl) {
+            URL.revokeObjectURL(currentPdfUrl);
+        }
+
+        // Create new object URL
+        currentPdfUrl = URL.createObjectURL(file);
+
+        // Show PDF viewer, hide placeholder
+        pdfPlaceholder.style.display = 'none';
+        pdfViewer.style.display = 'block';
+        pdfViewer.src = currentPdfUrl;
+
+        // Enable toolbar buttons
+        downloadBtn.disabled = false;
+        printBtn.disabled = false;
+        zoomInBtn.disabled = false;
+        zoomOutBtn.disabled = false;
+    }
+
+    // Function to load demo PDF
+    function loadDemoPDF() {
+        pdfPlaceholder.style.display = 'none';
+        pdfViewer.style.display = 'block';
+
+        // Show a sample PDF message
+        pdfViewer.srcdoc = `
+            <html>
+            <head>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100vh;
+                        margin: 0;
+                        background: #f8f9fa;
+                    }
+                    .content {
+                        text-align: center;
+                        padding: 40px;
+                        background: white;
+                        border-radius: 8px;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                    }
+                    h2 { color: #4361ee; margin-bottom: 15px; }
+                    p { color: #6b7280; line-height: 1.6; }
+                    .icon { font-size: 48px; margin-bottom: 20px; }
+                </style>
+            </head>
+            <body>
+                <div class="content">
+                    <div class="icon">📄</div>
+                    <h2>Sample PDF Document</h2>
+                    <p>This is a demo representation of a PDF document.</p>
+                    <p>In a production environment, the actual PDF would be loaded here.</p>
+                    <p style="margin-top: 20px; font-size: 14px; color: #9ca3af;">
+                        To view real PDFs, upload a file using the "Upload PDF" button above.
+                    </p>
+                </div>
+            </body>
+            </html>
+        `;
+
+        downloadBtn.disabled = false;
+        printBtn.disabled = false;
+        zoomInBtn.disabled = false;
+        zoomOutBtn.disabled = false;
+    }
+
+    // Sample file items click
+    fileItems.forEach(item => {
+        item.addEventListener('click', function() {
+            loadDemoPDF();
+        });
+    });
+
+    // Download button
+    downloadBtn.addEventListener('click', function() {
+        if (currentPdfUrl) {
+            const a = document.createElement('a');
+            a.href = currentPdfUrl;
+            a.download = 'document.pdf';
+            a.click();
+        }
+    });
+
+    // Print button
+    printBtn.addEventListener('click', function() {
+        if (pdfViewer.style.display !== 'none') {
+            pdfViewer.contentWindow.print();
+        }
+    });
+
+    // Zoom buttons (note: iframe zoom is limited without PDF.js)
+    zoomInBtn.addEventListener('click', function() {
+        currentZoom += 10;
+        pdfViewer.style.transform = `scale(${currentZoom / 100})`;
+        pdfViewer.style.transformOrigin = 'top left';
+    });
+
+    zoomOutBtn.addEventListener('click', function() {
+        if (currentZoom > 50) {
+            currentZoom -= 10;
+            pdfViewer.style.transform = `scale(${currentZoom / 100})`;
+            pdfViewer.style.transformOrigin = 'top left';
+        }
+    });
+});
+</script>
