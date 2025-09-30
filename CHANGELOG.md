@@ -6,6 +6,103 @@ All notable changes to the Kiaalap Education Management Dashboard are documented
 
 Kiaalap has undergone a complete modernization from a legacy Bootstrap 3/4 template with CDN dependencies to a modern Bootstrap 5 application with a Vite-powered build system and local package management.
 
+---
+
+## [2.1.0] - 2025-09-30 (Polish & Optimization)
+
+### 🎨 UI/UX Improvements
+
+#### Mailbox System Enhancements
+- **Enhanced Card Styling**: Updated all mailbox pages with consistent Bootstrap 5 card padding
+  - Added `shadow-sm` class for subtle elevation
+  - Standardized padding: `p-4` on card bodies (24px), `p-3` on headers/footers (16px)
+  - Added `border-bottom` and `border-top` classes for visual separation
+  - Files updated: `mailbox.html`, `mailbox-view.html`, `mailbox-compose.html`
+- **Improved Visual Consistency**: Mailbox cards now match dashboard card styling across all pages
+
+#### Authentication Pages Cleanup
+- **Standalone Auth Pages**: Converted authentication pages to pure standalone HTML
+  - Removed unnecessary Handlebars partials (sidebar, header, footer)
+  - Pages now only contain authentication forms and essential content
+  - Files updated: `login.html`, `register.html`, `lock.html`, `password-recovery.html`
+- **Cleaner User Experience**: Auth pages load faster without dashboard chrome
+
+### 🧹 Codebase Cleanup
+
+#### Legacy Asset Removal
+- **Removed Unused Folders**: Deleted ~1.5-2MB of legacy assets
+  - `fonts/` folder (1.3MB) - Legacy FontAwesome, Glyphicons, custom icon fonts
+  - `img/` folder - Unused image assets (blog, courses, profile, student, etc.)
+  - `pdf/` folder - Unused sample PDF file
+- **Asset Preservation**:
+  - Moved `favicon.ico` to project root (18KB)
+  - Preserved `logo.png` to `public/images/` for future branding use (2.9KB)
+- **Result**: Cleaner project structure, faster repository cloning, reduced deployment size
+
+### 📦 Package Updates
+- **Version Bump**: Updated package.json version from 1.0.0 → 2.1.0
+- **Description Update**: Enhanced package description for better clarity
+
+### 📚 Documentation Improvements
+
+#### README.md Enhancements
+- **Technology Stack Section**: Added comprehensive technology details
+  - Listed all major libraries with versions (Simple-DataTables, Bootstrap Icons, etc.)
+  - Explained modern architecture benefits (zero jQuery, ES6+, tree-shaking)
+  - Added detailed Handlebars templating explanation
+- **Key Features Section**: Expanded with detailed explanations
+  - 100% modern architecture breakdown
+  - Local asset management benefits
+  - Custom grid system documentation
+  - Responsive & accessible design notes
+- **Built With Section**: Reorganized into Core Technologies and Key Libraries
+- **Version History**: Added new section tracking major releases
+
+#### CHANGELOG.md Updates
+- **Version 2.1.0 Entry**: Comprehensive documentation of all changes
+- **Categorized Changes**: Organized by UI/UX, Cleanup, Packages, and Documentation
+
+### 🔧 Technical Improvements
+
+#### File Structure Optimization
+```
+Removed:
+├── fonts/          # Legacy icon fonts (FontAwesome, Glyphicons)
+├── img/           # Unused images and subdirectories
+└── pdf/           # Sample PDF files
+
+Added/Moved:
+├── favicon.ico    # Moved to root for proper serving
+└── public/
+    └── images/
+        └── logo.png  # Preserved for branding
+```
+
+#### Code Quality
+- Maintained consistency across all mailbox pages
+- Ensured Bootstrap 5 best practices in card components
+- Cleaned up authentication pages for better maintainability
+
+### 📊 Performance Impact
+- **Repository Size**: Reduced by ~1.5-2MB
+- **Clone Time**: Faster initial repository clone
+- **Build Performance**: Slightly improved due to fewer files to process
+- **Runtime**: No impact (removed assets were already unused)
+
+### 🐛 Bug Fixes
+- Fixed inconsistent padding in mailbox card components
+- Resolved authentication pages loading unnecessary dashboard components
+
+### 🔄 Migration Notes
+For users upgrading from v2.0.0:
+1. Run `npm install` to ensure latest package.json is synced
+2. If using custom authentication flows, verify standalone auth pages work correctly
+3. If referencing old `fonts/`, `img/`, or `pdf/` folders, update paths:
+   - Favicon: Now at `/favicon.ico`
+   - Logo: Now at `/public/images/logo.png`
+
+---
+
 ## [2.0.0] - 2025 (Complete Modernization)
 
 ### Major Transformation

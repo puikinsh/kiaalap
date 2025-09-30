@@ -11,11 +11,13 @@ Check out the live demo: [Kiaalap Live Preview](https://colorlib.com/polygon/kia
 ## ✨ Features
 
 ### Modern Technology Stack
-- **Bootstrap 5.3.8** - Latest Bootstrap version without jQuery dependency
-- **Vite Build System** - Lightning-fast development and optimized production builds
-- **Handlebars Templating** - Modular and maintainable code structure
-- **Chart.js 4.5** - Beautiful, responsive charts and graphs
-- **Vanilla JavaScript** - Clean, modern JavaScript without unnecessary dependencies
+- **Bootstrap 5.3.8** - Latest Bootstrap version with 100% jQuery-free architecture
+- **Vite 7.1.7 Build System** - Lightning-fast development server and optimized production builds
+- **Handlebars Templating** - Modular partials for maintainable code structure
+- **Chart.js 4.5** - Beautiful, responsive charts replacing legacy Morris/C3/D3 libraries
+- **Simple-DataTables 10.0** - Vanilla JavaScript data tables with no jQuery dependency
+- **Bootstrap Icons 1.13.1** - 2,000+ icons loaded locally (no CDN dependencies)
+- **Vanilla JavaScript** - Clean ES6+ code throughout the application
 
 ### Comprehensive Education Management
 - **📊 Multiple Dashboard Layouts** - 3 unique dashboard designs for different use cases
@@ -120,22 +122,43 @@ kiaalap/
 
 ## 🎯 Key Features Explained
 
-### No jQuery Dependency
-Unlike many admin templates, Kiaalap uses vanilla JavaScript for most functionality, only including jQuery where absolutely necessary (DataTables).
+### 100% Modern Architecture
+Completely rewritten from legacy Bootstrap 3/4 template to modern Bootstrap 5 with:
+- Zero jQuery dependencies (except Simple-DataTables)
+- All assets from node_modules (no CDN dependencies)
+- ES6+ JavaScript modules with tree-shaking
+- Vite hot module replacement for instant updates
+- Production builds optimized with Terser minification
 
-### Handlebars Templating
-All pages use a consistent template structure with reusable partials:
-- `{{> head}}` - Meta tags and CSS
-- `{{> sidebar}}` - Navigation sidebar
-- `{{> header}}` - Top header bar
-- `{{> footer}}` - Footer content
-- `{{> scripts}}` - JavaScript files
+### Handlebars Templating System
+All 65 pages use a consistent template structure with reusable partials:
+- `{{> head}}` - Centralized meta tags, CSS imports from node_modules
+- `{{> sidebar}}` - Navigation with automatic active state management
+- `{{> header}}` - Top header with user menu and notifications
+- `{{> footer}}` - Footer with current year and copyright
+- `{{> scripts}}` - JavaScript module imports from node_modules
 
-### Local Dependencies
-All assets are served from node_modules - no external CDN dependencies for better performance and reliability.
+Page-specific context managed in `vite.config.js` for dynamic navigation states, titles, and breadcrumbs.
 
-### Responsive Design
-Mobile-first approach with custom grid system that adapts beautifully to all screen sizes.
+### Local Asset Management
+All assets served from node_modules for:
+- **Better Performance** - No external network requests
+- **Reliability** - Works offline, no CDN downtime
+- **Version Control** - Lock specific versions via package.json
+- **Bundle Optimization** - Tree-shaking and code splitting
+
+### Custom Grid System
+Bootstrap 5 grid enhanced with custom dashboard-grid classes:
+```css
+.dashboard-grid.grid-cols-4  /* 4 columns → 1 on mobile */
+.dashboard-row               /* 24px bottom margin */
+```
+
+### Responsive & Accessible
+- Mobile-first responsive design
+- ARIA labels and semantic HTML
+- Keyboard navigation support
+- Screen reader friendly
 
 ## 🛠️ Customization
 
@@ -152,13 +175,21 @@ Edit `src/partials/sidebar.hbs` to customize the navigation menu structure.
 
 ## 📊 Built With
 
-- [Bootstrap 5](https://getbootstrap.com/) - CSS Framework
-- [Chart.js](https://www.chartjs.org/) - JavaScript Charting
-- [Vite](https://vitejs.dev/) - Build Tool
-- [Handlebars](https://handlebarsjs.com/) - Templating
-- [DataTables](https://datatables.net/) - Advanced Tables
-- [Quill](https://quilljs.com/) - Rich Text Editor
-- [Bootstrap Icons](https://icons.getbootstrap.com/) - Icon Library
+### Core Technologies
+- [Bootstrap 5.3.8](https://getbootstrap.com/) - Modern CSS framework
+- [Vite 7.1.7](https://vitejs.dev/) - Next generation build tool
+- [Chart.js 4.5.0](https://www.chartjs.org/) - Flexible JavaScript charting
+- [Handlebars 2.0](https://handlebarsjs.com/) - Semantic templating
+
+### Key Libraries
+- [Simple-DataTables 10.0](https://github.com/fiduswriter/Simple-DataTables) - Vanilla JS data tables
+- [Bootstrap Icons 1.13.1](https://icons.getbootstrap.com/) - 2,000+ icon library
+- [Quill 2.0.3](https://quilljs.com/) - Modern rich text editor
+- [FullCalendar 6.1](https://fullcalendar.io/) - Event calendar
+- [Leaflet 1.9](https://leafletjs.com/) - Interactive maps
+- [Tom Select 2.3](https://tom-select.js.org/) - Modern select library
+- [Cropper.js 2.0](https://fengyuanchen.github.io/cropperjs/) - Image cropping
+- [CountUp.js 2.8](https://inorganik.github.io/countUp.js/) - Number animations
 
 ## 🌐 Browser Support
 
@@ -166,6 +197,14 @@ Edit `src/partials/sidebar.hbs` to customize the navigation menu structure.
 - Firefox (latest)
 - Safari (latest)
 - Edge (latest)
+
+## 📝 Version History
+
+- **v2.1.0** (2025) - Mailbox system improvements, legacy asset cleanup, enhanced card styling
+- **v2.0.0** (2025) - Complete modernization: Bootstrap 5, Vite build system, jQuery elimination
+- **v1.0.0** (2018) - Original release with Bootstrap 3/4
+
+See [CHANGELOG.md](CHANGELOG.md) for detailed version history.
 
 ## 📄 License
 

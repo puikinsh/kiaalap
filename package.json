@@ -1,7 +1,7 @@
 {
   "name": "kiaalap",
-  "version": "1.0.0",
-  "description": "Free admin dashboard template",
+  "version": "2.1.0",
+  "description": "Modern Bootstrap 5 Education Management Dashboard - Free admin dashboard template",
   "main": "index.js",
   "scripts": {
     "dev": "vite",
@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/puikinsh/kiaalap#readme",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.5.1",
+    "@fortawesome/fontawesome-free": "^7.0.1",
     "@popperjs/core": "^2.11.8",
     "animate.css": "^4.1.1",
     "aos": "^2.3.4",
@@ -36,7 +36,7 @@
     "bootstrap-icons": "^1.13.1",
     "chart.js": "^4.5.0",
     "countup.js": "^2.8.0",
-    "cropperjs": "^1.6.1",
+    "cropperjs": "^1.6.2",
     "dayjs": "^1.11.10",
     "filepond": "^4.30.6",
     "fullcalendar": "^6.1.11",
@@ -46,7 +46,7 @@
     "sass": "^1.92.1",
     "simple-datatables": "^10.0.0",
     "simplebar": "^6.2.5",
-    "swiper": "^11.0.7",
+    "swiper": "^12.0.2",
     "tom-select": "^2.3.1"
   },
   "devDependencies": {

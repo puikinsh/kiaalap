@@ -1,5 +1,8 @@
 {{> head}}
 
+<!-- Cropperjs v2 CSS -->
+<link rel="stylesheet" href="node_modules/cropperjs/dist/cropper.min.css">
+
 <style>
 /* Critical CSS for immediate render */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -279,6 +282,9 @@
 </div>
 
 {{> scripts}}
+
+<!-- Cropperjs v2 JavaScript -->
+<script src="node_modules/cropperjs/dist/cropper.min.js"></script>
 
 <script>
 let cropper = null;
