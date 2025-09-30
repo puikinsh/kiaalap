@@ -7,6 +7,8 @@ import $ from 'jquery';
 
 // Import layout functionality
 import layout from './layout';
+import './dashboard.js';
+import './charts.js';
 
 // Make jQuery globally available for legacy plugins
 window.$ = window.jQuery = $;

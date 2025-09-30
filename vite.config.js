@@ -364,18 +364,14 @@ export default defineConfig({
       }
     },
     rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-        modals: resolve(__dirname, 'modals.html'),
-        buttons: resolve(__dirname, 'buttons.html'),
-        alerts: resolve(__dirname, 'alerts.html'),
-        'library-assets': resolve(__dirname, 'library-assets.html'),
-        'add-library-assets': resolve(__dirname, 'add-library-assets.html'),
-        'edit-library-assets': resolve(__dirname, 'edit-library-assets.html'),
-        'mailbox': resolve(__dirname, 'mailbox.html'),
-        'mailbox-view': resolve(__dirname, 'mailbox-view.html'),
-        'mailbox-compose': resolve(__dirname, 'mailbox-compose.html')
-      }
+      input: Object.fromEntries(
+        glob.sync('*.html')
+          .filter(file => !file.includes('template') && !file.includes('-new'))
+          .map(file => [
+            file.replace(/\.html$/, ''),
+            resolve(__dirname, file)
+          ])
+      )
     }
   },
   css: {

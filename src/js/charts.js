@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
   // ========================================
   const earningsCtx = document.getElementById('earningsChart');
   if (earningsCtx) {
-    earningsCtx.height = 300; // Set fixed height
     new Chart(earningsCtx.getContext('2d'), {
       type: 'line',
       data: {
@@ -69,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             position: 'bottom',
@@ -141,7 +140,6 @@ document.addEventListener('DOMContentLoaded', function () {
   // ========================================
   const admissionCtx = document.getElementById('admissionChart');
   if (admissionCtx) {
-    admissionCtx.height = 300; // Set fixed height
     new Chart(admissionCtx.getContext('2d'), {
       type: 'bar',
       data: {
@@ -185,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             position: 'bottom',
@@ -267,7 +265,7 @@ document.addEventListener('DOMContentLoaded', function () {
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             display: false,
@@ -310,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function () {
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             display: false,
@@ -353,7 +351,7 @@ document.addEventListener('DOMContentLoaded', function () {
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             display: false,
@@ -424,10 +422,8 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('resize', function () {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function () {
-      // Charts will automatically resize
-      Chart.helpers.each(Chart.instances, function (instance) {
-        instance.resize();
-      });
+      // Charts will automatically resize - Chart.js v4 handles this automatically
+      // No manual resize needed for Chart.js 4.x
     }, 250);
   });
 
