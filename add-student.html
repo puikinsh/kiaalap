@@ -205,7 +205,7 @@
                                                 <div class="col-md-6 px-2">
                                                     <div class="mb-4">
                                                         <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-                                                        <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+                                                        <input type="password" class="form-control" id="password" placeholder="Enter password" required autocomplete="new-password">
                                                         <div class="invalid-feedback">
                                                             Please provide a password.
                                                         </div>
@@ -214,7 +214,7 @@
                                                 <div class="col-md-6 px-2">
                                                     <div class="mb-4">
                                                         <label for="confirmPassword" class="form-label">Confirm Password <span class="text-danger">*</span></label>
-                                                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password" required>
+                                                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password" required autocomplete="new-password">
                                                         <div class="invalid-feedback">
                                                             Passwords must match.
                                                         </div>
@@ -336,8 +336,6 @@
     {{> footer}}
 </div>
 
-{{> scripts}}
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
             const forms = document.querySelectorAll('.needs-validation');
@@ -352,3 +350,5 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 </script>
+
+{{> scripts}}

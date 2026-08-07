@@ -60,17 +60,17 @@
                                 </div>
 
                                 <div class="col-md-2 d-flex flex-column justify-content-center align-items-center">
-                                    <button type="button" class="btn btn-primary mb-2" id="moveRight">
-                                        <i class="bi bi-chevron-right"></i>
+                                    <button type="button" class="btn btn-primary mb-2" id="moveRight" aria-label="Next">
+                                        <i aria-hidden="true" class="bi bi-chevron-right"></i>
                                     </button>
-                                    <button type="button" class="btn btn-primary mb-2" id="moveAllRight">
-                                        <i class="bi bi-chevron-double-right"></i>
+                                    <button type="button" class="btn btn-primary mb-2" id="moveAllRight" aria-label="Chevron double right">
+                                        <i aria-hidden="true" class="bi bi-chevron-double-right"></i>
                                     </button>
-                                    <button type="button" class="btn btn-secondary mb-2" id="moveLeft">
-                                        <i class="bi bi-chevron-left"></i>
+                                    <button type="button" class="btn btn-secondary mb-2" id="moveLeft" aria-label="Previous">
+                                        <i aria-hidden="true" class="bi bi-chevron-left"></i>
                                     </button>
-                                    <button type="button" class="btn btn-secondary" id="moveAllLeft">
-                                        <i class="bi bi-chevron-double-left"></i>
+                                    <button type="button" class="btn btn-secondary" id="moveAllLeft" aria-label="Chevron double left">
+                                        <i aria-hidden="true" class="bi bi-chevron-double-left"></i>
                                     </button>
                                 </div>
 
@@ -135,17 +135,17 @@
                                 </div>
 
                                 <div class="col-md-2 d-flex flex-column justify-content-center align-items-center">
-                                    <button type="button" class="btn btn-primary mb-2" id="moveRoleRight">
-                                        <i class="bi bi-chevron-right"></i>
+                                    <button type="button" class="btn btn-primary mb-2" id="moveRoleRight" aria-label="Next">
+                                        <i aria-hidden="true" class="bi bi-chevron-right"></i>
                                     </button>
-                                    <button type="button" class="btn btn-primary mb-2" id="moveAllRoleRight">
-                                        <i class="bi bi-chevron-double-right"></i>
+                                    <button type="button" class="btn btn-primary mb-2" id="moveAllRoleRight" aria-label="Chevron double right">
+                                        <i aria-hidden="true" class="bi bi-chevron-double-right"></i>
                                     </button>
-                                    <button type="button" class="btn btn-secondary mb-2" id="moveRoleLeft">
-                                        <i class="bi bi-chevron-left"></i>
+                                    <button type="button" class="btn btn-secondary mb-2" id="moveRoleLeft" aria-label="Previous">
+                                        <i aria-hidden="true" class="bi bi-chevron-left"></i>
                                     </button>
-                                    <button type="button" class="btn btn-secondary" id="moveAllRoleLeft">
-                                        <i class="bi bi-chevron-double-left"></i>
+                                    <button type="button" class="btn btn-secondary" id="moveAllRoleLeft" aria-label="Chevron double left">
+                                        <i aria-hidden="true" class="bi bi-chevron-double-left"></i>
                                     </button>
                                 </div>
 
@@ -189,8 +189,6 @@
 
     {{> footer}}
 </div>
-
-{{> scripts}}
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -342,3 +340,5 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('selectedRoleCount').textContent = '0';
         }
 </script>
+
+{{> scripts}}

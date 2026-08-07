@@ -26,7 +26,7 @@
 <!-- Page Header -->
             <div class="mb-3">
                 <h1 class="h3 font-bold">Multi Upload</h1>
-                <p class="text-muted text-sm">Advanced file upload with drag & drop, progress tracking, and preview</p>
+                <p class="text-muted text-sm">Advanced file upload with drag &amp; drop, progress tracking, and preview</p>
             </div>
 
             <!-- Upload Zone Row -->
@@ -40,9 +40,9 @@
                             <div class="upload-zone" id="uploadZone">
                                 <div class="upload-zone-content">
                                     <i class="bi bi-cloud-upload upload-icon"></i>
-                                    <h5>Drag & Drop Files Here</h5>
+                                    <h5>Drag &amp; Drop Files Here</h5>
                                     <p class="text-muted">or click to browse</p>
-                                    <button class="btn btn-primary" id="browseFiles">
+                                    <button type="button" class="btn btn-primary" id="browseFiles">
                                         <i class="bi bi-folder-open me-2"></i>Browse Files
                                     </button>
                                     <input type="file" id="fileInput" multiple accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.txt,.zip,.rar" style="display: none;">
@@ -70,13 +70,13 @@
                         <div class="dashboard-card-header d-flex justify-content-between align-items-center">
                             <h5 class="dashboard-card-title mb-0">Upload Queue</h5>
                             <div>
-                                <button class="btn btn-outline-secondary btn-sm me-2" id="selectAllFiles">
+                                <button type="button" class="btn btn-outline-secondary btn-sm me-2" id="selectAllFiles">
                                     <i class="bi bi-check-all me-1"></i>Select All
                                 </button>
-                                <button class="btn btn-outline-danger btn-sm me-2" id="removeAllFiles">
+                                <button type="button" class="btn btn-outline-danger btn-sm me-2" id="removeAllFiles">
                                     <i class="bi bi-trash me-1"></i>Remove All
                                 </button>
-                                <button class="btn btn-success btn-sm" id="uploadAllFiles">
+                                <button type="button" class="btn btn-success btn-sm" id="uploadAllFiles">
                                     <i class="bi bi-cloud-upload me-1"></i>Upload All
                                 </button>
                             </div>
@@ -114,7 +114,7 @@
                     <div class="dashboard-card" id="completedCard" style="display: none;">
                         <div class="dashboard-card-header d-flex justify-content-between align-items-center">
                             <h5 class="dashboard-card-title mb-0">Completed Uploads</h5>
-                            <button class="btn btn-outline-primary btn-sm" id="clearCompleted">
+                            <button type="button" class="btn btn-outline-primary btn-sm" id="clearCompleted">
                                 <i class="bi bi-trash me-1"></i>Clear All
                             </button>
                         </div>
@@ -128,8 +128,6 @@
 
     {{> footer}}
 </div>
-
-{{> scripts}}
 
 <script>
 class MultiFileUploader {
@@ -290,8 +288,8 @@ class MultiFileUploader {
                             </div>
                         </div>
                         <div class="file-actions">
-                            <button class="btn btn-outline-danger btn-sm" onclick="uploader.removeFile('${fileData.id}')">
-                                <i class="bi bi-trash"></i>
+                            <button type="button" class="btn btn-outline-danger btn-sm" onclick="uploader.removeFile('${fileData.id}')" aria-label="Delete">
+                                <i aria-hidden="true" class="bi bi-trash"></i>
                             </button>
                         </div>
                     </div>
@@ -302,7 +300,7 @@ class MultiFileUploader {
             getFilePreview(file) {
                 if (file.type.startsWith('image/')) {
                     const url = URL.createObjectURL(file);
-                    return `<img src="${url}" alt="Preview" class="file-thumbnail" width="40" height="40" style="object-fit: cover; border-radius: 4px;">`;
+                    return `<img src="${url}" alt="Preview" class="file-thumbnail" width="40" height="40" style="object-fit: cover; border-radius: 4px;" loading="lazy" decoding="async">`;
                 } else {
                     const iconMap = {
                         'application/pdf': 'file-pdf',
@@ -577,3 +575,5 @@ class MultiFileUploader {
             uploader = new MultiFileUploader();
         });
 </script>
+
+{{> scripts}}

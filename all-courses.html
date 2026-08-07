@@ -50,10 +50,10 @@
                         <p class="text-muted">Manage your institution's course catalog</p>
                     </div>
                     <div>
-                        <button class="btn btn-primary" onclick="window.location.href='add-course.html'">
+                        <button type="button" class="btn btn-primary" onclick="window.location.href='add-course.html'">
                             <i class="bi bi-plus-circle me-2"></i> Add New Course
                         </button>
-                        <button class="btn btn-outline-secondary ms-2">
+                        <button type="button" class="btn btn-outline-secondary ms-2">
                             <i class="bi bi-download me-2"></i> Export
                         </button>
                     </div>
@@ -186,8 +186,8 @@
                                 <td><span class="badge bg-success">Active</span></td>
                                 <td>
                                     <div class="dropdown">
-                                        <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
-                                            <i class="bi bi-three-dots-vertical"></i>
+                                        <button type="button" class="btn btn-sm btn-light" data-bs-toggle="dropdown" aria-label="More options">
+                                            <i aria-hidden="true" class="bi bi-three-dots-vertical"></i>
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item" href="course-info.html"><i class="bi bi-eye me-2"></i> View</a></li>
@@ -242,8 +242,8 @@
                                 <td><span class="badge bg-success">Active</span></td>
                                 <td>
                                     <div class="dropdown">
-                                        <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
-                                            <i class="bi bi-three-dots-vertical"></i>
+                                        <button type="button" class="btn btn-sm btn-light" data-bs-toggle="dropdown" aria-label="More options">
+                                            <i aria-hidden="true" class="bi bi-three-dots-vertical"></i>
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item" href="course-info.html"><i class="bi bi-eye me-2"></i> View</a></li>
@@ -298,8 +298,8 @@
                                 <td><span class="badge bg-success">Active</span></td>
                                 <td>
                                     <div class="dropdown">
-                                        <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
-                                            <i class="bi bi-three-dots-vertical"></i>
+                                        <button type="button" class="btn btn-sm btn-light" data-bs-toggle="dropdown" aria-label="More options">
+                                            <i aria-hidden="true" class="bi bi-three-dots-vertical"></i>
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item" href="course-info.html"><i class="bi bi-eye me-2"></i> View</a></li>
@@ -354,8 +354,8 @@
                                 <td><span class="badge bg-warning">Full</span></td>
                                 <td>
                                     <div class="dropdown">
-                                        <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
-                                            <i class="bi bi-three-dots-vertical"></i>
+                                        <button type="button" class="btn btn-sm btn-light" data-bs-toggle="dropdown" aria-label="More options">
+                                            <i aria-hidden="true" class="bi bi-three-dots-vertical"></i>
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item" href="course-info.html"><i class="bi bi-eye me-2"></i> View</a></li>
@@ -410,8 +410,8 @@
                                 <td><span class="badge bg-success">Active</span></td>
                                 <td>
                                     <div class="dropdown">
-                                        <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
-                                            <i class="bi bi-three-dots-vertical"></i>
+                                        <button type="button" class="btn btn-sm btn-light" data-bs-toggle="dropdown" aria-label="More options">
+                                            <i aria-hidden="true" class="bi bi-three-dots-vertical"></i>
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item" href="course-info.html"><i class="bi bi-eye me-2"></i> View</a></li>
@@ -466,8 +466,8 @@
                                 <td><span class="badge bg-success">Active</span></td>
                                 <td>
                                     <div class="dropdown">
-                                        <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
-                                            <i class="bi bi-three-dots-vertical"></i>
+                                        <button type="button" class="btn btn-sm btn-light" data-bs-toggle="dropdown" aria-label="More options">
+                                            <i aria-hidden="true" class="bi bi-three-dots-vertical"></i>
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item" href="course-info.html"><i class="bi bi-eye me-2"></i> View</a></li>
@@ -522,8 +522,8 @@
                                 <td><span class="badge bg-secondary">Inactive</span></td>
                                 <td>
                                     <div class="dropdown">
-                                        <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
-                                            <i class="bi bi-three-dots-vertical"></i>
+                                        <button type="button" class="btn btn-sm btn-light" data-bs-toggle="dropdown" aria-label="More options">
+                                            <i aria-hidden="true" class="bi bi-three-dots-vertical"></i>
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item" href="course-info.html"><i class="bi bi-eye me-2"></i> View</a></li>
@@ -567,8 +567,6 @@
 
     {{> footer}}
 </div>
-
-{{> scripts}}
 
 <script>
 // Lazy load images that are not immediately visible
@@ -615,3 +613,5 @@ if ('PerformanceObserver' in window) {
             } catch (e) {}
         }
 </script>
+
+{{> scripts}}

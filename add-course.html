@@ -255,7 +255,7 @@
                                              alt="Course Thumbnail"
                                              class="img-fluid rounded"
                                              id="courseImagePreview"
-                                             style="max-height: 200px; width: 100%; object-fit: cover;">
+                                             style="max-height: 200px; width: 100%; object-fit: cover;" loading="lazy" decoding="async">
                                         <div class="position-absolute top-0 end-0 p-2">
                                             <span class="badge bg-primary">Preview</span>
                                         </div>
@@ -369,8 +369,6 @@
     {{> footer}}
 </div>
 
-{{> scripts}}
-
 <script>
 // Form validation
         (function() {
@@ -419,3 +417,5 @@
         /*! loadCSS rel=preload polyfill. [c]2017 Filament Group, Inc. MIT License */
         !function(t){if(t.loadCSS){var e=loadCSS.relpreload={};if(e.support=function(){try{return t.document.createElement("link").relList.supports("preload")}catch(t){return!1}},e.poly=function(){for(var e=t.document.getElementsByTagName("link"),r=0;r<e.length;r++){var n=e[r];"preload"===n.rel&&"style"===n.getAttribute("as")&&(t.loadCSS(n.href,n,n.getAttribute("media")),n.rel=null)}},!e.support()){e.poly();var r=t.setInterval(e.poly,300);t.addEventListener&&t.addEventListener("load",function(){e.poly(),t.clearInterval(r)}),t.attachEvent&&t.attachEvent("onload",function(){t.clearInterval(r)})}}}(this);
 </script>
+
+{{> scripts}}

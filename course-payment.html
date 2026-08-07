@@ -95,8 +95,8 @@
                                         <label for="studentId" class="form-label">Student ID <span class="text-danger">*</span></label>
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="studentId" placeholder="Enter Student ID" required autocomplete="off">
-                                            <button class="btn btn-outline-secondary" type="button" id="searchStudent">
-                                                <i class="bi bi-search"></i>
+                                            <button class="btn btn-outline-secondary" type="button" id="searchStudent" aria-label="Search">
+                                                <i aria-hidden="true" class="bi bi-search"></i>
                                             </button>
                                         </div>
                                         <div class="invalid-feedback">
@@ -384,7 +384,7 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="agreeTerms" required>
                                         <label class="form-check-label" for="agreeTerms">
-                                            I agree to the <a href="#" class="text-decoration-none">Terms & Conditions</a> and <a href="#" class="text-decoration-none">Payment Policy</a>
+                                            I agree to the <a href="#" class="text-decoration-none">Terms &amp; Conditions</a> and <a href="#" class="text-decoration-none">Payment Policy</a>
                                         </label>
                                         <div class="invalid-feedback">
                                             You must agree to the terms.
@@ -490,8 +490,6 @@
     {{> footer}}
 </div>
 
-{{> scripts}}
-
 <script>
 // Security: Disable right-click and some keyboard shortcuts on payment fields
         document.addEventListener('DOMContentLoaded', function() {
@@ -585,3 +583,5 @@
             });
         });
 </script>
+
+{{> scripts}}

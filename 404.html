@@ -257,8 +257,8 @@
         <div class="error-search">
             <form action="/search" method="get" class="search-group">
                 <input type="text" class="search-input" placeholder="Search for a page..." name="q">
-                <button type="submit" class="search-btn">
-                    <i class="bi bi-search"></i>
+                <button type="submit" class="search-btn" aria-label="Search">
+                    <i aria-hidden="true" class="bi bi-search"></i>
                 </button>
             </form>
         </div>
@@ -308,3 +308,5 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('404 Error - Page not found:', window.location.pathname);
 });
 </script>
+
+{{> scripts}}

@@ -147,8 +147,8 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <h6 class="mb-0">Enrollment Trends</h6>
                                 <div class="dropdown">
-                                    <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
-                                        <i class="bi bi-three-dots"></i>
+                                    <button type="button" class="btn btn-sm btn-light" data-bs-toggle="dropdown" aria-label="More options">
+                                        <i aria-hidden="true" class="bi bi-three-dots"></i>
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="#">Export Data</a></li>
@@ -199,7 +199,7 @@
 
             <!-- Performance Metrics -->
             <div class="dashboard-row">
-                <h2 class="h5 fw-semibold text-gray-800 mb-4">Performance & Activities</h2>
+                <h2 class="h5 fw-semibold text-gray-800 mb-4">Performance &amp; Activities</h2>
                 <div class="dashboard-grid grid-cols-2">
                     <div class="dashboard-card">
                         <div class="dashboard-card-header py-4 px-4">
@@ -317,7 +317,7 @@
                     <div class="dashboard-card-header py-4 px-4">
                         <div class="d-flex justify-content-between align-items-center">
                             <h6 class="mb-0">Top Performing Students</h6>
-                            <button class="btn btn-sm btn-primary">
+                            <button type="button" class="btn btn-sm btn-primary">
                                 <i class="bi bi-download me-1"></i> Export
                             </button>
                         </div>
@@ -356,7 +356,7 @@
                                             <td>98%</td>
                                             <td><span class="badge bg-success-subtle text-success">Active</span></td>
                                             <td>
-                                                <button class="btn btn-sm btn-light">View</button>
+                                                <button type="button" class="btn btn-sm btn-light">View</button>
                                             </td>
                                         </tr>
                                         <tr>
@@ -379,7 +379,7 @@
                                             <td>95%</td>
                                             <td><span class="badge bg-success-subtle text-success">Active</span></td>
                                             <td>
-                                                <button class="btn btn-sm btn-light">View</button>
+                                                <button type="button" class="btn btn-sm btn-light">View</button>
                                             </td>
                                         </tr>
                                         <tr>
@@ -402,7 +402,7 @@
                                             <td>96%</td>
                                             <td><span class="badge bg-success-subtle text-success">Active</span></td>
                                             <td>
-                                                <button class="btn btn-sm btn-light">View</button>
+                                                <button type="button" class="btn btn-sm btn-light">View</button>
                                             </td>
                                         </tr>
                                         <tr>
@@ -425,7 +425,7 @@
                                             <td>94%</td>
                                             <td><span class="badge bg-success-subtle text-success">Active</span></td>
                                             <td>
-                                                <button class="btn btn-sm btn-light">View</button>
+                                                <button type="button" class="btn btn-sm btn-light">View</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -434,13 +434,11 @@
                         </div>
                     </div>
                 </div>
-            </div>        </div>
+            </div>
     </main>
 
     {{> footer}}
 </div>
-
-{{> scripts}}
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -526,3 +524,5 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 </script>
+
+{{> scripts}}

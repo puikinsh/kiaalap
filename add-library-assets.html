@@ -221,7 +221,7 @@
                                         <input type="file" id="coverImage" name="coverImage" accept="image/*" class="d-none">
                                     </div>
                                     <div id="imagePreviewContainer" class="d-none mt-3 text-center">
-                                        <img id="previewImg" src="" alt="Cover preview" class="preview-image mb-2">
+                                        <img id="previewImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Cover preview" class="preview-image mb-2" loading="lazy" decoding="async">
                                         <div>
                                             <button type="button" class="btn btn-outline-danger btn-sm" id="removeImageBtn">
                                                 <i class="bi bi-trash me-1"></i>
@@ -248,7 +248,7 @@
                                         </button>
                                         <button type="button" class="btn btn-outline-primary" id="saveAndAddAnother">
                                             <i class="bi bi-plus-lg me-2"></i>
-                                            Save & Add Another
+                                            Save &amp; Add Another
                                         </button>
                                         <button type="button" class="btn btn-outline-secondary" id="previewAsset">
                                             <i class="bi bi-eye me-2"></i>
@@ -447,8 +447,6 @@
     {{> footer}}
 </div>
 
-{{> scripts}}
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('addAssetForm');
@@ -508,7 +506,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 imageInput.value = '';
                 previewArea.classList.remove('d-none');
                 previewContainer.classList.add('d-none');
-                previewImg.src = '';
+                previewImg.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
             });
 
             // Form validation
@@ -593,3 +591,5 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 </script>
+
+{{> scripts}}
