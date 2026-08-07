@@ -34,7 +34,7 @@
                         <a href="departments.html" class="btn btn-outline-secondary">
                             <i class="bi bi-arrow-left me-2"></i>Back to Departments
                         </a>
-                        <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#templateModal">
+                        <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#templateModal">
                             <i class="bi bi-file-earmark-text me-2"></i>Use Template
                         </button>
                     </div>
@@ -235,7 +235,7 @@
                                     <i class="bi bi-graph-up text-info"></i>
                                 </div>
                                 <div>
-                                    <h5 class="mb-0">Department Metrics & Budget</h5>
+                                    <h5 class="mb-0">Department Metrics &amp; Budget</h5>
                                     <p class="text-muted small mb-0">Financial and enrollment information</p>
                                 </div>
                             </div>
@@ -395,8 +395,6 @@
     {{> footer}}
 </div>
 
-{{> scripts}}
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
             // Form validation
@@ -485,6 +483,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 generatePreview();
             });
 
+            // Form values are user input; escape before interpolating into markup.
+            function esc(value, fallback) {
+                const text = value == null || value === '' ? fallback : String(value);
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
             function generatePreview() {
                 const formData = new FormData(form);
                 const previewContent = document.getElementById('previewContent');
@@ -494,24 +500,24 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div>
                             <h6>Department Information</h6>
                             <table class="table table-sm">
-                                <tr><th>Name:</th><td>${formData.get('departmentName') || 'Not specified'}</td></tr>
-                                <tr><th>Code:</th><td>${formData.get('departmentCode') || 'Not specified'}</td></tr>
-                                <tr><th>Status:</th><td><span class="badge bg-${formData.get('departmentStatus') === 'active' ? 'success' : 'warning'}">${formData.get('departmentStatus') || 'Not specified'}</span></td></tr>
-                                <tr><th>Established:</th><td>${formData.get('establishedYear') || 'Not specified'}</td></tr>
+                                <tr><th>Name:</th><td>${esc(formData.get('departmentName'), 'Not specified')}</td></tr>
+                                <tr><th>Code:</th><td>${esc(formData.get('departmentCode'), 'Not specified')}</td></tr>
+                                <tr><th>Status:</th><td><span class="badge bg-${formData.get('departmentStatus') === 'active' ? 'success' : 'warning'}">${esc(formData.get('departmentStatus'), 'Not specified')}</span></td></tr>
+                                <tr><th>Established:</th><td>${esc(formData.get('establishedYear'), 'Not specified')}</td></tr>
                             </table>
                         </div>
                         <div>
                             <h6>Department Head</h6>
                             <table class="table table-sm">
-                                <tr><th>Name:</th><td>${formData.get('headName') || 'Not specified'}</td></tr>
-                                <tr><th>Email:</th><td>${formData.get('headEmail') || 'Not specified'}</td></tr>
-                                <tr><th>Phone:</th><td>${formData.get('headPhone') || 'Not specified'}</td></tr>
-                                <tr><th>Office:</th><td>${formData.get('officeLocation') || 'Not specified'}</td></tr>
+                                <tr><th>Name:</th><td>${esc(formData.get('headName'), 'Not specified')}</td></tr>
+                                <tr><th>Email:</th><td>${esc(formData.get('headEmail'), 'Not specified')}</td></tr>
+                                <tr><th>Phone:</th><td>${esc(formData.get('headPhone'), 'Not specified')}</td></tr>
+                                <tr><th>Office:</th><td>${esc(formData.get('officeLocation'), 'Not specified')}</td></tr>
                             </table>
                         </div>
                         <div class="col-12 mt-3">
                             <h6>Description</h6>
-                            <p class="text-muted">${formData.get('description') || 'No description provided'}</p>
+                            <p class="text-muted">${esc(formData.get('description'), 'No description provided')}</p>
                         </div>
                     </div>
                 `;
@@ -629,5 +635,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 </script>
 
-</body>
-</html>
+
+{{> scripts}}

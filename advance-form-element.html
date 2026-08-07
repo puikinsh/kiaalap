@@ -34,11 +34,11 @@
                 <!-- Date and Time Pickers -->
                 <div class="dashboard-card">
                     <div class="dashboard-card-header">
-                        <h5 class="dashboard-card-title">Date & Time Pickers</h5>
+                        <h5 class="dashboard-card-title">Date &amp; Time Pickers</h5>
                         <p class="text-muted small mb-0">Various date and time input controls</p>
                     </div>
                     <div class="dashboard-card-body">
-                        <form class="dashboard-grid grid-cols-2">
+                        <div class="dashboard-grid grid-cols-2">
                             <div class="form-group">
                                 <label for="datePicker" class="form-label">Date Picker</label>
                                 <input type="date" class="form-control" id="datePicker" value="2025-01-15">
@@ -59,7 +59,7 @@
                                 <input type="month" class="form-control" id="monthPicker" value="2025-01">
                                 <div class="form-text">Select a month and year</div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -68,11 +68,11 @@
                 <!-- Color and Range Inputs -->
                 <div class="dashboard-card">
                     <div class="dashboard-card-header">
-                        <h5 class="dashboard-card-title">Color & Range Inputs</h5>
+                        <h5 class="dashboard-card-title">Color &amp; Range Inputs</h5>
                         <p class="text-muted small mb-0">Visual input controls for colors and ranges</p>
                     </div>
                     <div class="dashboard-card-body">
-                        <form class="dashboard-grid grid-cols-2">
+                        <div class="dashboard-grid grid-cols-2">
                             <div class="form-group">
                                 <label for="colorPicker" class="form-label">Color Picker</label>
                                 <div class="d-flex gap-2 align-items-center">
@@ -108,7 +108,7 @@
                                 </div>
                                 <div class="form-text">Visual progress representation</div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -121,7 +121,7 @@
                         <p class="text-muted small mb-0">Enhanced dropdown and multi-select controls</p>
                     </div>
                     <div class="dashboard-card-body">
-                        <form class="dashboard-grid grid-cols-2">
+                        <div class="dashboard-grid grid-cols-2">
                             <div class="form-group">
                                 <label for="multiSelect" class="form-label">Multi-Select</label>
                                 <select class="form-select" id="multiSelect" multiple size="4">
@@ -178,7 +178,7 @@
                                 </select>
                                 <div class="form-text">Options organized in groups</div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -187,11 +187,11 @@
                 <!-- File Upload and Media -->
                 <div class="dashboard-card">
                     <div class="dashboard-card-header">
-                        <h5 class="dashboard-card-title">File Upload & Media</h5>
+                        <h5 class="dashboard-card-title">File Upload &amp; Media</h5>
                         <p class="text-muted small mb-0">Advanced file handling and media inputs</p>
                     </div>
                     <div class="dashboard-card-body">
-                        <form class="dashboard-grid grid-cols-2">
+                        <div class="dashboard-grid grid-cols-2">
                             <div class="form-group">
                                 <label for="fileUpload" class="form-label">File Upload</label>
                                 <input type="file" class="form-control" id="fileUpload" multiple accept=".pdf,.doc,.docx,.txt">
@@ -203,7 +203,7 @@
                                 <div class="form-text">Upload profile picture or course image</div>
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Drag & Drop Zone</label>
+                                <label class="form-label">Drag &amp; Drop Zone</label>
                                 <div class="border border-2 border-dashed rounded p-4 text-center" style="border-color: #dee2e6 !important;">
                                     <i class="bi bi-cloud-upload fs-1 text-muted"></i>
                                     <div class="mt-2">
@@ -219,21 +219,21 @@
                                         <i class="bi bi-file-earmark-pdf text-danger"></i>
                                         <span class="flex-grow-1">syllabus.pdf</span>
                                         <small class="text-muted">2.4 MB</small>
-                                        <button type="button" class="btn btn-sm btn-outline-danger">
-                                            <i class="bi bi-trash"></i>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" aria-label="Delete">
+                                            <i aria-hidden="true" class="bi bi-trash"></i>
                                         </button>
                                     </div>
                                     <div class="d-flex align-items-center gap-2 p-2 bg-light rounded">
                                         <i class="bi bi-file-earmark-image text-primary"></i>
                                         <span class="flex-grow-1">course-banner.jpg</span>
                                         <small class="text-muted">1.8 MB</small>
-                                        <button type="button" class="btn btn-sm btn-outline-danger">
-                                            <i class="bi bi-trash"></i>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" aria-label="Delete">
+                                            <i aria-hidden="true" class="bi bi-trash"></i>
                                         </button>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -246,7 +246,7 @@
                         <p class="text-muted small mb-0">Specialized input types and controls</p>
                     </div>
                     <div class="dashboard-card-body">
-                        <form class="dashboard-grid grid-cols-2">
+                        <div class="dashboard-grid grid-cols-2">
                             <div class="form-group">
                                 <label for="numberSpinner" class="form-label">Number Spinner</label>
                                 <input type="number" class="form-control" id="numberSpinner" min="0" max="100" step="5" value="25">
@@ -277,7 +277,7 @@
                                 <input type="search" class="form-control" id="searchInput" placeholder="Search courses...">
                                 <div class="form-text">Search with auto-suggestions</div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -342,8 +342,6 @@
     {{> footer}}
 </div>
 
-{{> scripts}}
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
             // Color picker sync
@@ -397,7 +395,20 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (value) {
                             const tag = document.createElement('span');
                             tag.className = 'badge bg-secondary';
-                            tag.innerHTML = value + ' <i class="bi bi-x-lg ms-1" style="cursor: pointer;" onclick="this.parentElement.remove()"></i>';
+                            // textContent, not innerHTML: the value is raw user
+                            // input and would otherwise execute as markup.
+                            tag.textContent = value;
+
+                            const remove = document.createElement('i');
+                            remove.className = 'bi bi-x-lg ms-1';
+                            remove.style.cursor = 'pointer';
+                            remove.setAttribute('role', 'button');
+                            remove.setAttribute('aria-label', 'Remove tag ' + value);
+                            remove.addEventListener('click', function () {
+                                tag.remove();
+                            });
+                            tag.append(' ', remove);
+
                             this.parentElement.insertBefore(tag, this);
                             this.value = '';
                         }
@@ -454,3 +465,5 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 </script>
+
+{{> scripts}}

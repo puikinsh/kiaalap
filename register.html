@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Kiaalap</title>
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/src/scss/main.scss">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -80,8 +80,7 @@
                                id="firstName"
                                name="firstName"
                                placeholder="John"
-                               required
-                               aria-label="First Name">
+                               required>
                         <div class="invalid-feedback">
                             Please enter your first name.
                         </div>
@@ -94,8 +93,7 @@
                                id="lastName"
                                name="lastName"
                                placeholder="Doe"
-                               required
-                               aria-label="Last Name">
+                               required>
                         <div class="invalid-feedback">
                             Please enter your last name.
                         </div>
@@ -114,7 +112,6 @@
                                name="email"
                                placeholder="example@kiaalap.edu"
                                required
-                               aria-label="Email Address"
                                aria-describedby="emailHelp">
                     </div>
                     <div class="invalid-feedback">
@@ -136,7 +133,6 @@
                                placeholder="johndoe"
                                required
                                pattern="[a-zA-Z0-9_]{3,20}"
-                               aria-label="Username"
                                aria-describedby="usernameHelp">
                     </div>
                     <div class="invalid-feedback">
@@ -155,18 +151,17 @@
                                 <i class="bi bi-lock"></i>
                             </span>
                             <input type="password"
+                                   autocomplete="new-password"
                                    class="form-control"
                                    id="password"
                                    name="password"
                                    placeholder="Min 8 characters"
                                    required
                                    minlength="8"
-                                   aria-label="Password"
                                    aria-describedby="passwordHelp">
                             <button class="btn btn-outline-secondary"
                                     type="button"
-                                    id="togglePassword"
-                                    aria-label="Toggle password visibility">
+                                    id="togglePassword" aria-label="Show password">
                                 <i class="bi bi-eye"></i>
                             </button>
                         </div>
@@ -185,16 +180,15 @@
                                 <i class="bi bi-lock-fill"></i>
                             </span>
                             <input type="password"
+                                   autocomplete="new-password"
                                    class="form-control"
                                    id="confirmPassword"
                                    name="confirmPassword"
                                    placeholder="Repeat password"
-                                   required
-                                   aria-label="Confirm Password">
+                                   required>
                             <button class="btn btn-outline-secondary"
                                     type="button"
-                                    id="toggleConfirmPassword"
-                                    aria-label="Toggle confirm password visibility">
+                                    id="toggleConfirmPassword" aria-label="Show password">
                                 <i class="bi bi-eye"></i>
                             </button>
                         </div>

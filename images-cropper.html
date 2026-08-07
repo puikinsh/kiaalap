@@ -1,7 +1,6 @@
 {{> head}}
 
-<!-- Cropperjs v2 CSS -->
-<link rel="stylesheet" href="node_modules/cropperjs/dist/cropper.min.css">
+<!-- Cropper.js v2 needs no external stylesheet: its elements style themselves via shadow DOM. -->
 
 <style>
 /* Critical CSS for immediate render */
@@ -38,7 +37,7 @@
                 <div class="dashboard-grid grid-cols-1">
                     <div class="dashboard-card">
                         <div class="dashboard-card-header">
-                            <h5 class="dashboard-card-title mb-0">Image Upload & Crop</h5>
+                            <h5 class="dashboard-card-title mb-0">Image Upload &amp; Crop</h5>
                             <p class="text-muted small">Upload an image and crop it with various aspect ratios</p>
                         </div>
                         <div class="dashboard-card-body">
@@ -48,7 +47,7 @@
                                     <div class="text-center mb-3">
                                         <div class="crop-container" style="max-height: 400px; overflow: hidden;">
                                             <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
-                                                 alt="Sample Image" id="cropperImage" class="img-fluid">
+                                                 alt="Sample Image" id="cropperImage" class="img-fluid" loading="lazy" decoding="async">
                                         </div>
                                     </div>
 
@@ -81,13 +80,13 @@
                                             <div class="mb-3">
                                                 <label class="form-label fw-semibold">Actions</label>
                                                 <div class="d-grid gap-2">
-                                                    <button class="btn btn-success btn-sm" onclick="getCroppedImage()">
+                                                    <button type="button" class="btn btn-success btn-sm" onclick="getCroppedImage()">
                                                         <i class="bi bi-crop me-1"></i>Get Cropped
                                                     </button>
-                                                    <button class="btn btn-info btn-sm" onclick="downloadCroppedImage()">
+                                                    <button type="button" class="btn btn-info btn-sm" onclick="downloadCroppedImage()">
                                                         <i class="bi bi-download me-1"></i>Download
                                                     </button>
-                                                    <button class="btn btn-warning btn-sm" onclick="resetCropper()">
+                                                    <button type="button" class="btn btn-warning btn-sm" onclick="resetCropper()">
                                                         <i class="bi bi-arrow-clockwise me-1"></i>Reset
                                                     </button>
                                                 </div>
@@ -97,17 +96,17 @@
                                             <div class="mb-3">
                                                 <label class="form-label fw-semibold">Transform</label>
                                                 <div class="btn-group w-100 mb-2" role="group">
-                                                    <button class="btn btn-outline-secondary btn-sm" onclick="rotateCropper(-90)" title="Rotate Left">
-                                                        <i class="bi bi-arrow-counterclockwise"></i>
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="rotateCropper(-90)" title="Rotate Left" aria-label="Rotate Left">
+                                                        <i aria-hidden="true" class="bi bi-arrow-counterclockwise"></i>
                                                     </button>
-                                                    <button class="btn btn-outline-secondary btn-sm" onclick="rotateCropper(90)" title="Rotate Right">
-                                                        <i class="bi bi-arrow-clockwise"></i>
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="rotateCropper(90)" title="Rotate Right" aria-label="Rotate Right">
+                                                        <i aria-hidden="true" class="bi bi-arrow-clockwise"></i>
                                                     </button>
-                                                    <button class="btn btn-outline-secondary btn-sm" onclick="flipCropper('horizontal')" title="Flip Horizontal">
-                                                        <i class="bi bi-arrows-expand"></i>
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="flipCropper('horizontal')" title="Flip Horizontal" aria-label="Flip Horizontal">
+                                                        <i aria-hidden="true" class="bi bi-arrows-expand"></i>
                                                     </button>
-                                                    <button class="btn btn-outline-secondary btn-sm" onclick="flipCropper('vertical')" title="Flip Vertical">
-                                                        <i class="bi bi-arrows-collapse"></i>
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="flipCropper('vertical')" title="Flip Vertical" aria-label="Flip Vertical">
+                                                        <i aria-hidden="true" class="bi bi-arrows-collapse"></i>
                                                     </button>
                                                 </div>
                                             </div>
@@ -116,11 +115,11 @@
                                             <div class="mb-3">
                                                 <label class="form-label fw-semibold">Zoom</label>
                                                 <div class="btn-group w-100" role="group">
-                                                    <button class="btn btn-outline-secondary btn-sm" onclick="zoomCropper(-0.1)" title="Zoom Out">
-                                                        <i class="bi bi-zoom-out"></i>
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="zoomCropper(-0.1)" title="Zoom Out" aria-label="Zoom Out">
+                                                        <i aria-hidden="true" class="bi bi-zoom-out"></i>
                                                     </button>
-                                                    <button class="btn btn-outline-secondary btn-sm" onclick="zoomCropper(0.1)" title="Zoom In">
-                                                        <i class="bi bi-zoom-in"></i>
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="zoomCropper(0.1)" title="Zoom In" aria-label="Zoom In">
+                                                        <i aria-hidden="true" class="bi bi-zoom-in"></i>
                                                     </button>
                                                 </div>
                                             </div>
@@ -164,25 +163,25 @@
                         <div class="dashboard-card-body">
                             <div class="row g-2">
                                 <div class="col-6">
-                                    <button class="btn btn-outline-primary w-100" onclick="applyCropPreset('avatar')">
+                                    <button type="button" class="btn btn-outline-primary w-100" onclick="applyCropPreset('avatar')">
                                         <i class="bi bi-person-circle me-2"></i>Avatar<br>
                                         <small>200x200</small>
                                     </button>
                                 </div>
                                 <div class="col-6">
-                                    <button class="btn btn-outline-primary w-100" onclick="applyCropPreset('cover')">
+                                    <button type="button" class="btn btn-outline-primary w-100" onclick="applyCropPreset('cover')">
                                         <i class="bi bi-image me-2"></i>Cover<br>
                                         <small>1200x630</small>
                                     </button>
                                 </div>
                                 <div class="col-6">
-                                    <button class="btn btn-outline-primary w-100" onclick="applyCropPreset('thumbnail')">
+                                    <button type="button" class="btn btn-outline-primary w-100" onclick="applyCropPreset('thumbnail')">
                                         <i class="bi bi-grid-3x3 me-2"></i>Thumbnail<br>
                                         <small>300x200</small>
                                     </button>
                                 </div>
                                 <div class="col-6">
-                                    <button class="btn btn-outline-primary w-100" onclick="applyCropPreset('banner')">
+                                    <button type="button" class="btn btn-outline-primary w-100" onclick="applyCropPreset('banner')">
                                         <i class="bi bi-rectangle me-2"></i>Banner<br>
                                         <small>1920x400</small>
                                     </button>
@@ -265,10 +264,10 @@
                             </div>
 
                             <div class="text-center">
-                                <button class="btn btn-success" onclick="exportWithOptions()">
+                                <button type="button" class="btn btn-success" onclick="exportWithOptions()">
                                     <i class="bi bi-download me-2"></i>Export with Options
                                 </button>
-                                <button class="btn btn-outline-info ms-2" onclick="exportMultiple()">
+                                <button type="button" class="btn btn-outline-info ms-2" onclick="exportMultiple()">
                                     <i class="bi bi-files me-2"></i>Export Multiple Formats
                                 </button>
                             </div>
@@ -281,220 +280,237 @@
     {{> footer}}
 </div>
 
-{{> scripts}}
+<!-- Cropper.js v2 (web components; the v1 `new Cropper(img, options)` API is gone) -->
+<script type="module">
+    // Imported as a module so Vite bundles it; a plain <script src="node_modules/...">
+    // tag cannot be bundled and would 404 in a dist/ build.
+    import CropperClass from 'cropperjs';
 
-<!-- Cropperjs v2 JavaScript -->
-<script src="node_modules/cropperjs/dist/cropper.min.js"></script>
+    let cropper = null;
+    let cropperImage = null;
+    let cropperSelection = null;
 
-<script>
-let cropper = null;
+    // v2 builds its UI from a template of custom elements rather than options.
+    const CROPPER_TEMPLATE = `
+        <cropper-canvas background style="height: 400px;">
+            <cropper-image rotatable scalable skewable translatable></cropper-image>
+            <cropper-shade hidden></cropper-shade>
+            <cropper-handle action="move" plain></cropper-handle>
+            <cropper-selection initial-coverage="0.8" movable resizable outlined>
+                <cropper-grid role="grid" bordered covered></cropper-grid>
+                <cropper-crosshair centered></cropper-crosshair>
+                <cropper-handle action="move" theme-color="rgba(255, 255, 255, 0.35)"></cropper-handle>
+                <cropper-handle action="n-resize"></cropper-handle>
+                <cropper-handle action="e-resize"></cropper-handle>
+                <cropper-handle action="s-resize"></cropper-handle>
+                <cropper-handle action="w-resize"></cropper-handle>
+                <cropper-handle action="ne-resize"></cropper-handle>
+                <cropper-handle action="nw-resize"></cropper-handle>
+                <cropper-handle action="se-resize"></cropper-handle>
+                <cropper-handle action="sw-resize"></cropper-handle>
+            </cropper-selection>
+        </cropper-canvas>
+    `;
 
-        // Initialize cropper when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            // Wait for Cropper.js to load
-            if (typeof Cropper !== 'undefined') {
-                initializeCropper();
-                setupEventListeners();
-            } else {
-                // Retry after a short delay if Cropper.js isn't loaded yet
-                setTimeout(() => {
+    document.addEventListener('DOMContentLoaded', function () {
+        initializeCropper();
+        setupEventListeners();
+    });
+
+    function initializeCropper() {
+        const image = document.getElementById('cropperImage');
+        if (!image) return;
+
+        cropper = new CropperClass(image, { template: CROPPER_TEMPLATE });
+        cropperImage = cropper.getCropperImage();
+        cropperSelection = cropper.getCropperSelection();
+    }
+
+    function setAspectRatio(ratio) {
+        if (!cropperSelection) return;
+        // NaN clears the constraint (free-form) in v2.
+        cropperSelection.aspectRatio = ratio;
+        cropperSelection.$render();
+    }
+
+    // v2's $toCanvas() is async, unlike v1's synchronous getCroppedCanvas().
+    async function getCroppedCanvas(options) {
+        if (!cropperSelection) return null;
+        return cropperSelection.$toCanvas(options);
+    }
+
+    async function getCroppedImage() {
+        const canvas = await getCroppedCanvas({ width: 400, height: 300 });
+        if (!canvas) return;
+
+        const croppedResult = document.getElementById('croppedResult');
+        croppedResult.innerHTML = '';
+        canvas.classList.add('img-fluid', 'rounded');
+        croppedResult.appendChild(canvas);
+
+        document.getElementById('cropInfo').textContent =
+            `Dimensions: ${Math.round(cropperSelection.width)}x${Math.round(cropperSelection.height)}px`;
+    }
+
+    function downloadCanvas(canvas, filename, format, quality) {
+        canvas.toBlob(
+            function (blob) {
+                if (!blob) return;
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.click();
+                URL.revokeObjectURL(url);
+            },
+            format,
+            quality
+        );
+    }
+
+    async function downloadCroppedImage() {
+        const canvas = await getCroppedCanvas();
+        if (canvas) downloadCanvas(canvas, 'cropped-image.png');
+    }
+
+    function resetCropper() {
+        cropperImage?.$resetTransform();
+        cropperImage?.$center('contain');
+        cropperSelection?.$reset();
+
+        document.getElementById('croppedResult').innerHTML =
+            '<p class="text-muted mb-0"><i class="bi bi-image" style="font-size: 3rem;"></i><br>Cropped image will appear here</p>';
+        document.getElementById('cropInfo').textContent = 'No crop applied yet';
+    }
+
+    function rotateCropper(degrees) {
+        cropperImage?.$rotate(`${degrees}deg`);
+    }
+
+    function flipCropper(direction) {
+        if (!cropperImage) return;
+        if (direction === 'horizontal') {
+            cropperImage.$scale(-1, 1);
+        } else {
+            cropperImage.$scale(1, -1);
+        }
+    }
+
+    function zoomCropper(ratio) {
+        cropperImage?.$zoom(ratio);
+    }
+
+    async function applyCropPreset(preset) {
+        const presets = {
+            avatar: 1,
+            cover: 1200 / 630,
+            thumbnail: 300 / 200,
+            banner: 1920 / 400
+        };
+
+        const ratio = presets[preset];
+        if (!ratio) return;
+
+        setAspectRatio(ratio);
+        await getCroppedImage();
+    }
+
+    async function exportWithOptions() {
+        if (!cropperSelection) return;
+
+        const format = document.getElementById('exportFormat').value;
+        const quality = parseFloat(document.getElementById('exportQuality').value);
+        const sizeOption = document.getElementById('exportSize').value;
+
+        let options;
+        if (sizeOption === 'custom') {
+            const width = parseInt(document.getElementById('customWidth').value, 10) || undefined;
+            const height = parseInt(document.getElementById('customHeight').value, 10) || undefined;
+            options = { width, height };
+        } else {
+            const multipliers = { small: 0.25, medium: 0.5, large: 0.75, original: 1 };
+            const multiplier = multipliers[sizeOption] || 1;
+            options = {
+                width: Math.round(cropperSelection.width * multiplier),
+                height: Math.round(cropperSelection.height * multiplier)
+            };
+        }
+
+        const canvas = await getCroppedCanvas(options);
+        if (!canvas) return;
+
+        const extension = format.split('/')[1];
+        downloadCanvas(canvas, `cropped-image.${extension}`, format, quality);
+    }
+
+    async function exportMultiple() {
+        const formats = ['image/png', 'image/jpeg', 'image/webp'];
+
+        for (const format of formats) {
+            const canvas = await getCroppedCanvas();
+            if (!canvas) return;
+            const extension = format.split('/')[1];
+            downloadCanvas(
+                canvas,
+                `cropped-image.${extension}`,
+                format,
+                format === 'image/jpeg' ? 0.9 : 1
+            );
+        }
+    }
+
+    // The markup drives these through inline onclick="" attributes, which look
+    // them up on window. Module scope is not global, so expose them explicitly.
+    Object.assign(window, {
+        setAspectRatio,
+        getCroppedImage,
+        downloadCroppedImage,
+        resetCropper,
+        rotateCropper,
+        flipCropper,
+        zoomCropper,
+        applyCropPreset,
+        exportWithOptions,
+        exportMultiple
+    });
+
+    function setupEventListeners() {
+        // Image upload handler — v2 swaps the source on <cropper-image> instead
+        // of destroying and re-creating the instance.
+        document.getElementById('imageUpload')?.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const src = event.target.result;
+                document.getElementById('cropperImage').src = src;
+
+                if (cropperImage) {
+                    cropperImage.src = src;
+                    cropperImage.$ready(() => {
+                        cropperImage.$center('contain');
+                        cropperSelection?.$reset();
+                    });
+                } else {
                     initializeCropper();
-                    setupEventListeners();
-                }, 500);
-            }
+                }
+            };
+            reader.readAsDataURL(file);
         });
 
-        function initializeCropper() {
-            const image = document.getElementById('cropperImage');
-            cropper = new Cropper(image, {
-                aspectRatio: NaN,
-                viewMode: 1,
-                dragMode: 'move',
-                autoCropArea: 0.8,
-                responsive: true,
-                cropBoxResizable: true,
-                cropBoxMovable: true,
-                toggleDragModeOnDblclick: true,
-            });
-        }
+        // Export quality slider
+        document.getElementById('exportQuality')?.addEventListener('input', function () {
+            document.getElementById('qualityValue').textContent =
+                Math.round(this.value * 100) + '%';
+        });
 
-        function setAspectRatio(ratio) {
-            if (cropper) {
-                cropper.setAspectRatio(ratio);
-            }
-        }
-
-        function getCroppedImage() {
-            if (!cropper) return;
-
-            const canvas = cropper.getCroppedCanvas({
-                width: 400,
-                height: 300,
-                minWidth: 256,
-                minHeight: 256,
-                maxWidth: 4096,
-                maxHeight: 4096,
-                imageSmoothingEnabled: true,
-                imageSmoothingQuality: 'high',
-            });
-
-            const croppedResult = document.getElementById('croppedResult');
-            croppedResult.innerHTML = '';
-            croppedResult.appendChild(canvas);
-            canvas.classList.add('img-fluid', 'rounded');
-
-            // Update crop info
-            const cropData = cropper.getCropBoxData();
-            document.getElementById('cropInfo').textContent =
-                `Dimensions: ${Math.round(cropData.width)}x${Math.round(cropData.height)}px`;
-        }
-
-        function downloadCroppedImage() {
-            if (!cropper) return;
-
-            const canvas = cropper.getCroppedCanvas();
-            canvas.toBlob(function(blob) {
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'cropped-image.png';
-                a.click();
-                URL.revokeObjectURL(url);
-            });
-        }
-
-        function resetCropper() {
-            if (cropper) {
-                cropper.reset();
-                document.getElementById('croppedResult').innerHTML =
-                    '<p class="text-muted mb-0"><i class="bi bi-image" style="font-size: 3rem;"></i><br>Cropped image will appear here</p>';
-                document.getElementById('cropInfo').textContent = 'No crop applied yet';
-            }
-        }
-
-        function rotateCropper(degrees) {
-            if (cropper) {
-                cropper.rotate(degrees);
-            }
-        }
-
-        function flipCropper(direction) {
-            if (cropper) {
-                if (direction === 'horizontal') {
-                    cropper.scaleX(-cropper.getData().scaleX || -1);
-                } else {
-                    cropper.scaleY(-cropper.getData().scaleY || -1);
-                }
-            }
-        }
-
-        function zoomCropper(ratio) {
-            if (cropper) {
-                cropper.zoom(ratio);
-            }
-        }
-
-        function applyCropPreset(preset) {
-            if (!cropper) return;
-
-            const presets = {
-                avatar: { aspectRatio: 1, width: 200, height: 200 },
-                cover: { aspectRatio: 1200/630, width: 1200, height: 630 },
-                thumbnail: { aspectRatio: 300/200, width: 300, height: 200 },
-                banner: { aspectRatio: 1920/400, width: 1920, height: 400 }
-            };
-
-            const config = presets[preset];
-            if (config) {
-                cropper.setAspectRatio(config.aspectRatio);
-                setTimeout(() => {
-                    getCroppedImage();
-                }, 100);
-            }
-        }
-
-        function exportWithOptions() {
-            if (!cropper) return;
-
-            const format = document.getElementById('exportFormat').value;
-            const quality = parseFloat(document.getElementById('exportQuality').value);
-            const sizeOption = document.getElementById('exportSize').value;
-
-            let canvas;
-            if (sizeOption === 'custom') {
-                const width = parseInt(document.getElementById('customWidth').value) || null;
-                const height = parseInt(document.getElementById('customHeight').value) || null;
-                canvas = cropper.getCroppedCanvas({ width, height });
-            } else {
-                const multipliers = { small: 0.25, medium: 0.5, large: 0.75, original: 1 };
-                const multiplier = multipliers[sizeOption] || 1;
-                const cropData = cropper.getCropBoxData();
-                const width = Math.round(cropData.width * multiplier);
-                const height = Math.round(cropData.height * multiplier);
-                canvas = cropper.getCroppedCanvas({ width, height });
-            }
-
-            canvas.toBlob(function(blob) {
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                const extension = format.split('/')[1];
-                a.download = `cropped-image.${extension}`;
-                a.click();
-                URL.revokeObjectURL(url);
-            }, format, quality);
-        }
-
-        function exportMultiple() {
-            if (!cropper) return;
-
-            const formats = ['image/png', 'image/jpeg', 'image/webp'];
-            formats.forEach(format => {
-                const canvas = cropper.getCroppedCanvas();
-                canvas.toBlob(function(blob) {
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    const extension = format.split('/')[1];
-                    a.download = `cropped-image.${extension}`;
-                    a.click();
-                    URL.revokeObjectURL(url);
-                }, format, format === 'image/jpeg' ? 0.9 : 1);
-            });
-        }
-
-        function setupEventListeners() {
-            // Image upload handler
-            document.getElementById('imageUpload').addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(event) {
-                        if (cropper) {
-                            cropper.destroy();
-                        }
-                        document.getElementById('cropperImage').src = event.target.result;
-                        setTimeout(() => {
-                            initializeCropper();
-                        }, 100);
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            // Quality slider
-            document.getElementById('exportQuality').addEventListener('input', function() {
-                document.getElementById('qualityValue').textContent = Math.round(this.value * 100) + '%';
-            });
-
-            // Export size selector
-            document.getElementById('exportSize').addEventListener('change', function() {
-                const customInputs = document.getElementById('customSizeInputs');
-                if (this.value === 'custom') {
-                    customInputs.style.display = 'block';
-                } else {
-                    customInputs.style.display = 'none';
-                }
-            });
-        }
+        // Export size selector
+        document.getElementById('exportSize')?.addEventListener('change', function () {
+            const customInputs = document.getElementById('customSizeInputs');
+            customInputs.style.display = this.value === 'custom' ? 'block' : 'none';
+        });
+    }
 </script>
+
+{{> scripts}}

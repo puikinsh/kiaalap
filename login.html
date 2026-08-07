@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Kiaalap</title>
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/src/scss/main.scss">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -71,7 +71,6 @@
                                name="username"
                                placeholder="example@kiaalap.edu"
                                required
-                               aria-label="Email Address"
                                aria-describedby="emailHelp">
                     </div>
                     <div class="invalid-feedback">
@@ -89,12 +88,12 @@
                             <i class="bi bi-lock"></i>
                         </span>
                         <input type="password"
+                               autocomplete="current-password"
                                class="form-control"
                                id="password"
                                name="password"
                                placeholder="Enter your password"
                                required
-                               aria-label="Password"
                                aria-describedby="passwordHelp">
                         <button class="btn btn-outline-secondary"
                                 type="button"
