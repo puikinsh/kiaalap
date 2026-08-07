@@ -1,11 +1,13 @@
-// Bootstrap 5.3.8
-@import '../../node_modules/bootstrap/scss/bootstrap';
+// Kiaalap stylesheet entry point.
+// Loaded once, via the <link> tag in src/partials/head.hbs. Do not also import
+// this from src/js/main.js — that compiles and ships the whole sheet twice.
+// `@use` (not `@import`) keeps this off Dart Sass 3's removal list. To
+// customise Bootstrap, add a `with (...)` configuration to the rule below
+// rather than redeclaring variables after it.
 
-// Bootstrap Icons
-@import '../../node_modules/bootstrap-icons/font/bootstrap-icons.css';
-
-// Font Awesome
-@import '../../node_modules/@fortawesome/fontawesome-free/css/all.css';
+// Resolved via the `loadPaths: ['node_modules']` Sass option in vite.config.js.
+@use 'bootstrap/scss/bootstrap';
+@use 'bootstrap-icons/font/bootstrap-icons.css';
 
 // Custom global styles
 body {

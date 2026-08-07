@@ -1,0 +1,8 @@
+{
+  "extends": "stylelint-config-standard-scss",
+  "rules": {
+    "scss/load-no-partial-leading-underscore": null,
+    "no-empty-source": null
+  },
+  "ignoreFiles": ["node_modules/**", "dist/**"]
+}
