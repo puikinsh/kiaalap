@@ -1,6 +1,13 @@
     <!-- Load JavaScript -->
     <script type="module" src="/src/js/main.js"></script>
 
+    {{#if additionalJS}}
+    <!-- Page-specific scripts (set via additionalJS in vite.config.js) -->
+    {{#each additionalJS}}
+    <script type="module" src="/{{this}}"></script>
+    {{/each}}
+    {{/if}}
+
     {{#if pageSpecificJS}}
     <script>
         {{{pageSpecificJS}}}

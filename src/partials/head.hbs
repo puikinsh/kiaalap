@@ -28,6 +28,13 @@
     <link rel="stylesheet" href="/src/scss/main.scss">
     <link rel="stylesheet" href="/src/css/dashboard.css">
 
+    {{#if additionalCSS}}
+    <!-- Page-specific stylesheets (set via additionalCSS in vite.config.js) -->
+    {{#each additionalCSS}}
+    <link rel="stylesheet" href="/{{this}}">
+    {{/each}}
+    {{/if}}
+
     <!-- Diagnostic inline styles - maximum specificity -->
     <style>
         .sidebar.collapsed {
