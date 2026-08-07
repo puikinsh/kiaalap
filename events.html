@@ -62,10 +62,10 @@
                         <p class="text-muted mb-0">Manage and track institutional events and activities</p>
                     </div>
                     <div class="d-flex gap-2">
-                        <button class="btn btn-outline-secondary" id="calendarViewBtn">
+                        <button type="button" class="btn btn-outline-secondary" id="calendarViewBtn">
                             <i class="bi bi-calendar-month me-1"></i> Calendar View
                         </button>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEventModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEventModal">
                             <i class="bi bi-calendar-plus me-1"></i> Add Event
                         </button>
                     </div>
@@ -156,8 +156,27 @@
                 </div>
             </div>
 
+            <!-- Calendar View (FullCalendar; loaded on demand via #calendarViewBtn) -->
+            <div class="dashboard-row" id="calendarView" hidden>
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header py-4 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">Event Calendar</h6>
+                            <button type="button" class="btn btn-sm btn-light" id="closeCalendarView">
+                                <i aria-hidden="true" class="bi bi-list-ul me-1"></i> Back to list
+                            </button>
+                        </div>
+                    </div>
+                    <div class="dashboard-card-body p-4">
+                        <div id="eventCalendar" aria-busy="true">
+                            <p class="text-muted mb-0" id="calendarLoading">Loading calendar…</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Events List and Calendar -->
-            <div class="dashboard-row">
+            <div class="dashboard-row" id="eventsListView">
                 <div class="dashboard-grid" style="grid-template-columns: 2fr 1fr;">
                     <!-- Events List -->
                     <div class="dashboard-card">
@@ -165,8 +184,8 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <h6 class="mb-0">Recent Events</h6>
                                 <div class="dropdown">
-                                    <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
-                                        <i class="bi bi-three-dots"></i>
+                                    <button type="button" class="btn btn-sm btn-light" data-bs-toggle="dropdown" aria-label="More options">
+                                        <i aria-hidden="true" class="bi bi-three-dots"></i>
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="#">View All</a></li>
@@ -399,16 +418,16 @@
                             </div>
                             <div class="dashboard-card-body px-4 py-3">
                                 <div class="d-grid gap-2">
-                                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addEventModal">
+                                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addEventModal">
                                         <i class="bi bi-calendar-plus me-1"></i> Schedule Event
                                     </button>
-                                    <button class="btn btn-outline-success btn-sm">
+                                    <button type="button" class="btn btn-outline-success btn-sm">
                                         <i class="bi bi-people me-1"></i> Manage Attendees
                                     </button>
-                                    <button class="btn btn-outline-info btn-sm">
+                                    <button type="button" class="btn btn-outline-info btn-sm">
                                         <i class="bi bi-geo-alt me-1"></i> Book Venues
                                     </button>
-                                    <button class="btn btn-outline-warning btn-sm">
+                                    <button type="button" class="btn btn-outline-warning btn-sm">
                                         <i class="bi bi-bell me-1"></i> Send Reminders
                                     </button>
                                 </div>
@@ -424,7 +443,7 @@
 </div>
 
 <!-- Event Details Modal -->
-<div class="modal fade" id="eventDetailsModal" tabindex="-1" aria-labelledby="eventDetailsModalLabel" aria-hidden="true">
+<div class="modal fade" id="eventDetailsModal" tabindex="-1" aria-labelledby="eventDetailsModalLabel">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-primary text-white">
@@ -468,7 +487,7 @@
                                 <div class="timeline-item">
                                     <div class="timeline-time">9:00 AM</div>
                                     <div class="timeline-content">
-                                        <strong>Registration & Welcome</strong>
+                                        <strong>Registration &amp; Welcome</strong>
                                         <p class="text-muted small mb-0">Check-in and morning refreshments</p>
                                     </div>
                                 </div>
@@ -501,7 +520,7 @@
                             <div class="d-flex align-items-center gap-3">
                                 <div class="d-flex align-items-center">
                                     <img src="https://ui-avatars.com/api/?name=Dr+Sarah+Johnson&background=6366f1&color=fff&size=32"
-                                         class="rounded-circle me-2" width="32" height="32" alt="Dr. Sarah Johnson">
+                                         class="rounded-circle me-2" width="32" height="32" alt="Dr. Sarah Johnson" loading="lazy" decoding="async">
                                     <div>
                                         <div class="fw-semibold small">Dr. Sarah Johnson</div>
                                         <div class="text-muted small">Science Department Head</div>
@@ -509,7 +528,7 @@
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <img src="https://ui-avatars.com/api/?name=Prof+Michael+Chen&background=10b981&color=fff&size=32"
-                                         class="rounded-circle me-2" width="32" height="32" alt="Prof. Michael Chen">
+                                         class="rounded-circle me-2" width="32" height="32" alt="Prof. Michael Chen" loading="lazy" decoding="async">
                                     <div>
                                         <div class="fw-semibold small">Prof. Michael Chen</div>
                                         <div class="text-muted small">Event Coordinator</div>
@@ -537,13 +556,13 @@
                                     <div class="progress-bar bg-success" style="width: 62%" id="modalEventProgress"></div>
                                 </div>
                                 <div class="d-grid gap-2">
-                                    <button class="btn btn-primary btn-sm">
+                                    <button type="button" class="btn btn-primary btn-sm">
                                         <i class="bi bi-calendar-plus me-1"></i> Add to Calendar
                                     </button>
-                                    <button class="btn btn-outline-secondary btn-sm">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm">
                                         <i class="bi bi-share me-1"></i> Share Event
                                     </button>
-                                    <button class="btn btn-outline-info btn-sm">
+                                    <button type="button" class="btn btn-outline-info btn-sm">
                                         <i class="bi bi-people me-1"></i> View Attendees
                                     </button>
                                 </div>
@@ -592,7 +611,7 @@
 </div>
 
 <!-- Add Event Modal -->
-<div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
+<div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -676,13 +695,11 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Create Event</button>
+                <button type="submit" form="addEventForm" class="btn btn-primary">Create Event</button>
             </div>
         </div>
     </div>
 </div>
-
-{{> scripts}}
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -770,6 +787,33 @@ document.addEventListener('DOMContentLoaded', function() {
     const calendarViewBtn = document.getElementById('calendarViewBtn');
     const eventDetailsModal = new bootstrap.Modal(document.getElementById('eventDetailsModal'));
 
+    // Single place that fills the details modal — previously duplicated between
+    // the mini-calendar tiles and the month-grid dates, and now also reused by
+    // the FullCalendar view.
+    function showEventDetails(day) {
+        const event = eventData[day];
+        if (!event) return;
+
+        document.getElementById('modalEventMonth').textContent = event.month;
+        document.getElementById('modalEventDay').textContent = event.day;
+        document.getElementById('eventDetailsModalLabel').textContent = event.title;
+        document.getElementById('modalEventTime').textContent = event.time;
+        document.getElementById('modalEventDescription').textContent = event.description;
+        document.getElementById('modalEventLocation').textContent = event.location;
+        document.getElementById('modalEventCategory').textContent = event.category;
+        document.getElementById('modalEventCategory').className = `badge ${event.categoryClass}`;
+        document.getElementById('modalEventStatus').textContent = event.status;
+        document.getElementById('modalEventStatus').className = `badge ${event.statusClass}`;
+        document.getElementById('modalEventRegistered').textContent = event.registered;
+        document.getElementById('modalEventProgress').style.width = event.progress;
+
+        const modalHeader = document.querySelector('#eventDetailsModal .modal-header');
+        modalHeader.className = `modal-header ${event.headerClass} text-white`;
+
+        eventDetailsModal.show();
+    }
+
+
     // Handle clicking on calendar mini elements
     const calendarMinis = document.querySelectorAll('.calendar-mini');
     calendarMinis.forEach(mini => {
@@ -781,26 +825,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Get event data for this day
             const event = eventData[day];
             if (event) {
-                // Populate modal with event data
-                document.getElementById('modalEventMonth').textContent = event.month;
-                document.getElementById('modalEventDay').textContent = event.day;
-                document.getElementById('eventDetailsModalLabel').textContent = event.title;
-                document.getElementById('modalEventTime').textContent = event.time;
-                document.getElementById('modalEventDescription').textContent = event.description;
-                document.getElementById('modalEventLocation').textContent = event.location;
-                document.getElementById('modalEventCategory').textContent = event.category;
-                document.getElementById('modalEventCategory').className = `badge ${event.categoryClass}`;
-                document.getElementById('modalEventStatus').textContent = event.status;
-                document.getElementById('modalEventStatus').className = `badge ${event.statusClass}`;
-                document.getElementById('modalEventRegistered').textContent = event.registered;
-                document.getElementById('modalEventProgress').style.width = event.progress;
-
-                // Update modal header color
-                const modalHeader = document.querySelector('#eventDetailsModal .modal-header');
-                modalHeader.className = `modal-header ${event.headerClass} text-white`;
-
-                // Show the modal
-                eventDetailsModal.show();
+                showEventDetails(day);
             }
         });
     });
@@ -842,11 +867,82 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Calendar view toggle (placeholder)
+    // Calendar view toggle — FullCalendar is fetched the first time the user
+    // asks for it, so the ~40 kB gz chunk never loads for visitors who stay on
+    // the list view.
+    const calendarView = document.getElementById('calendarView');
+    const eventsListView = document.getElementById('eventsListView');
+    const closeCalendarView = document.getElementById('closeCalendarView');
+    let calendar = null;
+
+    // The month is hardcoded across this demo's fixtures.
+    const EVENT_MONTH = '2024-03';
+
+    const CATEGORY_COLOURS = {
+        Academic: '#0d6efd',
+        Professional: '#198754',
+        Cultural: '#ffc107',
+        Networking: '#0dcaf0'
+    };
+
+    function eventsForCalendar() {
+        return Object.entries(eventData).map(([day, e]) => ({
+            id: day,
+            title: e.title,
+            start: `${EVENT_MONTH}-${day}`,
+            allDay: true,
+            backgroundColor: CATEGORY_COLOURS[e.category] || '#6c757d',
+            borderColor: CATEGORY_COLOURS[e.category] || '#6c757d'
+        }));
+    }
+
+    async function showCalendar() {
+        eventsListView.hidden = true;
+        calendarView.hidden = false;
+
+        if (calendar) return;
+
+        const host = document.getElementById('eventCalendar');
+        try {
+            const { Calendar, plugins } = await window.Kiaalap.load('fullcalendar');
+
+            host.innerHTML = '';
+            calendar = new Calendar(host, {
+                plugins,
+                initialView: 'dayGridMonth',
+                initialDate: `${EVENT_MONTH}-01`,
+                height: 640,
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,listMonth'
+                },
+                events: eventsForCalendar(),
+                eventClick(info) {
+                    info.jsEvent.preventDefault();
+                    showEventDetails(info.event.id);
+                }
+            });
+            calendar.render();
+            host.setAttribute('aria-busy', 'false');
+        } catch (err) {
+            console.error('Failed to load the calendar:', err);
+            host.innerHTML =
+                '<div class="alert alert-warning mb-0">Calendar could not be loaded. Please retry.</div>';
+            host.setAttribute('aria-busy', 'false');
+        }
+    }
+
+    function showList() {
+        calendarView.hidden = true;
+        eventsListView.hidden = false;
+    }
+
     if (calendarViewBtn) {
-        calendarViewBtn.addEventListener('click', function() {
-            alert('Calendar view would be implemented here');
-        });
+        calendarViewBtn.addEventListener('click', showCalendar);
+    }
+    if (closeCalendarView) {
+        closeCalendarView.addEventListener('click', showList);
     }
 
     // Event card hover effects
@@ -872,26 +968,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const day = this.textContent.trim();
                 const event = eventData[day];
                 if (event) {
-                    // Populate and show modal just like clicking on calendar mini
-                    document.getElementById('modalEventMonth').textContent = event.month;
-                    document.getElementById('modalEventDay').textContent = event.day;
-                    document.getElementById('eventDetailsModalLabel').textContent = event.title;
-                    document.getElementById('modalEventTime').textContent = event.time;
-                    document.getElementById('modalEventDescription').textContent = event.description;
-                    document.getElementById('modalEventLocation').textContent = event.location;
-                    document.getElementById('modalEventCategory').textContent = event.category;
-                    document.getElementById('modalEventCategory').className = `badge ${event.categoryClass}`;
-                    document.getElementById('modalEventStatus').textContent = event.status;
-                    document.getElementById('modalEventStatus').className = `badge ${event.statusClass}`;
-                    document.getElementById('modalEventRegistered').textContent = event.registered;
-                    document.getElementById('modalEventProgress').style.width = event.progress;
-
-                    // Update modal header color
-                    const modalHeader = document.querySelector('#eventDetailsModal .modal-header');
-                    modalHeader.className = `modal-header ${event.headerClass} text-white`;
-
-                    eventDetailsModal.show();
-                } else {
+                showEventDetails(day);
+            } else {
                     alert(`No events scheduled for March ${day}`);
                 }
             });
@@ -899,3 +977,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+{{> scripts}}
