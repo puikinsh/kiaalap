@@ -1,206 +1,157 @@
-/* Kiaalap Dashboard - Main JavaScript */
+/* Kiaalap Dashboard - DOM wiring for the dashboard shell.
+ *
+ * This is the ONLY module that attaches listeners to the shell controls
+ * (#sidebarToggle, search bar, sidebar submenus). Keep it that way — adding a
+ * second handler elsewhere for the same control reintroduces the double-toggle
+ * bug this file was written to fix.
+ */
 
-// Wait for DOM to be ready
-document.addEventListener('DOMContentLoaded', function () {
-  // Get all elements
-  const elements = {
-    sidebar: document.getElementById('sidebar'),
-    sidebarToggle: document.getElementById('sidebarToggle'),
-    sidebarClose: document.getElementById('sidebarClose'),
-    sidebarOverlay: document.getElementById('sidebarOverlay'),
-    mainWrapper: document.getElementById('mainWrapper'),
-    searchToggle: document.getElementById('searchToggle'),
-    searchForm: document.getElementById('searchForm'),
-    searchInput: document.getElementById('searchInput'),
-    closeSearch: document.getElementById('closeSearch'),
-    searchBackdrop: document.getElementById('searchBackdrop'),
-  };
+import * as bootstrap from 'bootstrap';
+import {
+  isMobile,
+  openMobileSidebar,
+  closeMobileSidebar,
+  restoreSidebarState,
+  setMobileOpen,
+  setCollapsed,
+  toggleSidebar,
+} from './layout.js';
 
-  // ========================================
-  // SIDEBAR FUNCTIONALITY
-  // ========================================
+function initSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebarClose = document.getElementById('sidebarClose');
+  const sidebarOverlay = document.getElementById('sidebarOverlay');
+  const mainWrapper = document.getElementById('mainWrapper');
 
-  // Sidebar toggle
-  elements.sidebarToggle?.addEventListener('click', function () {
-    console.log('Sidebar toggle clicked, window width:', window.innerWidth);
-    if (window.innerWidth <= 768) {
-      // Mobile: show sidebar with overlay
-      elements.sidebar.classList.add('active');
-      elements.sidebarOverlay.classList.add('active');
-      console.log('Mobile mode: added active class');
+  if (!sidebar) return;
+
+  restoreSidebarState();
+
+  sidebarToggle?.addEventListener('click', function () {
+    if (isMobile()) {
+      openMobileSidebar();
     } else {
-      // Desktop: collapse sidebar
-      elements.sidebar.classList.toggle('collapsed');
-      elements.mainWrapper.classList.toggle('full-width');
-      console.log('Desktop mode: toggled collapsed/full-width');
-      console.log('Sidebar classes:', elements.sidebar.className);
-      console.log('Main wrapper classes:', elements.mainWrapper.className);
-
-      // Save state to localStorage
-      const isCollapsed = elements.sidebar.classList.contains('collapsed');
-      localStorage.setItem('sidebarCollapsed', isCollapsed);
+      toggleSidebar();
     }
   });
 
-  // Close sidebar on mobile
-  elements.sidebarClose?.addEventListener('click', function () {
-    elements.sidebar.classList.remove('active');
-    elements.sidebarOverlay.classList.remove('active');
-  });
+  sidebarClose?.addEventListener('click', closeMobileSidebar);
+  sidebarOverlay?.addEventListener('click', closeMobileSidebar);
 
-  elements.sidebarOverlay?.addEventListener('click', function () {
-    elements.sidebar.classList.remove('active');
-    elements.sidebarOverlay.classList.remove('active');
-  });
-
-  // Restore sidebar state on desktop
-  if (localStorage.getItem('sidebarCollapsed') === 'true' && window.innerWidth > 768) {
-    elements.sidebar?.classList.add('collapsed');
-    elements.mainWrapper?.classList.add('full-width');
-  }
-
-  // ========================================
-  // SEARCH FUNCTIONALITY
-  // ========================================
-
-  // Open search
-  elements.searchToggle?.addEventListener('click', function (e) {
-    e.stopPropagation();
-    elements.searchForm.classList.add('active');
-    elements.searchBackdrop.classList.add('active');
-    elements.searchToggle.style.visibility = 'hidden';
-
-    // Focus input after animation
-    setTimeout(() => elements.searchInput?.focus(), 300);
-  });
-
-  // Close search
-  function closeSearchBar() {
-    elements.searchForm?.classList.remove('active');
-    elements.searchBackdrop?.classList.remove('active');
-    if (elements.searchToggle) {
-      elements.searchToggle.style.visibility = 'visible';
-    }
-    if (elements.searchInput) {
-      elements.searchInput.value = '';
-    }
-  }
-
-  elements.closeSearch?.addEventListener('click', function (e) {
-    e.stopPropagation();
-    closeSearchBar();
-  });
-
-  elements.searchBackdrop?.addEventListener('click', closeSearchBar);
-
-  // Prevent search form from closing when clicking inside
-  elements.searchForm?.addEventListener('click', function (e) {
-    e.stopPropagation();
-  });
-
-  // ESC key to close search
+  // Close the mobile sidebar with Escape
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && elements.searchForm?.classList.contains('active')) {
-      closeSearchBar();
+    if (e.key === 'Escape' && sidebar.classList.contains('active')) {
+      closeMobileSidebar();
     }
   });
 
-  // ========================================
-  // RESPONSIVE HANDLING
-  // ========================================
-
+  // Drop whichever set of classes no longer applies when crossing the
+  // breakpoint, so the two modes can't both be active at once.
   let resizeTimer;
   window.addEventListener('resize', function () {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function () {
-      if (window.innerWidth > 768) {
-        // Desktop view: remove mobile classes
-        elements.sidebar?.classList.remove('active');
-        elements.sidebarOverlay?.classList.remove('active');
+      if (isMobile()) {
+        sidebar.classList.remove('collapsed');
+        mainWrapper?.classList.remove('full-width');
       } else {
-        // Mobile view: remove desktop classes
-        elements.sidebar?.classList.remove('collapsed');
-        elements.mainWrapper?.classList.remove('full-width');
+        setMobileOpen(false);
+        // Re-apply the persisted desktop state rather than leaving the
+        // sidebar expanded after a resize.
+        restoreSidebarState();
       }
     }, 250);
   });
+}
 
-  // ========================================
-  // BOOTSTRAP COMPONENTS INITIALIZATION
-  // ========================================
+function initSearch() {
+  const searchToggle = document.getElementById('searchToggle');
+  const searchForm = document.getElementById('searchForm');
+  const searchInput = document.getElementById('searchInput');
+  const closeSearch = document.getElementById('closeSearch');
+  const searchBackdrop = document.getElementById('searchBackdrop');
 
-  // Initialize tooltips
-  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-  [...tooltipTriggerList].map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
+  if (!searchToggle || !searchForm) return;
 
-  // Initialize popovers
-  const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
-  [...popoverTriggerList].map((popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl));
+  function closeSearchBar() {
+    searchForm.classList.remove('active');
+    searchBackdrop?.classList.remove('active');
+    searchToggle.style.visibility = 'visible';
+    if (searchInput) searchInput.value = '';
+  }
 
-  // ========================================
-  // SUBMENU FUNCTIONALITY
-  // ========================================
-
-  // Handle submenu toggle clicks
-  const submenuToggles = document.querySelectorAll('.sidebar-nav .nav-link.has-submenu');
-
-  submenuToggles.forEach((toggle) => {
-    toggle.addEventListener('click', function (e) {
-      // Prevent default link behavior
-      e.preventDefault();
-      e.stopPropagation();
-
-      // Get the target submenu
-      const targetId = this.getAttribute('data-bs-target');
-      const targetElement = document.querySelector(targetId);
-
-      if (targetElement) {
-        // Check if submenu is currently shown
-        const isShown = targetElement.classList.contains('show');
-
-        if (isShown) {
-          // Collapse the submenu
-          bootstrap.Collapse.getInstance(targetElement)?.hide();
-          this.setAttribute('aria-expanded', 'false');
-        } else {
-          // Expand the submenu
-          // First, get or create the collapse instance
-          let bsCollapse = bootstrap.Collapse.getInstance(targetElement);
-          if (!bsCollapse) {
-            bsCollapse = new bootstrap.Collapse(targetElement, {
-              toggle: false,
-            });
-          }
-          bsCollapse.show();
-          this.setAttribute('aria-expanded', 'true');
-        }
-      }
-    });
+  searchToggle.addEventListener('click', function (e) {
+    e.stopPropagation();
+    searchForm.classList.add('active');
+    searchBackdrop?.classList.add('active');
+    searchToggle.style.visibility = 'hidden';
+    setTimeout(() => searchInput?.focus(), 300);
   });
 
-  // ========================================
-  // ACTIVE MENU HIGHLIGHTING
-  // ========================================
+  closeSearch?.addEventListener('click', function (e) {
+    e.stopPropagation();
+    closeSearchBar();
+  });
 
-  // Get current page
-  const currentPath = window.location.pathname;
+  searchBackdrop?.addEventListener('click', closeSearchBar);
+
+  // Clicks inside the form must not bubble up to the document handler
+  searchForm.addEventListener('click', (e) => e.stopPropagation());
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && searchForm.classList.contains('active')) {
+      closeSearchBar();
+    }
+  });
+}
+
+function initActiveMenuHighlighting() {
+  // Server-side rendering already marks the active link via the `page` context
+  // in vite.config.js. This is the fallback for pages served without that
+  // context (e.g. the standalone auth pages) and for deep links.
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   const navLinks = document.querySelectorAll('.sidebar-nav .nav-link:not(.has-submenu)');
 
   navLinks.forEach((link) => {
     const href = link.getAttribute('href');
-    if (href && currentPath.endsWith(href.replace('#', ''))) {
-      link.classList.add('active');
+    if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
 
-      // If this is a submenu item, also expand its parent
-      const parentSubmenu = link.closest('.submenu');
-      if (parentSubmenu) {
-        parentSubmenu.classList.add('show');
-        const parentToggle = document.querySelector(`[data-bs-target="#${parentSubmenu.id}"]`);
-        if (parentToggle) {
-          parentToggle.setAttribute('aria-expanded', 'true');
-          parentToggle.classList.add('active');
-        }
-      }
+    if (href !== currentPage) return;
+
+    link.classList.add('active');
+
+    const parentSubmenu = link.closest('.submenu');
+    if (!parentSubmenu) return;
+
+    parentSubmenu.classList.add('show');
+    const parentToggle = document.querySelector(`[data-bs-target="#${parentSubmenu.id}"]`);
+    if (parentToggle) {
+      parentToggle.setAttribute('aria-expanded', 'true');
+      parentToggle.classList.add('active');
     }
   });
+}
+
+function initBootstrapComponents() {
+  document
+    .querySelectorAll('[data-bs-toggle="tooltip"]')
+    .forEach((el) => new bootstrap.Tooltip(el));
+
+  document
+    .querySelectorAll('[data-bs-toggle="popover"]')
+    .forEach((el) => new bootstrap.Popover(el));
+}
+
+// Sidebar submenus use standard `data-bs-toggle="collapse"` markup, so
+// Bootstrap's own delegated handler drives them (and keeps aria-expanded in
+// sync). Do not add a manual collapse handler here — it would fire alongside
+// Bootstrap's and cancel it out.
+document.addEventListener('DOMContentLoaded', function () {
+  initSidebar();
+  initSearch();
+  initActiveMenuHighlighting();
+  initBootstrapComponents();
 });
+
+export { setCollapsed };

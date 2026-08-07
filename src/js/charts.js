@@ -1,11 +1,10 @@
 /* Kiaalap Dashboard - Charts Initialization */
 
+// Imported rather than read off `window.Chart`, so this module states its own
+// dependency and lints cleanly. Bundled once — main.js imports the same entry.
+import Chart from 'chart.js/auto';
+
 document.addEventListener('DOMContentLoaded', function () {
-  // Check if Chart.js is loaded
-  if (typeof Chart === 'undefined') {
-    console.error('Chart.js is not loaded');
-    return;
-  }
 
   // Chart.js default configuration
   Chart.defaults.font.family =
@@ -249,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function () {
     new Chart(visitsSparklineCtx.getContext('2d'), {
       type: 'line',
       data: {
-        labels: Array.from({ length: 7 }, (_, i) => ''),
+        labels: Array.from({ length: 7 }, () => ''),
         datasets: [
           {
             data: [45, 52, 48, 65, 58, 72, 68],
@@ -292,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function () {
     new Chart(pageViewsSparklineCtx.getContext('2d'), {
       type: 'line',
       data: {
-        labels: Array.from({ length: 7 }, (_, i) => ''),
+        labels: Array.from({ length: 7 }, () => ''),
         datasets: [
           {
             data: [30, 35, 40, 38, 45, 50, 48],
@@ -335,7 +334,7 @@ document.addEventListener('DOMContentLoaded', function () {
     new Chart(bounceRateSparklineCtx.getContext('2d'), {
       type: 'line',
       data: {
-        labels: Array.from({ length: 7 }, (_, i) => ''),
+        labels: Array.from({ length: 7 }, () => ''),
         datasets: [
           {
             data: [25, 22, 20, 18, 19, 17, 18],
@@ -404,12 +403,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // DYNAMIC TIME UPDATES
   // ========================================
   function updateRelativeTimes() {
-    const timeElements = document.querySelectorAll('[data-time]');
-    timeElements.forEach((element) => {
-      const timestamp = element.dataset.time;
-      // Update relative time display
-      // This would normally calculate relative time from timestamp
-    });
+    // Placeholder: [data-time] elements would be rewritten to relative times
+    // here (e.g. via dayjs). No-op until a page needs it.
   }
 
   // Update times every minute
