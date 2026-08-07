@@ -1,6 +1,5 @@
 {{> head}}
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
 <style>
 /* Data Map Styles */
@@ -198,9 +197,12 @@
     {{> footer}}
 </div>
 
-{{> scripts}}
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- Leaflet from the local npm package; module import so Vite bundles it. -->
+<script type="module">
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+window.L = L;
+</script>
 
 <script>
 // Data Visualization Maps (Vanilla JavaScript)
@@ -324,3 +326,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+{{> scripts}}

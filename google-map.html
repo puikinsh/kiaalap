@@ -1,6 +1,5 @@
 {{> head}}
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
 <style>
 /* Map Demo Styles */
@@ -94,13 +93,13 @@
             <div class="map-demo-card">
                 <h5 class="mb-3">Campus Locations</h5>
                 <div class="map-controls">
-                    <button class="btn btn-primary" id="resetViewBtn">
+                    <button type="button" class="btn btn-primary" id="resetViewBtn">
                         <i class="bi bi-geo-alt me-2"></i>Reset View
                     </button>
-                    <button class="btn btn-secondary" id="satelliteBtn">
+                    <button type="button" class="btn btn-secondary" id="satelliteBtn">
                         <i class="bi bi-globe me-2"></i>Toggle View
                     </button>
-                    <button class="btn btn-success" id="addMarkerBtn">
+                    <button type="button" class="btn btn-success" id="addMarkerBtn">
                         <i class="bi bi-plus-circle me-2"></i>Add Marker
                     </button>
                 </div>
@@ -115,8 +114,8 @@
                             <div class="location-name">University Library</div>
                             <div class="location-address">Main Campus, Building A</div>
                         </div>
-                        <button class="btn btn-sm btn-outline-primary">
-                            <i class="bi bi-geo-alt"></i>
+                        <button type="button" class="btn btn-sm btn-outline-primary" aria-label="Geo alt">
+                            <i aria-hidden="true" class="bi bi-geo-alt"></i>
                         </button>
                     </div>
                     <div class="location-item" data-location="lab">
@@ -127,8 +126,8 @@
                             <div class="location-name">Computer Science Lab</div>
                             <div class="location-address">Technology Center, Floor 3</div>
                         </div>
-                        <button class="btn btn-sm btn-outline-primary">
-                            <i class="bi bi-geo-alt"></i>
+                        <button type="button" class="btn btn-sm btn-outline-primary" aria-label="Geo alt">
+                            <i aria-hidden="true" class="bi bi-geo-alt"></i>
                         </button>
                     </div>
                     <div class="location-item" data-location="cafeteria">
@@ -139,8 +138,8 @@
                             <div class="location-name">Student Cafeteria</div>
                             <div class="location-address">Student Center, Ground Floor</div>
                         </div>
-                        <button class="btn btn-sm btn-outline-primary">
-                            <i class="bi bi-geo-alt"></i>
+                        <button type="button" class="btn btn-sm btn-outline-primary" aria-label="Geo alt">
+                            <i aria-hidden="true" class="bi bi-geo-alt"></i>
                         </button>
                     </div>
                     <div class="location-item" data-location="admin">
@@ -151,8 +150,8 @@
                             <div class="location-name">Administration Office</div>
                             <div class="location-address">Main Building, Floor 2</div>
                         </div>
-                        <button class="btn btn-sm btn-outline-primary">
-                            <i class="bi bi-geo-alt"></i>
+                        <button type="button" class="btn btn-sm btn-outline-primary" aria-label="Geo alt">
+                            <i aria-hidden="true" class="bi bi-geo-alt"></i>
                         </button>
                     </div>
                 </div>
@@ -198,9 +197,12 @@
     {{> footer}}
 </div>
 
-{{> scripts}}
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- Leaflet from the local npm package; module import so Vite bundles it. -->
+<script type="module">
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+window.L = L;
+</script>
 
 <script>
 // Leaflet Map Integration (Vanilla JavaScript)
@@ -328,3 +330,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }).addTo(overviewMap);
 });
 </script>
+
+{{> scripts}}

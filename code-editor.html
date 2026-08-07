@@ -1,7 +1,6 @@
 {{> head}}
 
 <!-- Prism.js for Syntax Highlighting -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 
 <style>
 /* Code Editor Styles */
@@ -229,9 +228,9 @@
                 <div class="code-editor-container">
                     <div class="editor-toolbar">
                         <div class="editor-tabs">
-                            <button class="editor-tab active" data-lang="javascript">script.js</button>
-                            <button class="editor-tab" data-lang="html">index.html</button>
-                            <button class="editor-tab" data-lang="css">styles.css</button>
+                            <button type="button" class="editor-tab active" data-lang="javascript">script.js</button>
+                            <button type="button" class="editor-tab" data-lang="html">index.html</button>
+                            <button type="button" class="editor-tab" data-lang="css">styles.css</button>
                         </div>
                         <div class="editor-actions">
                             <select class="language-selector" id="languageSelect">
@@ -240,13 +239,13 @@
                                 <option value="css">CSS</option>
                                 <option value="python">Python</option>
                             </select>
-                            <button class="editor-btn" id="formatBtn">
+                            <button type="button" class="editor-btn" id="formatBtn">
                                 <i class="bi bi-code-square"></i> Format
                             </button>
-                            <button class="editor-btn" id="copyBtn">
+                            <button type="button" class="editor-btn" id="copyBtn">
                                 <i class="bi bi-clipboard"></i> Copy
                             </button>
-                            <button class="editor-btn" id="runBtn">
+                            <button type="button" class="editor-btn" id="runBtn">
                                 <i class="bi bi-play-fill"></i> Run
                             </button>
                         </div>
@@ -268,7 +267,7 @@ console.log(message);
 
 // Array operations
 const courses = ['Computer Science', 'Mathematics', 'Physics'];
-courses.forEach(course => {
+courses.forEach(course =&gt; {
     console.log(`📚 Course: ${course}`);
 });
 
@@ -301,31 +300,31 @@ student.displayInfo();</textarea>
                         <div class="code-editor-container">
                             <div class="editor-toolbar">
                                 <div class="editor-tabs">
-                                    <button class="editor-tab active">index.html</button>
+                                    <button type="button" class="editor-tab active">index.html</button>
                                 </div>
                                 <div class="editor-actions">
-                                    <button class="editor-btn" id="copyHtml">
+                                    <button type="button" class="editor-btn" id="copyHtml">
                                         <i class="bi bi-clipboard"></i> Copy
                                     </button>
                                 </div>
                             </div>
                             <div class="editor-wrapper">
                                 <div class="code-highlight" id="htmlHighlight">
-                                    <pre><code class="language-markup" id="htmlHighlightedCode"><!DOCTYPE html></code></pre>
+                                    <pre><code class="language-markup" id="htmlHighlightedCode">&lt;!DOCTYPE html&gt;</code></pre>
                                 </div>
-                                <textarea class="code-editor" id="htmlEditor" style="min-height: 250px;" spellcheck="false"><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Webpage</title>
-</head>
-<body>
-    <h1>Welcome to My Website</h1>
-    <p>This is a sample HTML document.</p>
-    <button onclick="alert('Hello!')">Click Me</button>
-</body>
-</html></textarea>
+                                <textarea class="code-editor" id="htmlEditor" style="min-height: 250px;" spellcheck="false">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My Webpage&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome to My Website&lt;/h1&gt;
+    &lt;p&gt;This is a sample HTML document.&lt;/p&gt;
+    &lt;button type="button" onclick="alert('Hello!')"&gt;Click Me&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
                             </div>
                         </div>
                     </div>
@@ -337,10 +336,10 @@ student.displayInfo();</textarea>
                         <div class="code-editor-container">
                             <div class="editor-toolbar">
                                 <div class="editor-tabs">
-                                    <button class="editor-tab active">styles.css</button>
+                                    <button type="button" class="editor-tab active">styles.css</button>
                                 </div>
                                 <div class="editor-actions">
-                                    <button class="editor-btn" id="copyCss">
+                                    <button type="button" class="editor-btn" id="copyCss">
                                         <i class="bi bi-clipboard"></i> Copy
                                     </button>
                                 </div>
@@ -417,13 +416,16 @@ button:hover {
     {{> footer}}
 </div>
 
-{{> scripts}}
-
 <!-- Prism.js for Syntax Highlighting -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+<!-- Prism from the local npm package; module import so Vite bundles it. -->
+<script type="module">
+import 'prismjs/themes/prism-tomorrow.min.css';
+import Prism from 'prismjs';
+import 'prismjs/components/prism-markup.js';
+import 'prismjs/components/prism-css.js';
+import 'prismjs/components/prism-javascript.js';
+window.Prism = Prism;
+</script>
 
 <script>
 // Code Editor functionality with Syntax Highlighting (Vanilla JavaScript)
@@ -675,7 +677,7 @@ student.displayInfo();`,
         <section id="welcome">
             <h2>Welcome Back, Student!</h2>
             <p>You have 3 assignments due this week.</p>
-            <button onclick="alert('Feature coming soon!')">View Assignments</button>
+            <button type="button" onclick="alert('Feature coming soon!')">View Assignments</button>
         </section>
 
         <section id="courses">
@@ -855,3 +857,5 @@ footer {
     });
 });
 </script>
+
+{{> scripts}}

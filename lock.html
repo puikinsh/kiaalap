@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lock Screen - Kiaalap</title>
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/src/scss/main.scss">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -97,13 +97,13 @@
                             <i class="bi bi-key"></i>
                         </span>
                         <input type="password"
+                               autocomplete="current-password"
                                class="form-control"
                                id="password"
                                name="password"
                                placeholder="Enter your password"
                                required
                                autofocus
-                               aria-label="Password"
                                aria-describedby="passwordHelp">
                         <button class="btn btn-outline-secondary"
                                 type="button"
