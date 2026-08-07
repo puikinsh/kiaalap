@@ -8,6 +8,166 @@ Kiaalap has undergone a complete modernization from a legacy Bootstrap 3/4 templ
 
 ---
 
+## [3.0.0] - 2026-08-07 (Security, Performance & Accessibility)
+
+A security, performance and accessibility overhaul. All 25 open Dependabot alerts
+are resolved, every third-party CDN dependency has been removed, and the HTML
+validator now passes cleanly across all 62 pages. **This release contains
+breaking changes — see the migration notes below.**
+
+### ⚠️ Breaking Changes
+
+| Change | Migration |
+|--------|-----------|
+| `window.Swiper`, `window.SimpleBar`, `window.TomSelect`, `window.CountUp` removed | `const Swiper = await Kiaalap.load('swiper');` — or add the DOM hook and let it auto-initialise |
+| Font Awesome removed | Use Bootstrap Icons (`<i class="bi bi-*">`), or re-add `@fortawesome/fontawesome-free` and re-import it in `src/scss/main.scss` |
+| Cropper.js 1.x → 2.x (web-components rewrite) | `new Cropper(img, options)` is gone. Build from a `template` of `<cropper-canvas>` elements and drive it via `getCropperImage()` / `getCropperSelection()`. `$toCanvas()` is now async. See `images-cropper.html` |
+| `filepond`, `metismenu`, `animate.css` removed | Nothing in the template referenced them. Reinstall if your project does |
+| `quill` pinned to exactly `2.0.2` | 2.0.3 is the only version affected by GHSA-v3m3-f69x-jf25 and has no patched release |
+| Removed `src/js/charts-responsive.js`, `src/css/widgets.css`, `src/scss/variables.scss`, `src/scss/utilities/_responsive.scss`, `src/layouts/base.hbs`, `src/partials/base.hbs` | All were unreferenced dead files |
+| `additionalJS` entries no longer inject Chart.js | Chart.js is global on every page via `window.Chart` |
+
+### 🔒 Security
+
+- **All 25 Dependabot alerts resolved** — handlebars, vite, lodash, lodash-es,
+  rollup, swiper, flatted, immutable, svgo, fast-uri, minimatch, postcss and
+  js-yaml. `npm audit` reports **0 vulnerabilities**.
+- **Fixed two DOM XSS vulnerabilities:**
+  - `advance-form-element.html` — the tag input assigned raw user text via
+    `innerHTML`, so `<img src=x onerror=…>` executed. Now uses `textContent`.
+  - `add-department.html` — the preview interpolated nine unescaped form values
+    into `innerHTML`. Now escaped.
+- **Removed all CDN dependencies.** Prism (5 files from cdnjs) and Leaflet
+  (2 from unpkg) were loaded with **no Subresource Integrity**, so a CDN
+  compromise would have executed arbitrary JavaScript on every page using them.
+  Both now ship from local npm packages. No third-party script or stylesheet is
+  loaded from another origin.
+- **Added production security headers** to `DEPLOYMENT_GUIDE.md` — working
+  Content-Security-Policy, HSTS, `X-Content-Type-Options`, `Referrer-Policy` and
+  `Permissions-Policy` configs for both Nginx and Apache. Achievable precisely
+  because the CDNs are gone.
+- Password fields now carry `autocomplete` so browsers and password managers
+  behave correctly.
+
+### ⚡ Performance
+
+Per-page cost dropped from **144 kB → 97 kB** of gzipped JavaScript and
+**68 kB → 46 kB** of gzipped CSS.
+
+- **On-demand library loading** (`src/js/lazy.js`). Swiper, SimpleBar,
+  Tom Select, CountUp, AOS and FullCalendar are no longer bundled into
+  `main.js`; each is fetched only when the page actually uses it. Verified in a
+  real browser: a page with no hooks fetches **zero** lazy chunks.
+- **Removed Font Awesome** — it shipped 264 kB of web fonts plus 128 kB of CSS
+  for **zero** icons used anywhere in the template.
+- **Removed a duplicated 300 kB stylesheet chunk.** The four auth pages pulled
+  their own separate copies of Bootstrap and Bootstrap Icons; they now share the
+  main bundle.
+- **Removed 5 redundant Chart.js `<script>` tags** — Chart.js already ships in
+  the main bundle, so those pages downloaded it twice.
+- Quill, Cropper.js, Leaflet and Prism are now bundled module imports rather
+  than raw `node_modules/` script tags, which previously could not be bundled
+  and 404'd in a `dist/` build.
+- 51 images gained `loading="lazy"` and `decoding="async"`.
+- Removed a font "preload" that pointed at an unhashed path and ran *after*
+  `DOMContentLoaded` — it only ever produced a 404.
+
+### ♿ Accessibility
+
+`npm run lint:html` went from **~700 errors to 0**.
+
+- 164 icon-only buttons and links gained an `aria-label`, with their icons
+  marked `aria-hidden="true"`.
+- 247 buttons gained an explicit `type`.
+- Removed static `aria-hidden="true"` from 19 Bootstrap modals — it marked every
+  focusable child as hidden while Bootstrap manages the attribute itself.
+- Accordion panels gained `role="region"` alongside `aria-labelledby`.
+- Fixed an untitled `<iframe>`, redundant `aria-label`s, a deprecated `<td width>`,
+  and unassociated modal submit buttons (now linked via `form=`).
+- Converted 8 layout-only `<form>` wrappers to `<div>` (WCAG H32).
+
+### 🐛 Bug Fixes
+
+- **Desktop sidebar collapse did nothing.** `dashboard.js` and `layout.js` both
+  attached a click handler to `#sidebarToggle` and each toggled `.collapsed`,
+  cancelling each other out. `layout.js` is now listener-free and `dashboard.js`
+  owns all shell wiring.
+- **The password generator's length slider was dead.** `password-meter.html` had
+  a duplicate `id="passwordLength"` on both a metric display and the range
+  input, so `getElementById` returned the wrong element — the slider's value read
+  back `NaN` and its listener never bound.
+- **The sidebar never highlighted the active section.** `vite.config.js` built a
+  `navigation` object that no partial ever read. Replaced with an explicit
+  `NAV_GROUPS` map spread into the template context.
+- **`additionalCSS` / `additionalJS` were silently ignored** — only the unused
+  `base.hbs` rendered them. Now wired into the live partials, so
+  `charts-layout.css` finally loads on the 11 pages that use `.chart-container`.
+- **Fixed structural HTML across 50+ pages** — page scripts emitted after
+  `</html>`, duplicated `</body></html>` on 8 pages, `404.html`/`500.html` never
+  closing their document, stray `</div>`s leaving `<main>` unclosed on 5 pages,
+  an `<input>` nested inside an `<a>`, and a `<!DOCTYPE>` parse failure.
+- Fixed `src=""` on two preview images, which made the browser re-request the
+  entire page.
+
+### ✨ Added
+
+- **FullCalendar event calendar** on `events.html`. The "Calendar View" button
+  previously fired `alert('Calendar view would be implemented here')`; it now
+  renders a real month/list calendar built from the page's event data,
+  colour-coded by category, with clickable events that open the details modal.
+  It loads on first click, so the calendar chunks cost nothing for visitors who
+  stay on the list view.
+- `Kiaalap.load(name)` public API for on-demand libraries.
+- `.stylelintrc.json` — `npm run lint:css` previously failed with no config.
+- `.htmlvalidate.json` — pins the HTML rule set.
+
+### 📦 Dependencies
+
+Major upgrades: **Vite 7 → 8**, cssnano 7 → 8, html-validate 10 → 11,
+Swiper 12 → 14, FullCalendar 6 → 7, Cropper.js 1 → 2.
+
+| Package | Previous | Updated |
+|---------|----------|---------|
+| bootstrap | 5.3.8 | 5.3.8 |
+| chart.js | 4.5.1 | 4.5.1 |
+| countup.js | 2.9.0 | 2.10.1 |
+| cropperjs | 1.6.2 | **2.1.1** |
+| cssnano | 7.1.2 | **8.0.4** |
+| dayjs | 1.11.19 | 1.11.21 |
+| eslint | 10.0.0 | 10.8.0 |
+| fullcalendar | 6.1.20 | **7.0.2** |
+| html-validate | 10.7.0 | **11.6.2** |
+| prettier | 3.8.1 | 3.9.6 |
+| prismjs | — | **1.30.0** (new — replaces the cdnjs copy) |
+| quill | 2.0.3 | 2.0.2 (pinned) |
+| sass | 1.97.3 | 1.102.0 |
+| simple-datatables | 10.2.0 | 10.3.0 |
+| stylelint | 17.2.0 | 17.14.1 |
+| swiper | 12.1.0 | **14.1.0** |
+| terser | 5.46.0 | 5.49.2 |
+| tom-select | 2.4.6 | 2.6.2 |
+| vite | 7.3.1 | **8.2.1** |
+| vite-plugin-handlebars | 2.0.0 | 2.0.3 |
+
+**Removed:** `@fortawesome/fontawesome-free`, `filepond`, `metismenu`,
+`animate.css`.
+
+### 🔧 Internal
+
+- `src/scss/main.scss` uses `@use` instead of the deprecated `@import`, resolved
+  through a `loadPaths` option so `quietDeps` silences Bootstrap's internal
+  deprecation warnings. The build is now warning-free.
+- `main.scss` was being compiled and shipped twice (linked *and* imported by
+  `main.js`); it now loads once.
+- `vite.config.js` uses `import.meta.dirname` — Vite 8 resolves configs natively,
+  where `__dirname` is unavailable.
+- Disabled cssnano's SVGO pass, which could not parse Bootstrap's
+  percent-encoded SVG data URIs and logged an error per occurrence.
+- Removed the `overrides` block — `vite-plugin-handlebars` 2.0.3 declares
+  Vite 8 support natively.
+
+---
+
 ## [2.3.0] - 2026-02-10 (Dependency Updates & Fixes)
 
 ### 📦 Package Updates
