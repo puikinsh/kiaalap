@@ -300,9 +300,48 @@ Before deploying to production:
 - [ ] Check for sensitive data in code
 - [ ] Ensure proper file permissions (644 for files, 755 for directories)
 - [ ] Enable HTTPS on your server
-- [ ] Configure CSP headers
+- [ ] Configure security headers (see below)
 - [ ] Enable gzip compression
 - [ ] Set up CDN (optional)
+
+### Security headers
+
+All JavaScript and CSS is now served from your own origin — the template loads
+no third-party scripts — so a strict Content-Security-Policy works without
+allow-listing external hosts. The only remote origins are image hosts and the
+map tile servers used by the demo map pages.
+
+**Nginx:**
+
+```nginx
+add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://ui-avatars.com https://images.unsplash.com https://flagcdn.com https://*.tile.openstreetmap.org https://server.arcgisonline.com; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'" always;
+add_header X-Content-Type-Options "nosniff" always;
+add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
+```
+
+**Apache (`.htaccess`):**
+
+```apache
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://ui-avatars.com https://images.unsplash.com https://flagcdn.com https://*.tile.openstreetmap.org https://server.arcgisonline.com; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+Header always set X-Content-Type-Options "nosniff"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+```
+
+`'unsafe-inline'` is required because most pages carry inline `<script>` and
+`<style>` blocks. To drop it, move that page-local code into files under
+`src/js/` and `src/css/`, or add a per-request nonce.
+
+If you serve the full source tree (Option 1), also deny direct access to
+non-runtime files:
+
+```nginx
+location ~ /\.(git|env)     { deny all; }
+location ~ /(src|scripts)/  { deny all; }   # only if you deploy the built dist/
+```
 
 ---
 

@@ -12,12 +12,14 @@ Check out the live demo: [Kiaalap Live Preview](https://colorlib.com/polygon/kia
 
 ### Modern Technology Stack
 - **Bootstrap 5.3.8** - Latest Bootstrap version with 100% jQuery-free architecture
-- **Vite 7.3 Build System** - Lightning-fast development server and optimized production builds
+- **Vite 8.2 Build System** - Lightning-fast development server and optimized production builds
 - **Handlebars Templating** - Modular partials for maintainable code structure
 - **Chart.js 4.5** - Beautiful, responsive charts replacing legacy Morris/C3/D3 libraries
-- **Simple-DataTables 10.2+** - Vanilla JavaScript data tables with no jQuery dependency
+- **Simple-DataTables 10.3** - Vanilla JavaScript data tables with no jQuery dependency
 - **Bootstrap Icons 1.13.1** - 2,000+ icons loaded locally (no CDN dependencies)
 - **Vanilla JavaScript** - Clean ES6+ code throughout the application
+- **Zero third-party CDNs** - every script and stylesheet is served from your own origin
+- **On-demand libraries** - heavy dependencies load only on the pages that use them
 
 ### Comprehensive Education Management
 - **📊 Multiple Dashboard Layouts** - 3 unique dashboard designs for different use cases
@@ -124,11 +126,36 @@ kiaalap/
 
 ### 100% Modern Architecture
 Completely rewritten from legacy Bootstrap 3/4 template to modern Bootstrap 5 with:
-- Zero jQuery dependencies (except Simple-DataTables)
+- Zero jQuery dependencies
 - All assets from node_modules (no CDN dependencies)
 - ES6+ JavaScript modules with tree-shaking
 - Vite hot module replacement for instant updates
 - Production builds optimized with Terser minification
+- `npm audit` clean, and `lint:html` / `lint:css` / `lint:js` all pass with zero errors
+
+### On-Demand Libraries
+Swiper, SimpleBar, Tom Select, CountUp, AOS and FullCalendar are **not** in the
+main bundle. Each is fetched only when a page needs it, keeping the shared
+payload at ~97 kB gzipped.
+
+Either add the hook and let it auto-initialise:
+
+| Hook | Library |
+|------|---------|
+| `.swiper` | Swiper |
+| `[data-simplebar]` | SimpleBar |
+| `.tom-select` | Tom Select |
+| `.countup` with `data-count` | CountUp |
+| `[data-aos]` | AOS |
+
+…or load one yourself when you need the constructor:
+
+```js
+const Swiper = await Kiaalap.load('swiper');
+new Swiper('#hero', { loop: true });
+
+const { Calendar, plugins } = await Kiaalap.load('fullcalendar');
+```
 
 ### Handlebars Templating System
 All 65 pages use a consistent template structure with reusable partials:
@@ -177,19 +204,20 @@ Edit `src/partials/sidebar.hbs` to customize the navigation menu structure.
 
 ### Core Technologies
 - [Bootstrap 5.3.8](https://getbootstrap.com/) - Modern CSS framework
-- [Vite 7.3](https://vitejs.dev/) - Next generation build tool
+- [Vite 8.2](https://vitejs.dev/) - Next generation build tool
 - [Chart.js 4.5](https://www.chartjs.org/) - Flexible JavaScript charting
 - [Handlebars 2.0](https://handlebarsjs.com/) - Semantic templating
 
 ### Key Libraries
-- [Simple-DataTables 10.2](https://github.com/fiduswriter/Simple-DataTables) - Vanilla JS data tables
+- [Simple-DataTables 10.3](https://github.com/fiduswriter/Simple-DataTables) - Vanilla JS data tables
 - [Bootstrap Icons 1.13.1](https://icons.getbootstrap.com/) - 2,000+ icon library
-- [Quill 2.0.3](https://quilljs.com/) - Modern rich text editor
-- [FullCalendar 6.1](https://fullcalendar.io/) - Event calendar
+- [Quill 2.0.2](https://quilljs.com/) - Modern rich text editor
+- [FullCalendar 7.0](https://fullcalendar.io/) - Event calendar
 - [Leaflet 1.9](https://leafletjs.com/) - Interactive maps
-- [Tom Select 2.3](https://tom-select.js.org/) - Modern select library
-- [Cropper.js 1.6](https://fengyuanchen.github.io/cropperjs/) - Image cropping
-- [CountUp.js 2.8](https://inorganik.github.io/countUp.js/) - Number animations
+- [Tom Select 2.6](https://tom-select.js.org/) - Modern select library
+- [Cropper.js 2.1](https://fengyuanchen.github.io/cropperjs/) - Image cropping
+- [CountUp.js 2.10](https://inorganik.github.io/countUp.js/) - Number animations
+- [Prism 1.30](https://prismjs.com/) - Syntax highlighting
 
 ## 🌐 Browser Support
 
@@ -200,6 +228,7 @@ Edit `src/partials/sidebar.hbs` to customize the navigation menu structure.
 
 ## 📝 Version History
 
+- **v3.0.0** (2026) - Security, performance & accessibility overhaul: all Dependabot alerts resolved, CDNs removed, on-demand library loading, zero HTML validation errors. **Contains breaking changes** — see [CHANGELOG.md](CHANGELOG.md)
 - **v2.3.0** (2026) - Dependency updates, fixed dashboard screenshot, ESLint v10 flat config migration
 - **v2.2.0** (2025) - All dependencies updated to latest versions, improved documentation
 - **v2.1.0** (2025) - Mailbox system improvements, legacy asset cleanup, enhanced card styling

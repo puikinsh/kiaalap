@@ -4,167 +4,169 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Kiaalap is a Bootstrap 5 education management dashboard with 65+ HTML pages using Handlebars templating and Vite build system. Originally a Bootstrap 4/jQuery template, it has been partially modernized — jQuery is still imported in `main.js` and exposed globally, despite the intent to be jQuery-free.
+Kiaalap is a Bootstrap 5 education-management dashboard: 62 static HTML pages composed from Handlebars partials at build/dev time by Vite. There is no application backend, router, or data layer — every page is hand-authored markup with page-local `<script>` blocks. It is fully jQuery-free (no jQuery in `package.json` or any source file).
 
-## Build Commands
+## Commands
 
 ```bash
-npm run dev          # Dev server on port 3000 (auto-opens browser)
-npm run build        # Production build to dist/
-npm run preview      # Preview production build
-npm run lint:html    # HTML validation (html-validate)
-npm run lint:css     # SCSS linting (Stylelint)
-npm run lint:js      # ESLint for JavaScript
-npm run format       # Prettier formatting
-npm run clean        # Remove dist/
+npm run dev          # Vite dev server on port 3000, auto-opens browser
+npm run build        # Production build to dist/ (terser, drop_console)
+npm run preview      # Serve the dist/ build
+npm run lint:html    # html-validate on root *.html (config: .htmlvalidate.json)
+npm run lint:css     # Stylelint on src/scss (config: .stylelintrc.json)
+npm run lint:js      # ESLint on src/js/**/*.js
+npm run format       # Prettier on src/**
+npm run clean        # rm -rf dist
 ```
 
-No test suite exists (`npm test` exits with error).
+There is no test suite (`npm test` exits 1). All three linters and the build pass with zero errors and zero warnings — keep it that way.
 
-## Architecture
+## How a page is assembled
 
-### Tech Stack
-
-- **Bootstrap 5.3.8** - CSS framework
-- **Vite 7.3.1** - Build tool with `vite-plugin-handlebars`
-- **Chart.js 4.5.1** - All charting (replaced Morris.js/C3/D3)
-- **Simple-DataTables 10.0** - Vanilla JS data tables
-- **Bootstrap Icons 1.13.1 + Font Awesome 7** - Both loaded from node_modules
-
-### Entry Points and Load Order
-
-HTML pages load resources through two Handlebars partials:
-
-1. **`src/partials/head.hbs`** — Opens `<html>`, loads CSS:
-   - `/src/scss/main.scss` (Bootstrap + Bootstrap Icons + Font Awesome)
-   - `/src/css/dashboard.css` (dashboard-specific styles)
-   - Inline styles for sidebar collapse behavior
-
-2. **`src/partials/scripts.hbs`** — Loads JS, closes `</body></html>`:
-   - `/src/js/main.js` as ES module (the true JS entry point)
-
-**`src/js/main.js`** imports and initializes everything:
-
-- Imports `main.scss` (Vite CSS-in-JS)
-- Imports Bootstrap, AOS, CountUp, Chart.js, dayjs, Swiper, SimpleBar, TomSelect
-- Exposes all libraries on `window.*` for use in page-level inline scripts
-- Imports `./layout.js`, `./dashboard.js`, `./charts.js`
-
-### Known Code Duplication
-
-Three JS files have **overlapping sidebar toggle and Bootstrap init logic**:
-
-- `src/js/dashboard.js` — Sidebar toggle, search, submenu, active highlighting, tooltips/popovers
-- `src/js/layout.js` — Sidebar toggle, active highlighting, resize handling, tooltips/popovers
-- `src/js/main.js` — Sidebar toggle, tooltips/popovers, CountUp, SimpleBar, TomSelect
-
-Similarly, chart initialization is duplicated:
-
-- `src/js/charts.js` — Charts + counters + progress bar animations (loaded via `main.js`)
-- `src/js/charts-responsive.js` — Same charts + counters (loaded per-page via `additionalJS` in vite config)
-
-### SCSS Entry Point
-
-- **`src/scss/main.scss`** — Loaded by `head.hbs`. Imports Bootstrap, Bootstrap Icons, Font Awesome. Minimal custom styles.
-
-### Handlebars Template System
-
-Every HTML page follows this structure:
+`vite-plugin-handlebars` renders every root `*.html` at request/build time. A page is a fragment that pulls in partials from `src/partials/`:
 
 ```html
-{{> head}}
+{{> head}}      <!-- opens <!DOCTYPE html><html><head>…<body>, loads CSS -->
 {{> sidebar}}
 <div class="main-wrapper" id="mainWrapper">
     {{> header}}
-    <main class="dashboard-content" id="main-content">
-        <div class="container-fluid">
-            <!-- Page content -->
-        </div>
-    </main>
+    <main class="dashboard-content" id="main-content">…</main>
     {{> footer}}
 </div>
-{{> scripts}}
+<!-- page-local <script>/<link> tags go HERE, before the closing partial -->
+{{> scripts}}   <!-- loads /src/js/main.js as a module, closes </body></html> -->
 ```
 
-**Context is set per-page in `vite.config.js`** via `getPageContext(filename)`:
+**`{{> scripts}}` must be the last thing in the file.** It emits `</body></html>`, so anything after it lands outside the document. Every page-local `<script>` or `<link>` belongs above it.
 
-- Navigation states (which menu is active/expanded)
-- Page title, breadcrumbs, description
-- `additionalCSS` / `additionalJS` arrays for page-specific assets
+58 of 62 pages follow this. The four auth pages — [login.html](login.html), [register.html](register.html), [lock.html](lock.html), [password-recovery.html](password-recovery.html) — are standalone full documents with **no partials**; edits to `head.hbs`/`sidebar.hbs`/`header.hbs` do not reach them. [404.html](404.html) and [500.html](500.html) use `{{> head}}` and `{{> scripts}}` but deliberately render no sidebar.
 
-### Navigation State: Dual Approach
+Build inputs are globbed (`glob.sync('*.html')` minus `*template*` and `*-new*`), so a new root HTML file is included automatically.
 
-Active menu states are set **twice**:
+## Loading model
 
-1. **Server-side** via Handlebars context in `vite.config.js` — sets `navigation.*` booleans that `sidebar.hbs` uses for `active` classes and `show` on collapse
-2. **Client-side** in `dashboard.js` — JS checks `window.location.pathname` and adds `active` classes
+1. **Bundled** — [src/partials/scripts.hbs](src/partials/scripts.hbs) loads `/src/js/main.js` as an ES module. `main.js` eagerly imports only what the shell and dashboard charts need on load — Bootstrap, Chart.js, dayjs — puts them on `window.*` for page-local inline scripts, and imports `layout.js`, `dashboard.js`, `charts.js`. Everything else is fetched on demand (see [On-demand libraries](#on-demand-libraries)).
+2. **Page-local module scripts** — pages needing a library the bundle doesn't carry import it inside `<script type="module">`: Quill in [tinymc.html](tinymc.html), CropperJS in [images-cropper.html](images-cropper.html), Simple-DataTables in [data-table.html](data-table.html), Leaflet in the two map pages, Prism in [code-editor.html](code-editor.html). Vite bundles these into `dist/assets/`.
 
-### Adding a New Page
+**No third-party script or stylesheet is loaded from a CDN.** Everything is served from the app's own origin, which is what lets the CSP in [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) stay strict. Adding a CDN `<script>` would break that — install the package and import it instead. The only remaining remote origins are demo image hosts and map tile servers.
 
-1. Create `newpage.html` in project root with standard Handlebars partials
-2. Add page config in `vite.config.js` → `pageConfigs` object (title, breadcrumb, additionalCSS/JS)
-3. Update navigation state logic in `getPageContext()` if the page belongs to an existing category
-4. Add to sidebar in `src/partials/sidebar.hbs` if needed
-5. Build automatically includes all `*.html` files (excludes `*template*` and `*-new*` patterns)
+Two rules follow from this:
 
-### Chart Pages
+- **Never add `<script src="node_modules/…">`.** A non-module script tag cannot be bundled, so it 404s in a `dist/` build. Use `<script type="module">` with a real `import`.
+- **Chart.js is already global.** `window.Chart` is set by the bundle on every page. Page-local chart code just uses `new Chart(...)` inside a `DOMContentLoaded` handler — module scripts are deferred, so the global is set by the time that fires. Do not re-load Chart.js per page.
 
-Pages with charts need this in their `vite.config.js` page config:
+Inline `onclick="fn()"` attributes resolve against the global scope, which module scope is not part of. Pages that use them (`tinymc.html`, `images-cropper.html`) re-expose their handlers via `Object.assign(window, {...})`.
 
-```javascript
-additionalCSS: ['src/css/charts-layout.css'],
-additionalJS: ['node_modules/chart.js/dist/chart.umd.js', 'src/js/charts-responsive.js']
-```
+Leaflet and Prism still load from unpkg/cdnjs despite `leaflet` being an npm dependency.
 
-Note: Chart.js is also imported via `main.js` as `chart.js/auto`, so it's loaded twice on chart pages.
+## Handlebars context (vite.config.js)
 
-### Handlebars Helpers
+`getPageContext(filename)` merges a base context (user, meta, currentYear) with a per-page entry from `pageConfigs`. Pages without an entry fall through to `defaultConfig`, which title-cases the filename.
 
-Available in `src/helpers/handlebars-helpers.js`:
+Context keys that matter:
 
-- `eq` — Equality check: `{{#if (eq page 'index')}}`
-- `exists`, `isActive`, `truncate`, `formatDate`, `conditionalClass`, `json`
-- Math: `add`, `subtract`, `multiply`
-- String: `lowercase`, `uppercase`, `startsWith`, `endsWith`, `contains`
-- Array: `length`, `first`, `last`
+| Key | Consumed by | Purpose |
+| --- | --- | --- |
+| `page` | `sidebar.hbs` | `{{#if (eq page 'index')}}` marks the active link |
+| nav group booleans | `sidebar.hbs` | `{{#if academic.students}}` expands the containing submenu |
+| `breadcrumb` | `header.hbs` | array of `{title, url}` |
+| `title`, `pageTitle`, `pageDescription`, `showPageHeader` | `head.hbs` / pages | |
+| `additionalCSS` | `head.hbs` | extra `<link>` tags, paths relative to project root |
+| `additionalJS` | `scripts.hbs` | extra `<script type="module">` tags |
+| `criticalCSS`, `pageSpecificStyles`, `pageSpecificJS` | `head.hbs` / `scripts.hbs` | raw inline blocks |
 
-### CSS Architecture
+**Navigation state** comes from `NAV_GROUPS` at the top of [vite.config.js](vite.config.js) — an explicit page-name → group map. `getNavigationState()` turns it into the nested booleans `sidebar.hbs` tests, and `getPageContext` spreads them at the **top level** of the context (the partial tests `{{#if academic.students}}`, not `{{#if navigation.academic.students}}`). Only truthy leaves are assigned: an empty `{}` would make `{{#if group}}` pass, since Handlebars treats every object as truthy. When adding a page to an existing sidebar section, add it to the relevant `NAV_GROUPS` array.
 
-Active entry point: `src/scss/main.scss`
-Dashboard styles: `src/css/dashboard.css` (plain CSS, not SCSS)
+### Adding a page
 
-SCSS source: `src/scss/main.scss` only (imports Bootstrap, Bootstrap Icons, Font Awesome)
+1. Create `newpage.html` in the project root using the skeleton above, keeping `{{> scripts}}` last.
+2. Add a `pageConfigs` entry for title/breadcrumb (optional — there is a default).
+3. Add the page to the right `NAV_GROUPS` array, and add its link to [src/partials/sidebar.hbs](src/partials/sidebar.hbs) with an `{{#if (eq page 'newpage')}}active{{/if}}`.
+4. Page-specific assets go in `additionalCSS`/`additionalJS`, or directly in the page above `{{> scripts}}`.
 
-### Sidebar Behavior
+## JavaScript ownership
 
-Managed in `src/js/dashboard.js` (and duplicated in `layout.js`):
+Each shell control has exactly one owner. This was previously not true — `dashboard.js`, `layout.js`, and `main.js` all attached a click handler to `#sidebarToggle`, and two of them toggled `.collapsed`, so desktop collapse cancelled itself out. Keep the split:
 
-- **Desktop (>768px)**: Toggles `.collapsed` on sidebar + `.full-width` on main wrapper. State persisted to `localStorage` key `sidebarCollapsed`
-- **Mobile (<=768px)**: Opens as overlay with `.active` class + backdrop. No persistence
+| File | Responsibility |
+| --- | --- |
+| [src/js/layout.js](src/js/layout.js) | Imperative sidebar helpers only (`toggleSidebar`, `setCollapsed`, `restoreSidebarState`, …). **No listeners.** Exposed as `window.layout`. |
+| [src/js/dashboard.js](src/js/dashboard.js) | The only module that attaches shell listeners: sidebar toggle/close/overlay/resize, search bar, active-link highlighting, tooltip/popover init. |
+| [src/js/main.js](src/js/main.js) | Library imports, `window.*` globals, AOS/SimpleBar/TomSelect/CountUp init. |
+| [src/js/charts.js](src/js/charts.js) | Dashboard charts — `#earningsChart` and the three sparklines, all of which exist only on [index.html](index.html). Guards are id-based, so it no-ops elsewhere. |
 
-### Vite Aliases
+Sidebar submenus use standard `data-bs-toggle="collapse"` markup and are driven by **Bootstrap's own delegated handler**. Do not add a manual collapse handler — it fires alongside Bootstrap's and cancels it.
 
-Defined in `vite.config.js`:
+Desktop collapse toggles `.collapsed` on `#sidebar` plus `.full-width` on `#mainWrapper`, persisted to `localStorage.sidebarCollapsed`. Mobile (≤768px) toggles `.active` on the sidebar and overlay, with no persistence.
 
-- `~bootstrap` → `node_modules/bootstrap`
-- `~@fortawesome` → `node_modules/@fortawesome`
-- `@` → `./src`
+## Styles
 
-## Deployment
+- [src/scss/main.scss](src/scss/main.scss) — the entry point. Uses `@use` (not `@import`) and resolves Bootstrap, Bootstrap Icons, and Font Awesome through the `loadPaths: ['node_modules']` Sass option set in `vite.config.js`. Loading via a load path rather than a relative `../../node_modules/` path is what lets `quietDeps` silence the deprecation warnings Bootstrap 5 still emits internally.
+- Loaded **once**, by the `<link>` in [head.hbs](src/partials/head.hbs). Do not also import it from `main.js` — that compiles and ships the whole sheet twice.
+- [src/css/dashboard.css](src/css/dashboard.css) — 799 lines of plain CSS; the real dashboard theme.
+- [src/css/charts-layout.css](src/css/charts-layout.css) — chart sizing (`.chart-container`, `.chart-container-main`); attached per-page via `additionalCSS`.
+- `head.hbs` carries an inline `<style>` block of `!important` sidebar-collapse overrides — CSS changes to `.sidebar.collapsed` in `dashboard.css` may be silently overridden there.
 
-Full source deployment (not static build). Server must allow access to `node_modules/`. See `DEPLOYMENT_GUIDE.md` for Apache/Nginx configs.
+Bootstrap ships unconfigured: `main.scss` sets no variable overrides, so the palette is stock. To theme it, add a `with (...)` configuration to the `@use 'bootstrap/scss/bootstrap'` rule rather than redeclaring variables after it.
 
-## Key Libraries
+## Gotchas
 
-| Library          | Where Used             | Init Pattern                                          |
-| ---------------- | ---------------------- | ----------------------------------------------------- |
-| Chart.js         | Dashboard + chart pages | Guard with `if (typeof Chart === 'undefined') return` |
-| Simple-DataTables | `data-table.html`     | `new DataTable('#tableId', options)`                  |
-| Quill            | `tinymc.html`          | Rich text editor                                      |
-| FullCalendar     | `events.html`          | Calendar events                                       |
-| Leaflet          | Map pages              | Interactive maps                                      |
-| CropperJS        | `images-cropper.html`  | Image cropping                                        |
-| Tom Select       | Advanced forms         | Enhanced select dropdowns (`.tom-select` class)       |
-| SimpleBar        | Scrollable areas       | Custom scrollbars (`[data-simplebar]` attribute)      |
-| CountUp.js       | Dashboard counters     | `.countup` class with `data-count` attribute          |
-| AOS              | Scroll animations      | Initialized outside DOMContentLoaded in `main.js`     |
+- **CropperJS is v2**, a web-components rewrite. The v1 `new Cropper(img, options)` API is gone: build the UI from a `template` of `<cropper-canvas>`/`<cropper-image>`/`<cropper-selection>` elements, then drive it through `getCropperImage()` / `getCropperSelection()`. `$toCanvas()` is async (v1's `getCroppedCanvas()` was sync), and v2 ships no stylesheet — elements style themselves via shadow DOM.
+- **Quill is pinned to 2.0.2**, not the 2.0.3 latest. 2.0.3 is the only version affected by GHSA-v3m3-f69x-jf25 (XSS via HTML export) and has no patched release. Re-check before bumping.
+- **cssnano runs SVGO** over inline SVG data URIs and cannot parse Bootstrap's percent-encoded ones; `svgo` is disabled in [postcss.config.cjs](postcss.config.cjs) to keep builds quiet.
+- Vite 8 resolves the config natively, where `__dirname` is unavailable — `vite.config.js` uses `import.meta.dirname` via the `rootDir` constant.
+
+## Unused dependencies
+
+`fullcalendar`, `filepond`, `metismenu`, and `animate.css` are in `package.json` but referenced nowhere. `swiper`, `simplebar`, `tom-select`, `countup.js`, and `aos` are imported and initialized by `main.js`, but no page contains their DOM hooks (`.swiper`, `[data-simplebar]`, `.tom-select`, `.countup`, `[data-aos]`) — their init loops currently match zero elements.
+
+## Accessibility invariants
+
+`lint:html` is clean and enforces these — don't regress them:
+
+- Icon-only buttons and links carry an `aria-label`, and their `<i>`/`<span>` icon carries `aria-hidden="true"`.
+- Every `<button>` has an explicit `type`. Outside a form the default is harmless, but being explicit is what the lint enforces.
+- Bootstrap modals carry **no** static `aria-hidden="true"` — they are `display:none` when closed and Bootstrap sets the attribute itself on `hide()`. Adding it back marks every focusable child as `hidden-focusable`.
+- Accordion panels use `role="region"` alongside `aria-labelledby`.
+- Password inputs need an `autocomplete` value (`current-password` / `new-password`).
+- A `<form>` needs a submit control. Where the action button lives in a `.modal-footer` outside the form, associate it with `form="<form-id>"` rather than dropping the `<form>`.
+- Raw `&` in text must be `&amp;`; use `<div>`, not `<form>`, for pure layout wrappers.
+
+Two rules are configured off in [.htmlvalidate.json](.htmlvalidate.json) because they fight deliberate Bootstrap patterns: `no-inline-style` (demo markup), and `prefer-native-element` for `progressbar`/`region` (Bootstrap's `.progress` and `.accordion-collapse` cannot be `<progress>`/`<section>`).
+
+## On-demand libraries
+
+[src/js/lazy.js](src/js/lazy.js) loads Swiper, SimpleBar, Tom Select, CountUp, AOS, and FullCalendar **only when a page needs them**. They are not in the main bundle and are not on `window`. This keeps `main.js` at ~97K gzipped instead of ~144K.
+
+Two ways to use one:
+
+1. **Put its hook in the markup** and it auto-initialises on `DOMContentLoaded`:
+
+   | Hook | Library |
+   | --- | --- |
+   | `.swiper` (+ optional `data-slides-per-view`, `data-space-between`, `data-loop`) | Swiper |
+   | `[data-simplebar]` | SimpleBar |
+   | `.tom-select` | Tom Select |
+   | `.countup` with `data-count` | CountUp |
+   | `[data-aos]` | AOS |
+
+2. **Call the loader** when you need the constructor itself:
+
+   ```js
+   const Swiper = await Kiaalap.load('swiper');
+   new Swiper('#hero', { loop: true });
+
+   const { Calendar, plugins } = await Kiaalap.load('fullcalendar');
+   ```
+
+   `Kiaalap.load()` caches its promise, so repeated calls share one fetch.
+
+To add a library to the lazy set, add an entry to `LOADERS` (and a `HOOKS` entry if it should auto-init). Import its CSS inside the loader so the stylesheet is code-split with it.
+
+[events.html](events.html) is the reference usage: the "Calendar View" button calls `Kiaalap.load('fullcalendar')` on first click, so the ~40K of calendar chunks never load for visitors who stay on the list view. It pulls only the `daygrid`, `list`, and `interaction` plugins — `fullcalendar/all` would also drag in timeGrid and multiMonth.
+
+`filepond`, `metismenu`, and `animate.css` were removed — nothing referenced them.
+
+## Conventions
+
+Prettier: single quotes, semicolons, 2-space indent, 100 print width, es5 trailing commas. ESLint is flat-config with `js.configs.recommended` and browser globals; `no-console` only warns when `NODE_ENV=production`.
