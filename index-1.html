@@ -27,10 +27,10 @@
                         <p class="text-muted text-sm">Comprehensive performance metrics and financial insights for your educational institution.</p>
                     </div>
                     <div class="d-flex gap-2">
-                        <button class="btn btn-outline-secondary">
+                        <button type="button" class="btn btn-outline-secondary">
                             <i class="bi bi-download me-2"></i>Export Report
                         </button>
-                        <button class="btn btn-primary">
+                        <button type="button" class="btn btn-primary">
                             <i class="bi bi-graph-up me-2"></i>View Analytics
                         </button>
                     </div>
@@ -113,7 +113,7 @@
                         <div class="dashboard-card-header d-flex justify-content-between align-items-center">
                             <h5 class="dashboard-card-title mb-0">Revenue Trends</h5>
                             <div class="dropdown">
-                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
                                     Last 6 months
                                 </button>
                                 <ul class="dropdown-menu">
@@ -134,7 +134,7 @@
                         <div class="dashboard-card-header d-flex justify-content-between align-items-center">
                             <h5 class="dashboard-card-title mb-0">Student Enrollment</h5>
                             <div class="dropdown">
-                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
                                     This year
                                 </button>
                                 <ul class="dropdown-menu">
@@ -221,16 +221,16 @@
                         </div>
                         <div class="dashboard-card-body">
                             <div class="d-grid gap-2">
-                                <button class="btn btn-outline-primary btn-sm">
+                                <button type="button" class="btn btn-outline-primary btn-sm">
                                     <i class="bi bi-file-earmark-text me-2"></i>Generate Report
                                 </button>
-                                <button class="btn btn-outline-success btn-sm">
+                                <button type="button" class="btn btn-outline-success btn-sm">
                                     <i class="bi bi-person-plus me-2"></i>Add Student
                                 </button>
-                                <button class="btn btn-outline-info btn-sm">
+                                <button type="button" class="btn btn-outline-info btn-sm">
                                     <i class="bi bi-book-half me-2"></i>New Course
                                 </button>
-                                <button class="btn btn-outline-warning btn-sm">
+                                <button type="button" class="btn btn-outline-warning btn-sm">
                                     <i class="bi bi-calendar-event me-2"></i>Schedule Event
                                 </button>
                             </div>
@@ -305,7 +305,7 @@
                                         </div>
                                         <div class="flex-grow-1">
                                             <h6 class="mb-1">Tuition Fees</h6>
-                                            <small class="text-muted">Undergraduate & Graduate</small>
+                                            <small class="text-muted">Undergraduate &amp; Graduate</small>
                                             <div class="small text-muted">75% of total revenue</div>
                                         </div>
                                         <div class="text-end">
@@ -319,7 +319,7 @@
                                         </div>
                                         <div class="flex-grow-1">
                                             <h6 class="mb-1">Facility Rentals</h6>
-                                            <small class="text-muted">Events & Conferences</small>
+                                            <small class="text-muted">Events &amp; Conferences</small>
                                             <div class="small text-muted">15% of total revenue</div>
                                         </div>
                                         <div class="text-end">
@@ -332,8 +332,8 @@
                                             <i class="bi bi-gift" style="color: #0dcaf0;"></i>
                                         </div>
                                         <div class="flex-grow-1">
-                                            <h6 class="mb-1">Grants & Donations</h6>
-                                            <small class="text-muted">Research & Scholarships</small>
+                                            <h6 class="mb-1">Grants &amp; Donations</h6>
+                                            <small class="text-muted">Research &amp; Scholarships</small>
                                             <div class="small text-muted">10% of total revenue</div>
                                         </div>
                                         <div class="text-end">
@@ -346,13 +346,11 @@
                         </div>
                     </div>
                 </div>
-            </div>        </div>
+            </div>
     </main>
 
     {{> footer}}
 </div>
-
-{{> scripts}}
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -428,3 +426,5 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 </script>
+
+{{> scripts}}

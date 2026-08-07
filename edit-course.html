@@ -55,7 +55,6 @@
                         </button>
                         <button type="button" class="btn btn-light" onclick="window.location.href='course-info.html'">
                             <i class="bi bi-info-circle me-2"></i>View Course Info
-                                </button>
                         </button>
                     </div>
                 </div>
@@ -288,7 +287,7 @@
                                     <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400&h=250&fit=crop"
                                          alt="Course Thumbnail"
                                          class="img-fluid rounded mb-3"
-                                         id="courseImagePreview">
+                                         id="courseImagePreview" loading="lazy" decoding="async">
                                     <div class="mb-3">
                                         <label for="courseImage" class="form-label">Change Image</label>
                                         <input class="form-control" type="file" id="courseImage" accept="image/*">
@@ -424,8 +423,6 @@
     {{> footer}}
 </div>
 
-{{> scripts}}
-
 <script>
 // Form validation
         (function() {
@@ -472,3 +469,5 @@
         // Calculate initial total
         calculateTotalFee();
 </script>
+
+{{> scripts}}

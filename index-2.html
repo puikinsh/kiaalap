@@ -27,10 +27,10 @@
                         <p class="text-muted text-sm">Comprehensive overview of courses, student progress, and academic performance metrics.</p>
                     </div>
                     <div class="d-flex gap-2">
-                        <button class="btn btn-outline-secondary">
+                        <button type="button" class="btn btn-outline-secondary">
                             <i class="bi bi-calendar-week me-2"></i>Academic Calendar
                         </button>
-                        <button class="btn btn-success">
+                        <button type="button" class="btn btn-success">
                             <i class="bi bi-plus-circle me-2"></i>New Semester
                         </button>
                     </div>
@@ -113,7 +113,7 @@
                         <div class="dashboard-card-header d-flex justify-content-between align-items-center">
                             <h5 class="dashboard-card-title mb-0">Course Performance</h5>
                             <div class="dropdown">
-                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
                                     Current Semester
                                 </button>
                                 <ul class="dropdown-menu">
@@ -134,7 +134,7 @@
                         <div class="dashboard-card-header d-flex justify-content-between align-items-center">
                             <h5 class="dashboard-card-title mb-0">Student Progress</h5>
                             <div class="dropdown">
-                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
                                     All Departments
                                 </button>
                                 <ul class="dropdown-menu">
@@ -254,19 +254,19 @@
                         </div>
                         <div class="dashboard-card-body">
                             <div class="d-grid gap-2">
-                                <button class="btn btn-outline-primary btn-sm">
+                                <button type="button" class="btn btn-outline-primary btn-sm">
                                     <i class="bi bi-plus-circle me-2"></i>Create Course
                                 </button>
-                                <button class="btn btn-outline-success btn-sm">
+                                <button type="button" class="btn btn-outline-success btn-sm">
                                     <i class="bi bi-person-plus me-2"></i>Enroll Student
                                 </button>
-                                <button class="btn btn-outline-info btn-sm">
+                                <button type="button" class="btn btn-outline-info btn-sm">
                                     <i class="bi bi-calendar-plus me-2"></i>Schedule Class
                                 </button>
-                                <button class="btn btn-outline-warning btn-sm">
+                                <button type="button" class="btn btn-outline-warning btn-sm">
                                     <i class="bi bi-file-earmark-text me-2"></i>Grade Report
                                 </button>
-                                <button class="btn btn-outline-secondary btn-sm">
+                                <button type="button" class="btn btn-outline-secondary btn-sm">
                                     <i class="bi bi-gear me-2"></i>Settings
                                 </button>
                             </div>
@@ -381,8 +381,6 @@
     {{> footer}}
 </div>
 
-{{> scripts}}
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
             // Course Performance Chart
@@ -472,3 +470,5 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 </script>
+
+{{> scripts}}

@@ -89,7 +89,7 @@
                                         </div>
                                     </div>
                                     <div class="dropdown">
-                                        <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown">
+                                        <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown">
                                             Actions
                                         </button>
                                         <ul class="dropdown-menu">
@@ -253,11 +253,11 @@
                                 <div class="d-flex gap-2">
                                     <div class="input-group" style="width: 300px;">
                                         <input type="text" class="form-control" placeholder="Search students...">
-                                        <button class="btn btn-outline-secondary" type="button">
-                                            <i class="bi bi-search"></i>
+                                        <button class="btn btn-outline-secondary" type="button" aria-label="Search">
+                                            <i aria-hidden="true" class="bi bi-search"></i>
                                         </button>
                                     </div>
-                                    <button class="btn btn-primary">
+                                    <button type="button" class="btn btn-primary">
                                         <i class="bi bi-plus-circle me-2"></i>Add Student
                                     </button>
                                 </div>
@@ -284,7 +284,7 @@
                                                          alt="Student"
                                                          class="rounded-circle me-2"
                                                          width="32"
-                                                         height="32">
+                                                         height="32" loading="lazy" decoding="async">
                                                     <span>Alex Johnson</span>
                                                 </div>
                                             </td>
@@ -302,8 +302,8 @@
                                             <td><span class="badge bg-success">Active</span></td>
                                             <td>
                                                 <div class="dropdown">
-                                                    <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
-                                                        <i class="bi bi-three-dots-vertical"></i>
+                                                    <button type="button" class="btn btn-sm btn-light" data-bs-toggle="dropdown" aria-label="More options">
+                                                        <i aria-hidden="true" class="bi bi-three-dots-vertical"></i>
                                                     </button>
                                                     <ul class="dropdown-menu">
                                                         <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View Profile</a></li>
@@ -320,7 +320,7 @@
                                                          alt="Student"
                                                          class="rounded-circle me-2"
                                                          width="32"
-                                                         height="32">
+                                                         height="32" loading="lazy" decoding="async">
                                                     <span>Sarah Wilson</span>
                                                 </div>
                                             </td>
@@ -338,8 +338,8 @@
                                             <td><span class="badge bg-success">Active</span></td>
                                             <td>
                                                 <div class="dropdown">
-                                                    <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">
-                                                        <i class="bi bi-three-dots-vertical"></i>
+                                                    <button type="button" class="btn btn-sm btn-light" data-bs-toggle="dropdown" aria-label="More options">
+                                                        <i aria-hidden="true" class="bi bi-three-dots-vertical"></i>
                                                     </button>
                                                     <ul class="dropdown-menu">
                                                         <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>View Profile</a></li>
@@ -445,7 +445,7 @@
                         <div class="tab-pane fade" id="materials" role="tabpanel">
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <h5 class="mb-0">Course Materials</h5>
-                                <button class="btn btn-primary">
+                                <button type="button" class="btn btn-primary">
                                     <i class="bi bi-cloud-upload me-2"></i>Upload Material
                                 </button>
                             </div>
@@ -463,8 +463,8 @@
                                             <p class="text-muted small mb-2">Complete course outline and requirements</p>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <span class="text-muted" style="font-size: 0.75rem;">Sep 15, 2025 • 245 KB</span>
-                                                <button class="btn btn-sm btn-outline-primary">
-                                                    <i class="bi bi-download"></i>
+                                                <button type="button" class="btn btn-sm btn-outline-primary" aria-label="Download">
+                                                    <i aria-hidden="true" class="bi bi-download"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -483,8 +483,8 @@
                                             <p class="text-muted small mb-2">Introduction to programming concepts</p>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <span class="text-muted" style="font-size: 0.75rem;">Sep 20, 2025 • 1.2 MB</span>
-                                                <button class="btn btn-sm btn-outline-primary">
-                                                    <i class="bi bi-download"></i>
+                                                <button type="button" class="btn btn-sm btn-outline-primary" aria-label="Download">
+                                                    <i aria-hidden="true" class="bi bi-download"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -503,8 +503,8 @@
                                             <p class="text-muted small mb-2">Example programs and exercises</p>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <span class="text-muted" style="font-size: 0.75rem;">Sep 22, 2025 • 85 KB</span>
-                                                <button class="btn btn-sm btn-outline-primary">
-                                                    <i class="bi bi-download"></i>
+                                                <button type="button" class="btn btn-sm btn-outline-primary" aria-label="Download">
+                                                    <i aria-hidden="true" class="bi bi-download"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -523,8 +523,8 @@
                                             <p class="text-muted small mb-2">Homework and project instructions</p>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <span class="text-muted" style="font-size: 0.75rem;">Sep 25, 2025 • 156 KB</span>
-                                                <button class="btn btn-sm btn-outline-primary">
-                                                    <i class="bi bi-download"></i>
+                                                <button type="button" class="btn btn-sm btn-outline-primary" aria-label="Download">
+                                                    <i aria-hidden="true" class="bi bi-download"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -704,11 +704,6 @@
 
     {{> footer}}
 </div>
-
-{{> scripts}}
-
-<!-- Chart.js for Analytics -->
-<script src="node_modules/chart.js/dist/chart.umd.min.js"></script>
 
 <script>
 // Initialize charts when Analytics tab is shown
@@ -912,3 +907,5 @@
             }
         });
 </script>
+
+{{> scripts}}

@@ -27,7 +27,7 @@
                                  alt="Alex Johnson"
                                  class="rounded-circle me-3"
                                  width="60"
-                                 height="60">
+                                 height="60" loading="lazy" decoding="async">
                             <div>
                                 <h4 class="page-title mb-1">Edit Student - Alex Johnson</h4>
                                 <p class="text-muted mb-0">Student ID: STU2024001 | Computer Science Department</p>
@@ -215,14 +215,14 @@
                                                 <div class="col-md-6 px-2">
                                                     <div class="mb-4">
                                                         <label for="password" class="form-label">New Password</label>
-                                                        <input type="password" class="form-control" id="password" placeholder="Leave blank to keep current password">
+                                                        <input type="password" class="form-control" id="password" placeholder="Leave blank to keep current password" autocomplete="new-password">
                                                         <div class="form-text">Only fill if you want to change the password</div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 px-2">
                                                     <div class="mb-4">
                                                         <label for="confirmPassword" class="form-label">Confirm New Password</label>
-                                                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password">
+                                                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password" autocomplete="new-password">
                                                         <div class="invalid-feedback">
                                                             Passwords must match.
                                                         </div>
@@ -353,8 +353,6 @@
     {{> footer}}
 </div>
 
-{{> scripts}}
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
             const forms = document.querySelectorAll('.needs-validation');
@@ -369,3 +367,5 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 </script>
+
+{{> scripts}}

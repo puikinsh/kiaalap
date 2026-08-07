@@ -286,7 +286,7 @@
                             <div class="dashboard-grid grid-cols-1 mb-4">
                                 <div>
                                     <h6 class="text-primary fw-semibold mb-3">
-                                        <i class="bi bi-journal-text me-2"></i>Research & Publications
+                                        <i class="bi bi-journal-text me-2"></i>Research &amp; Publications
                                     </h6>
                                 </div>
                             </div>
@@ -327,7 +327,9 @@
                                         <i class="bi bi-clock-history me-2"></i>Recent Activity
                                     </h6>
                                     <div class="alert alert-light">
-                                        <small class="text-muted">
+                                        <!-- <small> is phrasing content and cannot contain <div>;
+                                             .small gives the same type scale. -->
+                                        <div class="text-muted small">
                                             <div class="d-flex justify-content-between">
                                                 <span><strong>Last Profile Update:</strong> December 15, 2024</span>
                                                 <span>by Sarah Johnson</span>
@@ -336,7 +338,7 @@
                                                 <span><strong>Account Created:</strong> August 15, 2018</span>
                                                 <span><strong>Last Login:</strong> December 24, 2024 at 9:30 AM</span>
                                             </div>
-                                        </small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -370,8 +372,6 @@
     {{> footer}}
 </div>
 
-{{> scripts}}
-
 <script>
 // Bootstrap form validation
         (function() {
@@ -390,3 +390,5 @@
             }, false);
         })();
 </script>
+
+{{> scripts}}

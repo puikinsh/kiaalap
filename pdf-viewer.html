@@ -124,19 +124,19 @@
             <div class="pdf-demo-card">
                 <h5 class="mb-3">PDF Document Viewer</h5>
                 <div class="pdf-toolbar">
-                    <button class="btn btn-primary" id="uploadBtn">
+                    <button type="button" class="btn btn-primary" id="uploadBtn">
                         <i class="bi bi-cloud-upload me-2"></i>Upload PDF
                     </button>
-                    <button class="btn btn-secondary" id="downloadBtn" disabled>
+                    <button type="button" class="btn btn-secondary" id="downloadBtn" disabled>
                         <i class="bi bi-download me-2"></i>Download
                     </button>
-                    <button class="btn btn-secondary" id="printBtn" disabled>
+                    <button type="button" class="btn btn-secondary" id="printBtn" disabled>
                         <i class="bi bi-printer me-2"></i>Print
                     </button>
-                    <button class="btn btn-secondary" id="zoomInBtn" disabled>
+                    <button type="button" class="btn btn-secondary" id="zoomInBtn" disabled>
                         <i class="bi bi-zoom-in me-2"></i>Zoom In
                     </button>
-                    <button class="btn btn-secondary" id="zoomOutBtn" disabled>
+                    <button type="button" class="btn btn-secondary" id="zoomOutBtn" disabled>
                         <i class="bi bi-zoom-out me-2"></i>Zoom Out
                     </button>
                     <input type="file" id="fileInput" accept=".pdf" style="display: none;">
@@ -148,7 +148,7 @@
                         <h5>No PDF Loaded</h5>
                         <p class="text-muted">Click "Upload PDF" to load a document or select from the examples below</p>
                     </div>
-                    <iframe id="pdfViewer" class="pdf-iframe" style="display: none;"></iframe>
+                    <iframe title="PDF document preview" id="pdfViewer" class="pdf-iframe" style="display: none;"></iframe>
                 </div>
             </div>
 
@@ -165,8 +165,8 @@
                             <div class="file-name">Course Syllabus - Computer Science 101</div>
                             <div class="file-meta">PDF Document • 2.3 MB • Last modified: Jan 15, 2025</div>
                         </div>
-                        <button class="btn btn-sm btn-primary">
-                            <i class="bi bi-eye"></i>
+                        <button type="button" class="btn btn-sm btn-primary" aria-label="View">
+                            <i aria-hidden="true" class="bi bi-eye"></i>
                         </button>
                     </li>
                     <li class="file-item" data-pdf="sample2">
@@ -177,8 +177,8 @@
                             <div class="file-name">Student Handbook 2025</div>
                             <div class="file-meta">PDF Document • 5.7 MB • Last modified: Jan 10, 2025</div>
                         </div>
-                        <button class="btn btn-sm btn-primary">
-                            <i class="bi bi-eye"></i>
+                        <button type="button" class="btn btn-sm btn-primary" aria-label="View">
+                            <i aria-hidden="true" class="bi bi-eye"></i>
                         </button>
                     </li>
                     <li class="file-item" data-pdf="sample3">
@@ -189,8 +189,8 @@
                             <div class="file-name">Research Paper - Machine Learning Applications</div>
                             <div class="file-meta">PDF Document • 1.8 MB • Last modified: Jan 8, 2025</div>
                         </div>
-                        <button class="btn btn-sm btn-primary">
-                            <i class="bi bi-eye"></i>
+                        <button type="button" class="btn btn-sm btn-primary" aria-label="View">
+                            <i aria-hidden="true" class="bi bi-eye"></i>
                         </button>
                     </li>
                     <li class="file-item" data-pdf="sample4">
@@ -201,8 +201,8 @@
                             <div class="file-name">Library Resource Guide</div>
                             <div class="file-meta">PDF Document • 3.2 MB • Last modified: Jan 5, 2025</div>
                         </div>
-                        <button class="btn btn-sm btn-primary">
-                            <i class="bi bi-eye"></i>
+                        <button type="button" class="btn btn-sm btn-primary" aria-label="View">
+                            <i aria-hidden="true" class="bi bi-eye"></i>
                         </button>
                     </li>
                 </ul>
@@ -239,8 +239,6 @@
 
     {{> footer}}
 </div>
-
-{{> scripts}}
 
 <script>
 // PDF Viewer functionality (Vanilla JavaScript)
@@ -386,3 +384,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+{{> scripts}}

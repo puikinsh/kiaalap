@@ -201,7 +201,7 @@
         <div class="container-fluid">
             <!-- Page Header -->
             <div class="mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Preloaders & Spinners</h1>
+                <h1 class="h3 mb-0 text-gray-800">Preloaders &amp; Spinners</h1>
                 <p class="text-muted">Modern Bootstrap 5 loading animations and spinners (100% jQuery-free)</p>
             </div>
 
@@ -353,7 +353,7 @@
             <div class="preloader-demo-card">
                 <h5 class="mb-3">Full Page Overlay Preloader</h5>
                 <p class="text-muted">Click the button below to see a full-page loading overlay</p>
-                <button class="btn btn-primary demo-btn" id="showOverlayBtn">
+                <button type="button" class="btn btn-primary demo-btn" id="showOverlayBtn">
                     <i class="bi bi-play-circle me-2"></i>
                     Show Full Page Loader
                 </button>
@@ -375,8 +375,6 @@
     </div>
 </div>
 
-{{> scripts}}
-
 <script>
 // Full page overlay demo (Vanilla JavaScript)
 document.addEventListener('DOMContentLoaded', function() {
@@ -394,3 +392,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+{{> scripts}}

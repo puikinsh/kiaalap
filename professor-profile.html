@@ -148,14 +148,14 @@
                             <div class="col-span-3">
                                 <div class="text-center">
                                     <div class="d-flex justify-content-center gap-2 mb-3">
-                                        <button class="btn btn-outline-primary btn-sm">
-                                            <i class="bi bi-envelope"></i>
+                                        <button type="button" class="btn btn-outline-primary btn-sm" aria-label="Messages">
+                                            <i aria-hidden="true" class="bi bi-envelope"></i>
                                         </button>
-                                        <button class="btn btn-outline-secondary btn-sm">
-                                            <i class="bi bi-telephone"></i>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" aria-label="Call">
+                                            <i aria-hidden="true" class="bi bi-telephone"></i>
                                         </button>
-                                        <button class="btn btn-outline-info btn-sm">
-                                            <i class="bi bi-calendar"></i>
+                                        <button type="button" class="btn btn-outline-info btn-sm" aria-label="Calendar">
+                                            <i aria-hidden="true" class="bi bi-calendar"></i>
                                         </button>
                                     </div>
                                     <div class="dashboard-grid grid-cols-3 gap-2 text-center mt-3">
@@ -235,7 +235,7 @@
                                                 <div class="timeline-content">
                                                     <h6 class="mb-1">Ph.D. in Computer Science</h6>
                                                     <p class="text-muted mb-1">Stanford University • 2015</p>
-                                                    <small class="text-muted">Specialization: Artificial Intelligence & Machine Learning</small>
+                                                    <small class="text-muted">Specialization: Artificial Intelligence &amp; Machine Learning</small>
                                                 </div>
                                             </div>
                                             <div class="timeline-item">
@@ -316,7 +316,7 @@
                                                 </div>
                                                 <div class="d-flex align-items-center">
                                                     <i class="bi bi-telephone me-2 text-primary"></i>
-                                                    <a href="tel:+15551234567" class="text-sm">+1 (555) 123-4567</a>
+                                                    <a href="tel:+15551234567" class="text-sm">+1&nbsp;(555)&nbsp;123&#8209;4567</a>
                                                 </div>
                                                 <div class="d-flex align-items-center">
                                                     <i class="bi bi-geo-alt me-2 text-primary"></i>
@@ -343,7 +343,7 @@
                                         <h5 class="mb-1">Current Teaching Load</h5>
                                         <p class="text-muted mb-0 text-sm">Fall 2024 Semester • 156 Total Students</p>
                                     </div>
-                                    <button class="btn btn-sm btn-outline-primary">
+                                    <button type="button" class="btn btn-sm btn-outline-primary">
                                         <i class="bi bi-download me-1"></i>Export Schedule
                                     </button>
                                 </div>
@@ -385,13 +385,13 @@
                                         <div class="dashboard-card-body">
                                             <h6 class="mb-3">Quick Actions</h6>
                                             <div class="d-grid gap-2">
-                                                <button class="btn btn-sm btn-outline-primary text-start">
+                                                <button type="button" class="btn btn-sm btn-outline-primary text-start">
                                                     <i class="bi bi-calendar-plus me-2"></i>Office Hours
                                                 </button>
-                                                <button class="btn btn-sm btn-outline-secondary text-start">
+                                                <button type="button" class="btn btn-sm btn-outline-secondary text-start">
                                                     <i class="bi bi-file-earmark-text me-2"></i>Syllabi
                                                 </button>
-                                                <button class="btn btn-sm btn-outline-info text-start">
+                                                <button type="button" class="btn btn-sm btn-outline-info text-start">
                                                     <i class="bi bi-people me-2"></i>Roster
                                                 </button>
                                             </div>
@@ -571,7 +571,7 @@
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <div>
                                         <h5 class="mb-1">Research Portfolio</h5>
-                                        <p class="text-muted mb-0 text-sm">AI, Machine Learning & Ethics • 52 Publications • 2,847 Citations</p>
+                                        <p class="text-muted mb-0 text-sm">AI, Machine Learning &amp; Ethics • 52 Publications • 2,847 Citations</p>
                                     </div>
                                     <div class="btn-group btn-group-sm" role="group">
                                         <button type="button" class="btn btn-outline-primary active">Publications</button>
@@ -683,7 +683,7 @@
                                                     <h6 class="mb-0 text-primary">"Deep Learning Security"</h6>
                                                     <span class="badge bg-warning text-dark">2024</span>
                                                 </div>
-                                                <p class="text-muted mb-1 small">IEEE Security & Privacy</p>
+                                                <p class="text-muted mb-1 small">IEEE Security &amp; Privacy</p>
                                                 <p class="text-sm mb-2">Adversarial attacks and defense mechanisms in deep neural networks.</p>
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="d-flex gap-1">
@@ -1099,15 +1099,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>        </div>
     </main>
 
     {{> footer}}
 </div>
-
-{{> scripts}}
 
 <script>
 // Performance Chart
@@ -1356,5 +1351,4 @@
         });
 </script>
 
-<!-- Chart.js -->
-<script src="node_modules/chart.js/dist/chart.umd.min.js"></script>
+{{> scripts}}
