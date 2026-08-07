@@ -1,114 +1,91 @@
-// Modern Layout JavaScript
+// Layout primitives for the dashboard shell.
+//
+// This module is deliberately listener-free: it only exposes imperative
+// helpers. All DOM event wiring lives in ./dashboard.js so that a single
+// handler owns each control. (Previously both files attached a click handler
+// to #sidebarToggle and each toggled `.collapsed`, so the two cancelled out
+// and desktop collapse silently did nothing.)
 
-document.addEventListener('DOMContentLoaded', function () {
-  // Sidebar toggle functionality
-  const sidebar = document.getElementById('sidebar');
-  const sidebarToggle = document.getElementById('sidebarToggle');
-  const sidebarOverlay = document.getElementById('sidebarOverlay');
+export const MOBILE_BREAKPOINT = 768;
+export const STORAGE_KEY = 'sidebarCollapsed';
 
-  if (sidebarToggle && sidebar) {
-    sidebarToggle.addEventListener('click', function () {
-      // On desktop, toggle collapsed state
-      if (window.innerWidth > 768) {
-        sidebar.classList.toggle('collapsed');
-        // Save state to localStorage
-        const isCollapsed = sidebar.classList.contains('collapsed');
-        localStorage.setItem('sidebarCollapsed', isCollapsed);
-      } else {
-        // On mobile, toggle active state
-        sidebar.classList.toggle('active');
-        if (sidebarOverlay) {
-          sidebarOverlay.classList.toggle('active');
-        }
-      }
-    });
+const getSidebar = () => document.getElementById('sidebar');
+const getMainWrapper = () => document.getElementById('mainWrapper');
+const getOverlay = () => document.getElementById('sidebarOverlay');
+
+export function isMobile() {
+  return window.innerWidth <= MOBILE_BREAKPOINT;
+}
+
+/** Collapse/expand the sidebar on desktop and persist the choice. */
+export function setCollapsed(collapsed) {
+  const sidebar = getSidebar();
+  const mainWrapper = getMainWrapper();
+  if (!sidebar) return;
+
+  sidebar.classList.toggle('collapsed', collapsed);
+  mainWrapper?.classList.toggle('full-width', collapsed);
+
+  try {
+    localStorage.setItem(STORAGE_KEY, String(collapsed));
+  } catch {
+    // Storage can be unavailable (private mode, disabled cookies) — the
+    // sidebar still works, it just won't remember its state.
+  }
+}
+
+export function toggleSidebar() {
+  const sidebar = getSidebar();
+  if (!sidebar) return;
+  setCollapsed(!sidebar.classList.contains('collapsed'));
+}
+
+export function collapseSidebar() {
+  setCollapsed(true);
+}
+
+export function expandSidebar() {
+  setCollapsed(false);
+}
+
+/** Show/hide the mobile off-canvas sidebar. No persistence on mobile. */
+export function setMobileOpen(open) {
+  getSidebar()?.classList.toggle('active', open);
+  getOverlay()?.classList.toggle('active', open);
+}
+
+export function openMobileSidebar() {
+  setMobileOpen(true);
+}
+
+export function closeMobileSidebar() {
+  setMobileOpen(false);
+}
+
+/** Restore the persisted desktop collapse state. Called once on load. */
+export function restoreSidebarState() {
+  const sidebar = getSidebar();
+  if (!sidebar || isMobile()) return;
+
+  let stored;
+  try {
+    stored = localStorage.getItem(STORAGE_KEY);
+  } catch {
+    return;
   }
 
-  // Handle sidebar overlay click on mobile
-  if (sidebarOverlay) {
-    sidebarOverlay.addEventListener('click', function () {
-      sidebar.classList.remove('active');
-      sidebarOverlay.classList.remove('active');
-    });
-  }
-
-  // Restore sidebar state from localStorage
-  const sidebarCollapsed = localStorage.getItem('sidebarCollapsed');
-  if (sidebarCollapsed === 'true' && sidebar) {
+  if (stored === 'true') {
     sidebar.classList.add('collapsed');
+    getMainWrapper()?.classList.add('full-width');
   }
+}
 
-  // Active menu item highlighting
-  const currentPath = window.location.pathname;
-  const navLinks = document.querySelectorAll('.nav-link');
-
-  navLinks.forEach((link) => {
-    const href = link.getAttribute('href');
-    if (href && currentPath.endsWith(href)) {
-      link.classList.add('active');
-
-      // If it's a submenu item, expand the parent
-      const parentCollapse = link.closest('.collapse');
-      if (parentCollapse) {
-        parentCollapse.classList.add('show');
-        const parentToggle = document.querySelector(`[data-bs-target="#${parentCollapse.id}"]`);
-        if (parentToggle) {
-          parentToggle.classList.remove('collapsed');
-        }
-      }
-    }
-  });
-
-  // Handle window resize
-  let resizeTimer;
-  window.addEventListener('resize', function () {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function () {
-      // Remove mobile-specific classes on desktop
-      if (window.innerWidth > 768) {
-        if (sidebar) {
-          sidebar.classList.remove('active');
-        }
-        if (sidebarOverlay) {
-          sidebarOverlay.classList.remove('active');
-        }
-      }
-    }, 250);
-  });
-
-  // Initialize tooltips if Bootstrap tooltips are used
-  const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-  tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl);
-  });
-
-  // Initialize popovers if Bootstrap popovers are used
-  const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-  popoverTriggerList.map(function (popoverTriggerEl) {
-    return new bootstrap.Popover(popoverTriggerEl);
-  });
-});
-
-// Export for module usage
 export default {
-  toggleSidebar: function () {
-    const sidebar = document.getElementById('sidebar');
-    if (sidebar) {
-      sidebar.classList.toggle('collapsed');
-    }
-  },
-
-  collapseSidebar: function () {
-    const sidebar = document.getElementById('sidebar');
-    if (sidebar) {
-      sidebar.classList.add('collapsed');
-    }
-  },
-
-  expandSidebar: function () {
-    const sidebar = document.getElementById('sidebar');
-    if (sidebar) {
-      sidebar.classList.remove('collapsed');
-    }
-  },
+  toggleSidebar,
+  collapseSidebar,
+  expandSidebar,
+  openMobileSidebar,
+  closeMobileSidebar,
+  setCollapsed,
+  isMobile,
 };
