@@ -20,6 +20,9 @@ Kiaalap has undergone a complete modernization from a legacy Bootstrap 3/4 templ
   the package files, and audit instructions replace a permanent security claim.
 - Added a premium DashboardPack section featuring Admindek, ArchitectUI and
   Adminty, an AdminLTE promotion, and verified Colorlib template and resource links.
+- Replaced the premium text table with a two-column screenshot grid for Admindek,
+  ArchitectUI, Adminty and Kero, including product and live-demo links. Screenshots
+  are stored in the repository so the README does not rely on remote image hosts.
 
 ## [4.0.0] - 2026-10-13 (Performance & Developer Experience)
 

@@ -25,11 +25,44 @@ JavaScript, stylesheets and icon fonts are bundled locally. Some demo images, av
 
 Looking for more layouts, components or framework editions? Explore [DashboardPack's premium admin templates](https://dashboardpack.com/) and compare their live demos to find a starting point for your next project.
 
-| Template                                                                                        | Highlights                                                                                 |
-| ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| [Admindek HTML](https://dashboardpack.com/theme-details/admindek-html/)                         | Bootstrap dashboard with multiple dashboard layouts, light/dark themes and RTL support     |
-| [ArchitectUI HTML PRO](https://dashboardpack.com/theme-details/architectui-dashboard-html-pro/) | Bootstrap dashboard with configurable layouts, application pages and theme options         |
-| [Adminty HTML](https://dashboardpack.com/theme-details/adminty-html-dashboard/)                 | Bootstrap dashboard with vertical and horizontal navigation, forms and data-table examples |
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="https://dashboardpack.com/theme-details/admindek-html/">
+        <img src="docs/images/premium/admindek.png" width="100%" alt="Admindek dashboard with a dark sidebar, colorful statistics and analytics charts">
+      </a>
+      <h3><a href="https://dashboardpack.com/theme-details/admindek-html/">Admindek HTML</a></h3>
+      <p>Multiple dashboards, light and dark themes, and RTL layouts.</p>
+      <p><a href="https://demo.dashboardpack.com/admindek-html/">Live preview</a> · <a href="https://dashboardpack.com/theme-details/admindek-html/"><strong>View template →</strong></a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="https://dashboardpack.com/theme-details/architectui-dashboard-html-pro/">
+        <img src="docs/images/premium/architectui.png" width="100%" alt="ArchitectUI dashboard with portfolio statistics, charts and a timeline">
+      </a>
+      <h3><a href="https://dashboardpack.com/theme-details/architectui-dashboard-html-pro/">ArchitectUI HTML PRO</a></h3>
+      <p>Configurable layouts, application pages and a live theme options panel.</p>
+      <p><a href="https://demo.dashboardpack.com/architectui-html-pro/">Live preview</a> · <a href="https://dashboardpack.com/theme-details/architectui-dashboard-html-pro/"><strong>View template →</strong></a></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="https://dashboardpack.com/theme-details/adminty-html-dashboard/">
+        <img src="docs/images/premium/adminty.png" width="100%" alt="Adminty dashboard with colorful KPI cards, sales analytics and project widgets">
+      </a>
+      <h3><a href="https://dashboardpack.com/theme-details/adminty-html-dashboard/">Adminty HTML</a></h3>
+      <p>Vertical and horizontal navigation, forms and data-table examples.</p>
+      <p><a href="https://demo.dashboardpack.com/adminty-html/pages/index.html">Live preview</a> · <a href="https://dashboardpack.com/theme-details/adminty-html-dashboard/"><strong>View template →</strong></a></p>
+    </td>
+    <td width="50%" valign="top">
+      <a href="https://dashboardpack.com/theme-details/kero-jquery-html-dashboard-pro/">
+        <img src="docs/images/premium/kero.png" width="100%" alt="Kero dashboard with horizontal navigation, sales cards and bandwidth charts">
+      </a>
+      <h3><a href="https://dashboardpack.com/theme-details/kero-jquery-html-dashboard-pro/">Kero HTML PRO</a></h3>
+      <p>Sidebar and horizontal layouts, dashboard variations and jQuery components.</p>
+      <p><a href="https://demo.dashboardpack.com/kero-html-sidebar-pro/">Live preview</a> · <a href="https://dashboardpack.com/theme-details/kero-jquery-html-dashboard-pro/"><strong>View template →</strong></a></p>
+    </td>
+  </tr>
+</table>
 
 [Browse all premium templates on DashboardPack →](https://dashboardpack.com/)
 
