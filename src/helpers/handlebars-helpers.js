@@ -1,6 +1,14 @@
 // Handlebars helpers for the Kiaalap dashboard
 
 export const helpers = {
+  initials: (name) =>
+    String(name || 'Admin')
+      .trim()
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((part) => part[0])
+      .join('')
+      .toUpperCase(),
   // Compare helper for equality
   eq: (a, b) => a === b,
 

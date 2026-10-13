@@ -2,7 +2,7 @@
 
 ![Kiaalap Dashboard](public/images/kiaalap-dashboard-preview.jpg)
 
-Kiaalap is a free, open-source Bootstrap 5 admin dashboard template designed specifically for educational institutions. Built with modern web technologies and featuring 65+ ready-to-use pages, it provides everything needed to create a comprehensive education management system.
+Kiaalap is a free, open-source Bootstrap 5 admin dashboard template designed specifically for educational institutions. Built with modern web technologies and featuring 63 ready-to-use pages, it provides everything needed to create a comprehensive education management system.
 
 ## 🎨 Demo
 
@@ -12,11 +12,11 @@ Check out the live demo: [Kiaalap Live Preview](https://colorlib.com/polygon/kia
 
 ### Modern Technology Stack
 - **Bootstrap 5.3.8** - Latest Bootstrap version with 100% jQuery-free architecture
-- **Vite 8.2 Build System** - Lightning-fast development server and optimized production builds
+- **Vite 8.3 Build System** - Lightning-fast development server and optimized production builds
 - **Handlebars Templating** - Modular partials for maintainable code structure
 - **Chart.js 4.5** - Beautiful, responsive charts replacing legacy Morris/C3/D3 libraries
 - **Simple-DataTables 10.3** - Vanilla JavaScript data tables with no jQuery dependency
-- **Bootstrap Icons 1.13.1** - 2,000+ icons loaded locally (no CDN dependencies)
+- **Bootstrap Icons 1.13.2** - 2,000+ icons loaded locally (no CDN dependencies)
 - **Vanilla JavaScript** - Clean ES6+ code throughout the application
 - **Zero third-party CDNs** - every script and stylesheet is served from your own origin
 - **On-demand libraries** - heavy dependencies load only on the pages that use them
@@ -32,7 +32,7 @@ Check out the live demo: [Kiaalap Live Preview](https://colorlib.com/polygon/kia
 - **📅 Event Calendar** - Academic calendar and event management
 - **💰 Fee Management** - Student fees, payments, and financial tracking
 
-### 65+ Ready-to-Use Pages
+### 63 Ready-to-Use Pages
 
 #### Dashboards & Analytics
 - Main Dashboard (3 variants)
@@ -65,8 +65,8 @@ Check out the live demo: [Kiaalap Live Preview](https://colorlib.com/polygon/kia
 
 ### Prerequisites
 
-- Node.js 18+
-- npm or yarn
+- Node.js 24.8+ (recommended), or Node.js 22.22+
+- npm 10+ (the repository includes a package-lock.json)
 
 ### Installation
 
@@ -78,7 +78,7 @@ cd kiaalap
 
 2. **Install dependencies**
 ```bash
-npm install
+npm ci
 ```
 
 3. **Start development server**
@@ -100,24 +100,67 @@ npm run dev          # Start development server
 npm run build        # Build for production
 npm run preview      # Preview production build
 npm run lint:html    # Validate HTML files
-npm run lint:css     # Lint SCSS files
+npm run lint:css     # Lint CSS, check SCSS formatting and compile Sass
 npm run lint:js      # Lint JavaScript files
 npm run format       # Format code with Prettier
-npm run clean        # Clean build directory
+npm run clean        # Clean build directory (cross-platform)
+npm run page:new -- attendance  # Generate a page from starter.html
+npm run check        # Lint, unit tests, build, rendered HTML and asset/size checks
+npm test             # Unit tests
+npm run test:browser # Browser regression tests (build first)
 ```
+
+### Browser tests
+
+After `npm run check`, install Chromium once and run the production browser suite:
+
+```bash
+npx playwright install chromium
+npm run test:browser
+```
+
+To use an already installed Google Chrome instead, set `PLAYWRIGHT_CHANNEL=chrome`
+when running the tests. External demo images and map tiles are stubbed in the suite;
+the tests verify local scripts, charts, editors, calendar rendering, lazy library
+styles and sidebar/form interactions. They do not test a backend.
+
+### Dependency security
+
+All retained direct dependencies use their latest stable npm release as checked on
+2026-10-13, with one deliberate exception: Quill remains pinned to 2.0.2 because
+2.0.3 has an unresolved [HTML export XSS advisory](https://github.com/advisories/GHSA-v3m3-f69x-jf25).
+`npm audit` and `npm audit --omit=dev` both report zero vulnerabilities. Stylelint
+and its unpatched `braces`/glob dependency chain have been removed.
+Recheck advisories when updating packages. Sass belongs to development tooling;
+`cssnano`, `terser` and `glob` have been removed in favor of built-in functionality.
+
+### Stylesheet checks
+
+`npm run lint:css` uses the [official ESLint CSS plugin](https://github.com/eslint/css)
+to lint every file under `src/css`. It checks invalid properties and values,
+empty blocks, at-rules, selectors, keyframes and font fallbacks. Bootstrap overrides
+may use `!important`, vendor fallbacks are allowed, and custom properties may be
+defined in another stylesheet. The icon font has a local text-font fallback exception.
+
+SCSS files under `src/scss` are parsed and checked for formatting with Prettier.
+Every SCSS entry point (a file not beginning with `_`) is compiled with Dart Sass;
+imported partials are checked in their entry point’s context. This replaces
+Stylelint’s SCSS-specific style rules with formatting and compilation checks.
+File discovery uses Node’s filesystem APIs and explicit paths.
 
 ## 🏗️ Project Structure
 
 ```
 kiaalap/
 ├── src/
+│   ├── config/           # Shared site context and page/navigation metadata
 │   ├── css/              # Custom stylesheets
 │   ├── js/               # JavaScript modules
 │   ├── partials/         # Handlebars partials (header, sidebar, footer)
 │   ├── helpers/          # Handlebars helpers
 │   └── scss/             # Sass source files
 ├── node_modules/         # Dependencies (all assets load locally)
-├── *.html               # 65 HTML pages
+├── *.html               # 63 HTML pages
 ├── vite.config.js       # Vite configuration
 └── package.json         # Project dependencies
 ```
@@ -130,13 +173,16 @@ Completely rewritten from legacy Bootstrap 3/4 template to modern Bootstrap 5 wi
 - All assets from node_modules (no CDN dependencies)
 - ES6+ JavaScript modules with tree-shaking
 - Vite hot module replacement for instant updates
-- Production builds optimized with Terser minification
-- `npm audit` clean, and `lint:html` / `lint:css` / `lint:js` all pass with zero errors
+- Production builds use Vite’s native Oxc JavaScript and Lightning CSS minifiers
+- `npm run check` validates JavaScript, SCSS, rendered HTML, local assets and a JavaScript size budget
+- Browser regression tests cover all 63 pages plus key interactions
 
 ### On-Demand Libraries
 Swiper, SimpleBar, Tom Select, CountUp, AOS and FullCalendar are **not** in the
-main bundle. Each is fetched only when a page needs it, keeping the shared
-payload at ~97 kB gzipped.
+main bundle. Each is fetched only when a page needs it. Chart.js is a separate
+entry loaded automatically on pages with canvases or Chart.js demos; Day.js is
+available through `Kiaalap.load('dayjs')`. The shared shell is about 27 kB gzipped
+(previously 99 kB). Authentication pages use their own smaller scripts.
 
 Either add the hook and let it auto-initialise:
 
@@ -155,17 +201,26 @@ const Swiper = await Kiaalap.load('swiper');
 new Swiper('#hero', { loop: true });
 
 const { Calendar, plugins } = await Kiaalap.load('fullcalendar');
+
+// For charts created later, such as inside a dialog:
+const Chart = await Kiaalap.load('chart');
+
+// Initialize hooks added dynamically; repeated calls skip initialized elements.
+Kiaalap.initLazyLibraries(document.getElementById('main-content'));
 ```
 
 ### Handlebars Templating System
-All 65 pages use a consistent template structure with reusable partials:
+All dashboard pages use a consistent template structure with reusable partials:
 - `{{> head}}` - Centralized meta tags, CSS imports from node_modules
 - `{{> sidebar}}` - Navigation with automatic active state management
 - `{{> header}}` - Top header with user menu and notifications
 - `{{> footer}}` - Footer with current year and copyright
 - `{{> scripts}}` - JavaScript module imports from node_modules
 
-Page-specific context managed in `vite.config.js` for dynamic navigation states, titles, and breadcrumbs.
+Customize shared metadata and the demo user in `src/config/site.js`. The header
+uses local initials by default; set `user.avatar` to use your own image. Page titles,
+breadcrumbs and expanded sidebar groups live in `src/config/pages.js`. Vite
+automatically discovers HTML pages and includes Chart.js only where needed.
 
 ### Local Asset Management
 All assets served from node_modules for:
@@ -190,12 +245,26 @@ Bootstrap 5 grid enhanced with custom dashboard-grid classes:
 ## 🛠️ Customization
 
 ### Changing Colors
-Edit the Sass variables in `src/scss/_variables.scss` to customize the color scheme.
+Edit `src/scss/_theme.scss` to change Bootstrap’s primary color, font and border
+radius. Extend the `with (...)` block in `src/scss/main.scss` for more Bootstrap
+variables. Shell colors, sizes and spacing use CSS variables at the top of
+`src/css/dashboard.css`.
 
 ### Adding New Pages
-1. Create new HTML file using the Handlebars template structure
-2. Add page context in `vite.config.js` if needed
-3. Include custom CSS/JS as required
+```bash
+npm run page:new -- attendance
+```
+
+This copies `starter.html` to `attendance.html` and refuses to overwrite existing
+pages. Edit the content, add a navigation link in `src/partials/sidebar.hbs`, and
+optionally customize metadata in `src/config/pages.js`. Pages are discovered
+automatically; restart the development server after adding a page. Names containing
+`template` or `-new` are reserved by the build’s exclusion rules.
+
+`starter.html` is also a minimal page you can preview directly. Chart pages keep
+`window.Chart` for the existing inline demos. Custom modules should import Chart.js
+or call `await Kiaalap.load('chart')`. `window.dayjs` and the Chart/Day.js exports
+from `main.js` have been removed; import Day.js or use its lazy loader instead.
 
 ### Modifying Navigation
 Edit `src/partials/sidebar.hbs` to customize the navigation menu structure.
@@ -204,18 +273,18 @@ Edit `src/partials/sidebar.hbs` to customize the navigation menu structure.
 
 ### Core Technologies
 - [Bootstrap 5.3.8](https://getbootstrap.com/) - Modern CSS framework
-- [Vite 8.2](https://vitejs.dev/) - Next generation build tool
+- [Vite 8.3](https://vitejs.dev/) - Next generation build tool
 - [Chart.js 4.5](https://www.chartjs.org/) - Flexible JavaScript charting
-- [Handlebars 2.0](https://handlebarsjs.com/) - Semantic templating
+- [Handlebars](https://handlebarsjs.com/) - Semantic templating
 
 ### Key Libraries
 - [Simple-DataTables 10.3](https://github.com/fiduswriter/Simple-DataTables) - Vanilla JS data tables
-- [Bootstrap Icons 1.13.1](https://icons.getbootstrap.com/) - 2,000+ icon library
+- [Bootstrap Icons 1.13.2](https://icons.getbootstrap.com/) - 2,000+ icon library
 - [Quill 2.0.2](https://quilljs.com/) - Modern rich text editor
-- [FullCalendar 7.0](https://fullcalendar.io/) - Event calendar
+- [FullCalendar 7.1](https://fullcalendar.io/) - Event calendar
 - [Leaflet 1.9](https://leafletjs.com/) - Interactive maps
 - [Tom Select 2.6](https://tom-select.js.org/) - Modern select library
-- [Cropper.js 2.1](https://fengyuanchen.github.io/cropperjs/) - Image cropping
+- [Cropper.js 2.3](https://fengyuanchen.github.io/cropperjs/) - Image cropping
 - [CountUp.js 2.10](https://inorganik.github.io/countUp.js/) - Number animations
 - [Prism 1.30](https://prismjs.com/) - Syntax highlighting
 
@@ -228,6 +297,7 @@ Edit `src/partials/sidebar.hbs` to customize the navigation menu structure.
 
 ## 📝 Version History
 
+- **v4.0.0** (2026) - Latest dependencies, smaller shell bundle, faster native builds, starter page generation, separate customization config, rendered HTML validation and browser regression tests
 - **v3.0.0** (2026) - Security, performance & accessibility overhaul: all Dependabot alerts resolved, CDNs removed, on-demand library loading, zero HTML validation errors. **Contains breaking changes** — see [CHANGELOG.md](CHANGELOG.md)
 - **v2.3.0** (2026) - Dependency updates, fixed dashboard screenshot, ESLint v10 flat config migration
 - **v2.2.0** (2025) - All dependencies updated to latest versions, improved documentation

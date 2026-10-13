@@ -395,6 +395,59 @@
     {{> footer}}
 </div>
 
+<div class="modal fade" id="templateModal" tabindex="-1" aria-labelledby="templateModalTitle">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="templateModalTitle">Choose a department template</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body"><div class="d-grid gap-2">
+                        <button type="button" class="template-card btn btn-outline-primary text-start" data-template="engineering">Engineering</button>
+                        <button type="button" class="template-card btn btn-outline-primary text-start" data-template="business">Business Administration</button>
+                        <button type="button" class="template-card btn btn-outline-primary text-start" data-template="science">Science</button>
+                        <button type="button" class="template-card btn btn-outline-primary text-start" data-template="liberal-arts">Liberal Arts</button>
+                    </div></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="applyTemplate" disabled>Apply template</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalTitle">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="previewModalTitle">Department preview</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body"><div id="previewContent"></div></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalTitle">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="successModalTitle">Department created</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body"><p class="mb-0">This demo has completed the form. Connect your backend to save the department.</p></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="departments.html" class="btn btn-primary">View departments</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
             // Form validation

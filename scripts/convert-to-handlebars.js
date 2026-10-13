@@ -3,7 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { glob } from 'glob';
+import { globSync } from 'node:fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -274,17 +274,6 @@ function shouldExcludeFile(filename) {
   });
 }
 
-function extractContentBetweenTags(html, startTag, endTag) {
-  const startIndex = html.indexOf(startTag);
-  const endIndex = html.indexOf(endTag);
-
-  if (startIndex === -1 || endIndex === -1) {
-    return null;
-  }
-
-  return html.substring(startIndex + startTag.length, endIndex).trim();
-}
-
 function extractPageSpecificStyles(html) {
   const styleMatch = html.match(/<style[^>]*>([\s\S]*?)<\/style>/);
   if (styleMatch) {
@@ -418,7 +407,7 @@ async function convertHtmlToHandlebars() {
   }
 
   // Find all HTML files
-  const htmlFiles = glob.sync(path.join(config.sourceDir, config.htmlPattern));
+  const htmlFiles = globSync(path.join(config.sourceDir, config.htmlPattern));
   console.log(`📄 Found ${htmlFiles.length} HTML files`);
 
   let converted = 0;

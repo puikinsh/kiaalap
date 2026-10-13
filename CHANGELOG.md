@@ -8,6 +8,54 @@ Kiaalap has undergone a complete modernization from a legacy Bootstrap 3/4 templ
 
 ---
 
+## [4.0.0] - 2026-10-13 (Performance & Developer Experience)
+
+### Dependencies and build
+
+- Updated all retained direct packages to current npm releases except Quill, which
+  remains pinned to 2.0.2 pending a fix for GHSA-v3m3-f69x-jf25 in 2.0.3.
+- Refreshed transitive dependencies, removing the previous critical audit finding.
+  Both the production and full development audits report zero vulnerabilities.
+- Replaced Stylelint and its SCSS config with `@eslint/css` 2.0.0, Prettier SCSS
+  checks and Sass compilation, removing the vulnerable `braces`/glob chain.
+  CSS checking now covers `src/css`; regression tests ensure CSS mistakes, invalid
+  SCSS, formatting drift and Sass compilation failures cause the check to fail.
+- Updated Vite to 8.3.4, FullCalendar to 7.1.2, Cropper.js to 2.3.0 and Swiper to 14.3.0.
+- Removed Terser, cssnano and glob. Use Vite’s native minifiers and Node’s file APIs;
+  moved Sass to devDependencies and switched to `build.rolldownOptions`.
+- Node 24.8+ or 22.22+ is required by the updated tooling. Added `.nvmrc` for Node 24.
+- Local build decreased from 4.57s to 2.1–2.5s; timings depend on machine and cache.
+
+### Performance and usability
+
+- Chart.js loads only on pages containing canvases/Chart.js demos. The shared shell
+  decreased from about 99 kB to 27 kB gzip. Day.js has an on-demand loader.
+- Development dependency scanning includes the shared entries hidden in Handlebars,
+  avoiding reloads on the first chart/calendar visit. Header avatars use local initials
+  by default, eliminating a network request and broken remote-avatar layouts.
+- Lazy Tom Select and SimpleBar now load their styles. Repeated hook initialization
+  avoids duplicate instances and can retry failed library downloads.
+- Added `starter.html`, `npm run page:new -- name`, a cross-platform clean command,
+  separate site/page configuration, and documented Sass customization variables.
+- Respect reduced motion in the shell, charts and animated counters. Removed
+  no-op chart resize and timer handlers; counters use requestAnimationFrame.
+- Fixed shared header semantics, control names and duplicate search IDs. Page styles
+  are moved into the rendered head, and rendered HTML is now validated.
+- Restored missing department template, preview and success dialogs.
+- Added unit tests, built asset/size regression checks and Playwright tests for all
+  63 pages plus sidebar, lazy hooks, department preview, reduced motion and cropper export.
+  Validation: 10 unit tests, 2 built asset/size tests, and 68 browser tests pass.
+- Replaced outdated source-upload deployment instructions with static deployment.
+
+### Migration
+
+- `window.Chart` remains available on chart demo pages. For dynamically added charts,
+  import Chart.js or use `const Chart = await Kiaalap.load('chart')`.
+- `window.dayjs` and the Chart/Day.js exports from `src/js/main.js` are removed.
+  Import Day.js directly or use `await Kiaalap.load('dayjs')`.
+- Page metadata/navigation moved from `vite.config.js` to `src/config/pages.js`;
+  shared metadata/user values moved to `src/config/site.js`.
+
 ## [3.0.0] - 2026-08-07 (Security, Performance & Accessibility)
 
 A security, performance and accessibility overhaul. All 25 open Dependabot alerts

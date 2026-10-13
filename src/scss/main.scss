@@ -6,12 +6,12 @@
 // rather than redeclaring variables after it.
 
 // Resolved via the `loadPaths: ['node_modules']` Sass option in vite.config.js.
-@use 'bootstrap/scss/bootstrap';
+@use 'theme' as *;
+@use 'bootstrap/scss/bootstrap' with (
+  $primary: $primary,
+  $font-family-sans-serif: $font-family-sans-serif,
+  $border-radius: $border-radius
+);
 @use 'bootstrap-icons/font/bootstrap-icons.css';
 
-// Custom global styles
-body {
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background-color: #f8f9fa;
-}
+// Custom dashboard styles live in src/css/dashboard.css.

@@ -1,80 +1,95 @@
-# v2.3.0 - Dependency Updates, ESLint v10 Migration & Fixes
+# Kiaalap v4.0.0 — Faster Builds, Smaller Shared JavaScript, Easier Customization
 
-All dependencies updated to their latest versions. ESLint migrated to v10 flat config. Sidebar and charts improvements.
+Released 2026-10-13. Bootstrap 5 remains the UI foundation. This release updates the tooling and libraries, reduces unnecessary JavaScript, adds a starter workflow, and resolves both production and development dependency audit findings.
 
 ## Highlights
 
-- **All packages updated** to latest versions (20+ dependencies)
-- **ESLint v10 migration** from legacy `.eslintrc.js` to flat config `eslint.config.js`
-- **Sidebar improvements** with better collapse behavior and responsive handling
-- **Charts initialization** updated for improved responsiveness
-- **Deployment guide** added with Apache/Nginx configuration examples
-- **Fixed** broken README screenshot (replaced external Colorlib URL with local image)
+- Shared JavaScript is about **27 kB gzipped**, down from **99 kB** (about 72% smaller). Chart.js is loaded automatically only on chart pages; Day.js is available on demand. These figures describe the shared shell, not the complete page including CSS, fonts, images or page-specific libraries.
+- Local production builds took **2.1–2.5 seconds**, compared with 4.57 seconds before the update, using Vite’s native Oxc and Lightning CSS minifiers. Timings vary with machine and cache.
+- **63 pages**, including a minimal `starter.html`. Run `npm run page:new -- attendance` to create a page safely.
+- Site metadata/demo user, page/navigation context and Sass customization each have a documented configuration file.
+- Full `npm audit` and `npm audit --omit=dev`: **zero vulnerabilities** at release verification.
+- **10 unit tests**, **2 built artifact tests** and **68 browser tests** pass. External images/map tiles are stubbed in browser tests; backend operations remain demos.
 
-## Dependency Updates
+## Dependency updates
 
-### Runtime Dependencies
+### Runtime packages
 
-| Package | Previous | Updated |
-|---------|----------|---------|
-| @fortawesome/fontawesome-free | 7.0.1 | **7.2.0** |
-| chart.js | 4.5.0 | **4.5.1** |
-| countup.js | 2.8.0 | **2.9.0** |
-| dayjs | 1.11.10 | **1.11.19** |
-| filepond | 4.30.6 | **4.32.11** |
-| fullcalendar | 6.1.11 | **6.1.20** |
-| metismenu | 3.0.6 | **3.1.0** |
-| sass | 1.92.1 | **1.97.3** |
-| simple-datatables | 10.0.0 | **10.2.0** |
-| simplebar | 6.2.5 | **6.3.3** |
-| swiper | 12.0.2 | **12.1.0** |
-| tom-select | 2.3.1 | **2.4.6** |
+| Package | v3.0.0 requirement | v4.0.0 requirement |
+| --- | --- | --- |
+| `bootstrap-icons` | `^1.13.1` | `^1.13.2` |
+| `cropperjs` | `^2.1.1` | `^2.3.0` |
+| `dayjs` | `^1.11.21` | `^1.11.23` |
+| `fullcalendar` | `^7.0.2` | `^7.1.2` |
+| `swiper` | `^14.1.0` | `^14.3.0` |
 
-### Dev Dependencies
+### Development packages
 
-| Package | Previous | Updated |
-|---------|----------|---------|
-| autoprefixer | 10.4.21 | **10.4.24** |
-| cssnano | 7.1.1 | **7.1.2** |
-| eslint | 9.35.0 | **10.0.0** (major) |
-| glob | 13.0.0 | **13.0.2** |
-| html-validate | 10.0.0 | **10.7.0** |
-| prettier | 3.6.2 | **3.8.1** |
-| stylelint | 16.24.0 | **17.2.0** (major) |
-| stylelint-config-standard-scss | 16.0.0 | **17.0.0** (major) |
-| terser | 5.44.0 | **5.46.0** |
-| vite | 7.1.7 | **7.3.1** |
+| Package | v3.0.0 requirement | v4.0.0 requirement |
+| --- | --- | --- |
+| `@eslint/css` | `Added` | `^2.0.0` |
+| `@playwright/test` | `Added` | `^1.64.0` |
+| `autoprefixer` | `^10.5.4` | `^10.6.1` |
+| `eslint` | `^10.8.0` | `^10.12.0` |
+| `globals` | `^17.9.0` | `^17.13.0` |
+| `html-validate` | `^11.6.2` | `^11.16.2` |
+| `postcss` | `^8.5.26` | `^8.5.30` |
+| `prettier` | `^3.9.6` | `^3.9.10` |
+| `sass` | `^1.102.0` | `^1.105.1` |
+| `vite` | `^8.2.1` | `^8.3.4` |
 
-### New Dev Dependencies
+Unchanged runtime packages were checked against npm’s current stable releases. Quill remains pinned to **2.0.2** because 2.0.3 has an unresolved [HTML export XSS advisory](https://github.com/advisories/GHSA-v3m3-f69x-jf25). No audit findings are suppressed.
 
-| Package | Version | Notes |
-|---------|---------|-------|
-| @eslint/js | 10.0.1 | Required for ESLint v10 flat config |
-| globals | 17.3.0 | Browser globals for ESLint v10 flat config |
+Removed development packages: `stylelint`, `stylelint-config-standard-scss`, `cssnano`, `terser` and `glob`. Removing Stylelint’s unpatched `braces`/glob chain eliminated the remaining 10 findings. Sass moved to `devDependencies`. CSS is checked with ESLint’s official CSS plugin; SCSS uses Prettier syntax/formatting checks and Sass compilation. This replaces Stylelint-specific SCSS rules rather than claiming identical rule coverage.
 
-## What's Changed
+## Customization and page workflow
 
-- Enhanced sidebar collapse behavior with localStorage persistence and improved responsive handling
-- Updated charts initialization and sidebar navigation for better responsiveness
-- Added comprehensive deployment guide (`DEPLOYMENT_GUIDE.md`) with Apache and Nginx configs
-- Added Image Cropper link to sidebar navigation
-- Fixed broken README dashboard preview image (now served locally)
-- Migrated ESLint from legacy config to v10 flat config format
+| Change | Location or command |
+| --- | --- |
+| Shared metadata and demo user | `src/config/site.js` |
+| Titles, breadcrumbs and expanded sidebar groups | `src/config/pages.js` |
+| Bootstrap primary color, font and border radius | `src/scss/_theme.scss` |
+| Additional Bootstrap configuration | `src/scss/main.scss` |
+| Shell CSS variables | `src/css/dashboard.css` |
+| Add a page without overwriting an existing file | `npm run page:new -- attendance` |
+| Full validation | `npm run check` |
+| Browser regression tests | `npm run test:browser` after building |
 
-## Technical Notes
+The build automatically discovers root HTML pages. New page names containing `template` or `-new` are excluded. Restart the development server after adding a page. `npm run clean` now uses Node’s filesystem API and works across platforms. Development dependency scanning includes module entries hidden by Handlebars partials, avoiding additional optimization reloads.
 
-- **CropperJS** kept at v1.6.2 (v2.x has a completely different web components API)
-- **Quill** kept at v2.0.3 (latest stable)
-- All builds verified to complete successfully with updated dependencies
+## Runtime, accessibility and bug fixes
 
-## Upgrading from v2.2.0
+- Chart.js has a separate entry, preserving `window.Chart` before `DOMContentLoaded` on chart demo pages.
+- Lazy SimpleBar and Tom Select also load their styles. Repeated hook initialization skips initialized elements, and failed downloads can be retried.
+- `Kiaalap.initLazyLibraries(root)` supports dynamically inserted hooks; the loader rejects inherited property names.
+- Shared avatars use local initials by default; set `user.avatar` to provide an image.
+- Shared controls have accessible labels and explicit button types. Navigation landmarks and duplicate search IDs are corrected.
+- Rendered page-local styles are moved into `<head>` while script examples are preserved. Rendered HTML and local asset references are checked.
+- Reduced motion is respected by shell transitions, charts and counters. Counters use requestAnimationFrame; no-op timer/resize handlers were removed.
+- Department template, preview and success dialogs have been restored. User input in previews remains escaped.
+- Cropper.js export is checked using a real image/canvas operation.
+
+## Migration from v3.0.0
+
+1. Use **Node.js 24.8+** (recommended) or **22.22+**, with npm 10+. `.nvmrc` selects Node 24.
+2. Run `npm ci` with the updated lockfile.
+3. Replace custom reads of `window.dayjs` or Chart/Day.js imports from `src/js/main.js` with direct package imports or `await Kiaalap.load("dayjs")` / `await Kiaalap.load("chart")`.
+4. `window.Chart` is available only on pages detected as containing canvas markup or Chart.js demos. Load it explicitly for charts added later.
+5. Move custom page context edits from `vite.config.js` to `src/config/pages.js`, and shared user/metadata edits to `src/config/site.js`.
+6. Replace any custom Stylelint workflow with the new stylesheet checks, or configure additional SCSS rules in your own project if needed.
+
+## Validation and deployment
 
 ```bash
-npm install
+nvm use
+npm ci
+npm run check
+npx playwright install chromium
+npm run test:browser
+npm audit
+npm audit --omit=dev
 ```
 
-If you have a custom ESLint config using the legacy `.eslintrc.js` format, you'll need to migrate it to `eslint.config.js` (flat config). No other breaking changes.
+Build first and deploy the complete `dist/` directory. Relative asset URLs support a site root or subdirectory; no SPA fallback or production Node process is needed. HTML should revalidate while hashed assets can use long-lived caching. Authentication, payment and submission screens are frontend demos and need a backend for real operations.
 
-## Full Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for complete version history.
+See [CHANGELOG.md](CHANGELOG.md), [README.md](README.md) and [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) for the full implementation notes, usage and hosting guidance.

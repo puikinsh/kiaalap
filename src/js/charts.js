@@ -1,17 +1,20 @@
 /* Kiaalap Dashboard - Charts Initialization */
 
 // Imported rather than read off `window.Chart`, so this module states its own
-// dependency and lints cleanly. Bundled once — main.js imports the same entry.
+// dependency and lints cleanly. The page-specific chart runtime shares this import.
 import Chart from 'chart.js/auto';
 
-document.addEventListener('DOMContentLoaded', function () {
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (reducedMotion) Chart.defaults.animation = false;
 
-  // Chart.js default configuration
-  Chart.defaults.font.family =
-    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
-  Chart.defaults.color = '#6b7280';
-  Chart.defaults.plugins.legend.display = true;
-  Chart.defaults.plugins.legend.position = 'bottom';
+// Chart.js default configuration
+Chart.defaults.font.family =
+  '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+Chart.defaults.color = '#6b7280';
+Chart.defaults.plugins.legend.display = true;
+Chart.defaults.plugins.legend.position = 'bottom';
+
+document.addEventListener('DOMContentLoaded', function () {
 
   // ========================================
   // UNIVERSITY EARNINGS CHART
@@ -376,18 +379,18 @@ document.addEventListener('DOMContentLoaded', function () {
   // ANIMATED COUNTERS
   // ========================================
   function animateCounter(element, target, duration = 2000) {
-    const start = 0;
-    const increment = target / (duration / 16);
-    let current = start;
-
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= target) {
-        current = target;
-        clearInterval(timer);
-      }
-      element.textContent = Math.floor(current).toLocaleString();
-    }, 16);
+    if (reducedMotion) {
+      element.textContent = target.toLocaleString();
+      return;
+    }
+    let started;
+    function tick(now) {
+      started ??= now;
+      const progress = Math.min((now - started) / duration, 1);
+      element.textContent = Math.floor(target * progress).toLocaleString();
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
   }
 
   // Animate all counters on page load
@@ -400,32 +403,10 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // ========================================
-  // DYNAMIC TIME UPDATES
-  // ========================================
-  function updateRelativeTimes() {
-    // Placeholder: [data-time] elements would be rewritten to relative times
-    // here (e.g. via dayjs). No-op until a page needs it.
-  }
-
-  // Update times every minute
-  setInterval(updateRelativeTimes, 60000);
-
-  // ========================================
-  // CHART RESIZE HANDLER
-  // ========================================
-  let resizeTimer;
-  window.addEventListener('resize', function () {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function () {
-      // Charts will automatically resize - Chart.js v4 handles this automatically
-      // No manual resize needed for Chart.js 4.x
-    }, 250);
-  });
-
-  // ========================================
   // PROGRESS BAR ANIMATIONS
   // ========================================
   function animateProgressBars() {
+    if (reducedMotion) return;
     const progressBars = document.querySelectorAll('.progress-bar');
     const observer = new IntersectionObserver(
       (entries) => {

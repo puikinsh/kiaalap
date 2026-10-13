@@ -1,6 +1,10 @@
     <!-- Load JavaScript -->
     <script type="module" src="/src/js/main.js"></script>
 
+    {{#if needsCharts}}
+    <script type="module" src="/src/js/chart-runtime.js"></script>
+    {{/if}}
+
     {{#if additionalJS}}
     <!-- Page-specific scripts (set via additionalJS in vite.config.js) -->
     {{#each additionalJS}}

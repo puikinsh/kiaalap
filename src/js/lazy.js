@@ -21,15 +21,26 @@
 
 // Each entry resolves to the constructor/namespace the caller expects.
 const LOADERS = {
+  chart: async () => (await import('./chart-runtime.js')).Chart,
+  dayjs: async () => (await import('dayjs')).default,
   swiper: async () => {
-    const [{ default: Swiper }] = await Promise.all([
-      import('swiper'),
-      import('swiper/css'),
-    ]);
+    const [{ default: Swiper }] = await Promise.all([import('swiper'), import('swiper/css')]);
     return Swiper;
   },
-  simplebar: async () => (await import('simplebar')).default,
-  tomselect: async () => (await import('tom-select')).default,
+  simplebar: async () => {
+    const [{ default: SimpleBar }] = await Promise.all([
+      import('simplebar'),
+      import('simplebar/dist/simplebar.css'),
+    ]);
+    return SimpleBar;
+  },
+  tomselect: async () => {
+    const [{ default: TomSelect }] = await Promise.all([
+      import('tom-select'),
+      import('tom-select/dist/css/tom-select.bootstrap5.css'),
+    ]);
+    return TomSelect;
+  },
   countup: async () => (await import('countup.js')).CountUp,
   aos: async () => {
     const [{ default: AOS }] = await Promise.all([import('aos'), import('aos/dist/aos.css')]);
@@ -59,7 +70,7 @@ const cache = new Map();
 export function load(name) {
   const key = String(name).toLowerCase();
   const loader = LOADERS[key];
-  if (!loader) {
+  if (!Object.hasOwn(LOADERS, key)) {
     return Promise.reject(new Error(`Unknown lazy library "${name}"`));
   }
   if (!cache.has(key)) {
@@ -78,12 +89,15 @@ export function load(name) {
 /* Auto-initialisation ---------------------------------------------------- */
 
 // selector -> what to do once the library has arrived.
+const initialized = new WeakSet();
+
 const HOOKS = [
   {
     selector: '.swiper',
     lib: 'swiper',
     init: (Swiper, elements) =>
       elements.forEach((el) => {
+        if (el.swiper) return;
         new Swiper(el, {
           slidesPerView: Number(el.dataset.slidesPerView) || 1,
           spaceBetween: Number(el.dataset.spaceBetween) || 0,
@@ -94,13 +108,17 @@ const HOOKS = [
   {
     selector: '[data-simplebar]',
     lib: 'simplebar',
-    init: (SimpleBar, elements) => elements.forEach((el) => new SimpleBar(el)),
+    init: (SimpleBar, elements) =>
+      elements.forEach((el) => {
+        if (!SimpleBar.instances.has(el)) new SimpleBar(el);
+      }),
   },
   {
     selector: '.tom-select',
     lib: 'tomselect',
     init: (TomSelect, elements) =>
       elements.forEach((el) => {
+        if (el.tomselect) return;
         new TomSelect(el, {
           plugins: ['remove_button'],
           persist: false,
@@ -116,6 +134,10 @@ const HOOKS = [
       elements.forEach((el) => {
         const endVal = parseFloat(el.dataset.count);
         if (Number.isNaN(endVal)) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          el.textContent = endVal.toLocaleString();
+          return;
+        }
         const counter = new CountUp(el, endVal);
         if (!counter.error) counter.start();
       }),
@@ -124,19 +146,28 @@ const HOOKS = [
     selector: '[data-aos]',
     lib: 'aos',
     // AOS scans the document itself, so it takes no element list.
-    init: (AOS) => AOS.init({ duration: 800, once: true }),
+    init: (AOS) =>
+      AOS.init({
+        duration: 800,
+        once: true,
+        disable: () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+      }),
   },
 ];
 
 /** Load and initialise any lazy library whose hook is present in the DOM. */
 export function initLazyLibraries(root = document) {
   HOOKS.forEach(({ selector, lib, init }) => {
-    const elements = [...root.querySelectorAll(selector)];
+    const elements = [...root.querySelectorAll(selector)].filter((el) => !initialized.has(el));
     if (!elements.length) return;
 
+    elements.forEach((el) => initialized.add(el));
     load(lib)
       .then((mod) => init(mod, elements))
-      .catch((err) => console.error(`Failed to load "${lib}" for ${selector}:`, err));
+      .catch((err) => {
+        elements.forEach((el) => initialized.delete(el));
+        console.error(`Failed to load "${lib}" for ${selector}:`, err);
+      });
   });
 }
 

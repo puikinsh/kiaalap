@@ -5,23 +5,14 @@
 // Import Bootstrap and dependencies
 import * as bootstrap from 'bootstrap';
 
-// Eagerly bundled: needed by the shell (Bootstrap) or by dashboard charts on
-// load (Chart.js, dayjs). Everything else loads on demand — see ./lazy.js.
-import Chart from 'chart.js/auto';
-import dayjs from 'dayjs';
-
-// Make libraries globally available for the inline <script> blocks that most
-// pages use. Module code should import these directly instead.
+// Bootstrap is shared by the shell. Chart.js has its own page-specific entry.
 window.bootstrap = bootstrap;
-window.Chart = Chart;
-window.dayjs = dayjs;
 
 // Layout/sidebar behaviour lives in ./layout.js (imperative API) and
 // ./dashboard.js (the single set of DOM event listeners). Do not add sidebar,
 // tooltip or popover initialisation here — dashboard.js owns it.
 import layout from './layout.js';
 import './dashboard.js';
-import './charts.js';
 import { load, initLazyLibraries } from './lazy.js';
 
 window.layout = layout;
@@ -30,7 +21,7 @@ window.layout = layout;
 //   const Swiper = await Kiaalap.load('swiper');
 // Swiper, SimpleBar, Tom Select, CountUp, AOS and FullCalendar are NOT on
 // `window` any more — they are fetched only when used.
-window.Kiaalap = { load };
+window.Kiaalap = { load, initLazyLibraries };
 
 document.addEventListener('DOMContentLoaded', function () {
   // Fetches a library only if this page actually contains its hook.
@@ -38,4 +29,4 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Export for use in other modules
-export { Chart, dayjs, load };
+export { load };
