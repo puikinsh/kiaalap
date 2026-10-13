@@ -8,6 +8,17 @@ Kiaalap has undergone a complete modernization from a legacy Bootstrap 3/4 templ
 
 ---
 
+## [Unreleased]
+
+### Documentation
+
+- Rewrote the README around setup, customization, page generation and validation.
+- Removed duplicated version/date tables and unverified resource, social and
+  support links; retained verified project links and existing repository files.
+- Corrected the page inventory, frontend demo scope, external asset requirements,
+  browser test coverage and MIT notice wording. Dependency versions now point to
+  the package files, and audit instructions replace a permanent security claim.
+
 ## [4.0.0] - 2026-10-13 (Performance & Developer Experience)
 
 ### Dependencies and build
