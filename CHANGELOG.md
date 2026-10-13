@@ -18,6 +18,8 @@ Kiaalap has undergone a complete modernization from a legacy Bootstrap 3/4 templ
 - Corrected the page inventory, frontend demo scope, external asset requirements,
   browser test coverage and MIT notice wording. Dependency versions now point to
   the package files, and audit instructions replace a permanent security claim.
+- Added a premium DashboardPack section featuring Admindek, ArchitectUI and
+  Adminty, an AdminLTE promotion, and verified Colorlib template and resource links.
 
 ## [4.0.0] - 2026-10-13 (Performance & Developer Experience)
 

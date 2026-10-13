@@ -21,6 +21,18 @@ The pages use demo data. Student and course screens, mailbox, payments and authe
 
 JavaScript, stylesheets and icon fonts are bundled locally. Some demo images, avatars and map tiles use external services; replace those resources if you need a self-contained deployment. There is no jQuery dependency.
 
+## Premium admin dashboard templates
+
+Looking for more layouts, components or framework editions? Explore [DashboardPack's premium admin templates](https://dashboardpack.com/) and compare their live demos to find a starting point for your next project.
+
+| Template                                                                                        | Highlights                                                                                 |
+| ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| [Admindek HTML](https://dashboardpack.com/theme-details/admindek-html/)                         | Bootstrap dashboard with multiple dashboard layouts, light/dark themes and RTL support     |
+| [ArchitectUI HTML PRO](https://dashboardpack.com/theme-details/architectui-dashboard-html-pro/) | Bootstrap dashboard with configurable layouts, application pages and theme options         |
+| [Adminty HTML](https://dashboardpack.com/theme-details/adminty-html-dashboard/)                 | Bootstrap dashboard with vertical and horizontal navigation, forms and data-table examples |
+
+[Browse all premium templates on DashboardPack →](https://dashboardpack.com/)
+
 ## Quick start
 
 Use Node.js 24.8+ (recommended), or Node.js 22.22+ in the 22.x line, and npm 10+. The [.nvmrc](.nvmrc) file selects Node.js 24 for nvm users.
@@ -159,6 +171,20 @@ Quill is deliberately pinned to `2.0.2` because `2.0.3` is affected by an [HTML 
 See the [changelog](CHANGELOG.md) for release history and the [v4 release notes](release.md) for dependency, performance and migration details.
 
 Report bugs or suggest improvements through [GitHub issues](https://github.com/puikinsh/kiaalap/issues). Include the page, steps to reproduce, browser and relevant console output. Run `npm run check` before submitting a code change, and run browser tests when changing page behavior.
+
+## Explore AdminLTE
+
+[AdminLTE](https://adminlte.io/) is another free, open-source Bootstrap admin dashboard template. Explore its reusable UI components, live preview and documentation for your next admin panel.
+
+## More from Colorlib
+
+Find more designs and resources for your next website:
+
+- [Admin dashboard templates](https://colorlib.com/wp/free-bootstrap-admin-dashboard-templates/) — compare free and premium dashboard designs.
+- [HTML website templates](https://colorlib.com/wp/templates/) — browse templates for business sites, portfolios, landing pages and more.
+- [Bootstrap 5 templates](https://colorlib.com/wp/cat/bootstrap-5/) — explore website designs built with Bootstrap 5.
+- [WordPress themes](https://colorlib.com/wp/themes/) — find themes for WordPress projects.
+- [Colorlib blog](https://colorlib.com/wp/) — read web design articles, tutorials and template collections.
 
 ## License and credits
 
