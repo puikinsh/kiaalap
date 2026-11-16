@@ -24,6 +24,18 @@ Kiaalap has undergone a complete modernization from a legacy Bootstrap 3/4 templ
   ArchitectUI, Adminty and Kero, including product and live-demo links. Screenshots
   are stored in the repository so the README does not rely on remote image hosts.
 
+## [4.0.1] - 2026-11-16 (Maintenance)
+
+### Fixed
+
+- Mobile layout: inline critical CSS in 36 pages kept a 260px left margin below 769px; it now applies only from 769px.
+- Leaflet default marker icons and shadow are bundled, fixing 404s on the map pages.
+- Tab list items use `role="none"` to satisfy html-validate 11.21.
+
+### Dependencies
+
+- Updated Bootstrap to 5.3.9 and all other direct packages to current releases; Quill stays at 2.0.2 (2.0.3 is flagged by GHSA-v3m3-f69x-jf25). `npm audit` reports zero vulnerabilities.
+
 ## [4.0.0] - 2026-10-13 (Performance & Developer Experience)
 
 ### Dependencies and build
