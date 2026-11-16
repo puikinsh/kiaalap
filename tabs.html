@@ -275,22 +275,22 @@
                 </div>
                 <div class="dashboard-card-body px-4 py-4">
                     <ul class="nav nav-tabs" id="basicTabs" role="tablist">
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-item" role="none">
                             <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab">
                                 <i class="bi bi-graph-up me-2"></i>Overview
                             </button>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-item" role="none">
                             <button class="nav-link" id="students-tab" data-bs-toggle="tab" data-bs-target="#students" type="button" role="tab">
                                 <i class="bi bi-people me-2"></i>Students
                             </button>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-item" role="none">
                             <button class="nav-link" id="courses-tab" data-bs-toggle="tab" data-bs-target="#courses" type="button" role="tab">
                                 <i class="bi bi-book me-2"></i>Courses
                             </button>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-item" role="none">
                             <button class="nav-link" id="reports-tab" data-bs-toggle="tab" data-bs-target="#reports" type="button" role="tab">
                                 <i class="bi bi-bar-chart me-2"></i>Reports
                             </button>
@@ -433,22 +433,22 @@
                 </div>
                 <div class="dashboard-card-body px-4 py-4">
                     <ul class="nav nav-pills mb-3" id="pillsTab" role="tablist">
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-item" role="none">
                             <button class="nav-link active" id="assignments-tab" data-bs-toggle="pill" data-bs-target="#assignments" type="button" role="tab">
                                 <i class="bi bi-list-task me-2"></i>Assignments
                             </button>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-item" role="none">
                             <button class="nav-link" id="exams-tab" data-bs-toggle="pill" data-bs-target="#exams" type="button" role="tab">
                                 <i class="bi bi-clipboard-check me-2"></i>Exams
                             </button>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-item" role="none">
                             <button class="nav-link" id="attendance-tab" data-bs-toggle="pill" data-bs-target="#attendance" type="button" role="tab">
                                 <i class="bi bi-person-check me-2"></i>Attendance
                             </button>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-item" role="none">
                             <button class="nav-link" id="grades-tab" data-bs-toggle="pill" data-bs-target="#grades" type="button" role="tab">
                                 <i class="bi bi-award me-2"></i>Grades
                             </button>
@@ -698,17 +698,17 @@
                 </div>
                 <div class="dashboard-card-body px-4 py-4">
                     <ul class="nav academic-tabs" id="academicTab" role="tablist">
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-item" role="none">
                             <button class="nav-link active" id="semester-tab" data-bs-toggle="tab" data-bs-target="#semester" type="button" role="tab">
                                 <i class="bi bi-calendar-date me-2"></i>Fall 2025
                             </button>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-item" role="none">
                             <button class="nav-link" id="summer-tab" data-bs-toggle="tab" data-bs-target="#summer" type="button" role="tab">
                                 <i class="bi bi-sun me-2"></i>Summer 2025
                             </button>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-item" role="none">
                             <button class="nav-link" id="spring-tab" data-bs-toggle="tab" data-bs-target="#spring" type="button" role="tab">
                                 <i class="bi bi-flower1 me-2"></i>Spring 2025
                             </button>
@@ -908,7 +908,7 @@ function generateTabs() {
     const tabNav = `
         <ul class="nav ${navClass}" id="${tabsId}" role="tablist">
             ${tabsData.map((tab, index) => `
-                <li class="nav-item" role="presentation">
+                <li class="nav-item" role="none">
                     <button class="nav-link ${index === 0 ? 'active' : ''}"
                             id="${tab.id}-nav"
                             data-bs-toggle="${style === 'pills' ? 'pill' : 'tab'}"

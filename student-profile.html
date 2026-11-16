@@ -5,7 +5,8 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; }
         .sidebar { position: fixed; left: 0; top: 0; width: 260px; height: 100vh; background: #1f2937; z-index: 1040; }
-        .main-wrapper { margin-left: 260px; min-height: 100vh; transition: margin-left 0.3s ease; }
+        .main-wrapper { min-height: 100vh; transition: margin-left 0.3s ease; }
+        @media (min-width: 769px) { .main-wrapper { margin-left: 260px; } }
         .top-navbar { background: white; height: 60px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 0 1rem; }
         .dashboard-content { padding: 24px; }
 </style>
@@ -132,27 +133,27 @@
                             <div class="dashboard-card-body">
                                 <!-- Tab Navigation -->
                                 <ul class="nav nav-tabs mb-4" id="profileTabs" role="tablist">
-                                    <li class="nav-item" role="presentation">
+                                    <li class="nav-item" role="none">
                                         <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab">
                                             <i class="bi bi-person me-2"></i>Overview
                                         </button>
                                     </li>
-                                    <li class="nav-item" role="presentation">
+                                    <li class="nav-item" role="none">
                                         <button class="nav-link" id="courses-tab" data-bs-toggle="tab" data-bs-target="#courses" type="button" role="tab">
                                             <i class="bi bi-book me-2"></i>Courses
                                         </button>
                                     </li>
-                                    <li class="nav-item" role="presentation">
+                                    <li class="nav-item" role="none">
                                         <button class="nav-link" id="grades-tab" data-bs-toggle="tab" data-bs-target="#grades" type="button" role="tab">
                                             <i class="bi bi-clipboard-check me-2"></i>Grades
                                         </button>
                                     </li>
-                                    <li class="nav-item" role="presentation">
+                                    <li class="nav-item" role="none">
                                         <button class="nav-link" id="attendance-tab" data-bs-toggle="tab" data-bs-target="#attendance" type="button" role="tab">
                                             <i class="bi bi-calendar-check me-2"></i>Attendance
                                         </button>
                                     </li>
-                                    <li class="nav-item" role="presentation">
+                                    <li class="nav-item" role="none">
                                         <button class="nav-link" id="activities-tab" data-bs-toggle="tab" data-bs-target="#activities" type="button" role="tab">
                                             <i class="bi bi-lightning me-2"></i>Activities
                                         </button>
